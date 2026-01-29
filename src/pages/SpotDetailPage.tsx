@@ -1,12 +1,26 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, MapPin, Lightbulb } from "lucide-react";
+import { ArrowLeft, MapPin, Lightbulb, Navigation } from "lucide-react";
 import { spots } from "@/data/spots";
 import ImageCarousel from "@/components/ImageCarousel";
 import { SpotDetailMap } from "@/components/SpotMap";
+import FavoriteButton from "@/components/FavoriteButton";
+import ShareButtons from "@/components/ShareButtons";
 
 const SpotDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const spot = spots.find((s) => s.id === id);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Add highlight effect
+      element.classList.add("ring-2", "ring-soul-amber/50");
+      setTimeout(() => {
+        element.classList.remove("ring-2", "ring-soul-amber/50");
+      }, 2000);
+    }
+  };
 
   if (!spot) {
     return (
@@ -45,6 +59,19 @@ const SpotDetailPage = () => {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Action Buttons Row */}
+        <div className="flex flex-wrap items-center gap-4 mb-8">
+          <FavoriteButton spotId={spot.id} size="lg" showLabel />
+          
+          <button
+            onClick={() => scrollToSection("ride-planning")}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-earth-green/20 border border-earth-green/30 text-earth-green-glow hover:bg-earth-green/30 transition-all duration-300"
+          >
+            <Navigation size={18} />
+            <span className="font-medium">Plan This Ride</span>
+          </button>
+        </div>
+
         {/* Poetic Tagline */}
         <p className="text-earth-green-glow italic text-lg mb-4 font-light">
           "{spot.poeticTagline}"
@@ -71,36 +98,43 @@ const SpotDetailPage = () => {
           </p>
         </div>
 
-        {/* Rider Tips */}
-        <div className="spot-card p-8 mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-lg bg-soul-amber/20">
-              <Lightbulb className="w-5 h-5 text-soul-amber" />
+        {/* Rider Tips - Part of ride planning section */}
+        <div id="ride-planning" className="scroll-mt-24 transition-all duration-500 rounded-xl">
+          <div className="spot-card p-8 mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-soul-amber/20">
+                <Lightbulb className="w-5 h-5 text-soul-amber" />
+              </div>
+              <h2 className="font-display text-2xl tracking-wide">RIDER TIPS</h2>
             </div>
-            <h2 className="font-display text-2xl tracking-wide">RIDER TIPS</h2>
+            <ul className="space-y-4">
+              {spot.riderTips.map((tip, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="text-earth-green-glow mt-1">•</span>
+                  <span className="text-muted-foreground">{tip}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="space-y-4">
-            {spot.riderTips.map((tip, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <span className="text-earth-green-glow mt-1">•</span>
-                <span className="text-muted-foreground">{tip}</span>
-              </li>
-            ))}
-          </ul>
+
+          {/* Map Section */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-earth-green/20">
+                <MapPin className="w-5 h-5 text-earth-green-glow" />
+              </div>
+              <h2 className="font-display text-2xl tracking-wide">LOCATION</h2>
+            </div>
+            <SpotDetailMap spot={spot} />
+            <p className="text-sm text-muted-foreground text-center">
+              Coordinates: {spot.coordinates.lat.toFixed(2)}°N, {spot.coordinates.lng.toFixed(2)}°E • Macedonia, Balkans
+            </p>
+          </div>
         </div>
 
-        {/* Map Section */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-earth-green/20">
-              <MapPin className="w-5 h-5 text-earth-green-glow" />
-            </div>
-            <h2 className="font-display text-2xl tracking-wide">LOCATION</h2>
-          </div>
-          <SpotDetailMap spot={spot} />
-          <p className="text-sm text-muted-foreground text-center">
-            Coordinates: {spot.coordinates.lat.toFixed(2)}°N, {spot.coordinates.lng.toFixed(2)}°E • Macedonia, Balkans
-          </p>
+        {/* Share Section */}
+        <div className="mt-12 pt-8 border-t border-border/30">
+          <ShareButtons title={spot.title} />
         </div>
       </div>
     </div>

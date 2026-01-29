@@ -57,10 +57,15 @@ const HomePage = () => {
           >
             <Link
               to="/spots"
-              className="btn-glow inline-flex items-center gap-3 px-8 py-4 bg-accent-gradient text-accent-foreground font-display text-lg tracking-wider rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_hsl(var(--amber-soul)/0.5)]"
+              className="btn-glow inline-flex items-center gap-3 px-10 py-5 text-lg font-display tracking-wider rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_hsl(var(--earth-green)/0.4),0_0_80px_hsl(var(--amber-soul)/0.3)]"
+              style={{
+                background: "linear-gradient(135deg, hsl(160 35% 30%) 0%, hsl(210 30% 35%) 50%, hsl(160 35% 25%) 100%)",
+                color: "hsl(40 20% 95%)",
+                boxShadow: "0 4px 30px -5px hsl(160 35% 30% / 0.4), inset 0 1px 0 0 hsl(160 40% 50% / 0.3)",
+              }}
             >
               <span>START EXPLORING</span>
-              <ArrowRight size={20} />
+              <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
