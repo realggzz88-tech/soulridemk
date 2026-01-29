@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Spot } from "@/data/spots";
-import { MapPin, Navigation, Compass, Clock, Route } from "lucide-react";
+import { MapPin, Navigation, Compass, Clock, Route, Share2, Copy, Check, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
@@ -27,6 +27,8 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
   const [activeRoute, setActiveRoute] = useState<"user" | "strumica" | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Get user location
   const getUserLocation = useCallback(() => {
@@ -299,14 +301,29 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
 
   const handleRouteFromLocation = () => {
     if (userPosition) {
-      createRoute(userPosition, "user");
+      setIsRouteLoading(true);
+      createRoute(userPosition, "user").finally(() => setIsRouteLoading(false));
     } else {
       getUserLocation();
     }
   };
 
   const handleRouteFromStrumica = () => {
-    createRoute(STRUMICA_COORDS, "strumica");
+    setIsRouteLoading(true);
+    createRoute(STRUMICA_COORDS, "strumica").finally(() => setIsRouteLoading(false));
+  };
+
+  const handleShareRidePlan = async () => {
+    const startLocation = activeRoute === "user" ? "your location" : "Strumica";
+    const ridePlanText = `🏍️ Soulride to ${spot.title} from ${startLocation}: ~${routeInfo?.distance || "??"} km of twisty beauty. ${spot.tags.includes("Views") ? "Epic views await!" : spot.tags.includes("Waterfalls") ? "Refreshing waterfalls along the way!" : "A soul-stirring journey through Macedonia's hidden landscapes."}\n\n${window.location.href}`;
+    
+    try {
+      await navigator.clipboard.writeText(ridePlanText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
   };
 
   return (
@@ -358,37 +375,72 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
         </button>
       </div>
 
+      {/* Route Loading Spinner */}
+      {isRouteLoading && (
+        <div className="flex items-center justify-center gap-3 p-4 rounded-xl bg-muted/20 border border-border/30">
+          <div className="route-loading-spinner" />
+          <span className="text-sm text-muted-foreground tracking-wide animate-pulse">
+            Calculating scenic route...
+          </span>
+        </div>
+      )}
+
       {/* Route Info */}
-      {routeInfo && (
-        <div className="flex flex-wrap gap-4 p-4 rounded-xl bg-muted/30 border border-border/40 animate-fade-up">
-          <div className="flex items-center gap-2">
-            <Route size={16} className="text-earth-green-glow" />
-            <span className="text-sm tracking-wide">
-              <span className="text-muted-foreground">Distance:</span>{" "}
-              <span className="text-foreground font-medium">{routeInfo.distance} km</span>
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock size={16} className="text-soul-amber" />
-            <span className="text-sm tracking-wide">
-              <span className="text-muted-foreground">Est. Time:</span>{" "}
-              <span className="text-foreground font-medium">
-                {Math.floor(routeInfo.duration / 60)}h {routeInfo.duration % 60}min
+      {routeInfo && !isRouteLoading && (
+        <div className="space-y-3 animate-fade-up">
+          <div className="flex flex-wrap gap-4 p-4 rounded-xl bg-muted/30 border border-border/40">
+            <div className="flex items-center gap-2">
+              <Route size={16} className="text-earth-green-glow" />
+              <span className="text-sm tracking-wide">
+                <span className="text-muted-foreground">Distance:</span>{" "}
+                <span className="text-foreground font-medium">{routeInfo.distance} km</span>
               </span>
-            </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock size={16} className="text-soul-amber" />
+              <span className="text-sm tracking-wide">
+                <span className="text-muted-foreground">Est. Time:</span>{" "}
+                <span className="text-foreground font-medium">
+                  {Math.floor(routeInfo.duration / 60)}h {routeInfo.duration % 60}min
+                </span>
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Navigation size={16} className="text-mountain-blue" />
+              <span className="text-sm text-muted-foreground tracking-wide italic">
+                Scenic route via OSRM
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Navigation size={16} className="text-mountain-blue" />
-            <span className="text-sm text-muted-foreground tracking-wide italic">
-              Scenic route via OSRM
-            </span>
-          </div>
+
+          {/* Share Ride Plan Button */}
+          <button
+            onClick={handleShareRidePlan}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-300",
+              "bg-earth-green/20 border border-earth-green/30",
+              "hover:bg-earth-green/30 hover:shadow-[0_0_20px_hsl(var(--earth-green)/0.25)]",
+              copied && "bg-earth-green/30 border-earth-green/50"
+            )}
+          >
+            {copied ? (
+              <>
+                <Check size={16} className="text-earth-green-glow" />
+                <span className="text-sm font-medium tracking-wide text-earth-green-glow">Ride Plan Copied!</span>
+              </>
+            ) : (
+              <>
+                <Share2 size={16} className="text-earth-green-glow" />
+                <span className="text-sm font-medium tracking-wide text-earth-green-glow">Share Ride Plan</span>
+              </>
+            )}
+          </button>
         </div>
       )}
 
       {/* Map */}
       <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
-        <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-10" />
+        <div className="absolute inset-0 pointer-events-none z-[999] watercolor-overlay opacity-10" />
         <div
           ref={mapRef}
           className="h-80 md:h-[450px] w-full"
@@ -418,7 +470,36 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
           .leaflet-routing-container {
             display: none !important;
           }
+          .route-loading-spinner {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid hsl(160, 40%, 28%);
+            border-top-color: hsl(160, 50%, 50%);
+            animation: spin 1s linear infinite;
+            position: relative;
+          }
+          .route-loading-spinner::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            border: 1px dashed hsl(32, 85%, 52%);
+            animation: spin 2s linear reverse infinite;
+          }
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
         `}</style>
+      </div>
+
+      {/* Offline Note */}
+      <div className="flex items-start gap-3 p-4 rounded-xl bg-mountain-blue/10 border border-mountain-blue/20">
+        <Smartphone size={18} className="text-mountain-blue mt-0.5 flex-shrink-0" />
+        <p className="text-sm text-muted-foreground tracking-wide">
+          <span className="text-foreground font-medium">For offline rides:</span> Browser-cache OSM tiles or use apps like{" "}
+          <span className="text-earth-green-glow">OsmAnd</span> for full GPS navigation. Soulride shows scenic previews!
+        </p>
       </div>
 
       {/* Scenic note */}
