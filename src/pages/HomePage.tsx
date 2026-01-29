@@ -8,34 +8,44 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image with enhanced overlay */}
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt="Motorbike at mountain overlook"
-            className="w-full h-full object-cover animate-fade-in"
+            className="w-full h-full object-cover animate-fade-in scale-105"
           />
-          <div className="absolute inset-0 bg-hero-gradient" />
-          <div className="absolute inset-0 road-pattern" />
-          <div className="absolute inset-0 mountain-overlay" />
+          {/* Multiple gradient overlays for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-deep-forest/30 via-transparent to-mountain-blue/20" />
+          <div className="absolute inset-0 hero-vignette" />
+          
+          {/* Artistic line art overlay */}
+          <div className="absolute inset-0 road-art-overlay opacity-30" />
+          <div className="absolute inset-0 mountain-contours opacity-20" />
+          
+          {/* Fog/mist effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          <div className="absolute inset-0 fog-overlay" />
         </div>
 
         {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          {/* Glowing title with gradient text */}
           <h1 
-            className="hero-title animate-fade-up opacity-0"
+            className="hero-title-glow animate-fade-up opacity-0"
             style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
           >
             SOULRIDE
           </h1>
           <p 
-            className="hero-subtitle mx-auto mb-4 animate-fade-up opacity-0"
+            className="hero-subtitle-glow mx-auto mb-4 animate-fade-up opacity-0"
             style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
           >
             Ride with Soul
           </p>
           <p 
-            className="text-muted-foreground max-w-xl mx-auto mb-8 animate-fade-up opacity-0"
+            className="text-foreground/70 max-w-xl mx-auto mb-8 animate-fade-up opacity-0 text-lg font-light tracking-wide"
             style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
           >
             Uncover hidden views, twisty roads, and serene gems that stir the soul
@@ -46,7 +56,7 @@ const HomePage = () => {
           >
             <Link
               to="/spots"
-              className="btn-glow inline-flex items-center gap-3 px-8 py-4 bg-accent-gradient text-accent-foreground font-display text-lg tracking-wider rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--amber-soul)/0.4)]"
+              className="btn-glow inline-flex items-center gap-3 px-8 py-4 bg-accent-gradient text-accent-foreground font-display text-lg tracking-wider rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_hsl(var(--amber-soul)/0.5)]"
             >
               <span>START EXPLORING</span>
               <ArrowRight size={20} />
@@ -60,18 +70,23 @@ const HomePage = () => {
             <div className="w-1 h-2 bg-foreground/50 rounded-full animate-pulse" />
           </div>
         </div>
+
+        {/* Corner decorative elements */}
+        <div className="absolute top-20 left-8 w-32 h-32 border-l-2 border-t-2 border-earth-green/20 rounded-tl-3xl opacity-50" />
+        <div className="absolute bottom-32 right-8 w-32 h-32 border-r-2 border-b-2 border-amber-soul/20 rounded-br-3xl opacity-50" />
       </section>
 
       {/* Inspiration Search Section */}
       <InspirationSearch />
 
       {/* Features Section */}
-      <section className="py-24 px-4 bg-secondary/30">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-24 px-4 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden">
+        {/* Background art */}
+        <div className="absolute inset-0 road-pattern opacity-10" />
+        
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 
-              className="font-display text-4xl md:text-5xl tracking-wider mb-4"
-            >
+            <h2 className="font-display text-4xl md:text-5xl tracking-wider mb-4 text-gradient-subtle">
               RIDE WITH PURPOSE
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -99,9 +114,9 @@ const HomePage = () => {
             ].map((feature, index) => (
               <div
                 key={feature.title}
-                className="spot-card p-8 text-center group"
+                className="feature-card p-8 text-center group"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-earth-green/20 mb-6 group-hover:bg-earth-green/30 transition-colors duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-earth-green/20 mb-6 group-hover:bg-earth-green/30 group-hover:shadow-[0_0_30px_hsl(var(--earth-green)/0.3)] transition-all duration-300">
                   <feature.icon className="w-8 h-8 text-earth-green-glow" />
                 </div>
                 <h3 className="font-display text-2xl tracking-wide mb-3">
@@ -119,19 +134,20 @@ const HomePage = () => {
       {/* CTA Section */}
       <section className="py-24 px-4 relative overflow-hidden">
         <div className="absolute inset-0 road-pattern opacity-50" />
+        <div className="absolute inset-0 mountain-contours opacity-10" />
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <h2 className="font-display text-4xl md:text-5xl tracking-wider mb-6">
+          <h2 className="font-display text-4xl md:text-5xl tracking-wider mb-6 text-gradient-subtle">
             YOUR NEXT ADVENTURE AWAITS
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Six legendary spots. Countless memories waiting to be made. Where will the road take you?
+            Ten legendary spots. Countless memories waiting to be made. Where will the road take you?
           </p>
           <Link
             to="/spots"
-            className="inline-flex items-center gap-2 text-earth-green-glow font-medium hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 text-earth-green-glow font-medium hover:text-foreground transition-colors group"
           >
             <span>Explore All Spots</span>
-            <ArrowRight size={18} />
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>

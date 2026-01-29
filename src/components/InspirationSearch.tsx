@@ -37,20 +37,23 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
         if (spot.title.toLowerCase().includes(keyword)) score += 5;
       });
 
-      // Special keyword mappings
+      // Special keyword mappings - expanded for new spots
       const keywordMappings: Record<string, string[]> = {
-        "ohrid": ["galicica", "trpejca", "lake"],
-        "lake": ["mavrovo", "trpejca", "ohrid"],
-        "mountain": ["galicica", "pelister", "mavrovo"],
-        "food": ["trpejca", "fish"],
-        "view": ["views", "panorama", "overlook"],
-        "road": ["roads", "twisty", "pass"],
-        "quiet": ["hidden", "peaceful", "serene"],
-        "spiritual": ["monastery", "church", "ancient"],
-        "adventure": ["canyon", "dramatic", "epic"],
-        "nature": ["forest", "springs", "pine"],
-        "sunset": ["trpejca", "lake", "peaceful"],
-        "peaceful": ["vevcani", "trpejca", "serene"],
+        "ohrid": ["galicica", "trpejca", "lake", "old town", "overlook"],
+        "lake": ["mavrovo", "trpejca", "ohrid", "prespa"],
+        "mountain": ["galicica", "pelister", "mavrovo", "bistra", "treskavec"],
+        "food": ["trpejca", "fish", "ohrid"],
+        "view": ["views", "panorama", "overlook", "pelister", "galicica"],
+        "road": ["roads", "twisty", "pass", "bistra"],
+        "quiet": ["hidden", "peaceful", "serene", "prespa"],
+        "spiritual": ["monastery", "church", "ancient", "treskavec"],
+        "adventure": ["canyon", "dramatic", "epic", "bistra"],
+        "nature": ["forest", "springs", "pine", "vevcani", "prespa"],
+        "sunset": ["trpejca", "lake", "peaceful", "ohrid"],
+        "peaceful": ["vevcani", "trpejca", "serene", "prespa"],
+        "history": ["ohrid", "treskavec", "monastery", "ancient"],
+        "wild": ["bistra", "wilderness", "untamed"],
+        "birds": ["prespa", "pelican", "nature"],
       };
 
       keywords.forEach(keyword => {
