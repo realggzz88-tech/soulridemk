@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { spots } from "@/data/spots";
+import { spots, type Region } from "@/data/spots";
 import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
 import { SpotsOverviewMap } from "@/components/SpotMap";
@@ -7,6 +7,7 @@ import { Map } from "lucide-react";
 
 const SpotsPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<Region>("All");
 
   const handleTagToggle = (tag: string) => {
     setSelectedTags((prev) =>
@@ -16,14 +17,26 @@ const SpotsPage = () => {
 
   const handleClearAll = () => {
     setSelectedTags([]);
+    setSelectedRegion("All");
   };
 
   const filteredSpots = useMemo(() => {
-    if (selectedTags.length === 0) return spots;
-    return spots.filter((spot) =>
-      selectedTags.some((tag) => spot.tags.includes(tag))
-    );
-  }, [selectedTags]);
+    let filtered = spots;
+    
+    // Filter by region
+    if (selectedRegion !== "All") {
+      filtered = filtered.filter((spot) => spot.region === selectedRegion);
+    }
+    
+    // Filter by tags
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((spot) =>
+        selectedTags.some((tag) => spot.tags.includes(tag))
+      );
+    }
+    
+    return filtered;
+  }, [selectedTags, selectedRegion]);
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -37,8 +50,7 @@ const SpotsPage = () => {
             className="text-muted-foreground max-w-2xl mx-auto animate-fade-up opacity-0"
             style={{ animationDelay: "0.1s" }}
           >
-            Handpicked destinations where the road becomes poetry and every turn
-            reveals a new verse
+            {filteredSpots.length} handpicked destinations across North Macedonia where the road becomes poetry
           </p>
         </div>
 
@@ -49,7 +61,9 @@ const SpotsPage = () => {
         >
           <div className="flex items-center gap-2 mb-4">
             <Map size={20} className="text-earth-green-glow" />
-            <h2 className="font-display text-xl tracking-wide">ALL LOCATIONS</h2>
+            <h2 className="font-display text-xl tracking-wide">
+              {selectedRegion === "All" ? "ALL LOCATIONS" : `${selectedRegion.toUpperCase()}ERN MACEDONIA`}
+            </h2>
           </div>
           <SpotsOverviewMap spots={filteredSpots} />
         </div>
@@ -63,6 +77,8 @@ const SpotsPage = () => {
             selectedTags={selectedTags}
             onTagToggle={handleTagToggle}
             onClearAll={handleClearAll}
+            selectedRegion={selectedRegion}
+            onRegionChange={setSelectedRegion}
           />
         </div>
 

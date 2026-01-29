@@ -49,6 +49,10 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           
           {/* Tags */}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+            {/* Region badge */}
+            <span className="px-2 py-1 rounded-md text-xs font-medium tracking-wide bg-soul-amber/80 text-background backdrop-blur-sm">
+              {spot.region}
+            </span>
             {spot.tags.slice(0, 2).map((tag) => (
               <span key={tag} className="tag-pill tracking-wide">
                 {tag}
