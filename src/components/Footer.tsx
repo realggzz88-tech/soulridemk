@@ -12,16 +12,19 @@ const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden">
-      {/* Artistic gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/80 to-card" />
-      <div className="absolute inset-0 bg-gradient-to-r from-earth-green/5 via-transparent to-mountain-blue/5" />
+      {/* Artistic gradient background - intensified */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-card to-background" />
+      <div className="absolute inset-0 bg-gradient-to-r from-mountain-blue/10 via-transparent to-earth-green/10" />
+      
+      {/* Mountain silhouette divider at top */}
+      <div className="mountain-divider" />
       
       {/* Decorative elements */}
-      <div className="absolute inset-0 road-pattern opacity-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 mountain-overlay opacity-30" />
+      <div className="absolute inset-0 road-pattern opacity-8" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 mountain-overlay opacity-40" />
       
       {/* Top gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-earth-green/40 to-transparent" />
+      <div className="absolute top-20 left-0 right-0 h-px bg-gradient-to-r from-transparent via-earth-green/30 to-transparent" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         {/* Main Footer Content */}
@@ -29,7 +32,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4 md:col-span-1">
             <Link to="/" className="inline-block">
-              <span className="font-display text-3xl tracking-widest text-foreground hover:text-earth-green-glow transition-colors">
+              <span className="font-display text-3xl tracking-widest logo-glow">
                 SOULRIDE
               </span>
             </Link>
@@ -63,7 +66,7 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-muted/50 border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-earth-green/20 hover:border-earth-green/30 transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-muted/30 border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-earth-green/20 hover:border-earth-green/40 hover:shadow-[0_0_15px_hsl(var(--earth-green)/0.3)] transition-all duration-300"
                 >
                   <social.icon size={18} />
                 </a>
@@ -86,9 +89,9 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border/30">
+        <div className="pt-8 border-t border-border/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground italic">
+            <p className="text-sm text-muted-foreground italic text-high-contrast">
               "Discover the soul of the ride"
             </p>
             <p className="text-sm text-muted-foreground">
