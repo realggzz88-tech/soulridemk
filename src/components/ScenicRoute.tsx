@@ -17,8 +17,8 @@ const WhatsAppIcon = ({ size = 16, className }: { size?: number; className?: str
   </svg>
 );
 
-// Strumica default coordinates
-const STRUMICA_COORDS = { lat: 41.4375, lng: 22.6433 };
+// Default center: Central North Macedonia (Skopje)
+const SKOPJE_COORDS = { lat: 41.9973, lng: 21.4280 };
 
 interface ScenicRouteProps {
   spot: Spot;
@@ -38,7 +38,7 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [routeInfo, setRouteInfo] = useState<RouteInfo | null>(null);
-  const [activeRoute, setActiveRoute] = useState<"user" | "strumica" | null>(null);
+  const [activeRoute, setActiveRoute] = useState<"user" | "skopje" | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
   const [isRouteLoading, setIsRouteLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -75,9 +75,9 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
       
       const L = (await import("leaflet")).default;
       
-      // Calculate center between Strumica and spot
-      const centerLat = (STRUMICA_COORDS.lat + spot.coordinates.lat) / 2;
-      const centerLng = (STRUMICA_COORDS.lng + spot.coordinates.lng) / 2;
+      // Calculate center between Skopje and spot for overview
+      const centerLat = (SKOPJE_COORDS.lat + spot.coordinates.lat) / 2;
+      const centerLng = (SKOPJE_COORDS.lng + spot.coordinates.lng) / 2;
 
       const map = L.map(mapRef.current, {
         scrollWheelZoom: true,
@@ -209,7 +209,7 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
   }, [userPosition]);
 
   // Create route
-  const createRoute = useCallback(async (startCoords: { lat: number; lng: number }, routeType: "user" | "strumica") => {
+  const createRoute = useCallback(async (startCoords: { lat: number; lng: number }, routeType: "user" | "skopje") => {
     if (!mapInstanceRef.current || !isMapReady) return;
 
     const L = (await import("leaflet")).default;
@@ -306,7 +306,7 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
       <div style="padding: 6px; text-align: center;">
         <span style="color: hsl(215, 50%, 50%); font-size: 0.75rem;">🚀 START</span>
         <p style="font-size: 0.7rem; color: hsl(220, 10%, 55%); margin-top: 2px;">
-          ${routeType === "user" ? "Your Location" : "Strumica"}
+          ${routeType === "user" ? "Your Location" : "Skopje"}
         </p>
       </div>
     `);
@@ -321,13 +321,13 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
     }
   };
 
-  const handleRouteFromStrumica = () => {
+  const handleRouteFromSkopje = () => {
     setIsRouteLoading(true);
-    createRoute(STRUMICA_COORDS, "strumica").finally(() => setIsRouteLoading(false));
+    createRoute(SKOPJE_COORDS, "skopje").finally(() => setIsRouteLoading(false));
   };
 
   const handleShareRidePlan = async () => {
-    const startLocation = activeRoute === "user" ? "your location" : "Strumica";
+    const startLocation = activeRoute === "user" ? "your location" : "Skopje";
     const ridePlanText = `🏍️ Soulride to ${spot.title} from ${startLocation}: ~${routeInfo?.distance || "??"} km of twisty beauty. ${spot.tags.includes("Views") ? "Epic views await!" : spot.tags.includes("Waterfalls") ? "Refreshing waterfalls along the way!" : "A soul-stirring journey through Macedonia's hidden landscapes."}\n\n${window.location.href}`;
     
     try {
@@ -375,16 +375,16 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
         </button>
 
         <button
-          onClick={handleRouteFromStrumica}
+          onClick={handleRouteFromSkopje}
           className={cn(
             "flex items-center gap-2 px-5 py-3 rounded-xl transition-all duration-300",
             "bg-mountain-blue/20 border border-mountain-blue/30",
             "hover:bg-mountain-blue/30 hover:shadow-[0_0_25px_hsl(var(--mountain-blue)/0.3)]",
-            activeRoute === "strumica" && "bg-mountain-blue/30 border-mountain-blue/50 shadow-[0_0_20px_hsl(var(--mountain-blue)/0.25)]"
+            activeRoute === "skopje" && "bg-mountain-blue/30 border-mountain-blue/50 shadow-[0_0_20px_hsl(var(--mountain-blue)/0.25)]"
           )}
         >
           <MapPin size={18} className="text-foreground/80" />
-          <span className="font-medium tracking-wide">Route from Strumica</span>
+          <span className="font-medium tracking-wide">Route from Skopje</span>
         </button>
       </div>
 
@@ -457,7 +457,7 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => {
-                  const startLocation = activeRoute === "user" ? "your location" : "Strumica";
+                  const startLocation = activeRoute === "user" ? "your location" : "Skopje";
                   const text = `🏍️ Soulride to ${spot.title} from ${startLocation}: ~${routeInfo?.distance || "??"} km of twisty beauty!`;
                   window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n${window.location.href}`)}`, "_blank");
                 }}

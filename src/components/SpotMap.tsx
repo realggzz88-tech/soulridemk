@@ -4,10 +4,10 @@ import { Compass } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
-// Default center: Strumica, Macedonia
-const STRUMICA_COORDS = { lat: 41.4375, lng: 22.6433 };
-const DEFAULT_ZOOM = 12;
-const USER_ZOOM = 13;
+// Default center: Central North Macedonia (Skopje)
+const SKOPJE_COORDS = { lat: 41.9973, lng: 21.4280 };
+const DEFAULT_ZOOM = 8;
+const USER_ZOOM = 12;
 
 interface SpotsOverviewMapProps {
   spots: Spot[];
@@ -68,7 +68,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
       
       const map = L.map(mapRef.current, {
         scrollWheelZoom: false,
-      }).setView([STRUMICA_COORDS.lat, STRUMICA_COORDS.lng], DEFAULT_ZOOM);
+      }).setView([SKOPJE_COORDS.lat, SKOPJE_COORDS.lng], DEFAULT_ZOOM);
       
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -238,7 +238,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
         <p className="text-xs text-muted-foreground tracking-wide leading-relaxed">
           <span className="text-foreground/90 font-medium">For full offline GPS navigation:</span>{" "}
           Export routes to apps like <span className="text-earth-green-glow">OsmAnd</span> or browser-cache OSM tiles. 
-          Soulride previews scenic beauty to inspire your Strumica-based adventures!
+          Enable location for routes from your spot – fallback to central view if no permission.
         </p>
       </div>
     </div>
@@ -327,7 +327,7 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
         <p className="text-xs text-muted-foreground tracking-wide leading-relaxed">
           <span className="text-foreground/90 font-medium">For full offline GPS navigation:</span>{" "}
           Export routes to apps like <span className="text-earth-green-glow">OsmAnd</span> or browser-cache OSM tiles. 
-          Soulride previews scenic beauty to inspire your Strumica-based adventures!
+          Enable location for routes from your spot – fallback to central view if no permission.
         </p>
       </div>
     </div>

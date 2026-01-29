@@ -39,8 +39,8 @@ const FeaturedEasternLoop = () => {
           {/* Route visualization */}
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-8">
             <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-mountain-blue/20 border border-mountain-blue/30">
-              <MapPin size={16} className="text-foreground/80" />
-              <span className="text-sm font-medium tracking-wide">Strumica</span>
+              <MapPin size={16} className="text-soul-amber" />
+              <span className="text-sm font-medium tracking-wide">Your Location</span>
             </div>
             
             {loopStops.map((stop, index) => (
@@ -64,14 +64,14 @@ const FeaturedEasternLoop = () => {
             
             <ArrowRight size={16} className="text-muted-foreground hidden md:block" />
             <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-mountain-blue/20 border border-mountain-blue/30">
-              <MapPin size={16} className="text-foreground/80" />
-              <span className="text-sm font-medium tracking-wide">Strumica</span>
+              <MapPin size={16} className="text-soul-amber" />
+              <span className="text-sm font-medium tracking-wide">Back Home</span>
             </div>
           </div>
 
           {/* Description */}
           <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-8 tracking-wide text-high-contrast">
-            A full-day adventure through Macedonia's hidden east. Start from Strumica, climb to the ancient fortress ruins of Carevi Kuli, 
+            A full-day adventure through Macedonia's hidden east. Start from your location, climb to the ancient fortress ruins of Carevi Kuli,
             then descend through lush Belasica hills to discover the cascading beauty of Kolesino and Smolare waterfalls. 
             Return as the sun sets over the valley – forever changed.
           </p>
