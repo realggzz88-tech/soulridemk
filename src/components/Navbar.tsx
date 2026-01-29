@@ -18,15 +18,15 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-lg border-b border-border/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo with glow */}
           <Link 
             to="/" 
             className="flex items-center gap-2 group"
           >
-            <span className="font-display text-2xl tracking-widest text-foreground group-hover:text-earth-green-glow transition-colors duration-300">
+            <span className="font-display text-2xl tracking-widest logo-glow">
               SOULRIDE
             </span>
           </Link>
