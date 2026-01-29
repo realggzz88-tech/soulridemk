@@ -67,7 +67,7 @@ const HomePage = () => {
               textShadow: '0 2px 10px hsl(0 0% 0% / 0.4)'
             }}
           >
-            Uncover hidden beauties from Strumica to the whole country: twisty roads, waterfalls, fortresses, and soul-stirring views
+            From Strumica's hills to hidden gems across North Macedonia – twisty roads, waterfalls, fortresses that stir the soul
           </p>
           <p 
             className="text-muted-foreground max-w-lg mx-auto mb-10 animate-fade-up opacity-0 text-sm md:text-base font-light tracking-wide"

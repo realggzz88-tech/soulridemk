@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 
 // Default center: Strumica, Macedonia
 const STRUMICA_COORDS = { lat: 41.4375, lng: 22.6433 };
-const DEFAULT_ZOOM = 8;
+const DEFAULT_ZOOM = 12;
 const USER_ZOOM = 13;
 
 interface SpotsOverviewMapProps {
@@ -175,50 +175,57 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   }, [userPosition]);
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
-      <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-20" />
-      
-      {/* Center on Me button */}
-      <button
-        onClick={getUserLocation}
-        disabled={locationStatus === "loading"}
-        className={cn(
-          "absolute top-3 right-3 z-[1001] p-2.5 rounded-full transition-all duration-300",
-          "bg-background/80 backdrop-blur-sm border border-border/50",
-          "hover:bg-soul-amber/20 hover:border-soul-amber/50",
-          "hover:shadow-[0_0_20px_hsl(var(--amber-soul)/0.4)]",
-          locationStatus === "loading" && "animate-pulse",
-          locationStatus === "success" && "bg-soul-amber/20 border-soul-amber/40"
-        )}
-        aria-label="Center on my location"
-        title="Center on my location"
-      >
-        <Compass 
-          size={18} 
+    <div className="space-y-3">
+      <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
+        <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-20" />
+        
+        {/* Center on Me button */}
+        <button
+          onClick={getUserLocation}
+          disabled={locationStatus === "loading"}
           className={cn(
-            "transition-all duration-300",
-            locationStatus === "success" ? "text-soul-amber" : "text-muted-foreground",
-            locationStatus === "loading" && "animate-spin"
+            "absolute top-3 right-3 z-[1001] p-2.5 rounded-full transition-all duration-300",
+            "bg-background/80 backdrop-blur-sm border border-border/50",
+            "hover:bg-soul-amber/20 hover:border-soul-amber/50 hover:scale-105",
+            "hover:shadow-[0_0_20px_hsl(var(--amber-soul)/0.4)]",
+            locationStatus === "loading" && "animate-pulse",
+            locationStatus === "success" && "bg-soul-amber/20 border-soul-amber/40"
           )}
-          style={{
-            filter: locationStatus === "success" ? "drop-shadow(0 0 6px hsl(32 85% 52% / 0.6))" : undefined
-          }}
+          aria-label="Locate me"
+          title="Locate me"
+        >
+          <Compass 
+            size={18} 
+            className={cn(
+              "transition-all duration-300",
+              locationStatus === "success" ? "text-soul-amber" : "text-muted-foreground",
+              locationStatus === "loading" && "animate-spin"
+            )}
+            style={{
+              filter: locationStatus === "success" ? "drop-shadow(0 0 6px hsl(32 85% 52% / 0.6))" : undefined
+            }}
+          />
+        </button>
+
+        <div
+          ref={mapRef}
+          className="h-64 md:h-80 w-full"
+          style={{ background: "hsl(220, 15%, 10%)" }}
         />
-      </button>
 
-      <div
-        ref={mapRef}
-        className="h-64 md:h-80 w-full"
-        style={{ background: "hsl(220, 15%, 10%)" }}
-      />
-
-      {/* Add keyframes for pulse animation */}
-      <style>{`
-        @keyframes pulse-ring {
-          0% { transform: scale(1); opacity: 0.4; }
-          100% { transform: scale(2.5); opacity: 0; }
-        }
-      `}</style>
+        {/* Add keyframes for pulse animation */}
+        <style>{`
+          @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(2.5); opacity: 0; }
+          }
+        `}</style>
+      </div>
+      
+      {/* Location hint */}
+      <p className="text-xs text-muted-foreground/70 text-center italic">
+        ✨ Enable location for nearby soul spots like Carevi Kuli or Kolesino Falls right from Strumica
+      </p>
     </div>
   );
 };
@@ -239,7 +246,7 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
 
       const map = L.map(mapRef.current, {
         scrollWheelZoom: false,
-      }).setView([spot.coordinates.lat, spot.coordinates.lng], 12);
+      }).setView([spot.coordinates.lat, spot.coordinates.lng], 13);
 
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
