@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden road-particles">
         {/* Background Image - cinematic moody shot */}
         <div className="absolute inset-0">
           <img
@@ -59,7 +59,7 @@ const HomePage = () => {
             Ride with Soul
           </p>
           <p 
-            className="text-foreground/80 max-w-xl mx-auto mb-10 animate-fade-up opacity-0 text-lg md:text-xl font-light tracking-wide text-high-contrast"
+            className="text-foreground/80 max-w-xl mx-auto mb-10 animate-fade-up opacity-0 text-lg md:text-xl font-light tracking-wider text-high-contrast"
             style={{ 
               animationDelay: "0.5s", 
               animationFillMode: "forwards",
@@ -74,7 +74,7 @@ const HomePage = () => {
           >
             <Link
               to="/spots"
-              className="btn-glow inline-flex items-center gap-3 px-12 py-5 text-lg font-display tracking-wider rounded-xl transition-all duration-300 hover:scale-105 group"
+              className="btn-glow inline-flex items-center gap-3 px-12 py-5 text-lg font-display tracking-widest rounded-xl transition-all duration-300 hover:scale-105 group"
               style={{
                 background: "linear-gradient(135deg, hsl(215 40% 20%) 0%, hsl(160 40% 25%) 50%, hsl(32 70% 45%) 100%)",
                 color: "hsl(40 15% 96%)",
@@ -97,6 +97,9 @@ const HomePage = () => {
         {/* Corner decorative elements */}
         <div className="absolute top-20 left-8 w-32 h-32 border-l-2 border-t-2 border-earth-green/25 rounded-tl-3xl opacity-60 hidden md:block" />
         <div className="absolute bottom-32 right-8 w-32 h-32 border-r-2 border-b-2 border-amber-soul/25 rounded-br-3xl opacity-60 hidden md:block" />
+        
+        {/* Animated road line at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-px road-line-anim" />
       </section>
 
       {/* Daily Soul Gem - Featured spot of the day */}
