@@ -343,10 +343,18 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-earth-green/20">
-          <Route className="w-5 h-5 text-earth-green-glow" />
+        <div className="p-2 rounded-lg bg-soul-amber/20" style={{ boxShadow: '0 0 15px hsl(32 85% 52% / 0.2)' }}>
+          <Route className="w-5 h-5 text-soul-amber" />
         </div>
-        <h2 className="font-display text-2xl tracking-wider">PLAN SCENIC RIDE</h2>
+        <h2 className="font-display text-2xl tracking-wider">PLAN RIDE FROM YOUR LOCATION</h2>
+      </div>
+
+      {/* Note about geolocation */}
+      <div className="p-3 rounded-lg bg-muted/20 border border-border/30">
+        <p className="text-xs text-muted-foreground tracking-wide">
+          <span className="text-soul-amber font-medium">🧭 Dynamic routing:</span>{" "}
+          Click "Route from My Location" to use GPS. Falls back to Skopje if no permission granted.
+        </p>
       </div>
 
       {/* Route Buttons */}
@@ -540,14 +548,14 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
       <div className="flex items-start gap-3 p-4 rounded-xl bg-mountain-blue/10 border border-mountain-blue/20">
         <Smartphone size={18} className="text-mountain-blue mt-0.5 flex-shrink-0" />
         <p className="text-sm text-muted-foreground tracking-wide">
-          <span className="text-foreground font-medium">For offline rides:</span> Browser-cache OSM tiles or use apps like{" "}
-          <span className="text-earth-green-glow">OsmAnd</span> for full GPS navigation. Soulride shows scenic previews!
+          <span className="text-foreground font-medium">Preview twisty beauty:</span> For real GPS navigation, export routes to{" "}
+          <span className="text-earth-green-glow">OsmAnd</span> or use phone navigation apps. Soulride shows scenic previews!
         </p>
       </div>
 
       {/* Scenic note */}
       <p className="text-sm text-muted-foreground italic tracking-wide text-center">
-        ✨ Routes calculated via open roads – embrace the journey, not just the destination
+        ✨ Routes via Leaflet Routing Machine (OSM) – embrace the journey, not just the destination
       </p>
     </div>
   );
