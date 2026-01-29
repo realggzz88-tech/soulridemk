@@ -12,6 +12,21 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
+  // Poetic intro phrases for search results
+  const poeticIntros = [
+    "This path calls to the wanderer in you...",
+    "Here, the horizon whispers your name...",
+    "A journey that awakens something ancient within...",
+    "Where the road becomes a meditation...",
+    "The soul finds its rhythm in these curves...",
+    "Time dissolves into timeless beauty here...",
+    "A destination written in the language of the heart...",
+  ];
+
+  const getRandomIntro = (index: number) => {
+    return poeticIntros[index % poeticIntros.length];
+  };
+
   const searchSpots = (searchQuery: string): Spot[] => {
     const lowerQuery = searchQuery.toLowerCase();
     const keywords = lowerQuery.split(/\s+/).filter(k => k.length > 2);
@@ -37,23 +52,72 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
         if (spot.title.toLowerCase().includes(keyword)) score += 5;
       });
 
-      // Special keyword mappings - expanded for new spots
+      // Extended synonym mappings for better conversational matching
       const keywordMappings: Record<string, string[]> = {
+        // Location-based
         "ohrid": ["galicica", "trpejca", "lake", "old town", "overlook"],
-        "lake": ["mavrovo", "trpejca", "ohrid", "prespa"],
-        "mountain": ["galicica", "pelister", "mavrovo", "bistra", "treskavec"],
-        "food": ["trpejca", "fish", "ohrid"],
-        "view": ["views", "panorama", "overlook", "pelister", "galicica"],
-        "road": ["roads", "twisty", "pass", "bistra"],
-        "quiet": ["hidden", "peaceful", "serene", "prespa"],
-        "spiritual": ["monastery", "church", "ancient", "treskavec"],
-        "adventure": ["canyon", "dramatic", "epic", "bistra"],
-        "nature": ["forest", "springs", "pine", "vevcani", "prespa"],
-        "sunset": ["trpejca", "lake", "peaceful", "ohrid"],
-        "peaceful": ["vevcani", "trpejca", "serene", "prespa"],
-        "history": ["ohrid", "treskavec", "monastery", "ancient"],
-        "wild": ["bistra", "wilderness", "untamed"],
-        "birds": ["prespa", "pelican", "nature"],
+        "lake": ["mavrovo", "trpejca", "ohrid", "prespa", "water", "shore"],
+        "mountain": ["galicica", "pelister", "mavrovo", "bistra", "treskavec", "peak", "summit", "altitude"],
+        
+        // Time of day synonyms
+        "sunset": ["trpejca", "lake", "peaceful", "ohrid", "golden", "dusk", "evening"],
+        "sunrise": ["dawn", "morning", "early", "pelister", "monastery"],
+        "golden": ["sunset", "sunrise", "dusk", "dawn"],
+        "dusk": ["sunset", "evening", "golden"],
+        "dawn": ["sunrise", "morning", "early"],
+        
+        // Mood synonyms
+        "peaceful": ["vevcani", "trpejca", "serene", "prespa", "quiet", "calm", "tranquil"],
+        "serene": ["peaceful", "quiet", "calm", "prespa", "vevcani", "tranquil"],
+        "quiet": ["hidden", "peaceful", "serene", "prespa", "secluded", "calm"],
+        "calm": ["peaceful", "serene", "quiet", "tranquil"],
+        "tranquil": ["peaceful", "serene", "calm", "quiet"],
+        
+        // Experience synonyms
+        "epic": ["views", "panorama", "dramatic", "adventure", "galicica", "bistra"],
+        "views": ["panorama", "overlook", "pelister", "galicica", "vista", "scenic"],
+        "scenic": ["views", "panorama", "beautiful", "overlook"],
+        "panorama": ["views", "overlook", "vista", "scenic"],
+        "dramatic": ["epic", "canyon", "adventure", "stunning"],
+        
+        // Road synonyms
+        "twisty": ["roads", "curves", "hairpin", "winding", "bistra"],
+        "winding": ["twisty", "curves", "roads", "serpentine"],
+        "curves": ["twisty", "winding", "roads", "hairpin"],
+        "roads": ["twisty", "pass", "bistra", "route", "path"],
+        
+        // Food synonyms
+        "food": ["trpejca", "fish", "ohrid", "taverna", "restaurant", "cuisine"],
+        "taverna": ["food", "restaurant", "trpejca", "ohrid", "local"],
+        "restaurant": ["food", "taverna", "cuisine", "dining"],
+        "cuisine": ["food", "taverna", "local", "traditional"],
+        
+        // Hidden gems synonyms
+        "hidden": ["gem", "secret", "vevcani", "prespa", "quiet", "secluded", "unknown"],
+        "secret": ["hidden", "gem", "secluded", "unknown", "vevcani"],
+        "gem": ["hidden", "secret", "special", "treasure"],
+        "village": ["vevcani", "trpejca", "local", "traditional", "hidden"],
+        
+        // Adventure/spiritual
+        "spiritual": ["monastery", "church", "ancient", "treskavec", "sacred", "holy"],
+        "sacred": ["spiritual", "monastery", "church", "holy"],
+        "adventure": ["canyon", "dramatic", "epic", "bistra", "wild", "thrill"],
+        "wild": ["bistra", "wilderness", "untamed", "adventure", "remote"],
+        "nature": ["forest", "springs", "pine", "vevcani", "prespa", "natural", "wildlife"],
+        
+        // History/culture
+        "history": ["ohrid", "treskavec", "monastery", "ancient", "old", "heritage"],
+        "ancient": ["history", "old", "monastery", "heritage", "ohrid"],
+        "heritage": ["history", "ancient", "cultural", "old"],
+        
+        // Wildlife
+        "birds": ["prespa", "pelican", "nature", "wildlife"],
+        "wildlife": ["birds", "nature", "prespa", "animals"],
+        
+        // Water-related
+        "water": ["lake", "springs", "shore", "river", "cascade"],
+        "springs": ["vevcani", "water", "natural", "crystal"],
+        "shore": ["lake", "beach", "trpejca", "water"],
       };
 
       keywords.forEach(keyword => {
@@ -66,11 +130,11 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
       return { spot, score };
     });
 
-    // Sort by score and return top matches
+    // Sort by score and return top matches (up to 5)
     return scoredSpots
       .filter(s => s.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 4)
+      .slice(0, 5)
       .map(s => s.spot);
   };
 
@@ -122,8 +186,8 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Describe your perfect ride... 'peaceful views near water'"
-                className="flex-1 bg-transparent px-6 py-4 text-foreground placeholder:text-muted-foreground focus:outline-none text-base"
+                placeholder="Tell me your mood... e.g., 'twisty roads at sunset' or 'hidden lake serenity'"
+                className="flex-1 bg-transparent px-6 py-4 text-foreground placeholder:text-muted-foreground focus:outline-none text-base md:text-lg"
               />
               <button
                 type="submit"
@@ -164,39 +228,55 @@ const InspirationSearch = ({}: InspirationSearchProps) => {
           <div className="animate-fade-up">
             {results.length > 0 ? (
               <>
-                <div className="flex items-center justify-between mb-6">
-                  <p className="text-muted-foreground">
-                    <span className="text-foreground font-medium">{results.length} soulful {results.length === 1 ? 'spot' : 'spots'}</span> match your vision
+                {/* Soul Matches Header */}
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center gap-2 mb-3">
+                    <div className="h-px w-8 bg-gradient-to-r from-transparent to-earth-green/50" />
+                    <Sparkles size={14} className="text-soul-amber" />
+                    <span className="text-sm uppercase tracking-widest text-earth-green-glow font-medium">Soul Matches</span>
+                    <Sparkles size={14} className="text-soul-amber" />
+                    <div className="h-px w-8 bg-gradient-to-l from-transparent to-earth-green/50" />
+                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    {results.length} {results.length === 1 ? 'destination calls' : 'destinations call'} to your wandering spirit
                   </p>
+                </div>
+                
+                <div className="flex justify-end mb-4">
                   <button
                     onClick={() => {
                       setQuery("");
                       setResults([]);
                       setHasSearched(false);
                     }}
-                    className="text-sm text-earth-green-glow hover:underline"
+                    className="text-sm text-earth-green-glow hover:underline transition-colors"
                   >
-                    New search
+                    Seek again
                   </button>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-6">
+                
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {results.map((spot, index) => (
                     <div
                       key={spot.id}
                       className="animate-scale-in opacity-0"
                       style={{ animationDelay: `${index * 100}ms`, animationFillMode: "forwards" }}
                     >
+                      {/* Poetic intro above each card */}
+                      <p className="text-sm text-earth-green-glow/80 italic mb-2 px-1 line-clamp-1">
+                        {getRandomIntro(index)}
+                      </p>
                       <SpotCard spot={spot} index={index} />
                     </div>
                   ))}
                 </div>
-                <div className="text-center mt-8">
+                <div className="text-center mt-10">
                   <Link
                     to="/spots"
-                    className="inline-flex items-center gap-2 text-earth-green-glow hover:text-foreground transition-colors"
+                    className="inline-flex items-center gap-2 text-earth-green-glow hover:text-foreground transition-colors group"
                   >
-                    <span>Explore all spots</span>
-                    <ArrowRight size={16} />
+                    <span>Explore all destinations</span>
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </>

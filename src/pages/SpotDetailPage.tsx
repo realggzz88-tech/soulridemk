@@ -36,7 +36,11 @@ const SpotDetailPage = () => {
 
       {/* Image Carousel */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ImageCarousel images={spot.images} title={spot.title} />
+        <ImageCarousel 
+          images={spot.images} 
+          title={spot.title} 
+          poeticTagline={spot.poeticTagline}
+        />
       </div>
 
       {/* Content */}
