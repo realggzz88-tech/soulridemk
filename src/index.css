@@ -2,95 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark moody base */
+    --background: 220 15% 6%;
+    --foreground: 40 20% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 10%;
+    --card-foreground: 40 20% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 40 20% 92%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Earthy forest green primary */
+    --primary: 160 35% 30%;
+    --primary-foreground: 40 20% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Muted earth tones */
+    --secondary: 220 10% 15%;
+    --secondary-foreground: 40 20% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 10% 18%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Amber accent for CTAs */
+    --accent: 30 80% 50%;
+    --accent-foreground: 220 15% 6%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 20% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 10% 18%;
+    --input: 220 10% 20%;
+    --ring: 160 35% 40%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Soulride tokens */
+    --earth-green: 160 35% 30%;
+    --earth-green-glow: 160 40% 40%;
+    --deep-forest: 160 30% 15%;
+    --amber-soul: 30 80% 50%;
+    --amber-glow: 35 90% 60%;
+    --mountain-blue: 210 30% 25%;
+    --stone-brown: 25 20% 25%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220 15% 6% / 0.9), hsl(160 30% 8% / 0.85));
+    --gradient-card: linear-gradient(180deg, hsl(220 15% 12%), hsl(220 15% 8%));
+    --gradient-accent: linear-gradient(135deg, hsl(30 80% 50%), hsl(35 90% 60%));
+    
+    /* Shadows */
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.6);
+    --shadow-glow: 0 0 40px -10px hsl(160 35% 30% / 0.3);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 220 15% 8%;
+    --sidebar-foreground: 40 20% 85%;
+    --sidebar-primary: 160 35% 30%;
+    --sidebar-primary-foreground: 40 20% 95%;
+    --sidebar-accent: 220 10% 15%;
+    --sidebar-accent-foreground: 40 20% 85%;
+    --sidebar-border: 220 10% 18%;
+    --sidebar-ring: 160 35% 40%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 220 15% 6%;
+    --foreground: 40 20% 92%;
   }
 }
 
@@ -100,6 +80,110 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer components {
+  /* Hero text styles */
+  .hero-title {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider;
+    text-shadow: 0 4px 30px hsl(var(--earth-green) / 0.3);
+  }
+
+  .hero-subtitle {
+    @apply text-lg md:text-xl text-muted-foreground font-light tracking-wide max-w-2xl;
+  }
+
+  /* Abstract line overlay pattern */
+  .road-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 90 Q 30 60, 50 70 T 90 30' stroke='%23ffffff08' stroke-width='1' fill='none'/%3E%3Cpath d='M0 50 Q 25 30, 50 40 T 100 20' stroke='%23ffffff05' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* Mountain silhouette overlay */
+  .mountain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg width='1200' height='200' viewBox='0 0 1200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 L100 120 L200 160 L350 80 L450 140 L600 40 L750 120 L900 60 L1050 100 L1200 20 L1200 200 Z' fill='%23ffffff03'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+  }
+
+  /* Card hover animation */
+  .spot-card {
+    @apply relative overflow-hidden rounded-xl transition-all duration-500 ease-out;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .spot-card:hover {
+    @apply scale-[1.02];
+    box-shadow: var(--shadow-glow);
+  }
+
+  .spot-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, hsl(var(--earth-green) / 0.1), transparent);
+  }
+
+  .spot-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Tag pills */
+  .tag-pill {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+    background: hsl(var(--earth-green) / 0.2);
+    color: hsl(var(--earth-green-glow));
+    border: 1px solid hsl(var(--earth-green) / 0.3);
+  }
+
+  /* Navigation link animation */
+  .nav-link {
+    @apply relative py-2 text-sm font-medium tracking-wider uppercase transition-colors;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300;
+    background: var(--gradient-accent);
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* Button glow effect */
+  .btn-glow {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-glow::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, hsl(var(--amber-glow) / 0.3), transparent 70%);
+  }
+
+  .btn-glow:hover::before {
+    @apply opacity-100;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--muted-foreground)));
+  }
+
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-accent);
   }
 }
