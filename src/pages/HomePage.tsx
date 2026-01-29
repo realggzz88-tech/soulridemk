@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Mountain, Compass, Wind } from "lucide-react";
 import InspirationSearch from "@/components/InspirationSearch";
 import SoulQuote from "@/components/SoulQuote";
+import DailySoulGem from "@/components/DailySoulGem";
 
 const HomePage = () => {
   return (
@@ -94,9 +95,12 @@ const HomePage = () => {
         </div>
 
         {/* Corner decorative elements */}
-        <div className="absolute top-20 left-8 w-32 h-32 border-l-2 border-t-2 border-earth-green/25 rounded-tl-3xl opacity-60" />
-        <div className="absolute bottom-32 right-8 w-32 h-32 border-r-2 border-b-2 border-amber-soul/25 rounded-br-3xl opacity-60" />
+        <div className="absolute top-20 left-8 w-32 h-32 border-l-2 border-t-2 border-earth-green/25 rounded-tl-3xl opacity-60 hidden md:block" />
+        <div className="absolute bottom-32 right-8 w-32 h-32 border-r-2 border-b-2 border-amber-soul/25 rounded-br-3xl opacity-60 hidden md:block" />
       </section>
+
+      {/* Daily Soul Gem - Featured spot of the day */}
+      <DailySoulGem />
 
       {/* Inspiration Search Section */}
       <InspirationSearch />
