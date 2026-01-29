@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Youtube, Mail, MapPin } from "lucide-react";
+import ShareButtons from "./ShareButtons";
 
 const Footer = () => {
   const socialLinks = [
@@ -10,16 +11,23 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-border/50 bg-card/30 relative overflow-hidden">
+    <footer className="relative overflow-hidden">
+      {/* Artistic gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/80 to-card" />
+      <div className="absolute inset-0 bg-gradient-to-r from-earth-green/5 via-transparent to-mountain-blue/5" />
+      
       {/* Decorative elements */}
-      <div className="absolute inset-0 road-pattern opacity-20" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 mountain-overlay" />
+      <div className="absolute inset-0 road-pattern opacity-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 mountain-overlay opacity-30" />
+      
+      {/* Top gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-earth-green/40 to-transparent" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="space-y-4 md:col-span-1">
             <Link to="/" className="inline-block">
               <span className="font-display text-3xl tracking-widest text-foreground hover:text-earth-green-glow transition-colors">
                 SOULRIDE
@@ -65,6 +73,15 @@ const Footer = () => {
               <MapPin size={16} className="text-earth-green-glow mt-0.5 shrink-0" />
               <span>Ohrid, North Macedonia</span>
             </div>
+          </div>
+
+          {/* Share This Gem */}
+          <div className="space-y-4">
+            <h4 className="font-display text-lg tracking-wider text-foreground">SPREAD THE SOUL</h4>
+            <ShareButtons variant="compact" />
+            <p className="text-xs text-muted-foreground/70 italic mt-2">
+              Share the journey with fellow riders
+            </p>
           </div>
         </div>
 

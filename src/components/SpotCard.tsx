@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Spot } from "@/data/spots";
 import { ArrowRight } from "lucide-react";
+import FavoriteButton from "./FavoriteButton";
 
 interface SpotCardProps {
   spot: Spot;
@@ -44,8 +45,13 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           ))}
         </div>
 
+        {/* Favorite Button */}
+        <div className="absolute top-4 right-4">
+          <FavoriteButton spotId={spot.id} size="sm" />
+        </div>
+
         {/* Line Art Overlay */}
-        <div className="absolute inset-0 road-pattern opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+        <div className="absolute inset-0 road-pattern opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" />
       </div>
 
       {/* Content */}

@@ -1,11 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useFavorites } from "@/hooks/use-favorites";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { count: favoritesCount } = useFavorites();
 
   const links = [
     { to: "/", label: "Home" },
@@ -43,16 +45,36 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            
+            {/* Favorites indicator */}
+            {favoritesCount > 0 && (
+              <Link
+                to="/spots"
+                className="relative flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                title={`${favoritesCount} saved spots`}
+              >
+                <Heart size={18} className="text-soul-amber fill-soul-amber" />
+                <span className="text-soul-amber font-medium">{favoritesCount}</span>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            {favoritesCount > 0 && (
+              <div className="flex items-center gap-1 text-sm">
+                <Heart size={16} className="text-soul-amber fill-soul-amber" />
+                <span className="text-soul-amber font-medium">{favoritesCount}</span>
+              </div>
+            )}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
