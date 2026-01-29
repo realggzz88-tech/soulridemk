@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, MapPin, Lightbulb } from "lucide-react";
 import { spots } from "@/data/spots";
 import ImageCarousel from "@/components/ImageCarousel";
+import { SpotDetailMap } from "@/components/SpotMap";
 
 const SpotDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -79,21 +80,18 @@ const SpotDetailPage = () => {
           </ul>
         </div>
 
-        {/* Map Placeholder */}
-        <div className="spot-card p-8">
-          <div className="flex items-center gap-3 mb-6">
+        {/* Map Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-earth-green/20">
               <MapPin className="w-5 h-5 text-earth-green-glow" />
             </div>
             <h2 className="font-display text-2xl tracking-wide">LOCATION</h2>
           </div>
-          <div className="aspect-[16/9] rounded-lg bg-muted flex items-center justify-center border border-border/50">
-            <div className="text-center text-muted-foreground">
-              <MapPin className="w-12 h-12 mx-auto mb-3 opacity-50" />
-              <p className="text-sm">Interactive map coming soon</p>
-              <p className="text-xs mt-1">Macedonia • Balkans</p>
-            </div>
-          </div>
+          <SpotDetailMap spot={spot} />
+          <p className="text-sm text-muted-foreground text-center">
+            Coordinates: {spot.coordinates.lat.toFixed(2)}°N, {spot.coordinates.lng.toFixed(2)}°E • Macedonia, Balkans
+          </p>
         </div>
       </div>
     </div>
