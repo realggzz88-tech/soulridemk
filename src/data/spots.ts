@@ -211,7 +211,7 @@ export const spots: Spot[] = [
     description: "Hilltop ruins where Byzantine emperors once surveyed their domain, now offering panoramic soul views over the valley.",
     poeticTagline: "Where emperors dreamed in stone",
     longDescription: "High above Strumica, the ancient walls of Carevi Kuli—the Tsar's Towers—stand as silent witnesses to a thousand years of history. This Byzantine fortress, perched on a dramatic hilltop, once commanded views that made empires possible. Today, the same views command something different: awe, silence, and the peculiar peace that comes from standing where history happened. The road winds upward through oak forests and past orchards heavy with fruit, each switchback revealing more of the Strumica valley below. At the summit, ruined walls frame the sky like ancient picture frames, and the wind carries whispers of battles fought, lovers met, and prayers offered. This isn't mere archaeology—it's a conversation across centuries. The stones remember. And now, so will you.",
-    tags: ["Fortress", "Views", "Eastern Gems", "Cultural"],
+    tags: ["Fortress", "Fortress Views", "Views", "Eastern Macedonia", "Cultural"],
     images: [
       "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200",
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200",
@@ -230,7 +230,7 @@ export const spots: Spot[] = [
     description: "Cascading waters tumble through lush Belasica hills, offering the perfect refreshing stop for weary souls.",
     poeticTagline: "Where water sings to stone",
     longDescription: "Hidden in the green embrace of Belasica Mountain, Kolesino Waterfall descends in a graceful 15-meter cascade that seems to materialize from the forest itself. The road here is the prelude—winding through villages where time moves slowly and grandmothers still hang laundry in sunshine older than industry. As you approach, the air changes: cooler, damper, carrying the mineral scent of ancient water. The waterfall emerges through foliage like a secret shared between the mountain and those patient enough to seek it. Mist rises where water meets rock, creating rainbows when the light agrees. Local legend speaks of healing waters, and whether you believe in such magic or not, there's undeniable restoration in standing before falling water, feeling its thunder in your chest, letting its spray wash away the road's dust and the world's weight.",
-    tags: ["Waterfalls", "Nature", "Eastern Gems", "Hidden Gem"],
+    tags: ["Waterfalls", "Nature", "Eastern Macedonia", "Hidden Gem"],
     images: [
       "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200",
       "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200",
@@ -249,7 +249,7 @@ export const spots: Spot[] = [
     description: "A hidden gorge beauty reached via rewarding twisty roads, where waters plunge 39 meters into emerald pools.",
     poeticTagline: "Where persistence meets paradise",
     longDescription: "The tallest waterfall in North Macedonia doesn't reveal itself easily—and that's precisely its gift. The road to Smolare tests and rewards in equal measure, threading through the Star Dojran region on asphalt that curves and climbs like a poem in motion. When you finally arrive, the waterfall announces itself with sound before sight: a deep, constant thunder that builds anticipation with every step down the forest trail. Then, through the trees, it appears—39 meters of falling water, plunging into a pool so green it seems lit from within. This is where the Belasica Mountain shares its deepest secret, where riders become pilgrims, and where the journey's difficulty transforms into the arrival's joy. Some destinations are measured in kilometers. Smolare is measured in transformation.",
-    tags: ["Waterfalls", "Roads", "Eastern Gems", "Adventure"],
+    tags: ["Waterfalls", "Roads", "Eastern Macedonia", "Adventure"],
     images: [
       "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200",
       "https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=1200",
@@ -268,7 +268,7 @@ export const spots: Spot[] = [
     description: "An ancient spiritual sanctuary where time dissolves into prayer, surrounded by mountains that have witnessed a millennium of devotion.",
     poeticTagline: "Where silence speaks volumes",
     longDescription: "In the quiet hills near Strumica, Vodoča Monastery has stood for over a thousand years, its stones accumulating prayers like moss accumulates dew. This 11th-century sanctuary, dedicated to Saint Leontius, represents something increasingly rare in our accelerating world: unbroken continuity. Monks have walked these grounds, lit these candles, and maintained these traditions through empires, wars, and the countless small revolutions of daily life. The ride here passes through pastoral landscapes that seem painted rather than grown—rolling hills, ancient trees, and the particular quality of light that eastern Macedonia holds like a secret. At the monastery, frescoes still glow with Byzantine colors, and the architecture speaks of an age when buildings were built to last not decades but centuries. Silence here isn't empty—it's full of accumulated reverence, a thousand years of whispered prayers still echoing in the stones.",
-    tags: ["Cultural", "Eastern Gems", "Hidden Gem", "Mountain"],
+    tags: ["Cultural", "Eastern Macedonia", "Hidden Gem", "Mountain"],
     images: [
       "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200",
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200",
@@ -280,6 +280,25 @@ export const spots: Spot[] = [
       "Sunday morning services offer authentic glimpses of living tradition",
     ],
     coordinates: { lat: 41.4156, lng: 22.5678 },
+  },
+  {
+    id: "belasica-mountain-approach",
+    title: "Belasica Mountain Approach",
+    description: "Scenic high roads climbing through valleys with sweeping vistas and tantalizing glimpses of borders beyond.",
+    poeticTagline: "Where horizons multiply",
+    longDescription: "Belasica doesn't just separate nations—it elevates souls. The mountain road climbing its northern flanks offers one of eastern Macedonia's most underrated riding experiences: a serpentine ascent through oak forests that give way to alpine meadows, past shepherd huts unchanged for centuries, up to viewpoints where three countries spread beneath you like a promise. The road itself is the destination here—each curve revealing new perspectives, each kilometer earned with engaged riding that rewards focus and punishes complacency. At certain elevations, you can see the Strumica valley to the north, Greek mountains to the south, and Bulgarian peaks to the east. This is border country in the truest sense: where cultures mix, where languages blend, and where the horizon keeps multiplying until you understand that boundaries are human inventions the mountains never learned to respect.",
+    tags: ["Roads", "Mountain", "Eastern Gems", "Views", "Adventure"],
+    images: [
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200",
+      "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200",
+      "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=1200",
+    ],
+    riderTips: [
+      "Morning ascents offer cooler temperatures and cleaner mountain air",
+      "The road narrows above treeline—ride alert for oncoming shepherds and their flocks",
+      "Pack layers: the summit can be 10°C cooler than the valley floor",
+    ],
+    coordinates: { lat: 41.3125, lng: 22.7456 },
   },
 ];
 
@@ -295,5 +314,7 @@ export const allTags = [
   "Hidden Gem",
   "Waterfalls",
   "Fortress",
-  "Eastern Gems"
+  "Eastern Gems",
+  "Eastern Macedonia",
+  "Fortress Views"
 ];
