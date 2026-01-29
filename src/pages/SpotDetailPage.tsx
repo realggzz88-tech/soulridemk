@@ -5,6 +5,7 @@ import ImageCarousel from "@/components/ImageCarousel";
 import { SpotDetailMap } from "@/components/SpotMap";
 import FavoriteButton from "@/components/FavoriteButton";
 import ShareButtons from "@/components/ShareButtons";
+import ScenicRoute from "@/components/ScenicRoute";
 import { useState } from "react";
 
 const SpotDetailPage = () => {
@@ -138,8 +139,8 @@ const SpotDetailPage = () => {
             </ul>
           </div>
 
-          {/* Map Section */}
-          <div className="space-y-6">
+          {/* Location Map Section */}
+          <div className="space-y-6 mb-12">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-earth-green/20">
                 <MapPin className="w-5 h-5 text-earth-green-glow" />
@@ -150,6 +151,11 @@ const SpotDetailPage = () => {
             <p className="text-sm text-muted-foreground text-center tracking-wide">
               Coordinates: {spot.coordinates.lat.toFixed(2)}°N, {spot.coordinates.lng.toFixed(2)}°E • Macedonia, Balkans
             </p>
+          </div>
+
+          {/* Scenic Route Planner */}
+          <div className="mb-12">
+            <ScenicRoute spot={spot} />
           </div>
         </div>
 
