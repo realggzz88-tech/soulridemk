@@ -41,6 +41,11 @@ const SpotDetailPage = () => {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Poetic Tagline */}
+        <p className="text-earth-green-glow italic text-lg mb-4 font-light">
+          "{spot.poeticTagline}"
+        </p>
+
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-6">
           {spot.tags.map((tag) => (
@@ -51,7 +56,7 @@ const SpotDetailPage = () => {
         </div>
 
         {/* Title */}
-        <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-6">
+        <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-6 text-gradient-subtle">
           {spot.title}
         </h1>
 
