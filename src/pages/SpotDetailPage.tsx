@@ -72,13 +72,21 @@ const SpotDetailPage = () => {
           
           <button
             onClick={() => scrollToSection("ride-planning")}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-earth-green/20 border border-earth-green/30 text-earth-green-glow hover:bg-earth-green/30 hover:shadow-[0_0_25px_hsl(var(--earth-green)/0.3)] transition-all duration-300 tracking-wide"
+            className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-soul-amber/20 border border-soul-amber/30 text-soul-amber hover:bg-soul-amber/30 hover:shadow-[0_0_25px_hsl(var(--amber-soul)/0.4)] transition-all duration-300 tracking-wide"
           >
-            <Navigation size={18} />
-            <span className="font-medium">Plan This Ride</span>
+            <Navigation size={18} className="group-hover:animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))' }} />
+            <span className="font-medium">Route from Your Location</span>
           </button>
 
           <ShareButtons variant="compact" spotName={spot.title} />
+        </div>
+
+        {/* Quick Info Note */}
+        <div className="mb-8 p-4 rounded-xl bg-muted/20 border border-border/30">
+          <p className="text-sm text-muted-foreground tracking-wide">
+            <span className="text-soul-amber font-medium">📍 Plan your ride:</span>{" "}
+            Uses your GPS location as start point. No permission? Falls back to Skopje center.
+          </p>
         </div>
 
         {/* Ride Summary - Shows when Plan Ride is clicked */}
@@ -87,8 +95,11 @@ const SpotDetailPage = () => {
             <div className="flex items-start gap-3">
               <Route size={20} className="text-soul-amber mt-0.5 flex-shrink-0" />
               <div>
-                <h3 className="font-display text-lg tracking-wide mb-2 text-soul-amber">RIDE SUMMARY</h3>
+                <h3 className="font-display text-lg tracking-wide mb-2 text-soul-amber">RIDE PREVIEW</h3>
                 <p className="text-foreground/90 leading-relaxed tracking-wide">{rideSummary}</p>
+                <p className="text-xs text-muted-foreground mt-2 italic tracking-wide">
+                  Preview twisty beauty – for real GPS, export to OsmAnd or use phone apps
+                </p>
               </div>
             </div>
           </div>
