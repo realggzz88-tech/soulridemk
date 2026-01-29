@@ -67,7 +67,7 @@ const HomePage = () => {
               textShadow: '0 2px 10px hsl(0 0% 0% / 0.4)'
             }}
           >
-            From Strumica's hills to hidden gems across North Macedonia – twisty roads, waterfalls, fortresses that stir the soul
+            Ride with soul across North Macedonia: From eastern waterfalls to western lakes – twisty roads, hidden gems, and views that call you
           </p>
           <p 
             className="text-muted-foreground max-w-lg mx-auto mb-10 animate-fade-up opacity-0 text-sm md:text-base font-light tracking-wide"
@@ -77,7 +77,7 @@ const HomePage = () => {
               textShadow: '0 1px 6px hsl(0 0% 0% / 0.3)'
             }}
           >
-            <span className="text-soul-amber">Start your ride from Strumica</span> – enable location for nearby gems like Carevi Kuli or Kolesino Falls
+            <span className="text-soul-amber">Start from your location</span> – enable GPS for routes to nearby soul spots across the country
           </p>
           <div 
             className="animate-fade-up opacity-0"
