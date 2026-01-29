@@ -9,7 +9,7 @@ interface TagFilterProps {
 }
 
 const TagFilter = ({ selectedTags, onTagToggle, onClearAll }: TagFilterProps) => {
-  const filterTags = ["Views", "Roads", "Food Stops", "Nature", "Cultural"];
+  const filterTags = ["Views", "Roads", "Food Stops", "Nature", "Cultural", "Waterfalls", "Fortress", "Eastern Gems"];
 
   return (
     <div className="relative">
