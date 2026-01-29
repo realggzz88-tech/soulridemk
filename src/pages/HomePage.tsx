@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Mountain, Compass, Wind } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import InspirationSearch from "@/components/InspirationSearch";
+import SoulQuote from "@/components/SoulQuote";
 
 const HomePage = () => {
   return (
@@ -128,6 +129,14 @@ const HomePage = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Soul Quote Section */}
+      <section className="py-8 px-4 bg-gradient-to-b from-background to-secondary/20 relative overflow-hidden">
+        <div className="absolute inset-0 road-pattern opacity-10" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <SoulQuote />
         </div>
       </section>
 
