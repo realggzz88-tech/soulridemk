@@ -28,11 +28,11 @@ const FeaturedEasternLoop = () => {
             </div>
             
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl tracking-wider mb-3 text-gradient-subtle">
-              THE EASTERN SOUL LOOP
+              FEATURED STRUMICA LOOP
             </h2>
             
             <p className="text-earth-green-glow text-lg italic font-light tracking-wide max-w-2xl mx-auto">
-              "Ride the southeast soul: fortresses, falls, and forgotten paths"
+              "Start local: Eastern soul rides through waterfalls, fortresses, and forgotten paths"
             </p>
           </div>
 

@@ -21,13 +21,21 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const getUserLocation = useCallback(() => {
+  const getUserLocation = useCallback((forcePrompt = false) => {
     if (!navigator.geolocation) {
       setLocationStatus("error");
       return;
     }
 
+    // Only auto-prompt once per session (unless forced via button click)
+    const hasPrompted = sessionStorage.getItem("soulride-geo-prompted");
+    if (!forcePrompt && hasPrompted) {
+      return;
+    }
+
     setLocationStatus("loading");
+    sessionStorage.setItem("soulride-geo-prompted", "true");
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = {
@@ -175,13 +183,13 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   }, [userPosition]);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
         <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-20" />
         
         {/* Center on Me button */}
         <button
-          onClick={getUserLocation}
+          onClick={() => getUserLocation(true)}
           disabled={locationStatus === "loading"}
           className={cn(
             "absolute top-3 right-3 z-[1001] p-2.5 rounded-full transition-all duration-300",
@@ -222,10 +230,17 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
         `}</style>
       </div>
       
-      {/* Location hint */}
-      <p className="text-xs text-muted-foreground/70 text-center italic">
-        ✨ Enable location for nearby soul spots like Carevi Kuli or Kolesino Falls right from Strumica
-      </p>
+      {/* Offline Navigation Note */}
+      <div className="flex items-start gap-3 p-4 rounded-xl bg-mountain-blue/10 border border-mountain-blue/20 backdrop-blur-sm">
+        <div className="p-1.5 rounded-lg bg-soul-amber/20 flex-shrink-0">
+          <Compass size={14} className="text-soul-amber" />
+        </div>
+        <p className="text-xs text-muted-foreground tracking-wide leading-relaxed">
+          <span className="text-foreground/90 font-medium">For full offline GPS navigation:</span>{" "}
+          Export routes to apps like <span className="text-earth-green-glow">OsmAnd</span> or browser-cache OSM tiles. 
+          Soulride previews scenic beauty to inspire your Strumica-based adventures!
+        </p>
+      </div>
     </div>
   );
 };
@@ -291,13 +306,30 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
   }, [spot]);
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
-      <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-15" />
-      <div
-        ref={mapRef}
-        className="h-64 md:h-96 w-full"
-        style={{ background: "hsl(220, 15%, 10%)" }}
-      />
+    <div className="space-y-4">
+      <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
+        <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-15" />
+        <div
+          ref={mapRef}
+          className="h-64 md:h-96 w-full"
+          style={{ background: "hsl(220, 15%, 10%)" }}
+        />
+      </div>
+      
+      {/* Offline Navigation Note */}
+      <div className="flex items-start gap-3 p-4 rounded-xl bg-mountain-blue/10 border border-mountain-blue/20 backdrop-blur-sm">
+        <div className="p-1.5 rounded-lg bg-soul-amber/20 flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-soul-amber">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <p className="text-xs text-muted-foreground tracking-wide leading-relaxed">
+          <span className="text-foreground/90 font-medium">For full offline GPS navigation:</span>{" "}
+          Export routes to apps like <span className="text-earth-green-glow">OsmAnd</span> or browser-cache OSM tiles. 
+          Soulride previews scenic beauty to inspire your Strumica-based adventures!
+        </p>
+      </div>
     </div>
   );
 };

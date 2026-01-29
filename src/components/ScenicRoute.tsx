@@ -1,8 +1,21 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Spot } from "@/data/spots";
-import { MapPin, Navigation, Compass, Clock, Route, Share2, Copy, Check, Smartphone } from "lucide-react";
+import { MapPin, Navigation, Compass, Clock, Route, Share2, Copy, Check, Smartphone, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
+
+// Social icons (line style)
+const FacebookIcon = ({ size = 16, className }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const WhatsAppIcon = ({ size = 16, className }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+  </svg>
+);
 
 // Strumica default coordinates
 const STRUMICA_COORDS = { lat: 41.4375, lng: 22.6433 };
@@ -413,28 +426,58 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
             </div>
           </div>
 
-          {/* Share Ride Plan Button */}
-          <button
-            onClick={handleShareRidePlan}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-300",
-              "bg-earth-green/20 border border-earth-green/30",
-              "hover:bg-earth-green/30 hover:shadow-[0_0_20px_hsl(var(--earth-green)/0.25)]",
-              copied && "bg-earth-green/30 border-earth-green/50"
-            )}
-          >
-            {copied ? (
-              <>
-                <Check size={16} className="text-earth-green-glow" />
-                <span className="text-sm font-medium tracking-wide text-earth-green-glow">Ride Plan Copied!</span>
-              </>
-            ) : (
-              <>
-                <Share2 size={16} className="text-earth-green-glow" />
-                <span className="text-sm font-medium tracking-wide text-earth-green-glow">Share Ride Plan</span>
-              </>
-            )}
-          </button>
+          {/* Share Ride Plan Section */}
+          <div className="flex flex-wrap items-center gap-3 p-4 rounded-xl bg-muted/20 border border-border/30">
+            <span className="text-sm text-muted-foreground font-medium tracking-wide">Share This Ride:</span>
+            
+            {/* Copy Button */}
+            <button
+              onClick={handleShareRidePlan}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300",
+                "bg-earth-green/20 border border-earth-green/30",
+                "hover:bg-earth-green/30 hover:shadow-[0_0_20px_hsl(var(--earth-green)/0.25)]",
+                copied && "bg-earth-green/30 border-earth-green/50"
+              )}
+            >
+              {copied ? (
+                <>
+                  <Check size={14} className="text-earth-green-glow" />
+                  <span className="text-xs font-medium tracking-wide text-earth-green-glow">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={14} className="text-earth-green-glow" />
+                  <span className="text-xs font-medium tracking-wide text-earth-green-glow">Copy Plan</span>
+                </>
+              )}
+            </button>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const startLocation = activeRoute === "user" ? "your location" : "Strumica";
+                  const text = `🏍️ Soulride to ${spot.title} from ${startLocation}: ~${routeInfo?.distance || "??"} km of twisty beauty!`;
+                  window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n${window.location.href}`)}`, "_blank");
+                }}
+                className="group p-2.5 rounded-full bg-muted/30 border border-border/40 hover:bg-earth-green/20 hover:border-earth-green/40 hover:shadow-[0_0_15px_hsl(var(--earth-green)/0.3)] transition-all duration-300"
+                aria-label="Share on WhatsApp"
+              >
+                <WhatsAppIcon size={14} className="text-muted-foreground group-hover:text-earth-green-glow transition-colors" />
+              </button>
+              <button
+                onClick={() => {
+                  const text = `Discover ${spot.title} on Soulride – scenic routes for soul riders`;
+                  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`, "_blank", "width=600,height=400");
+                }}
+                className="group p-2.5 rounded-full bg-muted/30 border border-border/40 hover:bg-soul-amber/20 hover:border-soul-amber/40 hover:shadow-[0_0_15px_hsl(var(--amber-soul)/0.3)] transition-all duration-300"
+                aria-label="Share on Facebook"
+              >
+                <FacebookIcon size={14} className="text-muted-foreground group-hover:text-soul-amber transition-colors" />
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
