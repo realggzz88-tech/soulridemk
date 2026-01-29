@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Mountain, Compass, Wind } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import InspirationSearch from "@/components/InspirationSearch";
 
 const HomePage = () => {
   return (
@@ -12,7 +13,7 @@ const HomePage = () => {
           <img
             src={heroBg}
             alt="Motorbike at mountain overlook"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover animate-fade-in"
           />
           <div className="absolute inset-0 bg-hero-gradient" />
           <div className="absolute inset-0 road-pattern" />
@@ -22,20 +23,26 @@ const HomePage = () => {
         {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <h1 
-            className="hero-title animate-fade-up"
-            style={{ animationDelay: "0.2s" }}
+            className="hero-title animate-fade-up opacity-0"
+            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
           >
             SOULRIDE
           </h1>
           <p 
-            className="hero-subtitle mx-auto mb-8 animate-fade-up opacity-0"
-            style={{ animationDelay: "0.4s" }}
+            className="hero-subtitle mx-auto mb-4 animate-fade-up opacity-0"
+            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+          >
+            Ride with Soul
+          </p>
+          <p 
+            className="text-muted-foreground max-w-xl mx-auto mb-8 animate-fade-up opacity-0"
+            style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
           >
             Uncover hidden views, twisty roads, and serene gems that stir the soul
           </p>
           <div 
             className="animate-fade-up opacity-0"
-            style={{ animationDelay: "0.6s" }}
+            style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}
           >
             <Link
               to="/spots"
@@ -55,11 +62,16 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Inspiration Search Section */}
+      <InspirationSearch />
+
       {/* Features Section */}
       <section className="py-24 px-4 bg-secondary/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl tracking-wider mb-4">
+            <h2 
+              className="font-display text-4xl md:text-5xl tracking-wider mb-4"
+            >
               RIDE WITH PURPOSE
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -72,23 +84,22 @@ const HomePage = () => {
               {
                 icon: Mountain,
                 title: "Hidden Viewpoints",
-                description: "Discover overlooks and panoramas that most maps forgot to mention.",
+                description: "Discover overlooks and panoramas that most maps forgot to mention. Where the world falls away and perspective is earned.",
               },
               {
                 icon: Compass,
                 title: "Curated Routes",
-                description: "Hand-picked roads that wind, twist, and reward the adventurous spirit.",
+                description: "Hand-picked roads that wind, twist, and reward. Routes chosen not for efficiency, but for the joy of the journey.",
               },
               {
                 icon: Wind,
                 title: "Rider Community",
-                description: "Tips and tales from souls who live for the next curve.",
+                description: "Tips and tales from souls who live for the next curve. Wisdom shared, stories exchanged, roads remembered.",
               },
             ].map((feature, index) => (
               <div
                 key={feature.title}
                 className="spot-card p-8 text-center group"
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-earth-green/20 mb-6 group-hover:bg-earth-green/30 transition-colors duration-300">
                   <feature.icon className="w-8 h-8 text-earth-green-glow" />
