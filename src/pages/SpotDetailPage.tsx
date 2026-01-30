@@ -86,13 +86,6 @@ const SpotDetailPage = () => {
             <span className="font-medium sm:hidden">Plan Route</span>
           </button>
 
-          <StartDrivingButton
-            destinationLat={spot.coordinates.lat}
-            destinationLng={spot.coordinates.lng}
-            destinationName={spot.title}
-            variant="secondary"
-          />
-
           <ShareButtons variant="compact" spotName={spot.title} />
         </div>
 
@@ -186,6 +179,17 @@ const SpotDetailPage = () => {
               <h2 className="font-display text-2xl tracking-wider">LOCATION</h2>
             </div>
             <SpotDetailMap spot={spot} />
+            
+            {/* Prominent Start Driving Button */}
+            <div className="flex justify-center py-4">
+              <StartDrivingButton
+                destinationLat={spot.coordinates.lat}
+                destinationLng={spot.coordinates.lng}
+                destinationName={spot.title}
+                variant="hero"
+              />
+            </div>
+            
             <p className="text-sm text-muted-foreground text-center tracking-wide">
               Coordinates: {spot.coordinates.lat.toFixed(2)}°N, {spot.coordinates.lng.toFixed(2)}°E • Macedonia, Balkans
             </p>
