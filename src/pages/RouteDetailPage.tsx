@@ -3,12 +3,14 @@ import { getRouteById, routes } from "@/data/routes";
 import { spots as allSpots } from "@/data/spots";
 import { 
   ArrowLeft, Clock, MapPin, Mountain, ChevronRight, Star, Navigation, 
-  Share2, Copy, Compass, Sparkles, AlertTriangle, Check
+  Share2, Copy, Compass, Sparkles, AlertTriangle, Check, Cloud
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import RouteMap from "@/components/RouteMap";
+import WeatherWidget from "@/components/WeatherWidget";
+import { StartRouteButton } from "@/components/StartDrivingButton";
 
 const RouteDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -162,19 +164,66 @@ const RouteDetailPage = () => {
         style={{ animationDelay: "0.7s", animationFillMode: "forwards" }}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-lg bg-earth-green/20">
-              <Compass size={20} className="text-earth-green-glow" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-earth-green/20">
+                <Compass size={20} className="text-earth-green-glow" />
+              </div>
+              <h2 className="font-display text-2xl tracking-wider">ROUTE MAP</h2>
             </div>
-            <h2 className="font-display text-2xl tracking-wider">ROUTE MAP</h2>
+            
+            {/* Start Route Button */}
+            <StartRouteButton
+              waypoints={routeSpots.map(spot => ({
+                lat: spot.coordinates.lat,
+                lng: spot.coordinates.lng,
+                name: spot.title,
+              }))}
+              className="hidden md:flex"
+            />
           </div>
           
           <RouteMap spots={routeSpots} routeTitle={route.title} />
+
+          {/* Mobile Start Button */}
+          <div className="mt-4 flex justify-center md:hidden">
+            <StartRouteButton
+              waypoints={routeSpots.map(spot => ({
+                lat: spot.coordinates.lat,
+                lng: spot.coordinates.lng,
+                name: spot.title,
+              }))}
+            />
+          </div>
 
           {/* Map Note */}
           <p className="text-xs text-muted-foreground text-center mt-4 tracking-wide">
             📍 Enable GPS for routes from your location • Fallback to Skopje center if unavailable
           </p>
+        </div>
+      </section>
+
+      {/* Weather Section for Route */}
+      <section 
+        className="py-8 px-4 md:px-8 animate-fade-up opacity-0"
+        style={{ animationDelay: "0.75s", animationFillMode: "forwards" }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <Cloud size={20} className="text-mountain-blue" style={{ filter: "drop-shadow(0 0 6px hsl(215 50% 55% / 0.5))" }} />
+            <h2 className="font-display text-xl tracking-wider">WEATHER ALONG THE ROUTE</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {routeSpots.slice(0, 3).map((spot) => (
+              <WeatherWidget
+                key={spot.id}
+                lat={spot.coordinates.lat}
+                lng={spot.coordinates.lng}
+                spotName={spot.title}
+                compact={false}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

@@ -1,11 +1,13 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, MapPin, Lightbulb, Navigation, Route } from "lucide-react";
+import { ArrowLeft, MapPin, Lightbulb, Navigation, Route, Cloud } from "lucide-react";
 import { spots } from "@/data/spots";
 import ImageCarousel from "@/components/ImageCarousel";
 import { SpotDetailMap } from "@/components/SpotMap";
 import FavoriteButton from "@/components/FavoriteButton";
 import ShareButtons from "@/components/ShareButtons";
 import ScenicRoute from "@/components/ScenicRoute";
+import WeatherWidget from "@/components/WeatherWidget";
+import StartDrivingButton from "@/components/StartDrivingButton";
 import { useState } from "react";
 
 const SpotDetailPage = () => {
@@ -78,7 +80,27 @@ const SpotDetailPage = () => {
             <span className="font-medium">Route from Your Location</span>
           </button>
 
+          <StartDrivingButton
+            destinationLat={spot.coordinates.lat}
+            destinationLng={spot.coordinates.lng}
+            destinationName={spot.title}
+            variant="secondary"
+          />
+
           <ShareButtons variant="compact" spotName={spot.title} />
+        </div>
+
+        {/* Weather Widget */}
+        <div className="mb-8 animate-fade-up">
+          <div className="flex items-center gap-2 mb-3">
+            <Cloud size={18} className="text-mountain-blue" style={{ filter: "drop-shadow(0 0 6px hsl(215 50% 55% / 0.5))" }} />
+            <h3 className="font-display text-lg tracking-wide">CURRENT CONDITIONS</h3>
+          </div>
+          <WeatherWidget 
+            lat={spot.coordinates.lat} 
+            lng={spot.coordinates.lng} 
+            spotName={spot.title}
+          />
         </div>
 
         {/* Quick Info Note */}
@@ -88,7 +110,6 @@ const SpotDetailPage = () => {
             Uses your GPS location as start point. No permission? Falls back to Skopje center.
           </p>
         </div>
-
         {/* Ride Summary - Shows when Plan Ride is clicked */}
         {showRideSummary && (
           <div className="mb-8 p-5 rounded-xl bg-mountain-blue/20 border border-mountain-blue/30 animate-fade-up">

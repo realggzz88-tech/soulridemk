@@ -3,7 +3,8 @@ import { spots, type Region } from "@/data/spots";
 import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
 import { SpotsOverviewMap } from "@/components/SpotMap";
-import { Map } from "lucide-react";
+import SpotSearch from "@/components/SpotSearch";
+import { Map, Search } from "lucide-react";
 
 const SpotsPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -42,16 +43,24 @@ const SpotsPage = () => {
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-4 animate-fade-up">
             EXPLORE SPOTS
           </h1>
           <p
-            className="text-muted-foreground max-w-2xl mx-auto animate-fade-up opacity-0"
+            className="text-muted-foreground max-w-2xl mx-auto animate-fade-up opacity-0 mb-6"
             style={{ animationDelay: "0.1s" }}
           >
             {filteredSpots.length} handpicked destinations across North Macedonia where the road becomes poetry
           </p>
+          
+          {/* Search Bar */}
+          <div 
+            className="flex justify-center animate-fade-up opacity-0"
+            style={{ animationDelay: "0.12s" }}
+          >
+            <SpotSearch />
+          </div>
         </div>
 
         {/* Overview Map */}
@@ -64,6 +73,7 @@ const SpotsPage = () => {
             <h2 className="font-display text-xl tracking-wide">
               {selectedRegion === "All" ? "ALL LOCATIONS" : `${selectedRegion.toUpperCase()}ERN MACEDONIA`}
             </h2>
+            <span className="text-xs text-muted-foreground ml-2">(Click clusters to expand)</span>
           </div>
           <SpotsOverviewMap spots={filteredSpots} />
         </div>
