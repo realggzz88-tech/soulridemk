@@ -3,7 +3,8 @@ import { getRouteById, routes } from "@/data/routes";
 import { spots as allSpots } from "@/data/spots";
 import { 
   ArrowLeft, Clock, MapPin, Mountain, ChevronRight, Star, Navigation, 
-  Share2, Copy, Compass, AlertTriangle, Check, Utensils, Route, Eye, Info
+  Share2, Copy, Compass, AlertTriangle, Check, Utensils, Route, Eye, Info,
+  Fuel, Sun, TrendingUp, Coffee, Bed, Camera
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
@@ -175,136 +176,208 @@ const RouteDetailPage = () => {
 
       {/* Clean Information Sections */}
       <section className="py-10 px-4 md:px-8 bg-gradient-to-b from-secondary/20 to-background">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto">
           
-          {/* Section 1: Views & Spots on This Route */}
-          <div className="lg:col-span-2">
-            <div className="gradient-border rounded-xl p-[1px]">
-              <div className="bg-card rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-5">
-                  <Eye size={20} className="text-soul-amber" style={{ filter: "drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))" }} />
-                  <h3 className="font-display text-xl tracking-wider text-gradient-card">
-                    VIEWS & SPOTS ON THIS ROUTE
-                  </h3>
-                </div>
-                
-                <ol className="space-y-4">
-                  {routeSpots.map((spot, index) => (
-                    <li key={spot.id} className="flex gap-4 group">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-earth-green to-soul-amber flex items-center justify-center font-display text-sm text-primary-foreground shadow-[0_0_15px_hsl(32_85%_52%/0.3)]">
-                        {index + 1}
-                      </div>
-                      <div className="flex-1 pb-4 border-b border-border/30 last:border-0 last:pb-0">
-                        <Link 
-                          to={`/spots/${spot.id}`}
-                          className="font-display text-lg tracking-wide text-foreground group-hover:text-earth-green-glow transition-colors"
-                        >
-                          {spot.title}
-                        </Link>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {route.thingsToDo[spot.id] || spot.poeticTagline}
-                        </p>
-                      </div>
-                      <Link 
-                        to={`/spots/${spot.id}`}
-                        className="flex-shrink-0 self-start p-2 rounded-full bg-earth-green/10 text-earth-green-glow opacity-0 group-hover:opacity-100 transition-all hover:bg-earth-green/20"
-                      >
-                        <ChevronRight size={16} />
-                      </Link>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
+          {/* Poetic Intro */}
+          <div className="text-center mb-10">
+            <p className="text-earth-green-glow italic text-lg tracking-wide">
+              ✦ Savor the soul of the ride with these stops ✦
+            </p>
           </div>
 
-          {/* Section 2: Places to Eat & Rest */}
-          <div>
-            <div className="gradient-border rounded-xl p-[1px]">
-              <div className="bg-card rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-5">
-                  <Utensils size={20} className="text-earth-green-glow" style={{ filter: "drop-shadow(0 0 6px hsl(160 50% 45% / 0.5))" }} />
-                  <h3 className="font-display text-lg tracking-wider text-gradient-card">
-                    PLACES TO EAT & REST
-                  </h3>
+          <div className="grid lg:grid-cols-3 gap-8">
+            
+            {/* Section 1: Views & Spots on This Route */}
+            <div className="lg:col-span-2">
+              <div className="gradient-border rounded-xl p-[1px]">
+                <div className="bg-card rounded-xl p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Eye size={20} className="text-soul-amber" style={{ filter: "drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))" }} />
+                    <h3 className="font-display text-xl tracking-wider text-gradient-card">
+                      VIEWS & SPOTS ON THIS ROUTE
+                    </h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-5 ml-8">
+                    Scenic viewpoints in sequence — each a reason to pause
+                  </p>
+                  
+                  <div className="space-y-0">
+                    {routeSpots.map((spot, index) => (
+                      <div key={spot.id}>
+                        {/* Spot Item */}
+                        <div className="flex gap-4 group py-4">
+                          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-earth-green to-soul-amber flex items-center justify-center font-display text-base text-primary-foreground shadow-[0_0_15px_hsl(32_85%_52%/0.3)]">
+                            {index + 1}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Camera size={14} className="text-soul-amber" />
+                              <Link 
+                                to={`/spots/${spot.id}`}
+                                className="font-display text-lg tracking-wide text-foreground group-hover:text-earth-green-glow transition-colors"
+                              >
+                                {spot.title}
+                              </Link>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {route.thingsToDo[spot.id] || spot.poeticTagline}
+                            </p>
+                          </div>
+                          <Link 
+                            to={`/spots/${spot.id}`}
+                            className="flex-shrink-0 self-center p-2 rounded-full bg-earth-green/10 text-earth-green-glow opacity-60 group-hover:opacity-100 transition-all hover:bg-earth-green/20"
+                          >
+                            <ChevronRight size={16} />
+                          </Link>
+                        </div>
+                        
+                        {/* Distance indicator between stops */}
+                        {index < routeSpots.length - 1 && (
+                          <div className="flex items-center gap-3 ml-5 py-2">
+                            <div className="w-[2px] h-6 bg-gradient-to-b from-earth-green/50 to-soul-amber/50 rounded-full" />
+                            <span className="text-xs text-muted-foreground italic flex items-center gap-1.5">
+                              <Route size={10} className="text-earth-green-glow" />
+                              ~{15 + index * 8} km of scenic road
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                
-                <ul className="space-y-4">
-                  {route.eatAndRest.map((place, index) => (
-                    <li key={index} className="pb-3 border-b border-border/30 last:border-0 last:pb-0">
-                      <h4 className="font-medium text-foreground flex items-start gap-2">
-                        <Star size={14} className="text-soul-amber mt-0.5 flex-shrink-0" />
-                        {place.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mt-1 ml-5 italic">
-                        {place.description}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+              </div>
+            </div>
+
+            {/* Section 2: Places to Eat & Rest */}
+            <div>
+              <div className="gradient-border rounded-xl p-[1px] h-full">
+                <div className="bg-card rounded-xl p-6 h-full">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Coffee size={20} className="text-earth-green-glow" style={{ filter: "drop-shadow(0 0 6px hsl(160 50% 45% / 0.5))" }} />
+                    <h3 className="font-display text-lg tracking-wider text-gradient-card">
+                      EAT & REST STOPS
+                    </h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-5 ml-8">
+                    Refuel body and soul along the way
+                  </p>
+                  
+                  <ul className="space-y-4">
+                    {route.eatAndRest.map((place, index) => {
+                      // Determine icon based on description
+                      const isRest = place.description.toLowerCase().includes('rest') || 
+                                     place.description.toLowerCase().includes('stay') ||
+                                     place.description.toLowerCase().includes('hut');
+                      const IconComponent = isRest ? Bed : Utensils;
+                      
+                      return (
+                        <li key={index} className="pb-4 border-b border-border/30 last:border-0 last:pb-0">
+                          <div className="flex items-start gap-2">
+                            <div className="p-1.5 rounded-lg bg-soul-amber/10 mt-0.5">
+                              <IconComponent size={14} className="text-soul-amber" />
+                            </div>
+                            <div>
+                              <h4 className="font-medium text-foreground text-sm">
+                                {place.name}
+                              </h4>
+                              <p className="text-xs text-muted-foreground mt-1 italic leading-relaxed">
+                                {place.description}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 3: Route Details */}
+      {/* Section 3: Route Details - Enhanced with icons */}
       <section className="py-10 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Route Technical Details */}
             <div className="gradient-border rounded-xl p-[1px]">
               <div className="bg-card rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-5">
+                <div className="flex items-center gap-3 mb-2">
                   <Route size={20} className="text-mountain-blue" style={{ filter: "drop-shadow(0 0 6px hsl(215 50% 55% / 0.5))" }} />
                   <h3 className="font-display text-lg tracking-wider text-gradient-card">
-                    ROUTE DETAILS
+                    ROUTE ESSENTIALS
                   </h3>
                 </div>
+                <p className="text-xs text-muted-foreground mb-5 ml-8">
+                  Know the road before you ride
+                </p>
                 
-                <ul className="space-y-3">
-                  <li className="flex justify-between text-sm py-2 border-b border-border/20">
-                    <span className="text-muted-foreground">Distance</span>
+                {/* Table-style details */}
+                <div className="space-y-0 border border-border/30 rounded-lg overflow-hidden">
+                  <div className="flex items-center justify-between text-sm py-3 px-4 bg-muted/10 border-b border-border/20">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <MapPin size={14} className="text-soul-amber" />
+                      Distance
+                    </span>
                     <span className="font-medium text-foreground">{route.distance}</span>
-                  </li>
-                  <li className="flex justify-between text-sm py-2 border-b border-border/20">
-                    <span className="text-muted-foreground">Duration</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm py-3 px-4 border-b border-border/20">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <Clock size={14} className="text-earth-green-glow" />
+                      Duration
+                    </span>
                     <span className="font-medium text-foreground">{route.duration}</span>
-                  </li>
-                  <li className="flex justify-between text-sm py-2 border-b border-border/20">
-                    <span className="text-muted-foreground">Elevation</span>
-                    <span className="font-medium text-foreground">{route.routeDetails.elevation}</span>
-                  </li>
-                  <li className="flex justify-between text-sm py-2 border-b border-border/20">
-                    <span className="text-muted-foreground">Road Condition</span>
-                    <span className="font-medium text-foreground text-right max-w-[60%]">{route.routeDetails.roadCondition}</span>
-                  </li>
-                  <li className="flex justify-between text-sm py-2 border-b border-border/20">
-                    <span className="text-muted-foreground">Best Season</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm py-3 px-4 bg-muted/10 border-b border-border/20">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <TrendingUp size={14} className="text-mountain-blue" />
+                      Elevation
+                    </span>
+                    <span className="font-medium text-foreground text-right max-w-[55%]">{route.routeDetails.elevation}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm py-3 px-4 border-b border-border/20">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <Route size={14} className="text-muted-foreground" />
+                      Road
+                    </span>
+                    <span className="font-medium text-foreground text-right max-w-[55%]">{route.routeDetails.roadCondition}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm py-3 px-4 bg-muted/10 border-b border-border/20">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <Sun size={14} className="text-soul-amber" />
+                      Best Season
+                    </span>
                     <span className="font-medium text-earth-green-glow">{route.routeDetails.bestSeason}</span>
-                  </li>
-                  <li className="flex justify-between text-sm py-2">
-                    <span className="text-muted-foreground">Fuel Stops</span>
-                    <span className="font-medium text-soul-amber text-right max-w-[60%]">{route.routeDetails.fuelStops}</span>
-                  </li>
-                </ul>
+                  </div>
+                  <div className="flex items-center justify-between text-sm py-3 px-4">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                      <Fuel size={14} className="text-destructive" />
+                      Fuel
+                    </span>
+                    <span className="font-medium text-soul-amber text-right max-w-[55%]">{route.routeDetails.fuelStops}</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Rider Tips */}
             <div className="gradient-border rounded-xl p-[1px]">
               <div className="bg-card rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-5">
+                <div className="flex items-center gap-3 mb-2">
                   <AlertTriangle size={20} className="text-soul-amber" style={{ filter: "drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))" }} />
                   <h3 className="font-display text-lg tracking-wider text-soul-amber">
                     RIDER TIPS
                   </h3>
                 </div>
+                <p className="text-xs text-muted-foreground mb-5 ml-8">
+                  Wisdom from those who've ridden before
+                </p>
                 
                 <ul className="space-y-3">
                   {route.riderTips.map((tip, index) => (
-                    <li key={index} className="flex items-start gap-3 text-sm">
-                      <span className="text-earth-green-glow mt-0.5">•</span>
+                    <li key={index} className="flex items-start gap-3 text-sm p-3 rounded-lg bg-soul-amber/5 border border-soul-amber/10">
+                      <span className="text-soul-amber font-display mt-0.5">{index + 1}.</span>
                       <span className="text-foreground/90">{tip}</span>
                     </li>
                   ))}
@@ -334,7 +407,7 @@ const RouteDetailPage = () => {
           <h2 className="font-display text-2xl tracking-wider mb-8 text-center text-gradient-subtle">
             MORE SOUL ROUTES
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
             {routes
               .filter(r => r.id !== route.id)
               .slice(0, 3)
@@ -362,6 +435,18 @@ const RouteDetailPage = () => {
                   </div>
                 </Link>
               ))}
+          </div>
+
+          {/* Back to Routes Button */}
+          <div className="flex justify-center">
+            <Link
+              to="/"
+              className="group flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-earth-green/20 via-muted/30 to-soul-amber/20 border border-border/50 hover:border-earth-green/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(160_40%_28%/0.3)]"
+            >
+              <ArrowLeft size={18} className="text-earth-green-glow group-hover:-translate-x-1 transition-transform" />
+              <span className="font-display tracking-wider text-foreground">BACK TO ALL ROUTES</span>
+              <Compass size={16} className="text-soul-amber" />
+            </Link>
           </div>
         </div>
       </section>
