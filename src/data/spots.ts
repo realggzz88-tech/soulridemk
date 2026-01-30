@@ -25,9 +25,11 @@ export const spots: Spot[] = [
     tags: ["Views", "Roads", "Mountain"],
     region: "West",
     images: [
-      "https://www.ekorna.com/wp-content/uploads/2020/11/galicica-north-macedonia.jpg",
-      "https://live.staticflickr.com/65535/52934472375_d6c6568086_c.jpg",
-      "https://live.staticflickr.com/65535/52934077281_70fd62bf5f_c.jpg",
+      "https://ourwanders.com/wp-content/uploads/2023/06/YourGuideToGalicicaNationalPark_NorthMacedonia_featured.jpg",
+      "https://peakvisor.com/photo/HD/National-Park-Galichica-lake-ohrid-near-galicica-park-1012289467.jpg",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/94/1b/97/caption.jpg?w=900&h=500&s=1",
+      "https://thumbs.dreamstime.com/b/view-landscape-galicica-mountain-north-macedonia-landscape-galicica-mountain-298247021.jpg",
+      "https://macedonia-timeless.com/wp-content/uploads/2018/08/galicica.jpg",
     ],
     riderTips: [
       "Dawn rides offer mystical mist that weaves between peaks like spirits dancing",
@@ -46,7 +48,10 @@ export const spots: Spot[] = [
     region: "West",
     images: [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/35/4e/b6/caption.jpg?w=1200&h=1200&s=1",
-      "https://gte-gcms.images.tshiftcdn.com/AI0DIWHkBQZyx6oBkSd3hz/AI0DIWHkBQZyx6oBkSd3hz/resize=width:2048,fit:max/MmcGLilNQMKmdINbwedd?crop=1.91%3A1&fit=crop&width=1200",
+      "https://c8.alamy.com/comp/RNR9DJ/vevcani-springs-vevcani-macedonia-RNR9DJ.jpg",
+      "https://gte-gcms.images.tshiftcdn.com/AI0DIWHkBQZyx6oBkSd3hz/resize=width:2048,fit:max/MmcGLilNQMKmdINbwedd",
+      "https://c8.alamy.com/comp/2WJEW0T/343-high-rate-flow-of-water-from-vevcani-springs-running-from-from-jablanica-mountain-then-flowing-through-the-village-vevchani-north-macedonia-2WJEW0T.jpg",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/94/1b/97/caption.jpg?w=900&h=500&s=1",
     ],
     riderTips: [
       "January's carnival transforms the village into a surreal dream of masks and fire",
@@ -64,7 +69,10 @@ export const spots: Spot[] = [
     tags: ["Views", "Roads", "Nature"],
     region: "West",
     images: [
-      "https://d3w13n53foase7.cloudfront.net/medium_07438953_f740_4eff_bb6d_aceb7f57a625_ggia_65394f0cdb.jpg",
+      "https://live.staticflickr.com/65535/53544878928_bb34f6dd19_h.jpg",
+      "https://macedonia-timeless.com/wp-content/uploads/2018/09/mavrovsko-ezero.jpg",
+      "https://peakvisor.com/photo/SD/Mavrovo-National-Park-Albania.jpg",
+      "https://www.takeyourbackpack.com/CONTENT/countries/North%20Macedonia/photos/1536/pixabay%20-%20macedonia-1002174.jpg.webp",
       "https://live.staticflickr.com/65535/51502919532_377b2696d1_b.jpg",
     ],
     riderTips: [
@@ -83,6 +91,9 @@ export const spots: Spot[] = [
     tags: ["Views", "Food Stops", "Nature"],
     region: "West",
     images: [
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/e8/7a/ac/caption.jpg?w=1200&h=-1&s=1",
+      "https://airial.travel/_next/image?url=https%3A%2F%2Fcoinventmediastorage.blob.core.windows.net%2Fmedia-storage-container%2Fgphoto_ChIJxwS9u7rAUBMRwqpmIUk1NMc_0.jpg&w=3840&q=75",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/e8/7a/ac/caption.jpg?w=1200&h=-1&s=1",
       "https://airial.travel/_next/image?url=https%3A%2F%2Fcoinventmediastorage.blob.core.windows.net%2Fmedia-storage-container%2Fgphoto_ChIJxwS9u7rAUBMRwqpmIUk1NMc_0.jpg&w=3840&q=75",
     ],
     riderTips: [
@@ -101,8 +112,11 @@ export const spots: Spot[] = [
     tags: ["Views", "Roads", "Mountain"],
     region: "West",
     images: [
-      "https://live.staticflickr.com/65535/51326924065_2bcb5d2f75_b.jpg",
+      "https://www.discoveringmacedonia.com/wp-content/uploads/2018/02/pelister-baba-mountain-macedonia-2.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
+      "https://miro.medium.com/v2/resize:fit:1400/1*uelJxPTDgQq8xES76NDrhw.jpeg",
       "https://live.staticflickr.com/65535/52228320876_3a3d75ac2e_c.jpg",
+      "https://live.staticflickr.com/65535/51326924065_2bcb5d2f75_b.jpg",
     ],
     riderTips: [
       "Mountain weather writes its own rules—pack layers even in summer",
@@ -122,6 +136,8 @@ export const spots: Spot[] = [
     images: [
       "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
       "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+      "https://meta.mk/wp-content/uploads/2021/06/prespansko-ezero-nedostig-na-voda-susa-1-1024x768.jpg",
+      "https://www.greecetravel.com/macedonia/prespes/little-prespa.jpg",
     ],
     riderTips: [
       "Dawn brings pelican flights—patience rewards the early rider",
@@ -141,6 +157,8 @@ export const spots: Spot[] = [
     images: [
       "https://static.wixstatic.com/media/607f0d_26bafa29d91a497a99dd2640e89faa54~mv2.jpg/v1/fill/w_980,h_747,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/607f0d_26bafa29d91a497a99dd2640e89faa54~mv2.jpg",
       "https://www.takeyourbackpack.com/CONTENT/countries/North%20Macedonia/photos/1536/pixabay%20-%20macedonia-1002174.jpg.webp",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/94/1b/97/caption.jpg?w=900&h=500&s=1",
+      "https://macedonia-timeless.com/wp-content/uploads/2018/08/galicica.jpg",
     ],
     riderTips: [
       "Sunset from the fortress turns the lake into molten gold—arrive early for the best perch",
@@ -160,6 +178,8 @@ export const spots: Spot[] = [
     images: [
       "https://cdn.shopify.com/s/files/1/0568/3036/1781/files/SKR2023_K4A7802_2048x2048.jpg?v=1688416183",
       "https://www.twistingspokes.com/wp-content/uploads/2015/09/DSC05355.jpg",
+      "https://peakvisor.com/photo/SD/Mavrovo-National-Park-Albania.jpg",
+      "https://macedonia-timeless.com/wp-content/uploads/2018/09/mavrovsko-ezero.jpg",
     ],
     riderTips: [
       "Weather shifts without warning—waterproofs aren't optional, they're survival gear",
@@ -167,6 +187,49 @@ export const spots: Spot[] = [
       "Respect the shepherds' right of way—their flocks own these roads by ancestry",
     ],
     coordinates: { lat: 41.62, lng: 20.58 },
+  },
+  {
+    id: "sv-naum-monastery",
+    title: "Sv. Naum Monastery",
+    description: "Lakeside spiritual oasis where peacocks roam ancient grounds and springs bubble up from the depths of legend.",
+    poeticTagline: "Where heaven touches the shore",
+    longDescription: "At the southern edge of Lake Ohrid, where North Macedonia ends and Albania begins, stands one of the Balkans' most enchanting monasteries. Saint Naum founded this sanctuary over a millennium ago, and his spirit still seems to animate every peacock that struts through the gardens, every spring that bubbles up from the underground river feeding the lake. The road here follows the lakeshore through landscapes that defy season—lush in summer, golden in autumn, hauntingly beautiful under winter snow. At the monastery, boat rides take you to the springs where turquoise waters emerge from the earth like liquid gemstones. The church holds the saint's tomb, and locals swear that pressing your ear to the stone lets you hear his heartbeat still echoing across centuries.",
+    tags: ["Cultural", "Nature", "Views"],
+    region: "West",
+    images: [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+      "https://www.europaadventure.com/wp-content/uploads/2025/02/treskavec2.jpg",
+      "https://www.mywanderlust.pl/wp-content/uploads/2020/06/matka-canyon-1.jpg",
+    ],
+    riderTips: [
+      "The springs boat ride is worth every moment—arrive early to beat tour groups",
+      "Peacocks are territorial—admire from a respectful distance",
+      "The restaurant overlooking the lake serves trout so fresh it was swimming that morning",
+    ],
+    coordinates: { lat: 40.91, lng: 20.74 },
+  },
+  {
+    id: "golem-grad-island",
+    title: "Golem Grad Island",
+    description: "Mysterious snake island rising from Prespa's waters, holding Roman ruins and wild reptilian guardians.",
+    poeticTagline: "Where serpents guard ancient secrets",
+    longDescription: "Rising from Lake Prespa like a dream made stone, Golem Grad—the Great City—is one of the Balkans' strangest destinations. This uninhabited island holds Roman ruins, Byzantine basilicas, and a population of water snakes that have ruled here undisturbed for centuries. The road to the departure point winds through apple orchards and fishing villages frozen in time. The boat crossing builds anticipation as the island grows larger, revealing forested slopes hiding architectural secrets. Once ashore, you walk among temples where emperors once worshipped, walls where monks once prayed, and countless serpents that slither between stones with an ancient right of residence. This is nature reclaiming what humanity abandoned—a reminder that our monuments are temporary, but the wild always waits.",
+    tags: ["Adventure", "Nature", "Hidden Gem"],
+    region: "West",
+    images: [
+      "https://static.euronews.com/articles/stories/08/57/96/04/1440x810_cmsv2_496958ef-277c-5baf-bbdb-26e588abb2fa-8579604.jpg",
+      "https://meta.mk/wp-content/uploads/2021/06/prespansko-ezero-nedostig-na-voda-susa-1-1024x768.jpg",
+      "https://www.greecetravel.com/macedonia/prespes/little-prespa.jpg",
+      "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/LDX3PUIRGNIGTPPDFMJUEVDHNU.jpg",
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+    ],
+    riderTips: [
+      "Boats depart from Konjsko or Stenje—check seasonal schedules in advance",
+      "The snakes are harmless but numerous—wear closed shoes and watch your step",
+      "Bring water and snacks—the island has no facilities whatsoever",
+    ],
+    coordinates: { lat: 40.87, lng: 20.98 },
   },
 
   // CENTRAL REGION - Skopje/Prilep/Veles area
@@ -179,8 +242,11 @@ export const spots: Spot[] = [
     tags: ["Views", "Cultural", "Adventure"],
     region: "Central",
     images: [
-      "https://www.mywanderlust.pl/wp-content/uploads/2020/06/matka-canyon-1.jpg",
-      "https://adventurousmiriam.com/wp-content/uploads/2020/01/45662628464_553abbf66a_c.jpg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/7f1dd888b74ba0994170b1dae71ccbd0e76c2a6a88c29cfc84517eded3ebf2b0.jpeg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/caa887da211afe7f3b71d7e43a2ea5c17d6990b0b41e9bfadc12d24080a57958.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/12/80/2c/e1.jpg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/60fdac78597a2.jpeg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/2e2e9a708f1bf8e2.jpeg",
     ],
     riderTips: [
       "Sunrise beats the kayak crowds and paints the canyon walls in gold",
@@ -201,6 +267,7 @@ export const spots: Spot[] = [
       "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
       "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
       "https://www.europaadventure.com/wp-content/uploads/2025/02/treskavec2.jpg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/caa887da211afe7f3b71d7e43a2ea5c17d6990b0b41e9bfadc12d24080a57958.jpg",
     ],
     riderTips: [
       "The final kilometers demand adventure-ready tires and unwavering focus",
@@ -208,6 +275,133 @@ export const spots: Spot[] = [
       "Sunrise illuminates the frescoes with light the painters intended",
     ],
     coordinates: { lat: 41.28, lng: 21.35 },
+  },
+  {
+    id: "kozjak-lake",
+    title: "Kozjak Lake",
+    description: "Serene reservoir nestled in wild canyon country, where turquoise waters mirror untouched mountain wilderness.",
+    poeticTagline: "Where stillness reflects infinity",
+    longDescription: "Hidden upstream from Matka Canyon, Kozjak Lake represents the quieter, more contemplative side of the Treska River valley. This reservoir, created by a dam that tamed once-wild waters, has evolved into something unexpectedly beautiful—a turquoise gem set in limestone walls that rise like natural fortresses. The road here rewards patient riders: narrow, winding, occasionally challenging, but offering vistas that make every careful turn worthwhile. At the water's edge, silence reigns. Kayakers occasionally disturb the mirror surface, but mostly, this is a place for reflection in both senses. The surrounding cliffs host caves and climbing routes, but most visitors simply sit, gaze at the improbably colored water, and wonder how such beauty hides so close to a capital city.",
+    tags: ["Nature", "Views", "Hidden Gem"],
+    region: "Central",
+    images: [
+      "https://d3w13n53foase7.cloudfront.net/medium_07438953_f740_4eff_bb6d_aceb7f57a625_ggia_65394f0cdb.jpg",
+      "https://live.staticflickr.com/65535/51502919532_377b2696d1_b.jpg",
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+      "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+    ],
+    riderTips: [
+      "The road from Matka continues to Kozjak—make it a double feature ride",
+      "Early mornings offer the most mirror-like water reflections",
+      "Swimming is permitted in designated areas—bring gear in summer",
+    ],
+    coordinates: { lat: 41.98, lng: 21.28 },
+  },
+  {
+    id: "krushevo-paragliding",
+    title: "Krushevo Paragliding Spot",
+    description: "Macedonia's highest town offers aerial perspectives for those who dare to leave the ground behind.",
+    poeticTagline: "Where roads end and wings begin",
+    longDescription: "Krushevo sits at 1,350 meters, making it North Macedonia's highest town and a legendary destination for paragliders worldwide. The road up is itself a destination—switchbacks climbing through pastoral landscapes toward a town that seems to touch the clouds. The Ilinden monument crowns the town, a brutalist spaceship commemorating a rebellion that briefly created Europe's first republic. But it's the sky that draws most visitors here. From the launch sites above town, paragliders sail on thermals that rise from sun-warmed valleys, circling above a landscape that encompasses much of western Macedonia. Even if you never leave the ground, watching these human birds find freedom in air currents you can't see reminds you that perspective changes everything.",
+    tags: ["Adventure", "Views", "Mountain"],
+    region: "Central",
+    images: [
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+      "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+    ],
+    riderTips: [
+      "The climb to Krushevo tests engines and riders alike—check your cooling system",
+      "Tandem paragliding flights available for the uninitiated—book in advance",
+      "The Ilinden monument offers panoramic views without leaving earth",
+    ],
+    coordinates: { lat: 41.37, lng: 21.25 },
+  },
+  {
+    id: "demir-kapija-gorge",
+    title: "Demir Kapija Vardar Gorge",
+    description: "Iron Gate gorge where the Vardar River carved through mountains, creating limestone walls for rock climbing and kayaking.",
+    poeticTagline: "Where rivers break mountains",
+    longDescription: "The name means 'Iron Gate,' and when you see the towering limestone walls through which the Vardar River forced its passage, you understand why. This is geology as drama—vertical cliffs rising hundreds of meters, carved by water's patient insistence over millennia. The road through the gorge ranks among the Balkans' most dramatic rides: tunnels punch through solid rock, bridges span the rushing river, and around every curve, new walls of stone rise to frame the sky. For adventurers, the cliffs offer world-class rock climbing; the river provides challenging kayaking when the spring melt runs high. But even viewed from the saddle, Demir Kapija demonstrates nature's power to reshape the world. Mountains bend to water. Stone yields to persistence. Some doors, once opened, can never close.",
+    tags: ["Roads", "Adventure", "Nature"],
+    region: "Central",
+    images: [
+      "https://adventurousmiriam.com/wp-content/uploads/2020/01/45662628464_553abbf66a_c.jpg",
+      "https://www.mywanderlust.pl/wp-content/uploads/2020/06/matka-canyon-1.jpg",
+      "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/caa887da211afe7f3b71d7e43a2ea5c17d6990b0b41e9bfadc12d24080a57958.jpg",
+      "https://adventurousmiriam.com/wp-content/uploads/2020/01/45662628464_553abbf66a_c.jpg",
+    ],
+    riderTips: [
+      "The gorge road offers limited stopping points—scout safe pull-offs carefully",
+      "Local wineries near the southern exit produce excellent Vranec reds",
+      "Morning light illuminates the eastern cliffs in stunning gold",
+    ],
+    coordinates: { lat: 41.4, lng: 22.0 },
+  },
+  {
+    id: "popova-kula-winery",
+    title: "Popova Kula Winery",
+    description: "Vineyard-draped hills where soulful rosé and ancient Vranec grapes tell stories of sun-soaked terroir.",
+    poeticTagline: "Where wine speaks and riders listen",
+    longDescription: "In the hills near Demir Kapija, where the Vardar River valley creates a microclimate perfect for grapes, Popova Kula has elevated Macedonian winemaking to an art form. The road here winds through terraced vineyards that seem to glow green against the region's characteristic red earth. The winery itself combines ancient winemaking traditions with modern vision, producing wines—especially their signature Vranec and rosé—that compete with the world's best. For riders, this represents a different kind of journey: a pause in motion, an appreciation of place expressed through taste rather than throttle. The tasting room overlooks endless vineyard rows, and each sip tells the story of this particular soil, this specific sun, this unique corner of a country that has grown wine for millennia.",
+    tags: ["Food Stops", "Views", "Cultural"],
+    region: "Central",
+    images: [
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+      "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+      "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+    ],
+    riderTips: [
+      "Designate a sober rider or book accommodation nearby—the wines demand appreciation",
+      "Sunset tastings on the terrace pair perfectly with local cheese boards",
+      "The estate sometimes hosts harvest events—check their calendar",
+    ],
+    coordinates: { lat: 41.42, lng: 22.02 },
+  },
+  {
+    id: "burial-mound-unbeaten",
+    title: "Burial Mound of the Unbeaten",
+    description: "Brutalist spomenik rising from Prilep's hills, where stark architecture honors partisan sacrifice.",
+    poeticTagline: "Where memory takes monumental form",
+    longDescription: "On a hill overlooking Prilep, one of Yugoslavia's most dramatic spomeniks—memorial monuments—rises like a concrete dream against the Macedonian sky. The Makedonium, also known as the Burial Mound of the Unbeaten, commemorates the partisan resistance with architecture that challenges every expectation. Circles of concrete, walls of geometric precision, and spaces that somehow combine triumph with mourning create an experience unlike any other memorial on Earth. The road up passes through tobacco fields and orchards before reaching this otherworldly structure. Inside, acoustic effects amplify every sound; outside, panoramic views encompass the entire Prilep valley. Whether you appreciate brutalist architecture or simply seek places that defy categorization, this monument commands attention and respect.",
+    tags: ["Cultural", "Views", "Hidden Gem"],
+    region: "Central",
+    images: [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+      "https://www.europaadventure.com/wp-content/uploads/2025/02/treskavec2.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+    ],
+    riderTips: [
+      "The interior acoustics create eerie echoes—stand in the center and whisper",
+      "Sunset paints the concrete in warm tones impossible during harsh daylight",
+      "Combine with Treskavec Monastery for a full day of Prilep-area exploration",
+    ],
+    coordinates: { lat: 41.32, lng: 21.53 },
+  },
+  {
+    id: "markos-towers",
+    title: "Marko's Towers",
+    description: "Medieval fortress remnants where legendary King Marko once ruled, offering epic hiking through history.",
+    poeticTagline: "Where legends left their footprints",
+    longDescription: "Above Prilep, the dramatic rock formations known as Marko's Towers hold the ruins of a medieval fortress associated with one of the Balkans' most legendary figures. Prince Marko—part historical ruler, part mythological hero—features in folk songs throughout the region as a champion of justice riding his magical horse Šarac. The fortress that bears his name clings to impossible granite spires, demanding a hike that tests legs and rewards souls. The road brings you close, but the final ascent requires feet. Among the towers, wind carries whispers of battles fought and legends born. Views extend to horizons that once marked the boundaries of kingdoms now remembered only in song. Whether you believe in heroes or not, standing where Marko stood, you'll understand why some figures transcend mere history.",
+    tags: ["Fortress", "Adventure", "Cultural"],
+    region: "Central",
+    images: [
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+      "https://www.europaadventure.com/wp-content/uploads/2025/02/treskavec2.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
+    ],
+    riderTips: [
+      "The hike to the towers takes 45-60 minutes—budget time and water accordingly",
+      "Sturdy footwear is essential—the granite is unforgiving to slips",
+      "Local guides can share Marko legends that bring the stones to life",
+    ],
+    coordinates: { lat: 41.35, lng: 21.56 },
   },
 
   // EASTERN REGION - Strumica/Berovo/Kratovo area
@@ -223,6 +417,7 @@ export const spots: Spot[] = [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a2/carevi-kuli-panoramic.jpg?w=1200&h=-1&s=1",
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a1/carevi-kuli-panoramic.jpg?w=900&h=500&s=1",
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a0/carevi-kuli-panoramic.jpg?w=900&h=500&s=1",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
     ],
     riderTips: [
       "Golden hour transforms the ruins into amber-lit poetry—time your arrival",
@@ -241,6 +436,9 @@ export const spots: Spot[] = [
     region: "East",
     images: [
       "https://macedoniatourism.com/wp-content/uploads/2025/12/Kolesino-Waterfall-1024x683.webp",
+      "https://macedonia-timeless.com/wp-content/uploads/2018/08/strumica-vodopad-kolesinski.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a0/carevi-kuli-panoramic.jpg?w=900&h=500&s=1",
     ],
     riderTips: [
       "Morning mist adds mystique—arrive before the crowds claim the magic",
@@ -260,6 +458,8 @@ export const spots: Spot[] = [
     images: [
       "https://i0.wp.com/2.bp.blogspot.com/-ronjCb_2FBk/W_B1lFJOf9I/AAAAAAAA6gY/pvnyHvY1fG0rEGBDtp-RCSbIsAl3UdGawCLcBGAs/s1600/Smolare_Waterfall_Macedonia%2B%25285%2529.jpg?ssl=1",
       "https://macedonia-timeless.com/wp-content/uploads/2018/08/strumica-vodopad-kolesinski.jpg",
+      "https://macedoniatourism.com/wp-content/uploads/2025/12/Kolesino-Waterfall-1024x683.webp",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a1/carevi-kuli-panoramic.jpg?w=900&h=500&s=1",
     ],
     riderTips: [
       "The approach road features 20+ hairpins—warm up your cornering confidence",
@@ -279,6 +479,8 @@ export const spots: Spot[] = [
     images: [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/e1/8c/55/img-20190611-130626-largejpg.jpg?w=1200&h=-1&s=1",
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/e1/8c/4d/img-20190611-130534-largejpg.jpg?w=900&h=500&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a2/carevi-kuli-panoramic.jpg?w=1200&h=-1&s=1",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/ba.jpg",
     ],
     riderTips: [
       "Dress modestly—this is an active monastery deserving respect",
@@ -298,6 +500,8 @@ export const spots: Spot[] = [
     images: [
       "https://peakvisor.com/photo/SD/Belasitsa-massif-Bulgaria.jpg",
       "https://media.springernature.com/lw685/springer-static/image/art%3A10.1007%2Fs12371-025-01098-1/MediaObjects/12371_2025_1098_Fig10_HTML.jpg",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/48/05/a1/carevi-kuli-panoramic.jpg?w=900&h=500&s=1",
+      "https://i0.wp.com/2.bp.blogspot.com/-ronjCb_2FBk/W_B1lFJOf9I/AAAAAAAA6gY/pvnyHvY1fG0rEGBDtp-RCSbIsAl3UdGawCLcBGAs/s1600/Smolare_Waterfall_Macedonia%2B%25285%2529.jpg?ssl=1",
     ],
     riderTips: [
       "Morning ascents offer cooler temperatures and cleaner mountain air",
@@ -305,6 +509,50 @@ export const spots: Spot[] = [
       "Pack layers: the summit can be 10°C cooler than the valley floor",
     ],
     coordinates: { lat: 41.3125, lng: 22.7456 },
+  },
+  {
+    id: "pelister-national-park",
+    title: "Pelister National Park",
+    description: "Baba Mountain's ancient trails wind through endemic Molika pine forests toward glacial lakes and endless vistas.",
+    poeticTagline: "Where five million years of patience bloom",
+    longDescription: "Macedonia's first national park protects something irreplaceable: the Molika pine, a species that has grown here—and almost nowhere else—for five million years. Riding into Pelister feels like entering a cathedral of living fossils. The road climbs steadily, switching back through forests that predate not just nations but epochs. At higher elevations, the famous 'Eyes of Pelister'—two glacial lakes—reflect skies so blue they seem painted. The park offers trails for those willing to leave wheels behind and continue on foot, leading to peaks where the entire region spreads below like a topographic dream. But even the road itself rewards: each meter of elevation brings new views, new silences, and new appreciation for a landscape that has waited five million years for you to notice.",
+    tags: ["Mountain", "Nature", "Adventure"],
+    region: "West",
+    images: [
+      "https://www.discoveringmacedonia.com/wp-content/uploads/2018/02/pelister-baba-mountain-macedonia-2.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
+      "https://miro.medium.com/v2/resize:fit:1400/1*uelJxPTDgQq8xES76NDrhw.jpeg",
+      "https://live.staticflickr.com/65535/52228320876_3a3d75ac2e_c.jpg",
+      "https://live.staticflickr.com/65535/51326924065_2bcb5d2f75_b.jpg",
+    ],
+    riderTips: [
+      "The glacial lakes require a hike from the road—plan 2-3 hours round trip",
+      "Park facilities include mountain huts for overnight adventures",
+      "Autumn transforms the forests into amber and gold spectacle",
+    ],
+    coordinates: { lat: 41.02, lng: 21.2 },
+  },
+  {
+    id: "kozjak-canyon",
+    title: "Kozjak Canyon",
+    description: "Rugged reservoir country where limestone cliffs embrace turquoise waters in dramatic geological embrace.",
+    poeticTagline: "Where canyons keep secrets",
+    longDescription: "Beyond the more famous Matka lies Kozjak—its quieter, more mysterious sibling. This canyon system, carved by waters now tamed into reservoirs, offers some of central Macedonia's most dramatic landscapes without the crowds. The road follows the water through increasingly tight passages, cliffs rising on both sides until the sky becomes a ribbon overhead. Swimming holes invite summer pauses; climbing routes challenge the vertical-minded; and everywhere, the peculiar silence of canyon country—sounds absorbed by stone, echoes returning unexpected—creates an atmosphere of profound solitude. Kozjak rewards those willing to venture beyond the obvious, to follow roads less marked, to discover that sometimes the greatest beauty hides just past the point where most travelers turn back.",
+    tags: ["Nature", "Adventure", "Hidden Gem"],
+    region: "Central",
+    images: [
+      "https://d3w13n53foase7.cloudfront.net/medium_07438953_f740_4eff_bb6d_aceb7f57a625_ggia_65394f0cdb.jpg",
+      "https://live.staticflickr.com/65535/51502919532_377b2696d1_b.jpg",
+      "https://thumbs.dreamstime.com/b/beautiful-lake-scene-prespa-macedonia-116082243.jpg",
+      "https://thumbs.dreamstime.com/z/pier-lake-prespa-north-macedonia-382666365.jpg",
+      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0b/d6/3c/e2.jpg",
+    ],
+    riderTips: [
+      "The canyon road can be rough in sections—adventure-ready tires recommended",
+      "Bring swimming gear in summer—hidden pools await the prepared",
+      "Respect private land markers—some access requires local permission",
+    ],
+    coordinates: { lat: 41.99, lng: 21.25 },
   },
 ];
 
