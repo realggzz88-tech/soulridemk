@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { spots, type Region } from "@/data/spots";
 import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
@@ -7,6 +7,10 @@ import SpotSearch from "@/components/SpotSearch";
 import { Map, Search } from "lucide-react";
 
 const SpotsPage = () => {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<Region>("All");
 
