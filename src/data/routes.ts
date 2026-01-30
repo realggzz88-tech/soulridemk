@@ -14,6 +14,13 @@ export interface Route {
   activities: string[];
   riderTips: string[];
   thingsToDo: { [spotId: string]: string };
+  eatAndRest: { name: string; description: string }[];
+  routeDetails: {
+    elevation: string;
+    roadCondition: string;
+    bestSeason: string;
+    fuelStops: string;
+  };
 }
 
 export const routes: Route[] = [
@@ -52,6 +59,17 @@ export const routes: Route[] = [
       "kolesino-waterfall": "Stand beneath the 15m cascade and feel the healing mist",
       "smolare-waterfall": "Hike to the viewing platform for Macedonia's tallest waterfall",
       "vodoca-monastery": "Light a candle and sit in the 1000-year silence"
+    },
+    eatAndRest: [
+      { name: "Village café near Kolesino", description: "Quick rest with local pies and strong coffee" },
+      { name: "Trout taverna by Smolare", description: "Fresh river trout grilled over open flame" },
+      { name: "Monastery guesthouse", description: "Simple refreshments in peaceful gardens" }
+    ],
+    routeDetails: {
+      elevation: "400m - 1,200m (800m climb)",
+      roadCondition: "Asphalt with gravel sections near waterfalls",
+      bestSeason: "April to October",
+      fuelStops: "Fill up in Strumica before departure"
     }
   },
   {
@@ -89,6 +107,17 @@ export const routes: Route[] = [
       "galicica-pass": "View epic dual-lake panoramas from the summit café",
       "trpejca-beach": "Eat fresh grilled trout with your feet in the lake",
       "sv-naum-monastery": "Take a boat ride to the magical turquoise springs"
+    },
+    eatAndRest: [
+      { name: "Lakeside taverna at Trpejca", description: "Fresh letnik fish with lake views—book ahead in summer" },
+      { name: "Summit café at Galicica Pass", description: "Coffee and pastries with dual-lake panorama" },
+      { name: "St. Naum restaurant", description: "Traditional cuisine in monastery gardens" }
+    ],
+    routeDetails: {
+      elevation: "695m - 1,568m (873m climb)",
+      roadCondition: "Paved with gravel patches on summit",
+      bestSeason: "May to September",
+      fuelStops: "Fill up in Ohrid before the climb"
     }
   },
   {
@@ -125,6 +154,17 @@ export const routes: Route[] = [
     thingsToDo: {
       "matka-canyon": "Take the cave boat tour into Vrelo's crystal depths",
       "markos-towers": "Hike to the fortress and hear legends of King Marko"
+    },
+    eatAndRest: [
+      { name: "Canyon View Restaurant at Matka", description: "Grilled trout and coffee with emerald water views" },
+      { name: "Prilep town center", description: "Local bakeries with fresh burek and ayran" },
+      { name: "Village kafana near Marko's Towers", description: "Traditional tavern with cold drinks after the hike" }
+    ],
+    routeDetails: {
+      elevation: "300m - 850m (550m climb)",
+      roadCondition: "Excellent asphalt throughout",
+      bestSeason: "Year-round (avoid winter for Marko's hike)",
+      fuelStops: "Multiple stations along main road"
     }
   },
   {
@@ -161,6 +201,17 @@ export const routes: Route[] = [
     thingsToDo: {
       "mavrovo-lake-loop": "Stand before the drowned church rising from azure waters",
       "bistra-mountain-pass": "Conquer the wild hairpins where eagles soar below"
+    },
+    eatAndRest: [
+      { name: "Mountain hut at Mavrovo", description: "Cozy rest with tea and slow-roasted lamb" },
+      { name: "Lakeside restaurant Mavrovo", description: "Fresh trout with mountain panoramas" },
+      { name: "Shepherd's koliba on Bistra", description: "Simple cheese and bread with genuine hospitality" }
+    ],
+    routeDetails: {
+      elevation: "1,200m - 1,800m (600m climb)",
+      roadCondition: "Paved but narrow with no guardrails on summit",
+      bestSeason: "June to September (snow blocks pass in winter)",
+      fuelStops: "Last fuel in Mavrovi Anovi village"
     }
   },
   {
@@ -197,6 +248,17 @@ export const routes: Route[] = [
     thingsToDo: {
       "demir-kapija-gorge": "Stand where the Vardar broke through the mountain",
       "popova-kula-winery": "Savor a sunset wine tasting overlooking the vines"
+    },
+    eatAndRest: [
+      { name: "Popova Kula Winery Restaurant", description: "Gourmet Macedonian cuisine with award-winning wines" },
+      { name: "Riverside picnic area at Demir Kapija", description: "Bring your own and dine by rushing waters" },
+      { name: "Local kafana in Negotino", description: "Traditional meze and local Tikveš wines" }
+    ],
+    routeDetails: {
+      elevation: "150m - 450m (gentle 300m climb)",
+      roadCondition: "Excellent asphalt throughout",
+      bestSeason: "Year-round (autumn for grape harvest)",
+      fuelStops: "Demir Kapija and Negotino town"
     }
   },
   {
@@ -233,6 +295,17 @@ export const routes: Route[] = [
     thingsToDo: {
       "pelister-viewpoint": "Watch the world fall away at Baba Mountain's edge",
       "pelister-national-park": "Hike to the glacial 'Eyes' that reflect infinite sky"
+    },
+    eatAndRest: [
+      { name: "Mountain hut Kopanki", description: "Hearty mountain stew and warm beds at altitude" },
+      { name: "Bitola old bazaar", description: "Ottoman-era cafés with strong Turkish coffee" },
+      { name: "Pelister park entrance café", description: "Light refreshments before or after the hike" }
+    ],
+    routeDetails: {
+      elevation: "600m - 2,200m (1,600m climb to lakes)",
+      roadCondition: "Paved to park entrance, gravel on mountain tracks",
+      bestSeason: "June to October (snow covers peaks in winter)",
+      fuelStops: "Bitola city before entering the park"
     }
   },
   {
@@ -269,6 +342,17 @@ export const routes: Route[] = [
     thingsToDo: {
       "prespa-lake-shore": "Watch pelicans paint circles in the morning sky",
       "golem-grad-island": "Walk among Roman ruins guarded by ancient serpents"
+    },
+    eatAndRest: [
+      { name: "Apple orchard farm near Stenje", description: "Fresh apple juice and local cheese platters" },
+      { name: "Fisherman's cottage at Konjsko", description: "Simple grilled carp with lakefront serenity" },
+      { name: "Village store at Resen", description: "Stock up on supplies before remote shores" }
+    ],
+    routeDetails: {
+      elevation: "850m - 1,050m (gentle rolling terrain)",
+      roadCondition: "Paved with some rough patches on lakeside roads",
+      bestSeason: "April to October (pelicans best in spring)",
+      fuelStops: "Resen town only—fill up before heading to shores"
     }
   }
 ];
