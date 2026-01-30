@@ -11,6 +11,9 @@ export interface Route {
   distance: string;
   mainImage: string;
   highlights: string[];
+  activities: string[];
+  riderTips: string[];
+  thingsToDo: { [spotId: string]: string };
 }
 
 export const routes: Route[] = [
@@ -31,7 +34,25 @@ export const routes: Route[] = [
       "1000-year-old monastery with glowing frescoes",
       "Twisting mountain roads through oak forests",
       "Local village taverns serving fresh trout"
-    ]
+    ],
+    activities: [
+      "Feel the mist of cascading waterfalls on your face",
+      "Wander through ancient monastery gardens in silence",
+      "Ride the twisting Belasica mountain roads",
+      "Feast on fresh trout at village tavernas",
+      "Capture golden light through forest canopies"
+    ],
+    riderTips: [
+      "Gravel on hairpins near Smolare—ride alert and smooth",
+      "Morning mist creates magical waterfall photos",
+      "Monastery visits require modest dress",
+      "Fill up in Strumica—no fuel stations on the mountain roads"
+    ],
+    thingsToDo: {
+      "kolesino-waterfall": "Stand beneath the 15m cascade and feel the healing mist",
+      "smolare-waterfall": "Hike to the viewing platform for Macedonia's tallest waterfall",
+      "vodoca-monastery": "Light a candle and sit in the 1000-year silence"
+    }
   },
   {
     id: "western-lakes-tour",
@@ -50,7 +71,25 @@ export const routes: Route[] = [
       "Medieval monastery with natural springs",
       "Lakeside village cuisine at Trpejca",
       "30+ hairpin turns of pure riding joy"
-    ]
+    ],
+    activities: [
+      "Conquer Galicica's legendary hairpin bends",
+      "Gaze at two ancient lakes from cloud height",
+      "Dine on grilled letnik fish at lakeside tavernas",
+      "Watch peacocks strut at St. Naum Monastery",
+      "Take a boat to the turquoise springs"
+    ],
+    riderTips: [
+      "Loose gravel on Galicica summit—don't overcook corners",
+      "Sunset from the pass is legendary but means riding down in dark",
+      "Book Trpejca restaurants for lunch in summer",
+      "St. Naum gets crowded midday—arrive early or late"
+    ],
+    thingsToDo: {
+      "galicica-pass": "View epic dual-lake panoramas from the summit café",
+      "trpejca-beach": "Eat fresh grilled trout with your feet in the lake",
+      "sv-naum-monastery": "Take a boat ride to the magical turquoise springs"
+    }
   },
   {
     id: "central-canyon-ride",
@@ -69,7 +108,24 @@ export const routes: Route[] = [
       "Hiking to legendary King Marko's fortress",
       "Kayaking options in Matka Canyon",
       "Byzantine churches with ancient frescoes"
-    ]
+    ],
+    activities: [
+      "Kayak between towering limestone canyon walls",
+      "Explore Vrelo Cave's ancient stalactites",
+      "Hike to Marko's legendary fortress ruins",
+      "Photograph monasteries clinging to cliff faces",
+      "Sip coffee overlooking emerald canyon waters"
+    ],
+    riderTips: [
+      "Matka parking is limited—arrive before 10am on weekends",
+      "The Prilep road can be hot in summer—hydrate well",
+      "Marko's Towers hike takes 45-60 min—pack water",
+      "Evening light at Matka is spectacular for photos"
+    ],
+    thingsToDo: {
+      "matka-canyon": "Take the cave boat tour into Vrelo's crystal depths",
+      "markos-towers": "Hike to the fortress and hear legends of King Marko"
+    }
   },
   {
     id: "northern-mountain-pass",
@@ -88,7 +144,24 @@ export const routes: Route[] = [
       "High-altitude hairpins with no guardrails",
       "Alpine meadows with wild horses",
       "Mountain hut lamb feasts"
-    ]
+    ],
+    activities: [
+      "Photograph the iconic drowned church at Mavrovo",
+      "Ride hairpins carved into wild mountainsides",
+      "Feast on slow-roasted lamb at mountain huts",
+      "Watch for wild horses in alpine meadows",
+      "Breathe the purest mountain air in the Balkans"
+    ],
+    riderTips: [
+      "Weather changes rapidly—pack full waterproofs",
+      "No guardrails on Bistra—focus and respect the edge",
+      "Shepherds have right of way—stop for flocks",
+      "Fuel in Mavrovi Anovi—nothing beyond"
+    ],
+    thingsToDo: {
+      "mavrovo-lake-loop": "Stand before the drowned church rising from azure waters",
+      "bistra-mountain-pass": "Conquer the wild hairpins where eagles soar below"
+    }
   },
   {
     id: "southern-winery-escape",
@@ -107,7 +180,24 @@ export const routes: Route[] = [
       "Award-winning Macedonian wines",
       "Riverside picnic spots",
       "Rock climbing and kayaking options"
-    ]
+    ],
+    activities: [
+      "Marvel at the Iron Gate's towering limestone walls",
+      "Taste award-winning Vranec and rosé wines",
+      "Picnic by the rushing Vardar River",
+      "Watch rock climbers scale ancient cliff faces",
+      "Toast sunset over endless vineyard rows"
+    ],
+    riderTips: [
+      "Designate a sober rider for the winery visit",
+      "Morning light illuminates the gorge's eastern cliffs",
+      "Book winery tastings in advance for full experience",
+      "The gorge road has limited stops—scout pull-offs"
+    ],
+    thingsToDo: {
+      "demir-kapija-gorge": "Stand where the Vardar broke through the mountain",
+      "popova-kula-winery": "Savor a sunset wine tasting overlooking the vines"
+    }
   },
   {
     id: "pelister-peaks-hike",
@@ -126,7 +216,24 @@ export const routes: Route[] = [
       "Glacial lakes hike (2-3 hours)",
       "Views to Greece on clear days",
       "Mountain hut accommodation available"
-    ]
+    ],
+    activities: [
+      "Walk among five-million-year-old Molika pines",
+      "Hike to the glacial 'Eyes of Pelister' lakes",
+      "Gaze toward Greece from the high overlooks",
+      "Stay overnight in authentic mountain huts",
+      "Pick wild berries along the August roadsides"
+    ],
+    riderTips: [
+      "Glacial lakes hike adds 2-3 hours—budget accordingly",
+      "Temperature drops 10°C from valley to summit",
+      "August wild berries make perfect trailside snacks",
+      "Mountain huts offer simple overnight stays—book ahead"
+    ],
+    thingsToDo: {
+      "pelister-viewpoint": "Watch the world fall away at Baba Mountain's edge",
+      "pelister-national-park": "Hike to the glacial 'Eyes' that reflect infinite sky"
+    }
   },
   {
     id: "prespa-hidden-shores",
@@ -145,7 +252,24 @@ export const routes: Route[] = [
       "Boat trip to snake-inhabited island",
       "Roman ruins in wild nature",
       "Three-country border views"
-    ]
+    ],
+    activities: [
+      "Watch pelicans take flight at dawn",
+      "Boat across waters shared by three nations",
+      "Explore Roman ruins guarded by serpents",
+      "Photograph abandoned villages reclaimed by nature",
+      "Taste the peace of a lake the world forgot"
+    ],
+    riderTips: [
+      "Check boat schedules to Golem Grad in advance",
+      "The snakes are harmless—wear closed shoes anyway",
+      "Dawn and dusk bring the best pelican sightings",
+      "Bring all supplies—the shore has few services"
+    ],
+    thingsToDo: {
+      "prespa-lake-shore": "Watch pelicans paint circles in the morning sky",
+      "golem-grad-island": "Walk among Roman ruins guarded by ancient serpents"
+    }
   }
 ];
 
