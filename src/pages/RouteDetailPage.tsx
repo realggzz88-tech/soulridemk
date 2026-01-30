@@ -7,10 +7,11 @@ import {
   Fuel, Sun, TrendingUp, Coffee, Bed, Camera
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { toast } from "@/hooks/use-toast";
 import RouteMap from "@/components/RouteMap";
 import { StartRouteButton } from "@/components/StartDrivingButton";
+import RoutePhotoSlider from "@/components/RoutePhotoSlider";
 
 const RouteDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,6 +23,34 @@ const RouteDetailPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [id]);
+
+  // Get actual spot data for this route
+  const routeSpots = useMemo(() => {
+    if (!route) return [];
+    return route.spotIds
+      .map(spotId => allSpots.find(s => s.id === spotId))
+      .filter((spot): spot is NonNullable<typeof spot> => spot !== undefined);
+  }, [route]);
+
+  // Generate photos for slider from route spots
+  const sliderPhotos = useMemo(() => {
+    const poeticCaptions = [
+      "Beauty along the way",
+      "Where the road whispers secrets",
+      "A moment of wonder",
+      "The soul of the journey",
+      "Lost in the horizon",
+      "Nature's masterpiece unfolds",
+    ];
+    
+    return routeSpots.slice(0, 6).flatMap((spot, spotIndex) => 
+      spot.images.slice(0, 1).map((img, imgIndex) => ({
+        url: img,
+        title: spot.title,
+        caption: `${poeticCaptions[spotIndex % poeticCaptions.length]}: ${spot.title.split(' ').slice(0, 3).join(' ')}`
+      }))
+    );
+  }, [routeSpots]);
 
   if (!route) {
     return (
@@ -36,11 +65,6 @@ const RouteDetailPage = () => {
       </div>
     );
   }
-
-  // Get actual spot data for this route
-  const routeSpots = route.spotIds
-    .map(spotId => allSpots.find(s => s.id === spotId))
-    .filter((spot): spot is NonNullable<typeof spot> => spot !== undefined);
 
   // Share functionality
   const handleShare = async () => {
@@ -66,6 +90,8 @@ const RouteDetailPage = () => {
 
   return (
     <div className="min-h-screen page-enter">
+      {/* Hero Photo Slider - Immediate Visual Impact */}
+      <RoutePhotoSlider photos={sliderPhotos} routeTitle={route.title} />
       {/* Compact Header with Route Info */}
       <section className="pt-24 pb-6 px-4 md:px-8 bg-gradient-to-b from-background via-secondary/10 to-transparent">
         <div className="max-w-7xl mx-auto">
