@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import type { Spot } from "@/data/spots";
-import { Compass } from "lucide-react";
+import { Compass, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 // Default center: Central North Macedonia (Skopje)
 const SKOPJE_COORDS = { lat: 41.9973, lng: 21.4280 };
@@ -17,9 +19,11 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const userMarkerRef = useRef<any>(null);
+  const clusterGroupRef = useRef<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const getUserLocation = useCallback((forcePrompt = false) => {
     if (!navigator.geolocation) {
@@ -27,7 +31,6 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
       return;
     }
 
-    // Only auto-prompt once per session (unless forced via button click)
     const hasPrompted = sessionStorage.getItem("soulride-geo-prompted");
     if (!forcePrompt && hasPrompted) {
       return;
@@ -45,7 +48,6 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
         setUserPosition(coords);
         setLocationStatus("success");
 
-        // Fly to user position
         if (mapInstanceRef.current) {
           mapInstanceRef.current.flyTo([coords.lat, coords.lng], USER_ZOOM, {
             duration: 1.5,
@@ -60,52 +62,146 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
     );
   }, []);
 
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+    setTimeout(() => {
+      mapInstanceRef.current?.invalidateSize();
+    }, 100);
+  };
+
+  const handleZoomIn = () => {
+    mapInstanceRef.current?.zoomIn();
+  };
+
+  const handleZoomOut = () => {
+    mapInstanceRef.current?.zoomOut();
+  };
+
   useEffect(() => {
     const initMap = async () => {
       if (!mapRef.current || mapInstanceRef.current) return;
       
       const L = (await import("leaflet")).default;
+      await import("leaflet.markercluster");
       
       const map = L.map(mapRef.current, {
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
+        zoomControl: false, // We'll add custom controls
       }).setView([SKOPJE_COORDS.lat, SKOPJE_COORDS.lng], DEFAULT_ZOOM);
       
+      // Dark tiles with caching hint
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18,
+        updateWhenIdle: true,
+        keepBuffer: 4,
       }).addTo(map);
 
-      // Custom icon for spots
-      const customIcon = L.divIcon({
-        className: "custom-marker",
-        html: `<div style="width: 24px; height: 24px; background: hsl(160, 35%, 30%); border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 24],
-        popupAnchor: [0, -24],
+      // Create marker cluster group with custom styling
+      const clusterGroup = (L as any).markerClusterGroup({
+        maxClusterRadius: 60,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: true,
+        iconCreateFunction: (cluster: any) => {
+          const count = cluster.getChildCount();
+          return L.divIcon({
+            className: "custom-cluster-icon",
+            html: `
+              <div style="
+                width: ${36 + count * 2}px;
+                height: ${36 + count * 2}px;
+                background: linear-gradient(135deg, hsl(160, 40%, 28%) 0%, hsl(32, 85%, 45%) 100%);
+                border-radius: 50%;
+                border: 3px solid hsl(40, 15%, 94%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: ${14 + Math.min(count, 10)}px;
+                color: hsl(40, 15%, 96%);
+                letter-spacing: 0.05em;
+                box-shadow: 0 4px 20px hsl(160 40% 28% / 0.5), 0 0 30px hsl(32 85% 52% / 0.3);
+              ">
+                ${count}
+              </div>
+            `,
+            iconSize: [36 + count * 2, 36 + count * 2],
+            iconAnchor: [(36 + count * 2) / 2, (36 + count * 2) / 2],
+          });
+        },
       });
 
+      // Custom icon for spots
+      const createSpotIcon = (spot: Spot) => {
+        return L.divIcon({
+          className: "custom-marker",
+          html: `
+            <div style="
+              width: 28px; 
+              height: 28px; 
+              background: linear-gradient(135deg, hsl(160, 35%, 30%) 0%, hsl(160, 45%, 40%) 100%); 
+              border-radius: 50%; 
+              border: 2px solid rgba(255,255,255,0.4); 
+              display: flex; 
+              align-items: center; 
+              justify-content: center; 
+              box-shadow: 0 4px 15px rgba(0,0,0,0.5), 0 0 20px hsl(160 40% 35% / 0.4);
+              transition: transform 0.2s ease;
+            ">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+          `,
+          iconSize: [28, 28],
+          iconAnchor: [14, 28],
+          popupAnchor: [0, -28],
+        });
+      };
+
+      // Add spots to cluster group with rich popups
       spots.forEach((spot) => {
         const marker = L.marker([spot.coordinates.lat, spot.coordinates.lng], {
-          icon: customIcon,
-        }).addTo(map);
+          icon: createSpotIcon(spot),
+        });
+
+        // Calculate distance from Skopje
+        const distanceFromSkopje = Math.round(
+          map.distance(
+            [SKOPJE_COORDS.lat, SKOPJE_COORDS.lng],
+            [spot.coordinates.lat, spot.coordinates.lng]
+          ) / 1000
+        );
 
         marker.bindPopup(`
-          <div style="padding: 8px; min-width: 160px;">
-            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; margin-bottom: 4px;">${spot.title}</h3>
-            <p style="font-size: 0.75rem; color: hsl(220, 10%, 55%); margin-bottom: 8px;">${spot.description}</p>
-            <a href="/spots/${spot.id}" style="font-size: 0.75rem; color: hsl(160, 40%, 40%);">Explore this spot →</a>
+          <div style="padding: 12px; min-width: 200px; max-width: 280px;">
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; margin-bottom: 4px; color: hsl(40 15% 94%);">${spot.title}</h3>
+            <p style="font-size: 0.75rem; color: hsl(160 50% 55%); font-style: italic; margin-bottom: 8px;">"${spot.poeticTagline}"</p>
+            <p style="font-size: 0.8rem; color: hsl(220, 10%, 65%); margin-bottom: 10px;">${spot.description}</p>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="font-size: 0.7rem; padding: 3px 8px; background: hsl(215 35% 22% / 0.5); border-radius: 999px; color: hsl(215 50% 70%);">📍 ${distanceFromSkopje} km from Skopje</span>
+              <span style="font-size: 0.7rem; padding: 3px 8px; background: hsl(160 40% 28% / 0.3); border-radius: 999px; color: hsl(160 50% 60%);">${spot.region}</span>
+            </div>
+            <a href="/spots/${spot.id}" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: hsl(32 85% 52%); text-decoration: none; font-weight: 500;">
+              Explore this spot
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
-        `);
+        `, {
+          className: "dark-popup",
+          maxWidth: 300,
+        });
+
+        clusterGroup.addLayer(marker);
       });
 
+      map.addLayer(clusterGroup);
+      clusterGroupRef.current = clusterGroup;
       mapInstanceRef.current = map;
       setIsLoaded(true);
 
-      // Try to get user location on first load
       getUserLocation();
     };
 
@@ -126,12 +222,10 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
 
       const L = (await import("leaflet")).default;
 
-      // Remove existing user marker
       if (userMarkerRef.current) {
         userMarkerRef.current.remove();
       }
 
-      // Pulsing user position marker with amber glow
       const userIcon = L.divIcon({
         className: "user-position-marker",
         html: `
@@ -184,48 +278,134 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
 
   return (
     <div className="space-y-4">
-      <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
+      <div className={cn(
+        "relative rounded-xl overflow-hidden border border-border/50 gradient-border transition-all duration-300",
+        isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+      )}>
         <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-20" />
         
-        {/* Center on Me button */}
-        <button
-          onClick={() => getUserLocation(true)}
-          disabled={locationStatus === "loading"}
-          className={cn(
-            "absolute top-3 right-3 z-[1001] p-2.5 rounded-full transition-all duration-300",
-            "bg-background/80 backdrop-blur-sm border border-border/50",
-            "hover:bg-soul-amber/20 hover:border-soul-amber/50 hover:scale-105",
-            "hover:shadow-[0_0_20px_hsl(var(--amber-soul)/0.4)]",
-            locationStatus === "loading" && "animate-pulse",
-            locationStatus === "success" && "bg-soul-amber/20 border-soul-amber/40"
-          )}
-          aria-label="Locate me"
-          title="Locate me"
-        >
-          <Compass 
-            size={18} 
+        {/* Custom Controls */}
+        <div className="absolute top-3 right-3 z-[1001] flex flex-col gap-2">
+          {/* Locate Me */}
+          <button
+            onClick={() => getUserLocation(true)}
+            disabled={locationStatus === "loading"}
             className={cn(
-              "transition-all duration-300",
-              locationStatus === "success" ? "text-soul-amber" : "text-muted-foreground",
-              locationStatus === "loading" && "animate-spin"
+              "p-2.5 rounded-full transition-all duration-300",
+              "bg-background/80 backdrop-blur-sm border border-border/50",
+              "hover:bg-soul-amber/20 hover:border-soul-amber/50 hover:scale-105",
+              "hover:shadow-[0_0_20px_hsl(var(--amber-soul)/0.4)]",
+              locationStatus === "loading" && "animate-pulse",
+              locationStatus === "success" && "bg-soul-amber/20 border-soul-amber/40"
             )}
-            style={{
-              filter: locationStatus === "success" ? "drop-shadow(0 0 6px hsl(32 85% 52% / 0.6))" : undefined
-            }}
-          />
-        </button>
+            aria-label="Locate me"
+            title="Locate me"
+          >
+            <Compass 
+              size={18} 
+              className={cn(
+                "transition-all duration-300",
+                locationStatus === "success" ? "text-soul-amber" : "text-muted-foreground",
+                locationStatus === "loading" && "animate-spin"
+              )}
+              style={{
+                filter: locationStatus === "success" ? "drop-shadow(0 0 6px hsl(32 85% 52% / 0.6))" : undefined
+              }}
+            />
+          </button>
+
+          {/* Fullscreen */}
+          <button
+            onClick={toggleFullscreen}
+            className={cn(
+              "p-2.5 rounded-full transition-all duration-300",
+              "bg-background/80 backdrop-blur-sm border border-border/50",
+              "hover:bg-earth-green/20 hover:border-earth-green/50 hover:scale-105",
+              "hover:shadow-[0_0_20px_hsl(var(--earth-green)/0.4)]"
+            )}
+            aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+            title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+          >
+            {isFullscreen ? (
+              <Minimize2 size={18} className="text-muted-foreground" />
+            ) : (
+              <Maximize2 size={18} className="text-muted-foreground" />
+            )}
+          </button>
+
+          {/* Zoom Controls */}
+          <div className="flex flex-col rounded-full overflow-hidden border border-border/50 bg-background/80 backdrop-blur-sm">
+            <button
+              onClick={handleZoomIn}
+              className="p-2 hover:bg-muted/50 transition-colors border-b border-border/30"
+              aria-label="Zoom in"
+            >
+              <ZoomIn size={16} className="text-muted-foreground" />
+            </button>
+            <button
+              onClick={handleZoomOut}
+              className="p-2 hover:bg-muted/50 transition-colors"
+              aria-label="Zoom out"
+            >
+              <ZoomOut size={16} className="text-muted-foreground" />
+            </button>
+          </div>
+        </div>
+
+        {/* Close fullscreen button */}
+        {isFullscreen && (
+          <button
+            onClick={toggleFullscreen}
+            className="absolute top-3 left-3 z-[1001] p-2.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-destructive/20 hover:border-destructive/50 transition-all"
+          >
+            <Minimize2 size={18} className="text-foreground" />
+          </button>
+        )}
 
         <div
           ref={mapRef}
-          className="h-64 md:h-80 w-full"
+          className={cn(
+            "w-full transition-all duration-300",
+            isFullscreen ? "h-full" : "h-64 md:h-80"
+          )}
           style={{ background: "hsl(220, 15%, 10%)" }}
         />
 
-        {/* Add keyframes for pulse animation */}
+        {/* Cluster Legend */}
+        <div className="absolute bottom-3 left-3 z-[1001] p-3 rounded-lg bg-background/80 backdrop-blur-sm border border-border/50">
+          <div className="space-y-1.5 text-xs">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-gradient-to-r from-earth-green to-soul-amber flex items-center justify-center text-[10px] text-white font-bold">5</div>
+              <span className="text-muted-foreground">Grouped spots (click to expand)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full bg-earth-green border border-white/40" />
+              <span className="text-muted-foreground">Individual spot</span>
+            </div>
+          </div>
+        </div>
+
         <style>{`
           @keyframes pulse-ring {
             0% { transform: scale(1); opacity: 0.4; }
             100% { transform: scale(2.5); opacity: 0; }
+          }
+          .dark-popup .leaflet-popup-content-wrapper {
+            background: hsl(0 0% 9%);
+            color: hsl(40 15% 94%);
+            border: 1px solid hsl(220 8% 20%);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px hsl(0 0% 0% / 0.5);
+          }
+          .dark-popup .leaflet-popup-tip {
+            background: hsl(0 0% 9%);
+            border: 1px solid hsl(220 8% 20%);
+          }
+          .leaflet-marker-icon {
+            transition: transform 0.2s ease;
+          }
+          .leaflet-marker-icon:hover {
+            transform: scale(1.1);
           }
         `}</style>
       </div>
@@ -252,6 +432,14 @@ interface SpotDetailMapProps {
 export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+    setTimeout(() => {
+      mapInstanceRef.current?.invalidateSize();
+    }, 100);
+  };
 
   useEffect(() => {
     const initMap = async () => {
@@ -260,25 +448,52 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
       const L = (await import("leaflet")).default;
 
       const map = L.map(mapRef.current, {
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
+        zoomControl: false,
       }).setView([spot.coordinates.lat, spot.coordinates.lng], 13);
 
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18,
       }).addTo(map);
 
-      // Custom amber icon for detail
       const customIcon = L.divIcon({
         className: "custom-marker-detail",
-        html: `<div style="width: 32px; height: 32px; background: hsl(30, 80%, 50%); border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px hsla(30, 80%, 50%, 0.4), 0 4px 12px rgba(0,0,0,0.4);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32],
+        html: `
+          <div style="
+            position: relative;
+            width: 40px;
+            height: 40px;
+          ">
+            <div style="
+              position: absolute;
+              inset: 0;
+              background: hsl(32, 85%, 52%);
+              border-radius: 50%;
+              opacity: 0.2;
+              animation: pulse-ring 2s ease-out infinite;
+            "></div>
+            <div style="
+              position: absolute;
+              inset: 4px;
+              background: linear-gradient(135deg, hsl(32, 80%, 50%) 0%, hsl(38, 90%, 55%) 100%);
+              border-radius: 50%;
+              border: 3px solid rgba(255,255,255,0.5);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 0 25px hsla(32, 85%, 52%, 0.5), 0 4px 15px rgba(0,0,0,0.5);
+            ">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+          </div>
+        `,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40],
       });
 
       const marker = L.marker([spot.coordinates.lat, spot.coordinates.lng], {
@@ -287,10 +502,11 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
 
       marker.bindPopup(`
         <div style="padding: 12px; text-align: center;">
-          <span style="color: hsl(30, 80%, 50%); font-size: 0.875rem; font-weight: 500;">✨ Soulful stop here! ✨</span>
-          <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; margin-top: 4px;">${spot.title}</h3>
+          <span style="color: hsl(32, 85%, 52%); font-size: 0.75rem;">🏁 DESTINATION</span>
+          <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; margin-top: 4px;">${spot.title}</h3>
+          <p style="font-size: 0.75rem; color: hsl(160 50% 55%); font-style: italic; margin-top: 4px;">"${spot.poeticTagline}"</p>
         </div>
-      `).openPopup();
+      `, { className: "dark-popup" }).openPopup();
 
       mapInstanceRef.current = map;
     };
@@ -307,13 +523,64 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
 
   return (
     <div className="space-y-4">
-      <div className="relative rounded-xl overflow-hidden border border-border/50 gradient-border">
+      <div className={cn(
+        "relative rounded-xl overflow-hidden border border-border/50 gradient-border transition-all duration-300",
+        isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+      )}>
         <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-15" />
+        
+        {/* Controls */}
+        <div className="absolute top-3 right-3 z-[1001] flex gap-2">
+          <button
+            onClick={toggleFullscreen}
+            className={cn(
+              "p-2.5 rounded-full transition-all duration-300",
+              "bg-background/80 backdrop-blur-sm border border-border/50",
+              "hover:bg-earth-green/20 hover:border-earth-green/50 hover:scale-105"
+            )}
+            aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+          >
+            {isFullscreen ? (
+              <Minimize2 size={18} className="text-muted-foreground" />
+            ) : (
+              <Maximize2 size={18} className="text-muted-foreground" />
+            )}
+          </button>
+        </div>
+
+        {isFullscreen && (
+          <button
+            onClick={toggleFullscreen}
+            className="absolute top-3 left-3 z-[1001] p-2.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-destructive/20 transition-all"
+          >
+            <Minimize2 size={18} className="text-foreground" />
+          </button>
+        )}
+
         <div
           ref={mapRef}
-          className="h-64 md:h-96 w-full"
+          className={cn(
+            "w-full transition-all duration-300",
+            isFullscreen ? "h-full" : "h-64 md:h-96"
+          )}
           style={{ background: "hsl(220, 15%, 10%)" }}
         />
+
+        <style>{`
+          @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(2.5); opacity: 0; }
+          }
+          .dark-popup .leaflet-popup-content-wrapper {
+            background: hsl(0 0% 9%);
+            color: hsl(40 15% 94%);
+            border: 1px solid hsl(220 8% 20%);
+            border-radius: 12px;
+          }
+          .dark-popup .leaflet-popup-tip {
+            background: hsl(0 0% 9%);
+          }
+        `}</style>
       </div>
       
       {/* Offline Navigation Note */}

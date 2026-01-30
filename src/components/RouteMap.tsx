@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Spot } from "@/data/spots";
-import { Compass, Navigation, Loader2 } from "lucide-react";
+import { Compass, Navigation, Loader2, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 
@@ -24,6 +24,18 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [locationStatus, setLocationStatus] = useState<"idle" | "success" | "denied">("idle");
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [routeStats, setRouteStats] = useState<{ distance: number; duration: number } | null>(null);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+    setTimeout(() => {
+      mapRef.current?.invalidateSize();
+    }, 100);
+  };
+
+  const handleZoomIn = () => mapRef.current?.zoomIn();
+  const handleZoomOut = () => mapRef.current?.zoomOut();
 
   // Create custom marker icons
   const createSpotIcon = (index: number) => {
@@ -232,40 +244,77 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
   }, [spots, userLocation]);
 
   return (
-    <div className="relative rounded-xl overflow-hidden border border-border/50">
+    <div className={cn(
+      "relative rounded-xl overflow-hidden border border-border/50 transition-all duration-300",
+      isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+    )}>
       {/* Map Container */}
       <div
         ref={mapContainerRef}
-        className="w-full h-[400px] md:h-[500px]"
+        className={cn(
+          "w-full transition-all duration-300",
+          isFullscreen ? "h-full" : "h-[400px] md:h-[500px]"
+        )}
         style={{ background: "hsl(220 20% 10%)" }}
       />
 
-      {/* Location Button */}
-      <button
-        onClick={getUserLocation}
-        disabled={isLocating}
-        className={cn(
-          "absolute top-4 left-4 z-[1000] flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300",
-          locationStatus === "success"
-            ? "bg-earth-green/30 border-earth-green/50 text-earth-green-glow"
-            : "bg-background/70 border-soul-amber/40 text-soul-amber hover:bg-background/90 hover:shadow-[0_0_20px_hsl(32_85%_52%/0.3)]"
-        )}
-      >
-        {isLocating ? (
-          <Loader2 size={16} className="animate-spin" />
-        ) : locationStatus === "success" ? (
-          <Navigation size={16} />
-        ) : (
-          <Compass size={16} />
-        )}
-        <span className="text-sm font-medium">
-          {isLocating
-            ? "Locating..."
-            : locationStatus === "success"
-            ? "Located"
-            : "Use My Location"}
-        </span>
-      </button>
+      {/* Custom Controls */}
+      <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
+        {/* Location Button */}
+        <button
+          onClick={getUserLocation}
+          disabled={isLocating}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300",
+            locationStatus === "success"
+              ? "bg-earth-green/30 border-earth-green/50 text-earth-green-glow"
+              : "bg-background/70 border-soul-amber/40 text-soul-amber hover:bg-background/90 hover:shadow-[0_0_20px_hsl(32_85%_52%/0.3)]"
+          )}
+        >
+          {isLocating ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : locationStatus === "success" ? (
+            <Navigation size={16} />
+          ) : (
+            <Compass size={16} />
+          )}
+          <span className="text-sm font-medium">
+            {isLocating
+              ? "Locating..."
+              : locationStatus === "success"
+              ? "Located"
+              : "Use My Location"}
+          </span>
+        </button>
+
+        {/* Fullscreen */}
+        <button
+          onClick={toggleFullscreen}
+          className="p-2.5 rounded-full bg-background/70 backdrop-blur-md border border-border/50 hover:bg-earth-green/20 hover:border-earth-green/50 transition-all"
+        >
+          {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+        </button>
+
+        {/* Zoom Controls */}
+        <div className="flex flex-col rounded-full overflow-hidden border border-border/50 bg-background/70 backdrop-blur-md">
+          <button onClick={handleZoomIn} className="p-2 hover:bg-muted/50 border-b border-border/30">
+            <ZoomIn size={14} />
+          </button>
+          <button onClick={handleZoomOut} className="p-2 hover:bg-muted/50">
+            <ZoomOut size={14} />
+          </button>
+        </div>
+      </div>
+
+      {/* Close fullscreen */}
+      {isFullscreen && (
+        <button
+          onClick={toggleFullscreen}
+          className="absolute top-4 left-4 z-[1000] p-2.5 rounded-full bg-background/80 backdrop-blur-md border border-border/50 hover:bg-destructive/20"
+        >
+          <Minimize2 size={16} />
+        </button>
+      )}
 
       {/* Route Info Overlay */}
       <div className="absolute bottom-4 left-4 right-4 z-[1000]">
