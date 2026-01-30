@@ -8,12 +8,17 @@ import ShareButtons from "@/components/ShareButtons";
 import ScenicRoute from "@/components/ScenicRoute";
 import WeatherWidget from "@/components/WeatherWidget";
 import StartDrivingButton from "@/components/StartDrivingButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SpotDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const spot = spots.find((s) => s.id === id);
   const [showRideSummary, setShowRideSummary] = useState(false);
+
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
