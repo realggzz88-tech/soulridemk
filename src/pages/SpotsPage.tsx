@@ -40,16 +40,16 @@ const SpotsPage = () => {
   }, [selectedTags, selectedRegion]);
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-4 animate-fade-up">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-wider mb-3 sm:mb-4 animate-fade-up" style={{ animationFillMode: 'forwards' }}>
             EXPLORE SPOTS
           </h1>
           <p
-            className="text-muted-foreground max-w-2xl mx-auto animate-fade-up opacity-0 mb-6"
-            style={{ animationDelay: "0.1s" }}
+            className="text-sm sm:text-base max-w-2xl mx-auto animate-fade-up opacity-0 mb-4 sm:mb-6 px-2"
+            style={{ animationDelay: "0.1s", animationFillMode: 'forwards', color: 'hsl(220 10% 70%)' }}
           >
             {filteredSpots.length} handpicked destinations across North Macedonia where the road becomes poetry
           </p>
@@ -93,12 +93,12 @@ const SpotsPage = () => {
         </div>
 
         {/* Spots Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {filteredSpots.map((spot, index) => (
             <div
               key={spot.id}
               className="animate-fade-up opacity-0"
-              style={{ animationDelay: `${(index + 3) * 100}ms` }}
+              style={{ animationDelay: `${(index + 3) * 50}ms`, animationFillMode: 'forwards' }}
             >
               <SpotCard spot={spot} index={index} />
             </div>

@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import type { Spot } from "@/data/spots";
 import { Compass, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import MapLoadingSpinner from "./MapLoadingSpinner";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -20,6 +21,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   const mapInstanceRef = useRef<any>(null);
   const userMarkerRef = useRef<any>(null);
   const clusterGroupRef = useRef<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -201,6 +203,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
       clusterGroupRef.current = clusterGroup;
       mapInstanceRef.current = map;
       setIsLoaded(true);
+      setIsLoading(false);
 
       getUserLocation();
     };
@@ -280,9 +283,12 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
     <div className="space-y-4">
       <div className={cn(
         "relative rounded-xl overflow-hidden border border-border/50 gradient-border transition-all duration-300",
-        isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+        isFullscreen && "fixed inset-2 sm:inset-4 z-50 rounded-2xl"
       )}>
-        <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-20" />
+        {/* Loading Spinner */}
+        {isLoading && <MapLoadingSpinner message="Loading spots map..." />}
+        
+        <div className="absolute inset-0 pointer-events-none z-[500] watercolor-overlay opacity-20" />
         
         {/* Custom Controls */}
         <div className="absolute top-3 right-3 z-[1001] flex flex-col gap-2">
@@ -366,7 +372,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
           ref={mapRef}
           className={cn(
             "w-full transition-all duration-300",
-            isFullscreen ? "h-full" : "h-64 md:h-80"
+            isFullscreen ? "h-full" : "h-56 sm:h-64 md:h-80"
           )}
           style={{ background: "hsl(220, 15%, 10%)" }}
         />
@@ -525,25 +531,25 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
     <div className="space-y-4">
       <div className={cn(
         "relative rounded-xl overflow-hidden border border-border/50 gradient-border transition-all duration-300",
-        isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+        isFullscreen && "fixed inset-2 sm:inset-4 z-50 rounded-2xl"
       )}>
-        <div className="absolute inset-0 pointer-events-none z-[1000] watercolor-overlay opacity-15" />
+        <div className="absolute inset-0 pointer-events-none z-[500] watercolor-overlay opacity-15" />
         
         {/* Controls */}
-        <div className="absolute top-3 right-3 z-[1001] flex gap-2">
+        <div className="absolute top-3 right-3 z-[400] flex gap-2">
           <button
             onClick={toggleFullscreen}
             className={cn(
-              "p-2.5 rounded-full transition-all duration-300",
+              "p-2 sm:p-2.5 rounded-full transition-all duration-300",
               "bg-background/80 backdrop-blur-sm border border-border/50",
               "hover:bg-earth-green/20 hover:border-earth-green/50 hover:scale-105"
             )}
             aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
           >
             {isFullscreen ? (
-              <Minimize2 size={18} className="text-muted-foreground" />
+              <Minimize2 size={16} className="sm:w-[18px] sm:h-[18px] text-muted-foreground" />
             ) : (
-              <Maximize2 size={18} className="text-muted-foreground" />
+              <Maximize2 size={16} className="sm:w-[18px] sm:h-[18px] text-muted-foreground" />
             )}
           </button>
         </div>
@@ -551,9 +557,9 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
         {isFullscreen && (
           <button
             onClick={toggleFullscreen}
-            className="absolute top-3 left-3 z-[1001] p-2.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-destructive/20 transition-all"
+            className="absolute top-3 left-3 z-[400] p-2 sm:p-2.5 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-destructive/20 transition-all"
           >
-            <Minimize2 size={18} className="text-foreground" />
+            <Minimize2 size={16} className="sm:w-[18px] sm:h-[18px] text-foreground" />
           </button>
         )}
 
@@ -561,7 +567,7 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
           ref={mapRef}
           className={cn(
             "w-full transition-all duration-300",
-            isFullscreen ? "h-full" : "h-64 md:h-96"
+            isFullscreen ? "h-full" : "h-56 sm:h-64 md:h-96"
           )}
           style={{ background: "hsl(220, 15%, 10%)" }}
         />

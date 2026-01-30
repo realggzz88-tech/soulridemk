@@ -70,15 +70,15 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
         </div>
 
         {/* Content */}
-        <div className="p-6 relative">
+        <div className="p-4 sm:p-6 relative">
           {/* Inner shadow effect */}
           <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-background/60 to-transparent pointer-events-none" />
           
           {/* Title with gradient */}
-          <h3 className="font-display text-2xl tracking-wider mb-2 text-gradient-card group-hover:text-gradient-glow transition-all duration-300">
+          <h3 className="font-display text-xl sm:text-2xl tracking-wider mb-2 text-gradient-card group-hover:text-gradient-glow transition-all duration-300">
             {spot.title}
           </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2 text-high-contrast tracking-wide">
+          <p className="text-sm leading-relaxed mb-4 line-clamp-2 tracking-wide" style={{ color: 'hsl(220 10% 72%)' }}>
             {spot.description}
           </p>
           
@@ -99,7 +99,7 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
       </Link>
       
       {/* Share buttons - outside main link */}
-      <div className="px-6 pb-5 pt-0">
+      <div className="px-4 sm:px-6 pb-4 sm:pb-5 pt-0">
         <ShareButtons variant="compact" spotName={spot.title} />
       </div>
     </div>
