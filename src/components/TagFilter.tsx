@@ -17,7 +17,7 @@ const TagFilter = ({
   selectedRegion = "All",
   onRegionChange
 }: TagFilterProps) => {
-  const filterTags = ["Views", "Roads", "Nature", "Cultural", "Waterfalls", "Fortress", "Mountain", "Adventure", "Hidden Gem"];
+  const filterTags = ["Viewpoints", "Views", "Roads", "Nature", "Cultural", "Waterfalls", "Fortress", "Mountain", "Adventure", "Hidden Gem"];
 
   return (
     <div className="relative space-y-4">
