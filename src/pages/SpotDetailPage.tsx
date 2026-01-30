@@ -50,12 +50,12 @@ const SpotDetailPage = () => {
   const rideSummary = `Soulride to ${spot.title}: ~${Math.floor(20 + Math.random() * 80)} km of twisty beauty from Ohrid. ${spot.tags.includes("twisty") ? "Expect hairpins and curves that awaken your spirit." : "A scenic journey through Macedonia's hidden landscapes."}`;
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 page-enter">
       {/* Back Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <Link
           to="/spots"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors tracking-wide"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors tracking-wide text-sm sm:text-base"
         >
           <ArrowLeft size={18} />
           <span>Back to Spots</span>
@@ -72,17 +72,18 @@ const SpotDetailPage = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Action Buttons Row */}
-        <div className="flex flex-wrap items-center gap-4 mb-8">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-6 sm:mb-8">
           <FavoriteButton spotId={spot.id} size="lg" showLabel />
           
           <button
             onClick={() => scrollToSection("ride-planning")}
-            className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-soul-amber/20 border border-soul-amber/30 text-soul-amber hover:bg-soul-amber/30 hover:shadow-[0_0_25px_hsl(var(--amber-soul)/0.4)] transition-all duration-300 tracking-wide"
+            className="group inline-flex items-center gap-2 px-3 sm:px-5 py-2 sm:py-3 rounded-xl bg-soul-amber/20 border border-soul-amber/30 text-soul-amber hover:bg-soul-amber/30 hover:shadow-[0_0_25px_hsl(var(--amber-soul)/0.4)] transition-all duration-300 tracking-wide text-sm sm:text-base"
           >
-            <Navigation size={18} className="group-hover:animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))' }} />
-            <span className="font-medium">Route from Your Location</span>
+            <Navigation size={16} className="sm:w-[18px] sm:h-[18px] group-hover:animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))' }} />
+            <span className="font-medium hidden sm:inline">Route from Your Location</span>
+            <span className="font-medium sm:hidden">Plan Route</span>
           </button>
 
           <StartDrivingButton
@@ -146,12 +147,12 @@ const SpotDetailPage = () => {
         </div>
 
         {/* Title */}
-        <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-6 text-gradient-subtle">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-wider mb-4 sm:mb-6 text-gradient-subtle">
           {spot.title}
         </h1>
 
         {/* Description */}
-        <div className="prose prose-invert prose-lg max-w-none mb-12">
+        <div className="prose prose-invert prose-lg max-w-none mb-8 sm:mb-12">
           <p className="text-foreground/90 leading-relaxed text-lg tracking-wide">
             {spot.longDescription}
           </p>

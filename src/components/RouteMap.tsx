@@ -5,6 +5,7 @@ import type { Spot } from "@/data/spots";
 import { Compass, Navigation, Loader2, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
+import MapLoadingSpinner from "./MapLoadingSpinner";
 
 interface RouteMapProps {
   spots: Spot[];
@@ -23,6 +24,7 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
+  const [isMapLoading, setIsMapLoading] = useState(true);
   const [locationStatus, setLocationStatus] = useState<"idle" | "success" | "denied">("idle");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [routeStats, setRouteStats] = useState<{ distance: number; duration: number } | null>(null);
@@ -155,6 +157,7 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
     ).addTo(map);
 
     mapRef.current = map;
+    setIsMapLoading(false);
 
     // Try to get user location on mount
     getUserLocation();
@@ -246,26 +249,29 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
   return (
     <div className={cn(
       "relative rounded-xl overflow-hidden border border-border/50 transition-all duration-300",
-      isFullscreen && "fixed inset-4 z-50 rounded-2xl"
+      isFullscreen && "fixed inset-2 sm:inset-4 z-50 rounded-2xl"
     )}>
+      {/* Loading Spinner */}
+      {isMapLoading && <MapLoadingSpinner message="Loading route map..." />}
+      
       {/* Map Container */}
       <div
         ref={mapContainerRef}
         className={cn(
           "w-full transition-all duration-300",
-          isFullscreen ? "h-full" : "h-[400px] md:h-[500px]"
+          isFullscreen ? "h-full" : "h-[300px] sm:h-[400px] md:h-[500px]"
         )}
         style={{ background: "hsl(220 20% 10%)" }}
       />
 
-      {/* Custom Controls */}
-      <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
+      {/* Custom Controls - lower z-index to prevent overlap */}
+      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-[400] flex flex-col gap-2">
         {/* Location Button */}
         <button
           onClick={getUserLocation}
           disabled={isLocating}
           className={cn(
-            "flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300",
+            "flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full backdrop-blur-md border transition-all duration-300 text-sm",
             locationStatus === "success"
               ? "bg-earth-green/30 border-earth-green/50 text-earth-green-glow"
               : "bg-background/70 border-soul-amber/40 text-soul-amber hover:bg-background/90 hover:shadow-[0_0_20px_hsl(32_85%_52%/0.3)]"
@@ -278,7 +284,7 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
           ) : (
             <Compass size={16} />
           )}
-          <span className="text-sm font-medium">
+          <span className="font-medium hidden sm:inline">
             {isLocating
               ? "Locating..."
               : locationStatus === "success"
@@ -290,7 +296,7 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
         {/* Fullscreen */}
         <button
           onClick={toggleFullscreen}
-          className="p-2.5 rounded-full bg-background/70 backdrop-blur-md border border-border/50 hover:bg-earth-green/20 hover:border-earth-green/50 transition-all"
+          className="p-2 sm:p-2.5 rounded-full bg-background/70 backdrop-blur-md border border-border/50 hover:bg-earth-green/20 hover:border-earth-green/50 transition-all"
         >
           {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
         </button>
@@ -310,31 +316,31 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
       {isFullscreen && (
         <button
           onClick={toggleFullscreen}
-          className="absolute top-4 left-4 z-[1000] p-2.5 rounded-full bg-background/80 backdrop-blur-md border border-border/50 hover:bg-destructive/20"
+          className="absolute top-3 sm:top-4 left-3 sm:left-4 z-[400] p-2 sm:p-2.5 rounded-full bg-background/80 backdrop-blur-md border border-border/50 hover:bg-destructive/20"
         >
           <Minimize2 size={16} />
         </button>
       )}
 
-      {/* Route Info Overlay */}
-      <div className="absolute bottom-4 left-4 right-4 z-[1000]">
-        <div className="bg-background/80 backdrop-blur-md rounded-xl p-4 border border-border/50">
-          <div className="flex items-center justify-between">
+      {/* Route Info Overlay - adjusted z-index and mobile padding */}
+      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 z-[400]">
+        <div className="bg-background/80 backdrop-blur-md rounded-xl p-3 sm:p-4 border border-border/50">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
             <div>
               <p className="text-xs text-muted-foreground mb-1">
                 {userLocation ? "Route from your location" : "Route from Skopje (enable GPS for custom start)"}
               </p>
-              <h4 className="font-display text-lg tracking-wide text-gradient-card">
+              <h4 className="font-display text-base sm:text-lg tracking-wide text-gradient-card">
                 {routeTitle}
               </h4>
             </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded-full bg-mountain-blue border border-foreground/50" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-mountain-blue border border-foreground/50" />
                 Start
               </span>
               <span className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-earth-green to-soul-amber border border-foreground/50" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-r from-earth-green to-soul-amber border border-foreground/50" />
                 Stops
               </span>
             </div>

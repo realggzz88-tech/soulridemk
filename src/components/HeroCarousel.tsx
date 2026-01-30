@@ -109,7 +109,7 @@ const HeroCarousel = () => {
   return (
     <section 
       ref={carouselRef}
-      className="relative h-screen overflow-hidden"
+      className="relative h-[100svh] min-h-[500px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
@@ -177,10 +177,10 @@ const HeroCarousel = () => {
         </p>
 
         {/* Dynamic Spot Title */}
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto px-4">
           <p 
             className={cn(
-              "text-soul-amber text-sm md:text-base uppercase tracking-[0.3em] mb-3 transition-all duration-700",
+              "text-soul-amber text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 transition-all duration-700",
               isTransitioning ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"
             )}
             style={{ textShadow: '0 2px 10px hsl(0 0% 0% / 0.5)' }}
@@ -190,7 +190,7 @@ const HeroCarousel = () => {
           
           <h2 
             className={cn(
-              "font-display text-3xl md:text-5xl lg:text-6xl tracking-wider mb-4 text-foreground transition-all duration-700",
+              "font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-wider mb-3 sm:mb-4 text-title transition-all duration-700",
               isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
             )}
             style={{ textShadow: '0 4px 20px hsl(0 0% 0% / 0.6)' }}
@@ -200,7 +200,7 @@ const HeroCarousel = () => {
           
           <p 
             className={cn(
-              "text-foreground/80 text-lg md:text-xl italic font-light tracking-wide mb-8 max-w-2xl mx-auto transition-all duration-700 delay-100",
+              "text-foreground/90 text-base sm:text-lg md:text-xl italic font-light tracking-wide mb-6 sm:mb-8 max-w-2xl mx-auto transition-all duration-700 delay-100 px-2",
               isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
             )}
             style={{ textShadow: '0 2px 10px hsl(0 0% 0% / 0.5)' }}
@@ -244,8 +244,8 @@ const HeroCarousel = () => {
         <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
       </button>
 
-      {/* Pagination Dots */}
-      <div className="absolute bottom-24 md:bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Pagination Dots - Hidden on very small screens, show fewer on mobile */}
+      <div className="absolute bottom-24 md:bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 md:gap-2 max-w-[80vw] overflow-hidden">
         {featuredSpots.map((_, index) => (
           <button
             key={index}
@@ -256,10 +256,10 @@ const HeroCarousel = () => {
               }
             }}
             className={cn(
-              "h-2 rounded-full transition-all duration-500",
+              "h-1.5 md:h-2 rounded-full transition-all duration-500 flex-shrink-0",
               index === currentIndex
-                ? "bg-soul-amber w-8 shadow-[0_0_15px_hsl(var(--amber-soul)/0.6)]"
-                : "bg-foreground/30 w-2 hover:bg-foreground/50"
+                ? "bg-soul-amber w-6 md:w-8 shadow-[0_0_15px_hsl(var(--amber-soul)/0.6)]"
+                : "bg-foreground/30 w-1.5 md:w-2 hover:bg-foreground/50"
             )}
             aria-label={`Go to slide ${index + 1}`}
           />

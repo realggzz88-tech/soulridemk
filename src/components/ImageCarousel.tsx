@@ -166,7 +166,7 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
   }
 
   return (
-    <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-xl group film-grain">
+    <div className="relative w-full aspect-[16/9] sm:aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-xl group film-grain">
       {/* Images with parallax and enhanced fade transition */}
       <div 
         className="relative w-full h-full"
@@ -203,10 +203,10 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
       }} />
 
       {/* Poetic Caption Overlay */}
-      <div className="absolute bottom-20 md:bottom-24 left-0 right-0 text-center pointer-events-none px-4">
+      <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-0 right-0 text-center pointer-events-none px-4">
         <p 
           className={cn(
-            "text-foreground italic text-base md:text-lg tracking-wide transition-all duration-700 text-high-contrast",
+            "text-foreground italic text-sm sm:text-base md:text-lg tracking-wide transition-all duration-700 text-high-contrast",
             isTransitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
           )}
           style={{ textShadow: '0 2px 10px hsl(0 0% 0% / 0.6)' }}
@@ -236,24 +236,24 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
         <Maximize2 size={18} />
       </button>
 
-      {/* Navigation Buttons - appear on hover */}
+      {/* Navigation Buttons - appear on hover, better touch targets on mobile */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 text-foreground hover:bg-background/80 transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 text-foreground hover:bg-background/80 transition-all duration-300 opacity-60 sm:opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95"
         aria-label="Previous image"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 text-foreground hover:bg-background/80 transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 text-foreground hover:bg-background/80 transition-all duration-300 opacity-60 sm:opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95"
         aria-label="Next image"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={20} className="sm:w-6 sm:h-6" />
       </button>
 
-      {/* Enhanced Dots Indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      {/* Enhanced Dots Indicator - better mobile sizing */}
+      <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 max-w-[85vw]">
         {images.map((_, index) => (
           <button
             key={index}
@@ -264,10 +264,10 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
               }
             }}
             className={cn(
-              "h-2 rounded-full transition-all duration-500",
+              "h-1.5 sm:h-2 rounded-full transition-all duration-500 flex-shrink-0",
               index === currentIndex
-                ? "bg-soul-amber w-8 shadow-[0_0_12px_hsl(var(--amber-soul)/0.6)]"
-                : "bg-foreground/30 w-2 hover:bg-foreground/50"
+                ? "bg-soul-amber w-6 sm:w-8 shadow-[0_0_12px_hsl(var(--amber-soul)/0.6)]"
+                : "bg-foreground/30 w-1.5 sm:w-2 hover:bg-foreground/50"
             )}
             aria-label={`Go to image ${index + 1}`}
           />
