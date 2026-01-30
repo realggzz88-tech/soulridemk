@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import HomePage from "@/pages/HomePage";
 import SpotsPage from "@/pages/SpotsPage";
 import SpotDetailPage from "@/pages/SpotDetailPage";
+import RouteDetailPage from "@/pages/RouteDetailPage";
 import AboutPage from "@/pages/AboutPage";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/" element={<HomePage />} />
               <Route path="/spots" element={<SpotsPage />} />
               <Route path="/spots/:id" element={<SpotDetailPage />} />
+              <Route path="/routes/:id" element={<RouteDetailPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
