@@ -4,6 +4,7 @@ import InspirationSearch from "@/components/InspirationSearch";
 import SoulQuote from "@/components/SoulQuote";
 import DailySoulGem from "@/components/DailySoulGem";
 import FeaturedEasternLoop from "@/components/FeaturedEasternLoop";
+import RouteSuggestions from "@/components/RouteSuggestions";
 
 const HomePage = () => {
   return (
@@ -115,6 +116,9 @@ const HomePage = () => {
 
       {/* Daily Soul Gem - Featured spot of the day */}
       <DailySoulGem />
+
+      {/* Soul Routes - Curated journeys carousel */}
+      <RouteSuggestions />
 
       {/* Featured Eastern Loop */}
       <FeaturedEasternLoop />
