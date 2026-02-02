@@ -6,12 +6,37 @@ import DailySoulGem from "@/components/DailySoulGem";
 import FeaturedEasternLoop from "@/components/FeaturedEasternLoop";
 import RouteSuggestions from "@/components/RouteSuggestions";
 import HeroCarousel from "@/components/HeroCarousel";
+import JourneyPlanner from "@/components/JourneyPlanner";
+import PopularRoutes from "@/components/PopularRoutes";
+import { useRef, useCallback } from "react";
 
 const HomePage = () => {
+  const journeyPlannerRef = useRef<HTMLDivElement>(null);
+
+  // Handler for when user selects a popular route
+  const handleSelectRoute = useCallback((startLocation: string, endLocation: string) => {
+    // Scroll to journey planner
+    journeyPlannerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    
+    // Dispatch custom event to pre-fill the form
+    const event = new CustomEvent("prefillJourney", {
+      detail: { startLocation, endLocation }
+    });
+    window.dispatchEvent(event);
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Carousel - Dynamic spot showcase */}
       <HeroCarousel />
+
+      {/* Journey Planner - Create Your SoulRide */}
+      <div ref={journeyPlannerRef}>
+        <JourneyPlanner />
+      </div>
+
+      {/* Popular Routes - Most Loved SoulRides */}
+      <PopularRoutes onSelectRoute={handleSelectRoute} />
 
       {/* Daily Soul Gem - Featured spot of the day */}
       <DailySoulGem />
