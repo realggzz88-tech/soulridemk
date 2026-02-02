@@ -6,7 +6,6 @@ import { usePhotoUpload } from "@/hooks/use-photo-upload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
@@ -266,107 +265,193 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-20 pb-16 px-4">
+    <div 
+      className="min-h-screen pt-20 pb-16 px-4 grain-overlay"
+      style={{ background: 'linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(180 15% 10%) 50%, hsl(25 12% 10%) 100%)' }}
+    >
       <div className="max-w-4xl mx-auto space-y-8">
-        {/* Profile Header with Photos */}
-        <Card className="bg-gradient-to-br from-card via-card to-earth-green/5 border-border/50 overflow-hidden">
-          <CardHeader className="pb-4">
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Profile Photo Section */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="relative group">
-                  <div className="h-32 w-32 rounded-full overflow-hidden bg-gradient-to-br from-earth-green to-soul-amber flex items-center justify-center ring-4 ring-earth-green/20">
-                    {extendedProfile?.profile_photo_url ? (
-                      <img 
-                        src={extendedProfile.profile_photo_url} 
-                        alt="Profile" 
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-4xl font-bold text-background">
+        {/* Profile Header with Photos - Vintage Journal Style */}
+        <div 
+          className="relative rounded-xl overflow-hidden p-8"
+          style={{
+            backgroundColor: 'hsl(180 12% 11%)',
+            border: '2px solid hsl(140 15% 25% / 0.4)',
+            boxShadow: '0 8px 40px hsl(0 0% 0% / 0.4), inset 0 1px 0 hsl(40 30% 90% / 0.03)',
+          }}
+        >
+          {/* Brass rivets */}
+          <div className="absolute top-3 left-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          <div className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          <div className="absolute bottom-3 left-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          <div className="absolute bottom-3 right-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Profile Photo Section - Polaroid Style */}
+            <div className="flex flex-col items-center gap-4">
+              <div 
+                className="relative group p-3 rounded-lg"
+                style={{
+                  backgroundColor: 'hsl(40 30% 95%)',
+                  boxShadow: '0 4px 20px hsl(0 0% 0% / 0.3)',
+                  transform: 'rotate(-2deg)',
+                }}
+              >
+                <div className="h-32 w-32 rounded overflow-hidden">
+                  {extendedProfile?.profile_photo_url ? (
+                    <img 
+                      src={extendedProfile.profile_photo_url} 
+                      alt="Profile" 
+                      className="h-full w-full object-cover"
+                      style={{ filter: 'sepia(10%) saturate(90%)' }}
+                    />
+                  ) : (
+                    <div 
+                      className="h-full w-full flex items-center justify-center"
+                      style={{ backgroundColor: 'hsl(140 22% 42%)' }}
+                    >
+                      <span 
+                        className="text-4xl font-bold"
+                        style={{ 
+                          fontFamily: "'Bitter', serif",
+                          color: 'hsl(40 30% 94%)',
+                        }}
+                      >
                         {profile.username.slice(0, 2).toUpperCase()}
                       </span>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => profilePhotoRef.current?.click()}
-                    disabled={uploadingProfile}
-                    className="absolute inset-0 rounded-full bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                  >
-                    {uploadingProfile ? (
-                      <Loader2 className="h-6 w-6 animate-spin" />
-                    ) : (
-                      <Camera className="h-6 w-6" />
-                    )}
-                  </button>
-                  <input
-                    ref={profilePhotoRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleProfilePhotoChange}
-                  />
+                    </div>
+                  )}
                 </div>
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   onClick={() => profilePhotoRef.current?.click()}
                   disabled={uploadingProfile}
-                  className="gap-2"
+                  className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  style={{ backgroundColor: 'hsl(0 0% 0% / 0.5)' }}
                 >
-                  {uploadingProfile ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
-                  Change Photo
-                </Button>
+                  {uploadingProfile ? (
+                    <Loader2 className="h-6 w-6 animate-spin" style={{ color: 'hsl(40 30% 90%)' }} />
+                  ) : (
+                    <Camera className="h-6 w-6" style={{ color: 'hsl(40 30% 90%)' }} />
+                  )}
+                </button>
+                <input
+                  ref={profilePhotoRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfilePhotoChange}
+                />
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => profilePhotoRef.current?.click()}
+                disabled={uploadingProfile}
+                className="gap-2 btn-soul-secondary"
+              >
+                {uploadingProfile ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+                Change Photo
+              </Button>
+            </div>
 
-              {/* User Info */}
-              <div className="flex-1 flex flex-col justify-center">
-                <CardTitle className="text-3xl font-display tracking-wide text-center md:text-left">
-                  {profile.username}
-                </CardTitle>
-                <CardDescription className="flex items-center gap-2 mt-1 justify-center md:justify-start">
-                  <Calendar className="h-4 w-4" />
-                  Member since {format(new Date(profile.created_at), "MMMM yyyy")}
-                </CardDescription>
+            {/* User Info */}
+            <div className="flex-1 flex flex-col justify-center">
+              <h1 
+                className="text-3xl tracking-wide text-center md:text-left mb-2"
+                style={{
+                  fontFamily: "'Bitter', serif",
+                  fontWeight: 700,
+                  color: 'hsl(40 30% 94%)',
+                }}
+              >
+                {profile.username}
+              </h1>
+              <p 
+                className="flex items-center gap-2 mt-1 justify-center md:justify-start text-sm"
+                style={{ 
+                  fontFamily: "'Special Elite', monospace",
+                  color: 'hsl(35 15% 50%)',
+                }}
+              >
+                <Calendar className="h-4 w-4" style={{ color: 'hsl(25 40% 55%)' }} />
+                Member since {format(new Date(profile.created_at), "MMMM yyyy")}
+              </p>
                 
                 <div className="flex gap-2 mt-4 justify-center md:justify-start">
                   <Dialog open={isEditingProfile} onOpenChange={setIsEditingProfile}>
                     <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="gap-2">
+                      <Button variant="outline" size="sm" className="gap-2 btn-soul-secondary">
                         <Pencil className="h-4 w-4" />
                         Edit Profile
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-background/95 backdrop-blur-lg border-border/50">
+                    <DialogContent 
+                      className="backdrop-blur-lg max-w-md"
+                      style={{
+                        backgroundColor: 'hsl(180 12% 11% / 0.98)',
+                        border: '2px solid hsl(140 15% 25% / 0.4)',
+                      }}
+                    >
                       <DialogHeader>
-                        <DialogTitle>Edit Your Profile</DialogTitle>
+                        <DialogTitle 
+                          style={{
+                            fontFamily: "'Bitter', serif",
+                            color: 'hsl(40 30% 94%)',
+                          }}
+                        >
+                          Edit Your Profile
+                        </DialogTitle>
                       </DialogHeader>
                       <div className="space-y-4 pt-4">
                         <div className="space-y-2">
-                          <Label htmlFor="whatYouRide">What I Ride</Label>
+                          <Label 
+                            htmlFor="whatYouRide"
+                            style={{ 
+                              fontFamily: "'Special Elite', monospace",
+                              color: 'hsl(35 50% 55%)',
+                            }}
+                          >
+                            What I Ride
+                          </Label>
                           <Input
                             id="whatYouRide"
-                            placeholder="e.g., Adventure bike, Classic car, Electric scooter..."
+                            placeholder="e.g., Adventure bike, Classic car..."
                             value={editWhatYouRide}
                             onChange={(e) => setEditWhatYouRide(e.target.value)}
-                            className="bg-muted/50"
+                            style={{
+                              backgroundColor: 'hsl(180 12% 15%)',
+                              border: '1px solid hsl(140 15% 25% / 0.4)',
+                              fontFamily: "'Special Elite', monospace",
+                            }}
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="bio">Bio / About Me</Label>
+                          <Label 
+                            htmlFor="bio"
+                            style={{ 
+                              fontFamily: "'Special Elite', monospace",
+                              color: 'hsl(35 50% 55%)',
+                            }}
+                          >
+                            Bio / About Me
+                          </Label>
                           <Textarea
                             id="bio"
                             placeholder="Tell us about yourself and your soul rides..."
                             value={editBio}
                             onChange={(e) => setEditBio(e.target.value)}
                             rows={4}
-                            className="bg-muted/50 resize-none"
+                            className="resize-none"
+                            style={{
+                              backgroundColor: 'hsl(180 12% 15%)',
+                              border: '1px solid hsl(140 15% 25% / 0.4)',
+                              fontFamily: "'Libre Baskerville', serif",
+                            }}
                           />
                         </div>
                         <Button 
                           onClick={handleSaveProfile} 
                           disabled={savingProfile}
-                          className="w-full bg-gradient-to-r from-earth-green to-soul-amber hover:from-earth-green/90 hover:to-soul-amber/90"
+                          className="w-full btn-soul-primary"
                         >
                           {savingProfile ? "Saving..." : "Save Changes"}
                         </Button>
@@ -376,14 +461,19 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-          </CardHeader>
 
-          {/* My Ride Photo Section */}
-          <CardContent className="space-y-6">
-            <div className="space-y-3">
+            {/* My Ride Photo Section - Polaroid style */}
+            <div className="mt-8 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <Bike className="h-5 w-5 text-soul-amber" />
+                <h3 
+                  className="flex items-center gap-2"
+                  style={{
+                    fontFamily: "'Bitter', serif",
+                    fontWeight: 600,
+                    color: 'hsl(40 30% 94%)',
+                  }}
+                >
+                  <Bike className="h-5 w-5" style={{ color: 'hsl(25 40% 55%)' }} />
                   My Ride
                 </h3>
                 <Button
@@ -391,7 +481,7 @@ const ProfilePage = () => {
                   size="sm"
                   onClick={() => ridePhotoRef.current?.click()}
                   disabled={uploadingRide}
-                  className="gap-2"
+                  className="gap-2 btn-soul-secondary"
                 >
                   {uploadingRide ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />}
                   {extendedProfile?.ride_photo_url ? "Change" : "Add Photo"}
@@ -405,57 +495,146 @@ const ProfilePage = () => {
                 />
               </div>
               
-              <div className="relative aspect-video rounded-xl overflow-hidden bg-muted/30 border border-border/30">
+              {/* Ride photo with polaroid frame */}
+              <div 
+                className="relative aspect-video rounded-lg overflow-hidden"
+                style={{
+                  backgroundColor: 'hsl(180 12% 13%)',
+                  border: '1px solid hsl(140 15% 25% / 0.3)',
+                }}
+              >
                 {extendedProfile?.ride_photo_url ? (
-                  <img 
-                    src={extendedProfile.ride_photo_url} 
-                    alt="My Ride" 
-                    className="w-full h-full object-cover"
-                  />
+                  <>
+                    <img 
+                      src={extendedProfile.ride_photo_url} 
+                      alt="My Ride" 
+                      className="w-full h-full object-cover"
+                      style={{ filter: 'sepia(10%) saturate(90%)' }}
+                    />
+                    {/* Caption overlay */}
+                    <div 
+                      className="absolute bottom-0 left-0 right-0 p-3 text-center"
+                      style={{
+                        background: 'linear-gradient(to top, hsl(0 0% 0% / 0.7) 0%, transparent 100%)',
+                      }}
+                    >
+                      <p 
+                        className="text-sm"
+                        style={{ 
+                          fontFamily: "'Caveat', cursive",
+                          color: 'hsl(40 30% 85%)',
+                        }}
+                      >
+                        "My faithful companion on Macedonia's soul roads"
+                      </p>
+                    </div>
+                  </>
                 ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
-                    <Bike className="h-12 w-12 mb-2 opacity-50" />
-                    <p className="text-sm">No ride photo yet</p>
-                    <p className="text-xs">Show off your wheels!</p>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <Bike className="h-12 w-12 mb-2" style={{ color: 'hsl(35 15% 35%)' }} />
+                    <p 
+                      className="text-sm"
+                      style={{ 
+                        fontFamily: "'Libre Baskerville', serif",
+                        color: 'hsl(35 15% 50%)',
+                      }}
+                    >
+                      No ride photo yet
+                    </p>
+                    <p 
+                      className="text-xs"
+                      style={{ 
+                        fontFamily: "'Caveat', cursive",
+                        color: 'hsl(35 15% 45%)',
+                      }}
+                    >
+                      Show off your wheels!
+                    </p>
                   </div>
                 )}
               </div>
               
               {extendedProfile?.what_you_ride && (
-                <p className="text-sm text-muted-foreground">
+                <p 
+                  className="text-sm"
+                  style={{ 
+                    fontFamily: "'Special Elite', monospace",
+                    color: 'hsl(35 50% 55%)',
+                  }}
+                >
                   {extendedProfile.what_you_ride}
                 </p>
               )}
             </div>
             
             {/* Bio */}
-            <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/30">
-              <User className="h-5 w-5 text-earth-green mt-0.5" />
+            <div 
+              className="flex items-start gap-3 p-4 rounded-lg mt-6"
+              style={{
+                backgroundColor: 'hsl(140 22% 42% / 0.1)',
+                border: '1px solid hsl(140 22% 42% / 0.25)',
+              }}
+            >
+              <User className="h-5 w-5 mt-0.5" style={{ color: 'hsl(140 22% 55%)' }} />
               <div>
-                <p className="text-sm font-medium text-muted-foreground">About Me</p>
-                <p className="text-foreground whitespace-pre-wrap">
+                <p 
+                  className="text-sm font-medium mb-1"
+                  style={{ 
+                    fontFamily: "'Special Elite', monospace",
+                    color: 'hsl(35 50% 55%)',
+                  }}
+                >
+                  About Me
+                </p>
+                <p 
+                  className="whitespace-pre-wrap"
+                  style={{
+                    fontFamily: "'Libre Baskerville', Georgia, serif",
+                    color: 'hsl(40 30% 85%)',
+                    lineHeight: 1.7,
+                  }}
+                >
                   {extendedProfile?.bio || "No bio yet. Click Edit Profile to add one!"}
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* My Recommended Routes Section */}
-        <Card className="bg-card/80 border-border/50">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2 text-xl">
-                  <Route className="h-5 w-5 text-soul-amber" />
-                  My Recommended SoulRides
-                </CardTitle>
-                <CardDescription>
-                  {userRoutes.length > 0 
-                    ? `You recommended ${userRoutes.length} route${userRoutes.length === 1 ? "" : "s"}`
-                    : "Share your favorite routes with the community"}
-                </CardDescription>
-              </div>
+        {/* My Recommended Routes Section - Logbook Entries */}
+        <div 
+          className="rounded-xl p-6"
+          style={{
+            backgroundColor: 'hsl(180 12% 11%)',
+            border: '2px solid hsl(140 15% 25% / 0.4)',
+            boxShadow: '0 8px 40px hsl(0 0% 0% / 0.4)',
+          }}
+        >
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 
+                className="flex items-center gap-2 text-xl tracking-wide"
+                style={{
+                  fontFamily: "'Bitter', serif",
+                  fontWeight: 700,
+                  color: 'hsl(40 30% 94%)',
+                }}
+              >
+                <Route className="h-5 w-5" style={{ color: 'hsl(25 40% 55%)' }} />
+                My Recommended SoulRides
+              </h2>
+              <p 
+                className="text-sm mt-1"
+                style={{ 
+                  fontFamily: "'Caveat', cursive",
+                  color: 'hsl(140 22% 55%)',
+                }}
+              >
+                {userRoutes.length > 0 
+                  ? `You recommended ${userRoutes.length} route${userRoutes.length === 1 ? "" : "s"}`
+                  : "Share your favorite routes with the community"}
+              </p>
+            </div>
               <Dialog open={isAddingRoute} onOpenChange={(open) => {
                 setIsAddingRoute(open);
                 if (!open) setNewRoutePhotoUrl(null);
@@ -570,55 +749,128 @@ const ProfilePage = () => {
                 </DialogContent>
               </Dialog>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div className="mt-6">
             {loadingRoutes ? (
-              <div className="text-center py-8 text-muted-foreground">Loading routes...</div>
+              <div 
+                className="text-center py-8"
+                style={{ 
+                  fontFamily: "'Libre Baskerville', serif",
+                  color: 'hsl(35 15% 50%)',
+                }}
+              >
+                Loading routes...
+              </div>
             ) : userRoutes.length === 0 ? (
               <div className="text-center py-8">
-                <MapPin className="h-12 w-12 mx-auto text-muted-foreground/50 mb-3" />
-                <p className="text-muted-foreground">
+                <MapPin className="h-12 w-12 mx-auto mb-3" style={{ color: 'hsl(35 15% 35%)' }} />
+                <p 
+                  style={{ 
+                    fontFamily: "'Libre Baskerville', serif",
+                    color: 'hsl(35 15% 50%)',
+                  }}
+                >
                   No routes yet. Share your first SoulRide!
                 </p>
               </div>
             ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2">
                 {userRoutes.map((route) => (
                   <div
                     key={route.id}
-                    className="rounded-lg bg-muted/20 border border-border/30 hover:border-earth-green/30 transition-colors overflow-hidden"
+                    className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                    style={{
+                      backgroundColor: 'hsl(180 12% 13%)',
+                      border: '1px solid hsl(140 15% 25% / 0.3)',
+                      boxShadow: '0 4px 20px hsl(0 0% 0% / 0.3)',
+                    }}
                   >
                     {route.route_photo_url && (
-                      <div className="aspect-video overflow-hidden">
+                      <div 
+                        className="aspect-video overflow-hidden relative"
+                        style={{ 
+                          borderBottom: '3px solid hsl(40 30% 90%)',
+                        }}
+                      >
                         <img 
                           src={route.route_photo_url} 
                           alt={route.route_title}
                           className="w-full h-full object-cover"
+                          style={{ filter: 'sepia(15%) saturate(85%)' }}
                         />
+                        {/* Date stamp */}
+                        <div 
+                          className="absolute bottom-2 right-2 px-2 py-1 rounded"
+                          style={{
+                            backgroundColor: 'hsl(180 12% 10% / 0.85)',
+                            border: '1px solid hsl(25 40% 40% / 0.4)',
+                          }}
+                        >
+                          <span 
+                            className="text-xs"
+                            style={{ 
+                              fontFamily: "'Special Elite', monospace",
+                              color: 'hsl(25 40% 60%)',
+                            }}
+                          >
+                            {format(new Date(route.created_at), "MMM d, yyyy")}
+                          </span>
+                        </div>
                       </div>
                     )}
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-foreground">{route.route_title}</h4>
-                          <p className="text-sm text-soul-amber flex items-center gap-1 mt-1">
+                          <h4 
+                            className="text-lg"
+                            style={{
+                              fontFamily: "'Caveat', cursive",
+                              fontWeight: 600,
+                              color: 'hsl(40 30% 94%)',
+                              fontSize: '1.25rem',
+                            }}
+                          >
+                            {route.route_title}
+                          </h4>
+                          <p 
+                            className="flex items-center gap-1 mt-1 text-sm"
+                            style={{ 
+                              fontFamily: "'Special Elite', monospace",
+                              color: 'hsl(25 40% 55%)',
+                            }}
+                          >
                             <MapPin className="h-3.5 w-3.5" />
                             {route.start_location} → {route.end_location}
                           </p>
-                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                          <p 
+                            className="mt-3 line-clamp-2 text-sm"
+                            style={{
+                              fontFamily: "'Libre Baskerville', Georgia, serif",
+                              color: 'hsl(40 15% 55%)',
+                              lineHeight: 1.7,
+                            }}
+                          >
                             {route.description}
                           </p>
-                          <p className="text-xs text-muted-foreground/70 mt-2">
-                            Added {format(new Date(route.created_at), "MMM d, yyyy")}
-                          </p>
+                          {!route.route_photo_url && (
+                            <p 
+                              className="text-xs mt-3"
+                              style={{ 
+                                fontFamily: "'Special Elite', monospace",
+                                color: 'hsl(35 15% 45%)',
+                              }}
+                            >
+                              Added {format(new Date(route.created_at), "MMM d, yyyy")}
+                            </p>
+                          )}
                         </div>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="text-muted-foreground hover:text-destructive shrink-0"
+                          className="shrink-0 hover:bg-destructive/20"
                           onClick={() => handleDeleteRoute(route.id)}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" style={{ color: 'hsl(0 60% 50%)' }} />
                         </Button>
                       </div>
                     </div>
@@ -626,8 +878,8 @@ const ProfilePage = () => {
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
