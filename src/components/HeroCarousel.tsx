@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 
-// 8 best spots for the hero carousel
+// 12 featured spots for the hero carousel - diverse regional coverage
 const heroSlides = [
   { spot: spots.find(s => s.id === "galicica-pass"), tagline: "Where the soul meets the horizon" },
   { spot: spots.find(s => s.id === "st-jovan-kaneo-overlook"), tagline: "Ancient beauty suspended over crystal waters" },
@@ -14,6 +14,10 @@ const heroSlides = [
   { spot: spots.find(s => s.id === "carevi-kuli-fortress-overlook"), tagline: "Where history whispers through stone" },
   { spot: spots.find(s => s.id === "galicica-national-park-summit"), tagline: "Two lakes, one infinite view" },
   { spot: spots.find(s => s.id === "treskavec-monastery-cliff"), tagline: "Solitude carved into the mountain" },
+  { spot: spots.find(s => s.id === "shar-mountain-range"), tagline: "Peaks touching the divine" },
+  { spot: spots.find(s => s.id === "kokino-observatory-overlook"), tagline: "Where ancient eyes first mapped the stars" },
+  { spot: spots.find(s => s.id === "smolare-waterfall"), tagline: "Where water sings eternal songs" },
+  { spot: spots.find(s => s.id === "kratovo-old-town"), tagline: "Stone bridges to forgotten eras" },
 ].filter(slide => slide.spot) as { spot: typeof spots[0]; tagline: string }[];
 
 const HeroCarousel = () => {
