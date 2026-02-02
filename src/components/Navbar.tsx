@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { useFavorites } from "@/hooks/use-favorites";
 import UserMenu from "@/components/UserMenu";
 import { useAuth } from "@/hooks/useAuth";
-import BikerLogo from "@/components/BikerLogo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,10 +42,10 @@ const Navbar = () => {
       )}
       style={{
         background: scrolled 
-          ? 'linear-gradient(180deg, hsl(200 20% 8% / 0.98) 0%, hsl(180 15% 10% / 0.95) 100%)' 
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid hsl(140 15% 25% / 0.3)' : 'none',
+          ? 'hsl(20 15% 8% / 0.95)' 
+          : 'linear-gradient(180deg, hsl(20 15% 8% / 0.8) 0%, transparent 100%)',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid hsl(25 15% 18% / 0.5)' : 'none',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,16 +55,12 @@ const Navbar = () => {
             to="/" 
             className="flex items-center gap-3 group"
           >
-            <BikerLogo size={42} />
+            {/* Simple text logo */}
             <span 
-              className="text-xl font-bold tracking-wider hidden sm:block"
-              style={{
-                fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
-                color: 'hsl(40 30% 94%)',
-                textShadow: '1px 1px 2px hsl(0 0% 0% / 0.5)',
-              }}
+              className="text-2xl font-bold tracking-tight"
+              style={{ color: 'hsl(0 0% 100%)' }}
             >
-              SoulRide
+              Soul<span style={{ color: 'hsl(15 70% 55%)' }}>Ride</span>
             </span>
           </Link>
 
@@ -75,19 +70,18 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className="relative py-2 text-sm font-medium transition-all duration-300 tracking-wide"
+                className="relative py-2 text-sm font-medium transition-all duration-300"
                 style={{
-                  fontFamily: "'Libre Baskerville', Georgia, serif",
-                  color: isActive(link.to) ? 'hsl(40 30% 94%)' : 'hsl(40 15% 65%)',
+                  color: isActive(link.to) ? 'hsl(170 60% 55%)' : 'hsl(0 0% 100% / 0.7)',
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive(link.to)) {
-                    e.currentTarget.style.color = 'hsl(40 30% 88%)';
+                    e.currentTarget.style.color = 'hsl(0 0% 100%)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive(link.to)) {
-                    e.currentTarget.style.color = 'hsl(40 15% 65%)';
+                    e.currentTarget.style.color = 'hsl(0 0% 100% / 0.7)';
                   }
                 }}
               >
@@ -95,7 +89,7 @@ const Navbar = () => {
                 {isActive(link.to) && (
                   <span 
                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                    style={{ background: 'hsl(140 22% 42%)' }}
+                    style={{ background: 'hsl(170 60% 55%)' }}
                   />
                 )}
               </Link>
@@ -109,7 +103,7 @@ const Navbar = () => {
               to="/spots"
               className="relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300"
               style={{
-                background: favoritesCount > 0 ? 'hsl(140 22% 42% / 0.15)' : 'transparent',
+                background: favoritesCount > 0 ? 'hsl(15 70% 50% / 0.15)' : 'transparent',
               }}
               title={favoritesCount > 0 ? `${favoritesCount} saved spots` : "No saved spots"}
             >
@@ -119,15 +113,14 @@ const Navbar = () => {
                   "transition-all duration-300",
                   favoritesCount > 0 && "fill-current"
                 )}
-                style={{ color: favoritesCount > 0 ? 'hsl(140 22% 48%)' : 'hsl(40 15% 55%)' }}
+                style={{ color: favoritesCount > 0 ? 'hsl(15 70% 55%)' : 'hsl(0 0% 100% / 0.6)' }}
               />
               {favoritesCount > 0 && (
                 <span 
                   className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full"
                   style={{ 
-                    background: 'hsl(20 45% 38%)',
-                    color: 'hsl(40 30% 94%)',
-                    fontFamily: "'Special Elite', 'Courier New', monospace",
+                    background: 'hsl(15 70% 50%)',
+                    color: 'hsl(0 0% 100%)',
                     fontSize: '10px',
                   }}
                 >
@@ -141,25 +134,20 @@ const Navbar = () => {
               <div className="flex items-center gap-3">
                 <Link
                   to="/login"
-                  className="text-sm font-medium transition-colors duration-300 tracking-wide"
-                  style={{ 
-                    color: 'hsl(40 15% 60%)',
-                    fontFamily: "'Libre Baskerville', Georgia, serif",
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(40 30% 88%)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(40 15% 60%)'}
+                  className="text-sm font-medium transition-colors duration-300"
+                  style={{ color: 'hsl(0 0% 100% / 0.7)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(0 0% 100%)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(0 0% 100% / 0.7)'}
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 tracking-wide vintage-button"
+                  className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(20 45% 35%) 0%, hsl(25 40% 42%) 100%)',
-                    color: 'hsl(40 30% 94%)',
-                    fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
-                    boxShadow: 'inset 0 1px 0 hsl(40 30% 60% / 0.2), 0 2px 8px hsl(0 0% 0% / 0.4)',
-                    border: '1px solid hsl(20 35% 28%)',
+                    background: 'linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%)',
+                    color: 'hsl(0 0% 100%)',
+                    boxShadow: '0 4px 12px hsl(15 70% 45% / 0.3)',
                   }}
                 >
                   Join
@@ -175,14 +163,14 @@ const Navbar = () => {
             <Link
               to="/spots"
               className="flex items-center gap-1 text-sm"
-              style={{ color: favoritesCount > 0 ? 'hsl(140 22% 48%)' : 'hsl(40 15% 55%)' }}
+              style={{ color: favoritesCount > 0 ? 'hsl(15 70% 55%)' : 'hsl(0 0% 100% / 0.6)' }}
             >
               <Heart 
                 size={18} 
                 className={cn(favoritesCount > 0 && "fill-current")}
               />
               {favoritesCount > 0 && (
-                <span className="font-medium" style={{ fontFamily: "'Special Elite', monospace" }}>
+                <span className="font-medium">
                   {favoritesCount}
                 </span>
               )}
@@ -191,8 +179,8 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 transition-colors rounded-lg"
               style={{ 
-                color: 'hsl(40 30% 94%)',
-                background: isOpen ? 'hsl(140 22% 42% / 0.1)' : 'transparent',
+                color: 'hsl(0 0% 100%)',
+                background: isOpen ? 'hsl(0 0% 100% / 0.1)' : 'transparent',
               }}
               aria-label="Toggle menu"
             >
@@ -210,17 +198,16 @@ const Navbar = () => {
         >
           <div 
             className="flex flex-col gap-1 pt-4 mt-4"
-            style={{ borderTop: '1px solid hsl(140 15% 25% / 0.3)' }}
+            style={{ borderTop: '1px solid hsl(25 15% 20% / 0.5)' }}
           >
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 tracking-wide"
+                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
                 style={{
-                  color: isActive(link.to) ? 'hsl(40 30% 94%)' : 'hsl(40 15% 60%)',
-                  background: isActive(link.to) ? 'hsl(140 22% 42% / 0.15)' : 'transparent',
-                  fontFamily: "'Libre Baskerville', Georgia, serif",
+                  color: isActive(link.to) ? 'hsl(170 60% 55%)' : 'hsl(0 0% 100% / 0.7)',
+                  background: isActive(link.to) ? 'hsl(170 60% 50% / 0.1)' : 'transparent',
                 }}
               >
                 {link.label}
@@ -232,22 +219,20 @@ const Navbar = () => {
               <div className="flex gap-3 mt-3 px-4">
                 <Link
                   to="/login"
-                  className="flex-1 py-3 rounded-xl text-sm font-medium text-center transition-all duration-200 tracking-wide"
+                  className="flex-1 py-3 rounded-xl text-sm font-medium text-center transition-all duration-200"
                   style={{
-                    color: 'hsl(40 15% 65%)',
-                    border: '1px solid hsl(140 15% 25% / 0.4)',
-                    fontFamily: "'Libre Baskerville', Georgia, serif",
+                    color: 'hsl(0 0% 100% / 0.7)',
+                    border: '1px solid hsl(25 15% 25%)',
                   }}
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
-                  className="flex-1 py-3 rounded-xl text-sm font-semibold text-center tracking-wide"
+                  className="flex-1 py-3 rounded-xl text-sm font-semibold text-center"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(20 45% 35%) 0%, hsl(25 40% 42%) 100%)',
-                    color: 'hsl(40 30% 94%)',
-                    fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+                    background: 'linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%)',
+                    color: 'hsl(0 0% 100%)',
                   }}
                 >
                   Join
@@ -256,7 +241,7 @@ const Navbar = () => {
             )}
             
             {user && (
-              <div className="pt-3 mt-3" style={{ borderTop: '1px solid hsl(140 15% 25% / 0.3)' }}>
+              <div className="pt-3 mt-3" style={{ borderTop: '1px solid hsl(25 15% 20% / 0.5)' }}>
                 <UserMenu />
               </div>
             )}
