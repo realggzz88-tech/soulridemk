@@ -40,6 +40,7 @@ export type Database = {
           content: string
           created_at: string
           id: string
+          image_url: string | null
           room_name: string
           user_id: string
           username: string
@@ -48,6 +49,7 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          image_url?: string | null
           room_name?: string
           user_id: string
           username: string
@@ -56,6 +58,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          image_url?: string | null
           room_name?: string
           user_id?: string
           username?: string
@@ -68,6 +71,8 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          profile_photo_url: string | null
+          ride_photo_url: string | null
           updated_at: string
           user_id: string
           username: string
@@ -78,6 +83,8 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          profile_photo_url?: string | null
+          ride_photo_url?: string | null
           updated_at?: string
           user_id: string
           username: string
@@ -88,6 +95,8 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          profile_photo_url?: string | null
+          ride_photo_url?: string | null
           updated_at?: string
           user_id?: string
           username?: string
@@ -102,6 +111,7 @@ export type Database = {
           end_location: string
           id: string
           likes_count: number
+          route_photo_url: string | null
           route_title: string
           start_location: string
           user_id: string
@@ -113,6 +123,7 @@ export type Database = {
           end_location: string
           id?: string
           likes_count?: number
+          route_photo_url?: string | null
           route_title: string
           start_location: string
           user_id: string
@@ -124,6 +135,7 @@ export type Database = {
           end_location?: string
           id?: string
           likes_count?: number
+          route_photo_url?: string | null
           route_title?: string
           start_location?: string
           user_id?: string

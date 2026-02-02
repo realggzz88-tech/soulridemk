@@ -8,18 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, LogOut, MessageCircle, Bike } from "lucide-react";
-
-interface ExtendedProfile {
-  id: string;
-  user_id: string;
-  username: string;
-  email: string;
-  bio?: string | null;
-  what_you_ride?: string | null;
-  created_at: string;
-}
 
 const UserMenu = () => {
   const { user, profile, signOut, loading } = useAuth();
@@ -50,13 +40,14 @@ const UserMenu = () => {
     );
   }
 
-  const extendedProfile = profile as ExtendedProfile | null;
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-2 p-1 rounded-full hover:bg-muted/50 transition-colors">
           <Avatar className="h-8 w-8">
+            {profile?.profile_photo_url ? (
+              <AvatarImage src={profile.profile_photo_url} alt={profile.username} />
+            ) : null}
             <AvatarFallback className="bg-gradient-to-br from-earth-green to-earth-green/70 text-background text-xs font-medium">
               {profile?.username?.slice(0, 2).toUpperCase() || "U"}
             </AvatarFallback>
@@ -67,10 +58,10 @@ const UserMenu = () => {
         <div className="px-2 py-2">
           <p className="text-sm font-medium">{profile?.username}</p>
           <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-          {extendedProfile?.what_you_ride && (
+          {profile?.what_you_ride && (
             <p className="text-xs text-soul-amber flex items-center gap-1 mt-1">
               <Bike className="h-3 w-3" />
-              {extendedProfile.what_you_ride}
+              {profile.what_you_ride}
             </p>
           )}
         </div>

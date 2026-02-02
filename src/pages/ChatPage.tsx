@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import { usePhotoUpload } from "@/hooks/use-photo-upload";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Send, MessageCircle, Users, Loader2, Menu, Radio, ChevronRight } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Send, MessageCircle, Loader2, Menu, Radio, ImagePlus, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -19,6 +21,7 @@ interface Message {
   content: string;
   created_at: string;
   room_name: string;
+  image_url: string | null;
 }
 
 interface ChatRoom {
@@ -28,6 +31,12 @@ interface ChatRoom {
   created_at: string;
 }
 
+interface UserProfile {
+  user_id: string;
+  username: string;
+  profile_photo_url: string | null;
+}
+
 const ChatPage = () => {
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
@@ -35,12 +44,23 @@ const ChatPage = () => {
   const [rooms, setRooms] = useState<ChatRoom[]>([]);
   const [selectedRoom, setSelectedRoom] = useState<string>("Motorbike Riders");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [userProfiles, setUserProfiles] = useState<Map<string, UserProfile>>(new Map());
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [loadingMessages, setLoadingMessages] = useState(true);
   const [loadingRooms, setLoadingRooms] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+  const [pendingImageUrl, setPendingImageUrl] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
+  const { uploadPhoto, uploading: uploadingImage } = usePhotoUpload({
+    bucket: "chat-photos",
+    onSuccess: (url) => {
+      setPendingImageUrl(url);
+    },
+  });
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -73,6 +93,23 @@ const ChatPage = () => {
     }
   }, [user]);
 
+  // Fetch user profiles for avatars
+  const fetchUserProfiles = async (userIds: string[]) => {
+    const uniqueIds = [...new Set(userIds)].filter(id => !userProfiles.has(id));
+    if (uniqueIds.length === 0) return;
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("user_id, username, profile_photo_url")
+      .in("user_id", uniqueIds);
+
+    if (data && !error) {
+      const newProfiles = new Map(userProfiles);
+      data.forEach(p => newProfiles.set(p.user_id, p as UserProfile));
+      setUserProfiles(newProfiles);
+    }
+  };
+
   // Fetch messages for selected room
   useEffect(() => {
     const fetchMessages = async () => {
@@ -92,7 +129,12 @@ const ChatPage = () => {
           variant: "destructive",
         });
       } else {
-        setMessages(data || []);
+        const msgs = (data || []) as Message[];
+        setMessages(msgs);
+        // Fetch profiles for message authors
+        if (msgs.length > 0) {
+          fetchUserProfiles(msgs.map(m => m.user_id));
+        }
       }
       setLoadingMessages(false);
     };
@@ -100,7 +142,7 @@ const ChatPage = () => {
     if (user && selectedRoom) {
       fetchMessages();
     }
-  }, [user, selectedRoom, toast]);
+  }, [user, selectedRoom]);
 
   // Subscribe to new messages for selected room
   useEffect(() => {
@@ -119,6 +161,7 @@ const ChatPage = () => {
         (payload) => {
           const newMsg = payload.new as Message;
           setMessages((prev) => [...prev, newMsg]);
+          fetchUserProfiles([newMsg.user_id]);
         }
       )
       .subscribe();
@@ -133,10 +176,21 @@ const ChatPage = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && user) {
+      await uploadPhoto(file, user.id);
+    }
+    // Reset input so same file can be selected again
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+  };
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!newMessage.trim() || !user || !profile) return;
+    if ((!newMessage.trim() && !pendingImageUrl) || !user || !profile) return;
 
     setSending(true);
 
@@ -145,6 +199,7 @@ const ChatPage = () => {
       username: profile.username,
       content: newMessage.trim(),
       room_name: selectedRoom,
+      image_url: pendingImageUrl,
     });
 
     if (error) {
@@ -156,6 +211,7 @@ const ChatPage = () => {
       });
     } else {
       setNewMessage("");
+      setPendingImageUrl(null);
     }
 
     setSending(false);
@@ -312,12 +368,16 @@ const ChatPage = () => {
               <div className="space-y-4 py-4">
                 {messages.map((message) => {
                   const isOwn = message.user_id === user.id;
+                  const authorProfile = userProfiles.get(message.user_id);
                   return (
                     <div
                       key={message.id}
                       className={`flex gap-3 ${isOwn ? "flex-row-reverse" : ""}`}
                     >
                       <Avatar className="h-8 w-8 flex-shrink-0">
+                        {authorProfile?.profile_photo_url ? (
+                          <AvatarImage src={authorProfile.profile_photo_url} alt={message.username} />
+                        ) : null}
                         <AvatarFallback 
                           className={`text-xs font-medium ${
                             isOwn 
@@ -338,15 +398,37 @@ const ChatPage = () => {
                           </span>
                         </div>
                         <div
-                          className={`inline-block px-4 py-2 rounded-2xl ${
+                          className={`inline-block rounded-2xl overflow-hidden ${
                             isOwn
                               ? "bg-gradient-to-r from-earth-green/20 to-earth-green/10 rounded-tr-sm"
                               : "bg-muted/50 rounded-tl-sm"
                           }`}
                         >
-                          <p className="text-sm whitespace-pre-wrap break-words">
-                            {message.content}
-                          </p>
+                          {message.image_url && (
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <button className="block w-full max-w-sm">
+                                  <img 
+                                    src={message.image_url} 
+                                    alt="Shared image" 
+                                    className="w-full h-auto max-h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                                  />
+                                </button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-4xl p-0 bg-transparent border-none">
+                                <img 
+                                  src={message.image_url} 
+                                  alt="Shared image" 
+                                  className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+                                />
+                              </DialogContent>
+                            </Dialog>
+                          )}
+                          {message.content && (
+                            <p className="text-sm whitespace-pre-wrap break-words px-4 py-2">
+                              {message.content}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -357,9 +439,49 @@ const ChatPage = () => {
             )}
           </ScrollArea>
 
+          {/* Pending image preview */}
+          {pendingImageUrl && (
+            <div className="px-4 py-2 border-t border-border/50">
+              <div className="relative inline-block">
+                <img 
+                  src={pendingImageUrl} 
+                  alt="Pending" 
+                  className="h-20 w-auto rounded-lg object-cover"
+                />
+                <button
+                  onClick={() => setPendingImageUrl(null)}
+                  className="absolute -top-2 -right-2 p-1 rounded-full bg-destructive text-destructive-foreground"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Message input */}
           <form onSubmit={handleSendMessage} className="p-4 border-t border-border/50 bg-background/80 backdrop-blur-sm">
             <div className="flex gap-3">
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => imageInputRef.current?.click()}
+                disabled={uploadingImage}
+                className="shrink-0"
+              >
+                {uploadingImage ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <ImagePlus className="h-5 w-5 text-soul-amber" />
+                )}
+              </Button>
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageSelect}
+              />
               <Textarea
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
@@ -370,7 +492,7 @@ const ChatPage = () => {
               />
               <Button
                 type="submit"
-                disabled={!newMessage.trim() || sending}
+                disabled={(!newMessage.trim() && !pendingImageUrl) || sending}
                 className="h-auto px-4 bg-gradient-to-r from-earth-green to-soul-amber hover:from-earth-green/90 hover:to-soul-amber/90 text-background"
               >
                 {sending ? (
