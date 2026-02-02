@@ -6,69 +6,72 @@
 
 @layer base {
   :root {
-    /* Hardcore dark base - deeper, more cinematic */
-    --background: 0 0% 7%;
+    /* Million-dollar dark base - pure black luxury */
+    --background: 0 0% 4%;
     --foreground: 40 15% 94%;
 
-    --card: 0 0% 9%;
+    --card: 0 0% 6%;
     --card-foreground: 40 15% 94%;
 
-    --popover: 0 0% 8%;
+    --popover: 0 0% 5%;
     --popover-foreground: 40 15% 94%;
 
-    /* Earthy forest green primary */
-    --primary: 160 40% 28%;
-    --primary-foreground: 40 15% 96%;
+    /* Teal primary - premium ocean depth */
+    --primary: 174 60% 42%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Muted earth tones */
-    --secondary: 220 8% 12%;
+    /* Muted luxury tones */
+    --secondary: 220 10% 8%;
     --secondary-foreground: 40 15% 88%;
 
-    --muted: 220 8% 14%;
-    --muted-foreground: 220 8% 60%;
+    --muted: 220 10% 10%;
+    --muted-foreground: 220 8% 55%;
 
-    /* Amber accent for CTAs */
-    --accent: 32 85% 52%;
-    --accent-foreground: 0 0% 7%;
+    /* Coral/Orange accent for CTAs */
+    --accent: 16 85% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 40 15% 96%;
 
-    --border: 220 8% 16%;
-    --input: 220 8% 18%;
-    --ring: 160 40% 38%;
+    --border: 220 10% 12%;
+    --input: 220 10% 14%;
+    --ring: 174 60% 50%;
 
     --radius: 0.75rem;
 
-    /* Custom Soulride tokens - intensified */
-    --earth-green: 160 40% 28%;
-    --earth-green-glow: 160 50% 45%;
-    --deep-forest: 160 35% 12%;
-    --amber-soul: 32 85% 52%;
-    --amber-glow: 38 95% 62%;
-    --mountain-blue: 215 35% 22%;
-    --midnight-blue: 220 40% 18%;
-    --stone-brown: 25 18% 22%;
+    /* Premium SoulRide tokens - teal to coral */
+    --earth-green: 174 60% 42%;
+    --earth-green-glow: 174 70% 55%;
+    --deep-forest: 174 50% 15%;
+    --amber-soul: 16 85% 60%;
+    --amber-glow: 24 95% 65%;
+    --teal-deep: 180 50% 25%;
+    --coral-warm: 16 80% 55%;
+    --mountain-blue: 200 40% 30%;
+    --midnight-blue: 220 50% 12%;
+    --stone-brown: 25 18% 18%;
     
-    /* Intensified gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 4% / 0.95), hsl(160 30% 6% / 0.9));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 11%), hsl(0 0% 7%));
-    --gradient-accent: linear-gradient(135deg, hsl(215 35% 22%), hsl(160 40% 28%), hsl(32 85% 52%));
-    --gradient-hardcore: linear-gradient(135deg, hsl(220 40% 15%) 0%, hsl(160 40% 20%) 50%, hsl(32 85% 45%) 100%);
+    /* Premium gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 2% / 0.95), hsl(174 40% 5% / 0.9));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 8%), hsl(0 0% 4%));
+    --gradient-accent: linear-gradient(135deg, hsl(174 60% 42%), hsl(16 85% 60%));
+    --gradient-premium: linear-gradient(135deg, hsl(174 60% 45%) 0%, hsl(16 85% 55%) 100%);
     
-    /* Enhanced shadows */
-    --shadow-card: 0 8px 40px -8px hsl(0 0% 0% / 0.8);
-    --shadow-glow: 0 0 50px -10px hsl(160 40% 28% / 0.4);
-    --shadow-vignette: inset 0 0 100px 20px hsl(0 0% 0% / 0.3);
+    /* Luxury shadows */
+    --shadow-card: 0 12px 50px -12px hsl(0 0% 0% / 0.9);
+    --shadow-glow: 0 0 60px -15px hsl(174 60% 42% / 0.4);
+    --shadow-premium: 0 25px 80px -20px hsl(0 0% 0% / 0.8), 0 0 60px -20px hsl(174 50% 40% / 0.3);
+    --shadow-vignette: inset 0 0 120px 30px hsl(0 0% 0% / 0.4);
 
-    --sidebar-background: 0 0% 8%;
+    --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 40 15% 88%;
-    --sidebar-primary: 160 40% 28%;
-    --sidebar-primary-foreground: 40 15% 96%;
-    --sidebar-accent: 220 8% 12%;
+    --sidebar-primary: 174 60% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 10% 10%;
     --sidebar-accent-foreground: 40 15% 88%;
-    --sidebar-border: 220 8% 16%;
-    --sidebar-ring: 160 40% 38%;
+    --sidebar-border: 220 10% 12%;
+    --sidebar-ring: 174 60% 50%;
   }
 
   .dark {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Globe, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 
@@ -51,7 +51,7 @@ const HeroCarousel = () => {
     if (isPaused) return;
     const interval = setInterval(() => {
       if (!isTransitioning) goToNext();
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [isTransitioning, isPaused, goToNext]);
 
@@ -85,103 +85,186 @@ const HeroCarousel = () => {
   return (
     <section 
       ref={carouselRef}
-      className="relative h-[100svh] min-h-[600px] overflow-hidden select-none"
+      className="relative h-[100svh] min-h-[700px] overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Background Images */}
+      {/* Background Images with Ken Burns Effect */}
       {heroSlides.map((slide, index) => (
         <div
           key={slide.spot.id}
           className={cn(
-            "absolute inset-0 transition-all duration-[1200ms] ease-out",
-            index === currentIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
+            "absolute inset-0 transition-all duration-[1500ms] ease-out",
+            index === currentIndex ? "opacity-100 scale-100" : "opacity-0 scale-110"
           )}
         >
           <img
             src={slide.spot.images[0]}
             alt={slide.spot.title}
             className={cn(
-              "w-full h-full object-cover transition-transform duration-[8000ms] ease-out",
-              index === currentIndex && "scale-105"
+              "w-full h-full object-cover transition-transform duration-[12000ms] ease-out",
+              index === currentIndex && "scale-110"
             )}
             style={{ 
-              filter: 'brightness(0.45) contrast(1.1) saturate(0.9)',
-              objectPosition: 'center 35%'
+              filter: 'brightness(0.35) contrast(1.15) saturate(1.1)',
+              objectPosition: 'center 30%'
             }}
           />
         </div>
       ))}
 
-      {/* Clean Dark Gradient Overlays - No Rainbow */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_25%_6%/0.85)] via-transparent to-[hsl(220_20%_8%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(220_25%_5%/0.5)] via-transparent to-[hsl(160_20%_8%/0.3)] pointer-events-none" />
-      
-      {/* Subtle vignette */}
+      {/* Premium Gradient Overlays */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(220 20% 5% / 0.6) 100%)'
+          background: `
+            linear-gradient(180deg, hsl(0 0% 0% / 0.7) 0%, transparent 30%, transparent 60%, hsl(0 0% 2%) 100%),
+            linear-gradient(90deg, hsl(174 40% 8% / 0.4) 0%, transparent 50%, hsl(16 40% 8% / 0.3) 100%)
+          `
         }}
       />
       
-      {/* Bottom fade to background */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+      {/* Animated Fog/Mist Layer */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background: `
+            radial-gradient(ellipse at 20% 80%, hsl(0 0% 100% / 0.05) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, hsl(174 50% 50% / 0.04) 0%, transparent 40%),
+            radial-gradient(ellipse at 50% 100%, hsl(0 0% 100% / 0.06) 0%, transparent 50%)
+          `,
+          animation: 'fog-drift 20s ease-in-out infinite',
+        }}
+      />
+      
+      {/* Cinematic Vignette */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, hsl(0 0% 0% / 0.7) 100%)'
+        }}
+      />
 
       {/* Content Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-        {/* Brand Title - Premium Sans-Serif */}
-        <h1 
-          className="font-display text-5xl md:text-7xl lg:text-8xl tracking-[0.2em] mb-2 animate-fade-up opacity-0"
-          style={{ 
-            animationDelay: "0.2s", 
-            animationFillMode: "forwards",
-            color: 'hsl(40 15% 92%)',
-            textShadow: '0 0 60px hsl(32 60% 45% / 0.3), 0 4px 20px hsl(0 0% 0% / 0.5)'
-          }}
-        >
-          SOULRIDE
-        </h1>
+        {/* Premium Brand Title */}
+        <div className="text-center mb-6 animate-fade-up opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+          <h1 
+            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[0.15em] mb-3"
+            style={{ 
+              background: 'linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(174 50% 70%) 40%, hsl(16 70% 65%) 80%, hsl(0 0% 100%) 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 80px hsl(174 60% 50% / 0.4)) drop-shadow(0 0 120px hsl(16 70% 50% / 0.3)) drop-shadow(0 8px 30px hsl(0 0% 0% / 0.6))',
+            }}
+          >
+            SOULRIDE
+          </h1>
+          
+          {/* Tagline */}
+          <p 
+            className="font-display text-sm sm:text-base md:text-lg tracking-[0.4em] uppercase"
+            style={{ 
+              color: 'hsl(174 50% 60%)',
+              textShadow: '0 0 40px hsl(174 60% 50% / 0.5)',
+            }}
+          >
+            Ride with Soul
+          </p>
+        </div>
+
+        {/* Subtitle */}
         <p 
-          className="font-display text-sm md:text-base tracking-[0.35em] uppercase mb-8 animate-fade-up opacity-0"
+          className="text-center text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 animate-fade-up opacity-0 font-light tracking-wide"
           style={{ 
-            animationDelay: "0.3s", 
-            animationFillMode: "forwards",
-            color: 'hsl(160 30% 55%)',
-            textShadow: '0 0 30px hsl(160 40% 40% / 0.4)'
+            animationDelay: '0.3s', 
+            animationFillMode: 'forwards',
+            color: 'hsl(220 15% 75%)',
+            textShadow: '0 2px 20px hsl(0 0% 0% / 0.5)',
           }}
         >
-          Ride with Soul
+          Discover North Macedonia's Hidden Gems, Nature Views & Global Rider Community
         </p>
 
-        {/* Dynamic Spot Content */}
-        <div className="text-center max-w-4xl mx-auto px-4">
+        {/* CTA Buttons */}
+        <div 
+          className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-up opacity-0"
+          style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
+        >
+          <Link
+            to="/signup"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-display tracking-[0.12em] text-sm transition-all duration-300 group"
+            style={{
+              background: 'linear-gradient(135deg, hsl(174 60% 45%) 0%, hsl(16 80% 55%) 100%)',
+              color: 'white',
+              boxShadow: '0 8px 40px -10px hsl(174 60% 45% / 0.5), 0 0 60px -20px hsl(16 80% 55% / 0.4)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 12px 50px -10px hsl(174 60% 50% / 0.6), 0 0 80px -20px hsl(16 85% 60% / 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 8px 40px -10px hsl(174 60% 45% / 0.5), 0 0 60px -20px hsl(16 80% 55% / 0.4)';
+            }}
+          >
+            <span>JOIN THE COMMUNITY</span>
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          
+          <Link
+            to="/spots"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-display tracking-[0.12em] text-sm transition-all duration-300"
+            style={{
+              background: 'hsl(0 0% 100% / 0.08)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid hsl(0 0% 100% / 0.15)',
+              color: 'hsl(0 0% 95%)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'hsl(0 0% 100% / 0.15)';
+              e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'hsl(0 0% 100% / 0.08)';
+              e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.15)';
+            }}
+          >
+            <span>EXPLORE GEMS</span>
+          </Link>
+        </div>
+
+        {/* Dynamic Spot Showcase */}
+        <div 
+          className="text-center max-w-3xl mx-auto animate-fade-up opacity-0"
+          style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}
+        >
           {/* Eyebrow */}
           <p 
             className={cn(
-              "text-xs md:text-sm uppercase tracking-[0.3em] mb-4 transition-all duration-700 font-medium",
+              "text-[10px] sm:text-xs uppercase tracking-[0.4em] mb-3 transition-all duration-700 font-medium flex items-center justify-center gap-2",
               isTransitioning ? "opacity-0 -translate-y-3" : "opacity-100 translate-y-0"
             )}
-            style={{ 
-              color: 'hsl(32 50% 55%)',
-              textShadow: '0 0 20px hsl(32 60% 40% / 0.4)'
-            }}
+            style={{ color: 'hsl(16 70% 60%)' }}
           >
-            Discover Soul Views
+            <span className="w-8 h-px bg-gradient-to-r from-transparent to-[hsl(16_60%_50%)]" />
+            Now Featuring
+            <span className="w-8 h-px bg-gradient-to-l from-transparent to-[hsl(16_60%_50%)]" />
           </p>
           
-          {/* Spot Title - Clean Typography */}
+          {/* Spot Title */}
           <h2 
             className={cn(
-              "font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-wider mb-4 transition-all duration-700",
+              "font-display text-xl sm:text-2xl md:text-4xl tracking-wider mb-3 transition-all duration-700",
               isTransitioning ? "opacity-0 translate-y-5" : "opacity-100 translate-y-0"
             )}
             style={{ 
-              color: 'hsl(40 20% 90%)',
-              textShadow: '0 0 40px hsl(160 30% 35% / 0.25), 0 4px 30px hsl(0 0% 0% / 0.5)'
+              color: 'hsl(40 20% 92%)',
+              textShadow: '0 0 50px hsl(174 40% 40% / 0.3), 0 4px 30px hsl(0 0% 0% / 0.5)'
             }}
           >
             {currentSlide.spot.title}
@@ -190,63 +273,92 @@ const HeroCarousel = () => {
           {/* Tagline */}
           <p 
             className={cn(
-              "text-base sm:text-lg md:text-xl italic font-light tracking-wide mb-10 max-w-2xl mx-auto transition-all duration-700 delay-75",
+              "text-sm sm:text-base italic font-light tracking-wide transition-all duration-700 delay-75",
               isTransitioning ? "opacity-0 translate-y-5" : "opacity-100 translate-y-0"
             )}
-            style={{ 
-              color: 'hsl(220 15% 70%)',
-              textShadow: '0 2px 15px hsl(0 0% 0% / 0.5)'
-            }}
+            style={{ color: 'hsl(220 15% 65%)' }}
           >
             "{currentSlide.tagline}"
           </p>
 
-          {/* CTA Button - Solid Amber-Green Fill, Rounded */}
+          {/* View Spot Link */}
           <Link
             to={`/spots/${currentSlide.spot.id}`}
             className={cn(
-              "inline-flex items-center gap-3 px-10 py-4 text-sm font-display tracking-[0.15em] rounded-full transition-all duration-300 group",
-              isTransitioning ? "opacity-0 translate-y-5" : "opacity-100 translate-y-0"
+              "inline-flex items-center gap-2 mt-5 text-sm font-medium transition-all duration-300 group",
+              isTransitioning ? "opacity-0" : "opacity-100"
             )}
-            style={{ 
-              transitionDelay: "150ms",
-              background: 'linear-gradient(135deg, hsl(160 40% 35%) 0%, hsl(32 60% 45%) 100%)',
-              color: 'hsl(0 0% 100%)',
-              boxShadow: '0 4px 30px hsl(160 40% 30% / 0.3), 0 0 40px hsl(32 60% 40% / 0.2)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 8px 40px hsl(160 45% 35% / 0.4), 0 0 60px hsl(32 65% 45% / 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 30px hsl(160 40% 30% / 0.3), 0 0 40px hsl(32 60% 40% / 0.2)';
-            }}
+            style={{ color: 'hsl(174 60% 55%)' }}
           >
-            <span>EXPLORE THIS GEM</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
+            <span>View this gem</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
 
-      {/* Navigation Arrows - Simple Chevrons */}
+      {/* Global Riders Badge - Bottom Left */}
+      <div 
+        className="absolute bottom-8 left-6 md:left-10 z-20 flex items-center gap-3 px-4 py-2.5 rounded-full animate-fade-up opacity-0"
+        style={{ 
+          animationDelay: '1s', 
+          animationFillMode: 'forwards',
+          background: 'hsl(0 0% 0% / 0.5)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid hsl(0 0% 100% / 0.1)',
+        }}
+      >
+        <Globe size={16} style={{ color: 'hsl(174 60% 55%)' }} />
+        <span className="text-xs font-medium tracking-wide" style={{ color: 'hsl(220 15% 80%)' }}>
+          10K+ Riders from 50+ Countries
+        </span>
+      </div>
+
+      {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-[hsl(220_20%_10%/0.5)] backdrop-blur-sm border border-[hsl(0_0%_100%/0.1)] text-[hsl(0_0%_90%)] hover:bg-[hsl(220_20%_15%/0.7)] hover:border-[hsl(32_50%_50%/0.3)] transition-all duration-300"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full transition-all duration-300"
+        style={{
+          background: 'hsl(0 0% 0% / 0.4)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid hsl(0 0% 100% / 0.1)',
+          color: 'hsl(0 0% 90%)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.6)';
+          e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.4)';
+          e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.1)';
+        }}
         aria-label="Previous slide"
       >
         <ChevronLeft size={24} />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-[hsl(220_20%_10%/0.5)] backdrop-blur-sm border border-[hsl(0_0%_100%/0.1)] text-[hsl(0_0%_90%)] hover:bg-[hsl(220_20%_15%/0.7)] hover:border-[hsl(32_50%_50%/0.3)] transition-all duration-300"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full transition-all duration-300"
+        style={{
+          background: 'hsl(0 0% 0% / 0.4)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid hsl(0 0% 100% / 0.1)',
+          color: 'hsl(0 0% 90%)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.6)';
+          e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.4)';
+          e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.1)';
+        }}
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
       </button>
 
-      {/* Clean Pagination Dots - Bottom Center */}
-      <div className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+      {/* Pagination Dots */}
+      <div className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroSlides.map((_, index) => (
           <button
             key={index}
@@ -259,45 +371,62 @@ const HeroCarousel = () => {
             className={cn(
               "rounded-full transition-all duration-400",
               index === currentIndex
-                ? "w-8 h-2.5 bg-gradient-to-r from-[hsl(160_40%_40%)] to-[hsl(32_55%_50%)]"
-                : "w-2.5 h-2.5 bg-[hsl(0_0%_100%/0.25)] hover:bg-[hsl(0_0%_100%/0.4)]"
+                ? "w-10 h-2"
+                : "w-2 h-2 hover:bg-white/40"
             )}
-            style={index === currentIndex ? { boxShadow: '0 0 15px hsl(32 55% 45% / 0.5)' } : {}}
+            style={index === currentIndex ? {
+              background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
+              boxShadow: '0 0 20px hsl(174 60% 50% / 0.5)',
+            } : {
+              background: 'hsl(0 0% 100% / 0.25)',
+            }}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[hsl(0_0%_100%/0.1)] z-20 overflow-hidden">
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 z-20 overflow-hidden">
         <div 
           key={`progress-${currentIndex}-${isPaused}`}
-          className="h-full bg-gradient-to-r from-[hsl(160_40%_45%)] to-[hsl(32_55%_50%)]"
+          className="h-full"
           style={{ 
+            background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
             width: isPaused ? '100%' : '0%',
-            animation: isPaused ? 'none' : 'hero-progress 5s linear forwards'
+            animation: isPaused ? 'none' : 'hero-progress 6s linear forwards',
+            boxShadow: '0 0 20px hsl(174 60% 50% / 0.5)',
           }}
         />
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-float opacity-50">
-        <div className="w-5 h-9 rounded-full border border-[hsl(0_0%_100%/0.25)] flex items-start justify-center p-1.5">
-          <div className="w-1 h-2 bg-[hsl(0_0%_100%/0.4)] rounded-full animate-pulse" />
+        <div 
+          className="w-6 h-10 rounded-full flex items-start justify-center p-2"
+          style={{ border: '1px solid hsl(0 0% 100% / 0.2)' }}
+        >
+          <div 
+            className="w-1 h-2.5 rounded-full animate-pulse"
+            style={{ background: 'hsl(174 60% 55%)' }}
+          />
         </div>
       </div>
 
       {/* Slide counter */}
-      <div className="absolute bottom-10 right-6 md:right-10 z-20 font-display text-xs tracking-wider opacity-40">
-        <span className="text-[hsl(0_0%_90%)]">{String(currentIndex + 1).padStart(2, '0')}</span>
-        <span className="text-[hsl(0_0%_60%)] mx-1">/</span>
-        <span className="text-[hsl(0_0%_60%)]">{String(heroSlides.length).padStart(2, '0')}</span>
+      <div className="absolute bottom-10 right-6 md:right-10 z-20 font-display text-sm tracking-wider opacity-50">
+        <span style={{ color: 'hsl(174 60% 60%)' }}>{String(currentIndex + 1).padStart(2, '0')}</span>
+        <span className="mx-1.5" style={{ color: 'hsl(0 0% 50%)' }}>/</span>
+        <span style={{ color: 'hsl(0 0% 50%)' }}>{String(heroSlides.length).padStart(2, '0')}</span>
       </div>
 
       <style>{`
         @keyframes hero-progress {
           from { width: 0%; }
           to { width: 100%; }
+        }
+        @keyframes fog-drift {
+          0%, 100% { transform: translateX(0) translateY(0); opacity: 0.4; }
+          50% { transform: translateX(40px) translateY(-20px); opacity: 0.6; }
         }
       `}</style>
     </section>

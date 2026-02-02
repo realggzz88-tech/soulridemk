@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, Heart, MessageCircle } from "lucide-react";
+import { Menu, X, Heart, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFavorites } from "@/hooks/use-favorites";
 import UserMenu from "@/components/UserMenu";
@@ -29,7 +29,7 @@ const Navbar = () => {
 
   const links = [
     { to: "/", label: "Home" },
-    { to: "/spots", label: "Explore Spots" },
+    { to: "/spots", label: "Explore" },
     { to: "/chat", label: "Community" },
     { to: "/about", label: "About" },
   ];
@@ -39,20 +39,36 @@ const Navbar = () => {
   return (
     <nav 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled 
-          ? "bg-background/90 backdrop-blur-lg border-b border-border/40 shadow-lg" 
-          : "bg-background/70 backdrop-blur-md border-b border-border/20"
+          ? "py-2" 
+          : "py-4"
       )}
+      style={{
+        background: scrolled 
+          ? 'hsl(0 0% 4% / 0.9)' 
+          : 'linear-gradient(180deg, hsl(0 0% 0% / 0.8) 0%, transparent 100%)',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        borderBottom: scrolled ? '1px solid hsl(0 0% 100% / 0.05)' : 'none',
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo with glow */}
+        <div className="flex items-center justify-between h-12">
+          {/* Logo with premium glow */}
           <Link 
             to="/" 
             className="flex items-center gap-2 group"
           >
-            <span className="font-display text-2xl tracking-widest logo-glow">
+            <span 
+              className="font-display text-2xl tracking-[0.15em]"
+              style={{
+                background: 'linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(174 50% 65%) 50%, hsl(16 70% 60%) 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 15px hsl(174 50% 50% / 0.4))',
+              }}
+            >
               SOULRIDE
             </span>
           </Link>
@@ -64,13 +80,37 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "nav-link text-muted-foreground hover:text-foreground tracking-wider",
-                  isActive(link.to) && "text-foreground after:w-full"
+                  "relative py-2 text-sm font-medium tracking-[0.1em] uppercase transition-all duration-300",
+                  isActive(link.to) 
+                    ? "text-white" 
+                    : "text-white/60 hover:text-white"
                 )}
               >
                 {link.label}
+                {isActive(link.to) && (
+                  <span 
+                    className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                    style={{
+                      background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
+                      boxShadow: '0 0 10px hsl(174 60% 50% / 0.5)',
+                    }}
+                  />
+                )}
               </Link>
             ))}
+            
+            {/* Global Riders indicator */}
+            <div 
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: 'hsl(0 0% 100% / 0.05)',
+                border: '1px solid hsl(0 0% 100% / 0.1)',
+                color: 'hsl(174 60% 60%)',
+              }}
+            >
+              <Globe size={12} />
+              <span>Global</span>
+            </div>
             
             {/* Favorites link */}
             <Link
@@ -78,8 +118,8 @@ const Navbar = () => {
               className={cn(
                 "relative flex items-center gap-1.5 text-sm transition-all duration-300 group/fav",
                 favoritesCount > 0 
-                  ? "text-soul-amber" 
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "text-[hsl(16_80%_60%)]" 
+                  : "text-white/60 hover:text-white"
               )}
               title={favoritesCount > 0 ? `${favoritesCount} saved spots` : "No saved spots"}
             >
@@ -87,10 +127,10 @@ const Navbar = () => {
                 size={18} 
                 className={cn(
                   "transition-all duration-300",
-                  favoritesCount > 0 && "fill-soul-amber group-hover/fav:scale-110"
+                  favoritesCount > 0 && "fill-[hsl(16_80%_60%)] group-hover/fav:scale-110"
                 )}
                 style={{
-                  filter: favoritesCount > 0 ? "drop-shadow(0 0 6px hsl(32 85% 52% / 0.5))" : undefined
+                  filter: favoritesCount > 0 ? "drop-shadow(0 0 8px hsl(16 80% 55% / 0.5))" : undefined
                 }}
               />
               {favoritesCount > 0 && (
@@ -108,12 +148,12 @@ const Navbar = () => {
               to="/spots"
               className={cn(
                 "flex items-center gap-1 text-sm",
-                favoritesCount > 0 ? "text-soul-amber" : "text-muted-foreground"
+                favoritesCount > 0 ? "text-[hsl(16_80%_60%)]" : "text-white/60"
               )}
             >
               <Heart 
                 size={16} 
-                className={cn(favoritesCount > 0 && "fill-soul-amber")}
+                className={cn(favoritesCount > 0 && "fill-[hsl(16_80%_60%)]")}
               />
               {favoritesCount > 0 && (
                 <span className="font-medium">{favoritesCount}</span>
@@ -121,7 +161,7 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              className="p-2 text-white/80 hover:text-white transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -133,24 +173,32 @@ const Navbar = () => {
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300 ease-out",
-            isOpen ? "max-h-64 pb-4" : "max-h-0"
+            isOpen ? "max-h-80 pb-4" : "max-h-0"
           )}
         >
-          <div className="flex flex-col gap-2 pt-2">
+          <div className="flex flex-col gap-2 pt-4">
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "px-4 py-3 rounded-lg text-sm font-medium tracking-wider uppercase transition-all duration-200",
+                  "px-4 py-3 rounded-xl text-sm font-medium tracking-[0.1em] uppercase transition-all duration-200",
                   isActive(link.to)
-                    ? "bg-earth-green/20 text-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "text-white"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
                 )}
+                style={isActive(link.to) ? {
+                  background: 'linear-gradient(90deg, hsl(174 60% 30% / 0.3), hsl(16 70% 40% / 0.2))',
+                } : {}}
               >
                 {link.label}
               </Link>
             ))}
+            
+            {/* Mobile User Menu */}
+            <div className="pt-2 border-t border-white/10 mt-2">
+              <UserMenu />
+            </div>
           </div>
         </div>
       </div>
