@@ -71,7 +71,7 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
                 fontSize: '11px',
               }}
             >
-              {spot.region}
+              {spot.region === "West" ? "Запад" : spot.region === "East" ? "Исток" : "Централна"}
             </span>
             {spot.tags.slice(0, 2).map((tag) => (
               <span 
@@ -116,7 +116,7 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
             className="flex items-center gap-2 text-sm font-medium tracking-wide arrow-animate"
             style={{ color: 'hsl(15 70% 55%)' }}
           >
-            <span>Discover</span>
+            <span>Истражи</span>
             <ArrowRight 
               size={16} 
               className="arrow-icon transition-transform duration-300" 

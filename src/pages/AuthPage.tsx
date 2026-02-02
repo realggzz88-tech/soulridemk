@@ -10,14 +10,14 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 
 const signUpSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  username: z.string().min(3, "Username must be at least 3 characters").max(20, "Username must be 20 characters or less"),
+  email: z.string().email("Внесете валидна е-пошта"),
+  password: z.string().min(6, "Лозинката мора да има најмалку 6 карактери"),
+  username: z.string().min(3, "Корисничкото име мора да има најмалку 3 карактери").max(20, "Корисничкото име мора да има најмногу 20 карактери"),
 });
 
 const signInSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  password: z.string().min(1, "Password is required"),
+  email: z.string().email("Внесете валидна е-пошта"),
+  password: z.string().min(1, "Лозинката е задолжителна"),
 });
 
 interface AuthPageProps {
@@ -83,27 +83,27 @@ const AuthPage = ({ mode }: AuthPageProps) => {
         if (error) {
           if (error.message.includes("Invalid login credentials")) {
             toast({
-              title: "Login failed",
-              description: "Invalid email or password. Please try again.",
+              title: "Неуспешна најава",
+              description: "Невалидна е-пошта или лозинка. Обидете се повторно.",
               variant: "destructive",
             });
           } else if (error.message.includes("Email not confirmed")) {
             toast({
-              title: "Email not verified",
-              description: "Please check your email and verify your account.",
+              title: "Е-поштата не е потврдена",
+              description: "Проверете ја вашата е-пошта и потврдете ја сметката.",
               variant: "destructive",
             });
           } else {
             toast({
-              title: "Login failed",
+              title: "Неуспешна најава",
               description: error.message,
               variant: "destructive",
             });
           }
         } else {
           toast({
-            title: "Welcome back!",
-            description: "The road awaits you.",
+            title: "Добредојде назад!",
+            description: "Патот те очекува.",
           });
           navigate("/");
         }
@@ -112,21 +112,21 @@ const AuthPage = ({ mode }: AuthPageProps) => {
         if (error) {
           if (error.message.includes("already registered")) {
             toast({
-              title: "Account exists",
-              description: "An account with this email already exists. Try logging in.",
+              title: "Сметката постои",
+              description: "Сметка со оваа е-пошта веќе постои. Обидете се да се најавите.",
               variant: "destructive",
             });
           } else {
             toast({
-              title: "Signup failed",
+              title: "Неуспешна регистрација",
               description: error.message,
               variant: "destructive",
             });
           }
         } else {
           toast({
-            title: "Check your email",
-            description: "We've sent you a verification link. Please check your inbox.",
+            title: "Проверете ја вашата е-пошта",
+            description: "Ви испративме линк за потврда. Проверете го вашето сандаче.",
           });
         }
       }
@@ -163,7 +163,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             className="text-3xl sm:text-4xl font-bold tracking-tight mb-3"
             style={{ color: 'hsl(0 0% 100%)' }}
           >
-            {isLogin ? "Welcome Back" : "Join the Ride"}
+            {isLogin ? "Добредојде назад" : "Приклучи се на возењето"}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -172,7 +172,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             className="text-xl font-script"
             style={{ color: 'hsl(30 15% 60%)' }}
           >
-            {isLogin ? "The road awaits your return" : "Begin your soulful journey"}
+            {isLogin ? "Патот го очекува твоето враќање" : "Започни го твоето патување со душа"}
           </motion.p>
         </div>
 
@@ -196,7 +196,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                   className="text-sm font-medium"
                   style={{ color: 'hsl(30 10% 70%)' }}
                 >
-                  Username
+                  Корисничко име
                 </Label>
                 <div className="relative">
                   <User 
@@ -208,7 +208,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="roadwarrior"
+                    placeholder="возач_на_душа"
                     className="pl-11 py-5 rounded-xl"
                     style={{
                       background: 'hsl(20 12% 16%)',
@@ -229,7 +229,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                 className="text-sm font-medium"
                 style={{ color: 'hsl(30 10% 70%)' }}
               >
-                Email
+                Е-пошта
               </Label>
               <div className="relative">
                 <Mail 
@@ -241,7 +241,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="rider@soulride.mk"
+                  placeholder="возач@soulride.mk"
                   className="pl-11 py-5 rounded-xl"
                   style={{
                     background: 'hsl(20 12% 16%)',
@@ -261,7 +261,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                 className="text-sm font-medium"
                 style={{ color: 'hsl(30 10% 70%)' }}
               >
-                Password
+                Лозинка
               </Label>
               <div className="relative">
                 <Lock 
@@ -308,11 +308,11 @@ const AuthPage = ({ mode }: AuthPageProps) => {
               {isLoading ? (
                 <span className="flex items-center gap-2">
                   <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  {isLogin ? "Signing in..." : "Creating account..."}
+                  {isLogin ? "Се најавува..." : "Се креира сметка..."}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  {isLogin ? "Sign In" : "Create Account"}
+                  {isLogin ? "Најави се" : "Создај сметка"}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               )}
@@ -321,13 +321,13 @@ const AuthPage = ({ mode }: AuthPageProps) => {
 
           <div className="mt-6 text-center pt-6" style={{ borderTop: '1px solid hsl(25 15% 18%)' }}>
             <p className="text-sm" style={{ color: 'hsl(30 10% 55%)' }}>
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
+              {isLogin ? "Немаш сметка?" : "Веќе имаш сметка?"}
               <button
                 onClick={() => navigate(isLogin ? "/signup" : "/login")}
                 className="ml-1 font-medium hover:underline transition-colors"
                 style={{ color: 'hsl(170 60% 55%)' }}
               >
-                {isLogin ? "Sign up" : "Sign in"}
+                {isLogin ? "Регистрирај се" : "Најави се"}
               </button>
             </p>
           </div>
@@ -341,7 +341,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
           className="text-center text-sm mt-8 font-script"
           style={{ color: 'hsl(30 15% 50%)' }}
         >
-          "Where every journey begins with a single turn"
+          "Каде секое патување започнува со еден завој"
         </motion.p>
       </motion.div>
     </div>

@@ -67,7 +67,7 @@ const PopularRoutes = () => {
                 color: 'hsl(35 50% 60%)',
               }}
             >
-              Rider Favorites
+              Омилени рути
             </span>
           </motion.div>
           
@@ -85,7 +85,7 @@ const PopularRoutes = () => {
               textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)',
             }}
           >
-            MOST LOVED SOULRIDES
+            НАЈОМИЛЕНИ РУТИ
           </motion.h2>
           
           {/* Handwritten subtitle */}
@@ -100,7 +100,7 @@ const PopularRoutes = () => {
               color: 'hsl(140 22% 55%)',
             }}
           >
-            Curated routes tested by soul riders. Click any route to auto-fill the journey planner.
+            Селектирани рути тестирани од возачи со душа. Кликни на рута за да го пополниш планерот.
           </motion.p>
         </div>
 
@@ -276,7 +276,7 @@ const PopularRoutes = () => {
                     }}
                   >
                     <Compass size={14} />
-                    <span className="text-sm">Plan This Journey</span>
+                    <span className="text-sm">Планирај го ова патување</span>
                   </button>
                 </div>
               </motion.div>
@@ -294,7 +294,7 @@ const PopularRoutes = () => {
               fontFamily: "'Bitter', serif",
             }}
           >
-            <span>Explore All Soul Routes</span>
+            <span>Истражи ги сите рути</span>
             <ChevronRight size={18} className="arrow-icon transition-transform" />
           </Link>
         </div>

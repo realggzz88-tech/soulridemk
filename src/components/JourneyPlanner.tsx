@@ -265,7 +265,7 @@ const JourneyPlanner = () => {
               border: '1px dashed hsl(35 50% 50% / 0.4)',
             }}
           >
-            <Sparkles size={14} style={{ color: 'hsl(35 50% 55%)' }} />
+          <Sparkles size={14} style={{ color: 'hsl(35 50% 55%)' }} />
             <span 
               className="text-xs tracking-[0.15em] uppercase"
               style={{ 
@@ -273,7 +273,7 @@ const JourneyPlanner = () => {
                 color: 'hsl(35 50% 60%)',
               }}
             >
-              Journey Builder
+              Креатор на патување
             </span>
           </motion.div>
           
@@ -290,7 +290,7 @@ const JourneyPlanner = () => {
               textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)',
             }}
           >
-            CREATE YOUR SOULRIDE
+            СОЗДАЈ СВОЕ ПАТУВАЊЕ
           </motion.h2>
           
           <motion.p 
@@ -304,7 +304,7 @@ const JourneyPlanner = () => {
               color: 'hsl(140 22% 55%)',
             }}
           >
-            Enter start and end, get a route full of soul views, peaceful stops, and local flavors.
+            Внеси почеток и крај, добиј рута полна со погледи, мирни застанувања и локални вкусови.
           </motion.p>
         </div>
 
@@ -330,8 +330,8 @@ const JourneyPlanner = () => {
               locations={macedonianLocations}
               value={startInput}
               onChange={setStartInput}
-              label="Starting Location"
-              placeholder="e.g., Skopje"
+              label="Почетна локација"
+              placeholder="пр. Скопје"
               iconColor="hsl(140 22% 55%)"
             />
 
@@ -339,8 +339,8 @@ const JourneyPlanner = () => {
               locations={macedonianLocations}
               value={endInput}
               onChange={setEndInput}
-              label="Destination"
-              placeholder="e.g., Ohrid"
+              label="Дестинација"
+              placeholder="пр. Охрид"
               iconColor="hsl(25 40% 55%)"
             />
           </div>
@@ -355,7 +355,7 @@ const JourneyPlanner = () => {
               }}
             >
               <Compass size={14} />
-              Journey Preferences
+              Преференции на патување
             </h3>
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -383,7 +383,7 @@ const JourneyPlanner = () => {
                       color: 'hsl(40 30% 80%)',
                     }}
                   >
-                    Soul Views
+                    Погледи
                   </span>
                 </div>
               </label>
@@ -412,7 +412,7 @@ const JourneyPlanner = () => {
                       color: 'hsl(40 30% 80%)',
                     }}
                   >
-                    Food & Drink
+                    Храна и пијалок
                   </span>
                 </div>
               </label>
@@ -468,7 +468,7 @@ const JourneyPlanner = () => {
                       color: 'hsl(40 30% 80%)',
                     }}
                   >
-                    Adventure
+                    Авантура
                   </span>
                 </div>
                 <select
@@ -480,9 +480,9 @@ const JourneyPlanner = () => {
                     color: 'hsl(40 30% 85%)',
                   }}
                 >
-                  <option value="easy" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Easy Scenic</option>
-                  <option value="moderate" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Moderate</option>
-                  <option value="challenging" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Winding Roads</option>
+                  <option value="easy" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Лесно живописно</option>
+                  <option value="moderate" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Умерено</option>
+                  <option value="challenging" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Кривулести патишта</option>
                 </select>
               </div>
             </div>
@@ -498,12 +498,12 @@ const JourneyPlanner = () => {
               {isGenerating ? (
                 <>
                   <div className="w-5 h-5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
-                  <span>Mapping Your Soul Route...</span>
+                  <span>Се мапира твојата рута...</span>
                 </>
               ) : (
                 <>
                   <Route size={20} />
-                  <span>Generate My SoulRide</span>
+                  <span>Генерирај мој SoulRide</span>
                 </>
               )}
             </button>
@@ -516,7 +516,7 @@ const JourneyPlanner = () => {
                   color: 'hsl(35 15% 50%)',
                 }}
               >
-                Select both starting location and destination to generate your route
+                Избери почетна локација и дестинација за да ја генерираш рутата
               </p>
             )}
           </div>
@@ -538,7 +538,7 @@ const JourneyPlanner = () => {
                   color: 'hsl(40 30% 94%)',
                 }}
               >
-                YOUR SOULRIDE AWAITS
+                ТВОЕТО ПАТУВАЊЕ ТЕ ЧЕКА
               </h3>
               <p 
                 className="text-lg"
@@ -554,10 +554,10 @@ const JourneyPlanner = () => {
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               {[
-                { icon: Clock, value: generatedRoute.estimatedTime, label: "Total Time" },
-                { icon: Route, value: generatedRoute.estimatedDistance, label: "Distance" },
-                { icon: Mountain, value: `${generatedRoute.stops.length} stops`, label: "Soul Views" },
-                { icon: Utensils, value: `${generatedRoute.foodStops.length} spots`, label: "Food & Rest" },
+                { icon: Clock, value: generatedRoute.estimatedTime, label: "Вкупно време" },
+                { icon: Route, value: generatedRoute.estimatedDistance, label: "Растојание" },
+                { icon: Mountain, value: `${generatedRoute.stops.length} постојки`, label: "Погледи" },
+                { icon: Utensils, value: `${generatedRoute.foodStops.length} места`, label: "Храна и одмор" },
               ].map((stat) => (
                 <div 
                   key={stat.label}
@@ -615,7 +615,7 @@ const JourneyPlanner = () => {
                 className="btn-soul-secondary inline-flex items-center gap-2"
               >
                 <ExternalLink size={16} />
-                <span>Open in Google Maps</span>
+                <span>Отвори во Google Maps</span>
               </a>
             </div>
           </motion.div>

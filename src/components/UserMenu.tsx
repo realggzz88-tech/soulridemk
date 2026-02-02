@@ -33,7 +33,7 @@ const UserMenu = () => {
             className="font-medium"
             style={{ color: 'hsl(45 15% 70%)' }}
           >
-            Sign In
+            Најави се
           </Button>
         </Link>
         <Link to="/signup">
@@ -45,7 +45,7 @@ const UserMenu = () => {
               color: 'hsl(45 20% 95%)',
             }}
           >
-            Join
+            Регистрирај се
           </Button>
         </Link>
       </div>
@@ -111,7 +111,7 @@ const UserMenu = () => {
             style={{ color: 'hsl(45 15% 75%)' }}
           >
             <User className="h-4 w-4" />
-            My Profile
+            Мој профил
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
@@ -121,7 +121,7 @@ const UserMenu = () => {
             style={{ color: 'hsl(45 15% 75%)' }}
           >
             <MessageCircle className="h-4 w-4" />
-            Community
+            Заедница
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator style={{ background: 'hsl(160 15% 25% / 0.2)' }} />
@@ -131,7 +131,7 @@ const UserMenu = () => {
           style={{ color: 'hsl(0 50% 60%)' }}
         >
           <LogOut className="h-4 w-4" />
-          Sign Out
+          Одјави се
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
