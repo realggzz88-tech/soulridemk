@@ -89,7 +89,7 @@ const RouteDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen page-enter">
+    <div className="min-h-screen page-enter grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
       {/* Hero Photo Slider - Immediate Visual Impact */}
       <RoutePhotoSlider photos={sliderPhotos} routeTitle={route.title} />
       {/* Compact Header with Route Info */}

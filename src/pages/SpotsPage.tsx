@@ -46,11 +46,8 @@ const SpotsPage = () => {
   }, [selectedTags, selectedRegion]);
 
   return (
-    <div 
-      className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter grain-overlay"
-      style={{ backgroundColor: 'hsl(200 20% 8%)' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="page-container pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter grain-overlay">
+      <div className="content-wrapper px-4 sm:px-6 lg:px-8">
         {/* Header with vintage soul */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

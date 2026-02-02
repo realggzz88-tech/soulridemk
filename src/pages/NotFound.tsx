@@ -14,10 +14,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center px-4 grain-overlay"
-      style={{ backgroundColor: 'hsl(200 20% 8%)' }}
-    >
+    <div className="page-container flex items-center justify-center px-4 grain-overlay">
       <div className="text-center max-w-lg">
         {/* Lost rider illustration */}
         <div 

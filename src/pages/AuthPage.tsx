@@ -136,10 +136,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
   };
 
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden grain-overlay"
-      style={{ background: 'linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(180 15% 10%) 100%)' }}
-    >
+    <div className="page-container flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden grain-overlay">
       {/* Aged parchment background */}
       <div 
         className="absolute inset-0"
