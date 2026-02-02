@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroBackground}
-          alt="Sunset road through mountains"
+          alt="Пат на зајдисонце низ планини"
           className="w-full h-full object-cover"
           style={{
             filter: 'brightness(0.85) saturate(1.1)',
@@ -62,7 +62,7 @@ const HeroSection = () => {
             className="text-sm uppercase tracking-[0.4em] font-medium"
             style={{ color: 'hsl(170 60% 55%)' }}
           >
-            SoulRide Macedonia
+            SoulRide Македонија
           </span>
         </motion.div>
 
@@ -73,10 +73,10 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6"
         >
-          Macedonia's
+          Заборавените
           <br />
           <span className="relative">
-            Forgotten Roads
+            Патишта
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -95,7 +95,7 @@ const HeroSection = () => {
           className="hero-subtitle text-2xl sm:text-3xl mb-12"
           style={{ color: 'hsl(35 20% 75%)' }}
         >
-          "The road remembers those who ride with heart"
+          "Патот ги памети оние што возат со срце"
         </motion.p>
 
         {/* CTA Buttons */}
@@ -110,7 +110,7 @@ const HeroSection = () => {
             to="/spots"
             className="btn-primary arrow-animate group"
           >
-            Start Your Journey
+            Започни го твоето патување
             <ArrowRight size={16} className="arrow-icon transition-transform" />
           </Link>
 
@@ -119,7 +119,7 @@ const HeroSection = () => {
             to="/chat"
             className="btn-secondary"
           >
-            Join the Brotherhood
+            Приклучи се на братството
           </Link>
         </motion.div>
       </div>

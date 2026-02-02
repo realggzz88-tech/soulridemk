@@ -27,35 +27,35 @@ const WhySoulRide = () => {
   const features = [
     {
       icon: Mountain,
-      title: "Epic Macedonian Beauties",
-      description: "From Lake Ohrid's timeless shores to Galicica's winding passes — discover landscapes that take your breath away.",
+      title: "Епски македонски убавини",
+      description: "Од вечните брегови на Охридското Езеро до кривулестите премини на Галичица — откријте пејзажи што ви го одземаат здивот.",
       hasCarousel: true,
     },
     {
       icon: Users,
-      title: "Rider Community",
-      description: "Connect with fellow explorers who share your love for open roads. Share stories, routes, and photos in themed chat rooms.",
+      title: "Заедница на возачи",
+      description: "Поврзете се со истражувачи кои ја споделуваат вашата љубов кон отворените патишта. Споделете приказни, рути и фотографии во тематски соби.",
       link: "/chat",
-      linkText: "Join the Community",
+      linkText: "Приклучи се на заедницата",
     },
     {
       icon: Compass,
-      title: "Travel & Discover",
-      description: "Plan journeys through hidden gems, canyon viewpoints, traditional konobas, and local wineries — all mapped for the curious traveler.",
+      title: "Патувај и откриј",
+      description: "Планирајте патувања низ скриени бисери, кањонски видиковци, традиционални коноби и локални винарии — се е мапирано за љубопитниот патник.",
       extras: [
-        { icon: Coffee, text: "Konobas" },
-        { icon: Camera, text: "Viewpoints" },
-        { icon: TreePine, text: "Nature" },
+        { icon: Coffee, text: "Коноби" },
+        { icon: Camera, text: "Видиковци" },
+        { icon: TreePine, text: "Природа" },
       ],
     },
     {
       icon: MapPin,
-      title: "Local Treasures",
-      description: "Explore authentic Macedonia — from mountain monasteries to riverside cafes. Every stop tells a story.",
+      title: "Локални богатства",
+      description: "Истражете ја автентична Македонија — од планински манастири до речни кафулиња. Секое застанување раскажува приказна.",
       stats: [
-        { value: "35+", label: "Spots" },
-        { value: "8", label: "Regions" },
-        { value: "∞", label: "Stories" },
+        { value: "35+", label: "Места" },
+        { value: "8", label: "Региони" },
+        { value: "∞", label: "Приказни" },
       ],
     },
   ];
@@ -82,19 +82,19 @@ const WhySoulRide = () => {
             className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
             style={{ color: 'hsl(170 60% 55%)' }}
           >
-            Why SoulRide
+            Зошто SoulRide
           </p>
           <h2 
             className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6"
             style={{ color: 'hsl(0 0% 100%)' }}
           >
-            Explore Macedonia's Soul
+            Истражи ја душата на Македонија
           </h2>
           <p 
             className="max-w-xl mx-auto text-lg font-light leading-relaxed"
             style={{ color: 'hsl(30 10% 60%)' }}
           >
-            A journey through breathtaking landscapes, warm community, and roads that lead to wonder.
+            Патување низ неверојатни пејзажи, топла заедница и патишта што водат кон чудо.
           </p>
         </div>
 
@@ -247,7 +247,7 @@ const WhySoulRide = () => {
             to="/spots"
             className="btn-primary arrow-animate group"
           >
-            <span>Explore All Destinations</span>
+            <span>Истражи ги сите дестинации</span>
             <ArrowRight size={16} className="arrow-icon group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

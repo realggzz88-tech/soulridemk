@@ -26,10 +26,10 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const links = [
-    { to: "/", label: "Home" },
-    { to: "/spots", label: "Explore" },
-    { to: "/chat", label: "Community" },
-    { to: "/about", label: "About" },
+    { to: "/", label: "Почетна" },
+    { to: "/spots", label: "Истражи" },
+    { to: "/chat", label: "Заедница" },
+    { to: "/about", label: "За нас" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -105,7 +105,7 @@ const Navbar = () => {
               style={{
                 background: favoritesCount > 0 ? 'hsl(15 70% 50% / 0.15)' : 'transparent',
               }}
-              title={favoritesCount > 0 ? `${favoritesCount} saved spots` : "No saved spots"}
+              title={favoritesCount > 0 ? `${favoritesCount} зачувани места` : "Нема зачувани места"}
             >
               <Heart 
                 size={20} 
@@ -139,7 +139,7 @@ const Navbar = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(0 0% 100%)'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(0 0% 100% / 0.7)'}
                 >
-                  Sign In
+                  Најави се
                 </Link>
                 <Link
                   to="/signup"
@@ -150,7 +150,7 @@ const Navbar = () => {
                     boxShadow: '0 4px 12px hsl(15 70% 45% / 0.3)',
                   }}
                 >
-                  Join
+                  Регистрирај се
                 </Link>
               </div>
             ) : (
@@ -182,7 +182,7 @@ const Navbar = () => {
                 color: 'hsl(0 0% 100%)',
                 background: isOpen ? 'hsl(0 0% 100% / 0.1)' : 'transparent',
               }}
-              aria-label="Toggle menu"
+              aria-label="Отвори мени"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -225,7 +225,7 @@ const Navbar = () => {
                     border: '1px solid hsl(25 15% 25%)',
                   }}
                 >
-                  Sign In
+                  Најави се
                 </Link>
                 <Link
                   to="/signup"
@@ -235,7 +235,7 @@ const Navbar = () => {
                     color: 'hsl(0 0% 100%)',
                   }}
                 >
-                  Join
+                  Регистрирај се
                 </Link>
               </div>
             )}

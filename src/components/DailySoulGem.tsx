@@ -4,11 +4,11 @@ import { Sparkles, ArrowRight, Star } from "lucide-react";
 import { spots } from "@/data/spots";
 
 const dailyQuotes = [
-  "Today's ride calls to your soul",
-  "The road has chosen you today",
-  "Let this path awaken your spirit",
-  "Your soul's journey begins here",
-  "Today, the horizon whispers your name",
+  "Денешното возење ја повикува твојата душа",
+  "Патот те избра денес",
+  "Нека оваа патека ти го разбуди духот",
+  "Твоето патување со душа започнува тука",
+  "Денес, хоризонтот го шепоти твоето име",
 ];
 
 const DailySoulGem = () => {
@@ -42,7 +42,7 @@ const DailySoulGem = () => {
               className="text-sm tracking-[0.2em] uppercase font-medium"
               style={{ color: 'hsl(15 70% 60%)' }}
             >
-              Daily Soul Gem
+              Дневен бисер
             </span>
             <Star size={16} style={{ color: 'hsl(15 70% 55%)' }} className="fill-current" />
           </div>
@@ -151,9 +151,9 @@ const DailySoulGem = () => {
                   className="flex items-center gap-2 font-medium group-hover:gap-3 transition-all"
                   style={{ color: 'hsl(15 70% 55%)' }}
                 >
-                  <span>Discover Today's Gem</span>
+                  <span>Откриј го денешниот бисер</span>
                   <ArrowRight 
-                    size={18} 
+                    size={18}
                     className="transition-transform duration-300 group-hover:translate-x-1" 
                   />
                 </div>

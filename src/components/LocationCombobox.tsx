@@ -22,7 +22,7 @@ const LocationCombobox = ({
   locations,
   value,
   onChange,
-  placeholder = "Select location...",
+  placeholder = "Избери локација...",
   label,
   iconColor = "text-earth-green-glow",
 }: LocationComboboxProps) => {
@@ -127,7 +127,7 @@ const LocationCombobox = ({
           <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border/50 rounded-xl shadow-2xl z-50 max-h-60 overflow-y-auto">
             {filteredLocations.length === 0 ? (
               <div className="px-4 py-3 text-sm text-muted-foreground">
-                No locations found. Type freely for custom location.
+                Нема пронајдени локации. Внесете слободно за прилагодена локација.
               </div>
             ) : (
               filteredLocations.map((loc) => (

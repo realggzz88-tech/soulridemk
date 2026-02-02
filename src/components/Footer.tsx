@@ -7,7 +7,7 @@ const Footer = () => {
     { icon: Instagram, href: "#", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Youtube, href: "#", label: "YouTube" },
-    { icon: Mail, href: "#", label: "Email" },
+    { icon: Mail, href: "#", label: "Е-пошта" },
   ];
 
   return (
@@ -35,7 +35,7 @@ const Footer = () => {
               className="text-sm leading-relaxed max-w-xs"
               style={{ color: 'hsl(30 10% 55%)' }}
             >
-              Where every curve whispers adventure and every horizon beckons the wandering soul.
+              Каде секој завој шепоти авантура и секој хоризонт ја повикува талкачката душа.
             </p>
           </div>
 
@@ -45,14 +45,14 @@ const Footer = () => {
               className="text-sm font-semibold uppercase tracking-wider"
               style={{ color: 'hsl(170 60% 55%)' }}
             >
-              Explore
+              Истражи
             </h4>
             <nav className="flex flex-col gap-3">
               {[
-                { to: "/", label: "Home" },
-                { to: "/spots", label: "Discover Spots" },
-                { to: "/chat", label: "Community" },
-                { to: "/about", label: "Our Story" },
+                { to: "/", label: "Почетна" },
+                { to: "/spots", label: "Откријте места" },
+                { to: "/chat", label: "Заедница" },
+                { to: "/about", label: "Нашата приказна" },
               ].map(link => (
                 <Link 
                   key={link.to}
@@ -74,7 +74,7 @@ const Footer = () => {
               className="text-sm font-semibold uppercase tracking-wider"
               style={{ color: 'hsl(170 60% 55%)' }}
             >
-              Connect
+              Поврзи се
             </h4>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -108,7 +108,7 @@ const Footer = () => {
               style={{ color: 'hsl(30 10% 55%)' }}
             >
               <MapPin size={16} style={{ color: 'hsl(15 70% 55%)' }} className="mt-0.5 shrink-0" />
-              <span>Ohrid, North Macedonia</span>
+              <span>Охрид, Северна Македонија</span>
             </div>
           </div>
 
@@ -118,14 +118,14 @@ const Footer = () => {
               className="text-sm font-semibold uppercase tracking-wider"
               style={{ color: 'hsl(170 60% 55%)' }}
             >
-              Share the Journey
+              Сподели го патувањето
             </h4>
             <ShareButtons variant="compact" />
             <p 
               className="text-xs mt-2"
               style={{ color: 'hsl(30 10% 50%)' }}
             >
-              Invite fellow explorers to join
+              Покани пријатели истражувачи да се приклучат
             </p>
           </div>
         </div>
@@ -140,13 +140,13 @@ const Footer = () => {
               className="text-lg font-script"
               style={{ color: 'hsl(30 15% 55%)' }}
             >
-              "Keep the rubber side down, ride with soul"
+              "Гуми на патот, душа на волја"
             </p>
             <p 
               className="text-sm"
               style={{ color: 'hsl(30 10% 45%)' }}
             >
-              © {new Date().getFullYear()} SoulRide. Crafted with soul in North Macedonia.
+              © {new Date().getFullYear()} SoulRide. Создадено со душа во Северна Македонија.
             </p>
           </div>
         </div>

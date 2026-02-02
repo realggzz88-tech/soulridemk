@@ -24,19 +24,19 @@ const AboutPage = () => {
             className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
             style={{ color: 'hsl(170 60% 55%)' }}
           >
-            Our Story
+            Нашата приказна
           </p>
           <h1 
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
             style={{ color: 'hsl(0 0% 100%)' }}
           >
-            About SoulRide
+            За SoulRide
           </h1>
           <p 
             className="text-xl font-script"
             style={{ color: 'hsl(30 15% 60%)' }}
           >
-            Inspiring motorbike journeys through undiscovered beauty
+            Инспирирачки мото-патувања низ неоткриени убавини
           </p>
         </motion.div>
 
@@ -59,26 +59,26 @@ const AboutPage = () => {
               className="text-lg leading-relaxed mb-6"
               style={{ color: 'hsl(30 15% 75%)' }}
             >
-              SoulRide was born from a simple truth: the best roads are the ones most riders never find. 
-              They're not on popular GPS routes or tourist maps. They hide in the folds of mountains, 
-              wind through villages time forgot, and lead to viewpoints that make you pull over and 
-              simply breathe.
+              SoulRide се роди од една едноставна вистина: најдобрите патишта се оние што повеќето 
+              возачи никогаш не ги наоѓаат. Тие не се на популарни GPS рути или туристички карти. 
+              Се кријат во превоите на планините, се вијат низ села што времето ги заборавило, 
+              и водат до гледишта што те тераат да застанеш и просто да дишеш.
             </p>
             <p 
               className="text-lg leading-relaxed mb-6"
               style={{ color: 'hsl(30 15% 75%)' }}
             >
-              We are a collective of riders, dreamers, and wanderers based in Ohrid, Macedonia—a land 
-              where ancient lakes mirror endless skies and mountain passes test both machine and spirit. 
-              Every spot we share has been ridden, felt, and earned through countless kilometers of 
-              exploration.
+              Ние сме колектив од возачи, мечтатели и талкачи со база во Охрид, Македонија — земја 
+              каде древни езера го огледуваат бескрајното небо и планинските премини ги тестираат 
+              и машината и духот. Секое место што го споделуваме е возено, почувствувано и заработено 
+              низ безброј километри истражување.
             </p>
             <p 
               className="text-lg leading-relaxed"
               style={{ color: 'hsl(30 15% 75%)' }}
             >
-              This isn't just a directory of destinations. It's an invitation to ride with intention, 
-              to seek beauty in the forgotten corners, and to let the road transform you one curve at a time.
+              Ова не е само директориум на дестинации. Тоа е покана да возите со намера, да барате 
+              убавина во заборавените катчиња, и да дозволите патот да ве трансформира еден завој по завој.
             </p>
           </div>
         </motion.div>
@@ -88,18 +88,18 @@ const AboutPage = () => {
           {[
             {
               icon: Mountain,
-              title: "Adventure",
-              description: "We chase horizons and embrace the unknown paths.",
+              title: "Авантура",
+              description: "Ги гониме хоризонтите и ги прегрнуваме непознатите патеки.",
             },
             {
               icon: Heart,
-              title: "Authenticity",
-              description: "Every spot is personally discovered and passionately shared.",
+              title: "Автентичност",
+              description: "Секое место е лично откриено и со страст споделено.",
             },
             {
               icon: Compass,
-              title: "Freedom",
-              description: "The road answers to no schedule. Neither do we.",
+              title: "Слобода",
+              description: "Патот не одговара на никаков распоред. Ниту ние.",
             },
           ].map((value, index) => (
             <motion.div
@@ -153,7 +153,7 @@ const AboutPage = () => {
             className="font-script text-xl"
             style={{ color: 'hsl(30 25% 65%)' }}
           >
-            "The best roads are not marked on any map — they are found by those who ride with soul."
+            "Најдобрите патишта не се означени на ниедна карта — ги наоѓаат оние што возат со душа."
           </p>
         </motion.div>
 
@@ -163,7 +163,7 @@ const AboutPage = () => {
             className="text-sm"
             style={{ color: 'hsl(30 10% 50%)' }}
           >
-            Built with soul in <span style={{ color: 'hsl(170 60% 55%)' }}>Ohrid, Macedonia</span>
+            Создадено со душа во <span style={{ color: 'hsl(170 60% 55%)' }}>Охрид, Македонија</span>
           </p>
         </div>
       </div>

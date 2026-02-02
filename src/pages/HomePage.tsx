@@ -61,19 +61,19 @@ const HomePage = () => {
               className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
               style={{ color: 'hsl(170 60% 55%)' }}
             >
-              The Experience
+              Искуството
             </p>
             <h2 
               className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-5"
               style={{ color: 'hsl(0 0% 100%)' }}
             >
-              Ride With Purpose
+              Вози со намера
             </h2>
             <p 
               className="max-w-xl mx-auto text-lg font-script"
               style={{ color: 'hsl(30 15% 60%)' }}
             >
-              "Every road tells a story. Every destination holds a secret."
+              "Секој пат раскажува приказна. Секоја дестинација крие тајна."
             </p>
           </motion.div>
 
@@ -81,18 +81,18 @@ const HomePage = () => {
             {[
               {
                 icon: Mountain,
-                title: "Hidden Viewpoints",
-                description: "Discover overlooks and panoramas that most maps forgot. Where perspective is earned through winding roads.",
+                title: "Скриени видиковци",
+                description: "Откријте гледишта и панорами што повеќето карти ги заборавиле. Каде перспективата се заработува низ кривулести патишта.",
               },
               {
                 icon: Compass,
-                title: "Curated Routes",
-                description: "Hand-picked roads that wind, twist, and reward. Routes chosen for the joy of the journey.",
+                title: "Селектирани рути",
+                description: "Рачно избрани патишта што се вијат и наградуваат. Рути избрани за радоста на патувањето.",
               },
               {
                 icon: Users,
-                title: "Rider Brotherhood",
-                description: "Tips and tales from souls who live for the next curve. Wisdom shared, stories exchanged.",
+                title: "Братство на возачи",
+                description: "Совети и приказни од души што живеат за следниот завој. Споделена мудрост, разменети приказни.",
               },
             ].map((feature, index) => (
               <motion.div
@@ -160,19 +160,19 @@ const HomePage = () => {
             className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-5"
             style={{ color: 'hsl(0 0% 100%)' }}
           >
-            Your Journey Awaits
+            Твоето патување те чека
           </h2>
           <p 
             className="mb-10 max-w-lg mx-auto text-lg font-script"
             style={{ color: 'hsl(30 15% 60%)' }}
           >
-            "Countless hidden spots. Endless memories waiting to be made."
+            "Безброј скриени места. Бесконечни спомени чекаат да се создадат."
           </p>
           <Link
             to="/spots"
             className="btn-primary arrow-animate inline-flex items-center gap-3 group"
           >
-            <span>Explore All Spots</span>
+            <span>Истражи ги сите места</span>
             <ArrowRight size={16} className="arrow-icon transition-transform" />
           </Link>
           
@@ -181,7 +181,7 @@ const HomePage = () => {
             className="mt-14 text-sm"
             style={{ color: 'hsl(30 10% 45%)' }}
           >
-            "The road is calling. Will you answer?"
+            "Патот повикува. Дали ќе одговориш?"
           </p>
         </motion.div>
       </section>
