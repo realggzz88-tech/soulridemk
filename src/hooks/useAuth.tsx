@@ -9,6 +9,8 @@ interface Profile {
   email: string;
   bio: string | null;
   what_you_ride: string | null;
+  profile_photo_url: string | null;
+  ride_photo_url: string | null;
   created_at: string;
 }
 
