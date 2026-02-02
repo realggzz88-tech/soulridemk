@@ -2,96 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Special+Elite&display=swap');
 
 @layer base {
   :root {
-    /* Premium Dark Navy Theme with warm undertones */
+    /* Vintage Dark Theme */
     --background: 222 47% 7%;
-    --foreground: 210 40% 96%;
+    --foreground: 40 10% 96%;
 
-    --card: 222 40% 10%;
-    --card-foreground: 210 40% 96%;
-    --card-warm: 222 35% 12%;
+    --card: 222 35% 11%;
+    --card-foreground: 40 10% 96%;
+    --card-warm: 220 30% 14%;
 
-    --popover: 222 47% 9%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 222 40% 10%;
+    --popover-foreground: 40 10% 96%;
 
-    /* Teal-green primary */
-    --primary: 160 84% 39%;
-    --primary-foreground: 222 47% 7%;
+    /* Muted vintage teal */
+    --primary: 174 72% 40%;
+    --primary-foreground: 40 20% 95%;
 
-    /* Soft dark secondary with warm undertone */
-    --secondary: 222 30% 14%;
-    --secondary-foreground: 210 40% 90%;
+    /* Warm vintage secondary */
+    --secondary: 220 25% 16%;
+    --secondary-foreground: 40 10% 88%;
 
-    --muted: 222 25% 16%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 220 20% 18%;
+    --muted-foreground: 40 8% 55%;
 
-    /* Teal accent */
-    --accent: 168 80% 42%;
-    --accent-foreground: 222 47% 7%;
+    /* Rusty amber accent */
+    --accent: 21 90% 42%;
+    --accent-foreground: 40 20% 95%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 40 10% 98%;
 
-    --border: 222 20% 18%;
-    --input: 222 20% 20%;
-    --ring: 160 84% 39%;
+    --border: 220 18% 20%;
+    --input: 220 20% 22%;
+    --ring: 174 72% 40%;
 
     --radius: 0.5rem;
 
-    /* Premium SoulRide tokens */
-    --earth-green: 160 84% 39%;
-    --earth-green-soft: 160 70% 45%;
-    --earth-green-glow: 168 80% 55%;
-    --mint-soft: 158 64% 65%;
-    --teal-bright: 168 80% 42%;
-    --teal-hover: 158 70% 52%;
+    /* Vintage SoulRide tokens */
+    --vintage-teal: 174 72% 40%;
+    --vintage-teal-soft: 174 60% 50%;
+    --vintage-teal-glow: 180 65% 45%;
     
-    /* Soul accent colors - warm amber-gold */
-    --soul-amber: 38 95% 55%;
-    --soul-orange: 25 95% 53%;
-    --soul-gold: 45 93% 58%;
-    --mountain-blue: 215 50% 55%;
+    /* Rusty warm tones */
+    --rust-orange: 21 90% 42%;
+    --rust-amber: 25 85% 48%;
+    --rust-gold: 35 80% 52%;
+    --rust-deep: 18 85% 38%;
     
-    /* Warm undertones */
-    --warm-charcoal: 220 25% 14%;
-    --warm-slate: 215 30% 18%;
+    /* Aged paper/cream tones */
+    --cream-light: 40 20% 95%;
+    --cream-soft: 38 15% 88%;
+    --cream-aged: 35 12% 78%;
+    
+    /* Worn textures */
+    --worn-dark: 220 25% 12%;
+    --worn-charcoal: 218 22% 16%;
+    --patina-green: 170 40% 35%;
+    
+    /* Legacy/distressed */
+    --distress-shadow: 0 2px 4px hsl(0 0% 0% / 0.4);
     
     /* Neutral tones */
-    --text-primary: 210 40% 96%;
-    --text-secondary: 215 20% 65%;
-    --text-muted: 215 15% 50%;
+    --text-primary: 40 10% 96%;
+    --text-secondary: 40 8% 70%;
+    --text-muted: 40 5% 55%;
     
-    /* Premium gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(168 80% 42%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(222 47% 7%) 0%, hsl(222 40% 10%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(222 40% 12%) 0%, hsl(220 30% 14%) 100%);
-    --gradient-card-warm: linear-gradient(180deg, hsl(222 35% 13%) 0%, hsl(222 40% 10%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(38 95% 55%) 100%);
-    --gradient-soul: linear-gradient(135deg, hsl(38 95% 55%) 0%, hsl(25 95% 53%) 100%);
+    /* Vintage gradients */
+    --gradient-rust: linear-gradient(135deg, hsl(21 90% 42%) 0%, hsl(25 85% 48%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(174 72% 40%) 0%, hsl(180 65% 45%) 100%);
+    --gradient-aged: linear-gradient(180deg, hsl(222 35% 11%) 0%, hsl(220 30% 14%) 100%);
+    --gradient-leather: linear-gradient(145deg, hsl(25 30% 18%) 0%, hsl(20 25% 12%) 100%);
     
-    /* Premium shadows */
-    --shadow-card: 0 4px 24px -4px hsl(222 47% 3% / 0.5);
-    --shadow-glow: 0 0 30px hsl(160 84% 39% / 0.2);
-    --shadow-hover: 0 8px 32px -8px hsl(160 84% 39% / 0.3);
-    --shadow-soul: 0 0 40px hsl(38 95% 55% / 0.15);
-    --shadow-inner-glow: inset 0 1px 0 0 hsl(160 84% 39% / 0.1);
+    /* Vintage shadows */
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.6);
+    --shadow-vintage: 0 2px 8px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(40 20% 95% / 0.05);
+    --shadow-badge: inset 0 2px 4px hsl(0 0% 0% / 0.3), 0 1px 0 hsl(40 20% 95% / 0.1);
+    --shadow-emboss: inset 0 -2px 4px hsl(0 0% 0% / 0.2), inset 0 2px 4px hsl(40 20% 95% / 0.05);
 
-    --sidebar-background: 222 47% 8%;
-    --sidebar-foreground: 210 40% 90%;
-    --sidebar-primary: 160 84% 39%;
-    --sidebar-primary-foreground: 222 47% 7%;
-    --sidebar-accent: 222 30% 14%;
-    --sidebar-accent-foreground: 210 40% 90%;
-    --sidebar-border: 222 20% 18%;
-    --sidebar-ring: 160 84% 39%;
+    --sidebar-background: 222 40% 9%;
+    --sidebar-foreground: 40 10% 90%;
+    --sidebar-primary: 174 72% 40%;
+    --sidebar-primary-foreground: 40 20% 95%;
+    --sidebar-accent: 21 90% 42%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 220 18% 20%;
+    --sidebar-ring: 174 72% 40%;
   }
 
   .dark {
     --background: 222 47% 7%;
-    --foreground: 210 40% 96%;
+    --foreground: 40 10% 96%;
   }
 }
 
@@ -108,93 +111,158 @@
 
   body {
     @apply bg-background antialiased;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    letter-spacing: -0.01em;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.01em;
     line-height: 1.7;
     color: hsl(var(--foreground));
     overflow-x: hidden;
     background-color: hsl(222 47% 7%);
   }
 
-  /* Soul-infused headings with warmth */
+  /* Vintage headings - retro slab/condensed feel */
   h1, h2, h3 {
-    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
-    font-weight: 800;
+    font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+    font-weight: 400;
     color: hsl(var(--foreground));
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
   h4, h5, h6 {
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 600;
     color: hsl(var(--foreground) / 0.9);
+    letter-spacing: 0.5px;
   }
 
   p, span, a, li {
-    letter-spacing: -0.01em;
-    line-height: 1.7;
+    letter-spacing: 0.01em;
+    line-height: 1.75;
   }
 }
 
 @layer components {
-  /* ===== SOUL ANIMATIONS ===== */
+  /* ===== VINTAGE GRAIN/NOISE OVERLAY ===== */
+  .grain-overlay {
+    position: relative;
+  }
   
-  /* Heartbeat pulse for hero title */
-  @keyframes soul-pulse {
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+  
+  /* Aged paper texture */
+  .aged-paper {
+    position: relative;
+  }
+  
+  .aged-paper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background: 
+      radial-gradient(ellipse at 20% 30%, hsl(35 40% 60% / 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, hsl(25 50% 50% / 0.2) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, hsl(40 30% 70% / 0.15) 0%, transparent 60%);
+  }
+  
+  /* Vignette effect */
+  .vignette {
+    position: relative;
+  }
+  
+  .vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.4) 100%);
+  }
+
+  /* ===== VINTAGE ANIMATIONS ===== */
+  
+  /* Old film flicker */
+  @keyframes film-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.98; }
+    75% { opacity: 0.99; }
+  }
+  
+  .film-flicker {
+    animation: film-flicker 0.1s infinite;
+  }
+  
+  /* Typewriter cursor */
+  @keyframes typewriter-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  .typewriter-cursor::after {
+    content: '|';
+    animation: typewriter-blink 1s infinite;
+    color: hsl(var(--rust-orange));
+  }
+  
+  /* Fade from road */
+  @keyframes fade-from-road {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px);
+      filter: blur(4px);
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+  
+  .fade-from-road {
+    animation: fade-from-road 0.8s ease-out forwards;
+  }
+  
+  /* Gentle leaf scatter on hover */
+  @keyframes leaf-scatter {
+    0% { transform: translateX(0) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateX(15px) rotate(45deg); opacity: 1; }
+    100% { transform: translateX(30px) rotate(90deg); opacity: 0; }
+  }
+  
+  .leaf-scatter:hover::before {
+    animation: leaf-scatter 0.8s ease-out forwards;
+  }
+  
+  /* Distressed text shadow */
+  .text-distressed {
+    text-shadow: 
+      1px 1px 0 hsl(0 0% 0% / 0.3),
+      -1px -1px 0 hsl(40 20% 95% / 0.05),
+      2px 2px 4px hsl(0 0% 0% / 0.2);
+  }
+  
+  /* Vintage glow - warm and subtle */
+  @keyframes vintage-glow {
     0%, 100% { 
-      text-shadow: 0 0 20px hsl(160 84% 39% / 0.3);
+      text-shadow: 0 0 10px hsl(21 90% 42% / 0.3);
+      filter: brightness(1);
     }
     50% { 
-      text-shadow: 0 0 40px hsl(160 84% 39% / 0.5), 0 0 80px hsl(160 84% 39% / 0.2);
+      text-shadow: 0 0 20px hsl(21 90% 42% / 0.5), 0 0 40px hsl(25 85% 48% / 0.2);
+      filter: brightness(1.02);
     }
   }
   
-  .soul-pulse {
-    animation: soul-pulse 3s ease-in-out infinite;
-  }
-  
-  /* Gentle breathing animation */
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.02); opacity: 0.95; }
-  }
-  
-  .breathe {
-    animation: breathe 4s ease-in-out infinite;
-  }
-  
-  /* Floating leaves animation */
-  @keyframes float-leaf {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-8px) rotate(5deg); }
-    50% { transform: translateY(-4px) rotate(-3deg); }
-    75% { transform: translateY(-10px) rotate(3deg); }
-  }
-  
-  .float-leaf {
-    animation: float-leaf 6s ease-in-out infinite;
-  }
-  
-  /* Wind trail animation */
-  @keyframes wind-trail {
-    0% { transform: translateX(-100%); opacity: 0; }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.6; }
-    100% { transform: translateX(100%); opacity: 0; }
-  }
-  
-  .wind-trail {
-    animation: wind-trail 4s ease-in-out infinite;
-  }
-  
-  /* Soft glow pulse */
-  @keyframes glow-soft {
-    0%, 100% { box-shadow: 0 0 15px hsl(160 84% 39% / 0.2); }
-    50% { box-shadow: 0 0 30px hsl(160 84% 39% / 0.35); }
-  }
-  
-  .glow-soft {
-    animation: glow-soft 3s ease-in-out infinite;
+  .vintage-glow {
+    animation: vintage-glow 4s ease-in-out infinite;
   }
   
   /* Arrow forward animation */
@@ -206,23 +274,25 @@
   .arrow-animate:hover .arrow-icon {
     animation: arrow-forward 0.8s ease-in-out infinite;
   }
-  
-  /* Leaf swirl on hover */
-  @keyframes leaf-swirl {
-    0% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(15deg) scale(1.1); }
-    50% { transform: rotate(-10deg) scale(1.05); }
-    75% { transform: rotate(8deg) scale(1.08); }
-    100% { transform: rotate(0deg) scale(1); }
-  }
-  
-  .leaf-swirl:hover {
-    animation: leaf-swirl 0.6s ease-in-out;
-  }
 
-  /* ===== SOUL OVERLAYS ===== */
+  /* ===== VINTAGE OVERLAYS ===== */
   
-  /* Mountain silhouette overlay */
+  /* Road curve overlay - more worn */
+  .road-overlay {
+    position: relative;
+  }
+  
+  .road-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath d='M0 350 Q100 300 150 200 T300 50' stroke='%230EA5E9' stroke-width='3' fill='none' stroke-dasharray='10,5'/%3E%3Cpath d='M50 400 Q150 320 200 220 T380 80' stroke='%23C2410C' stroke-width='2' fill='none' opacity='0.6' stroke-dasharray='8,4'/%3E%3C/svg%3E");
+    background-size: cover;
+  }
+  
+  /* Mountain silhouette - aged */
   .mountain-overlay {
     position: relative;
   }
@@ -233,241 +303,187 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 180px;
     pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 200 L100 150 L200 180 L350 80 L450 130 L550 60 L650 100 L750 40 L850 90 L950 30 L1050 80 L1150 50 L1200 70 L1200 200 Z' fill='%2310B981'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 200 L100 150 L200 180 L350 80 L450 130 L550 60 L650 100 L750 40 L850 90 L950 30 L1050 80 L1150 50 L1200 70 L1200 200 Z' fill='%230EA5E9'/%3E%3C/svg%3E");
     background-size: cover;
     background-position: bottom;
-  }
-  
-  /* Pine needle texture overlay */
-  .pine-overlay {
-    position: relative;
-  }
-  
-  .pine-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 L35 25 L30 20 L25 25 Z' fill='%2310B981' opacity='0.5'/%3E%3Cpath d='M10 35 L15 50 L10 47 L5 50 Z' fill='%2310B981' opacity='0.3'/%3E%3Cpath d='M50 40 L53 55 L50 52 L47 55 Z' fill='%2310B981' opacity='0.4'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-  }
-  
-  /* Road curve overlay */
-  .road-overlay {
-    position: relative;
-  }
-  
-  .road-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.02;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath d='M0 350 Q100 300 150 200 T300 50' stroke='%2310B981' stroke-width='3' fill='none'/%3E%3Cpath d='M50 400 Q150 320 200 220 T380 80' stroke='%23D97706' stroke-width='2' fill='none' opacity='0.5'/%3E%3C/svg%3E");
-    background-size: cover;
+    filter: grayscale(30%);
   }
 
-  /* ===== EXISTING COMPONENTS WITH SOUL ===== */
+  /* ===== VINTAGE COMPONENTS ===== */
   
-  /* Logo glow effect - enhanced */
+  /* Logo glow - vintage warm */
   .logo-glow {
-    color: hsl(var(--earth-green));
-    filter: drop-shadow(0 0 12px hsl(160 84% 39% / 0.5));
+    color: hsl(var(--vintage-teal));
+    filter: drop-shadow(0 0 8px hsl(174 72% 40% / 0.4)) drop-shadow(0 2px 4px hsl(0 0% 0% / 0.5));
     transition: filter 0.3s ease;
   }
 
   .logo-glow:hover {
-    filter: drop-shadow(0 0 20px hsl(160 84% 39% / 0.7)) drop-shadow(0 0 40px hsl(160 84% 39% / 0.3));
+    filter: drop-shadow(0 0 15px hsl(174 72% 40% / 0.5)) drop-shadow(0 2px 4px hsl(0 0% 0% / 0.5)) drop-shadow(0 0 25px hsl(21 90% 42% / 0.2));
   }
 
-  /* Earth green glow text */
-  .earth-green-glow {
-    color: hsl(var(--earth-green-glow));
+  /* Hero title - vintage distressed */
+  .hero-title-vintage {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: hsl(var(--cream-light));
+    text-shadow: 
+      2px 2px 0 hsl(0 0% 0% / 0.4),
+      -1px -1px 0 hsl(40 20% 95% / 0.1),
+      4px 4px 8px hsl(0 0% 0% / 0.3);
+  }
+  
+  /* Subtitle - typewriter style */
+  .hero-subtitle-vintage {
+    font-family: 'Special Elite', 'Courier New', monospace;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--vintage-teal));
   }
 
-  /* Hero title with soul */
-  .hero-title {
-    @apply text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight;
-    color: hsl(var(--foreground));
-    letter-spacing: 0.5px;
+  /* Vintage card - leather patch feel */
+  .vintage-card {
+    @apply relative overflow-hidden rounded-lg;
+    background: var(--gradient-aged);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-vintage);
   }
   
-  .hero-title-soul {
-    @apply text-5xl md:text-7xl lg:text-8xl font-extrabold;
-    color: hsl(var(--foreground));
-    letter-spacing: 0.5px;
-    animation: soul-pulse 3s ease-in-out infinite;
-  }
-
-  .hero-subtitle {
-    @apply text-lg md:text-xl font-medium tracking-wide;
-    color: hsl(var(--muted-foreground));
-  }
-  
-  /* Italic wave subtitle */
-  .hero-subtitle-soul {
-    @apply text-sm sm:text-base md:text-lg uppercase font-semibold;
-    color: hsl(var(--earth-green));
-    letter-spacing: 0.3em;
-    font-style: italic;
-    position: relative;
-  }
-  
-  .hero-subtitle-soul::after {
+  .vintage-card::before {
     content: '';
     position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(var(--earth-green)), transparent);
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 1px 0 hsl(40 20% 95% / 0.05), inset 0 -1px 0 hsl(0 0% 0% / 0.2);
   }
 
-  /* Gradient text - subtle teal */
-  .text-gradient-subtle {
-    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(160 70% 70%) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .vintage-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card), 0 0 20px hsl(174 72% 40% / 0.1);
+    border-color: hsl(var(--vintage-teal) / 0.3);
   }
   
-  /* Soul amber gradient text */
-  .text-gradient-soul {
-    background: linear-gradient(135deg, hsl(var(--soul-amber)) 0%, hsl(var(--soul-gold)) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Card hover with premium shadow + warm undertones */
-  .spot-card {
-    @apply relative overflow-hidden rounded-xl transition-all duration-300 ease-out;
-    background: var(--gradient-card-warm);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card), var(--shadow-inner-glow);
-  }
-
-  .spot-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover), var(--shadow-soul);
-    border-color: hsl(var(--earth-green) / 0.3);
-  }
-  
-  /* Soul card with inner glow */
+  /* Soul card - for content areas */
   .soul-card {
-    @apply relative overflow-hidden rounded-xl;
-    background: var(--gradient-card-warm);
+    @apply relative overflow-hidden rounded-lg;
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card), var(--shadow-inner-glow);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow-vintage);
   }
   
   .soul-card:hover {
-    border-color: hsl(var(--earth-green) / 0.4);
-    box-shadow: var(--shadow-hover), 0 0 30px hsl(var(--earth-green) / 0.1);
+    border-color: hsl(var(--vintage-teal) / 0.4);
+  }
+  
+  /* Polaroid frame */
+  .polaroid-frame {
+    @apply relative p-2 pb-8;
+    background: linear-gradient(145deg, hsl(40 15% 92%) 0%, hsl(35 12% 85%) 100%);
+    box-shadow: 
+      0 4px 12px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(40 20% 98%),
+      inset 0 -1px 0 hsl(30 15% 75%);
+    transform: rotate(-1deg);
+  }
+  
+  .polaroid-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: hsl(30 20% 70%);
   }
 
-  /* Tag pills - teal themed */
+  /* Tag pills - vintage */
   .tag-pill {
     @apply px-3 py-1 text-xs font-medium rounded-full;
-    background: hsl(var(--earth-green) / 0.15);
-    color: hsl(var(--mint-soft));
-    border: 1px solid hsl(var(--earth-green) / 0.25);
+    background: hsl(var(--vintage-teal) / 0.15);
+    color: hsl(var(--vintage-teal-soft));
+    border: 1px solid hsl(var(--vintage-teal) / 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .tag-pill-rust {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+    background: hsl(var(--rust-orange) / 0.15);
+    color: hsl(var(--rust-amber));
+    border: 1px solid hsl(var(--rust-orange) / 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
-  /* Premium button styles with soul */
-  .btn-primary {
+  /* Premium button styles - vintage badge */
+  .btn-primary-vintage {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
-    background: var(--gradient-primary);
-    color: hsl(var(--primary-foreground));
-    box-shadow: 0 4px 20px hsl(160 84% 39% / 0.3);
+    background: var(--gradient-teal);
+    color: hsl(var(--cream-light));
+    box-shadow: var(--shadow-badge);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
   }
 
-  .btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 30px hsl(160 84% 39% / 0.4);
+  .btn-primary-vintage:hover {
+    transform: scale(0.98);
     filter: brightness(1.1);
+    box-shadow: var(--shadow-emboss);
   }
   
-  /* Soul primary button with animated arrow */
-  .btn-soul-primary {
-    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;
-    background: var(--gradient-primary);
-    color: hsl(var(--primary-foreground));
-    box-shadow: 0 4px 20px hsl(160 84% 39% / 0.3);
-  }
-  
-  .btn-soul-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 35px hsl(160 84% 39% / 0.45);
+  .btn-rust {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
+    background: var(--gradient-rust);
+    color: hsl(var(--cream-light));
+    box-shadow: var(--shadow-badge);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
   }
 
-  .btn-secondary {
+  .btn-rust:hover {
+    transform: scale(0.98);
+    filter: brightness(1.1);
+    box-shadow: var(--shadow-emboss);
+  }
+
+  .btn-secondary-vintage {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
     background: transparent;
-    color: hsl(var(--earth-green));
-    border: 2px solid hsl(var(--earth-green));
+    color: hsl(var(--vintage-teal));
+    border: 2px solid hsl(var(--vintage-teal));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.875rem;
   }
 
-  .btn-secondary:hover {
-    background: hsl(var(--earth-green) / 0.1);
-    transform: scale(1.05);
-  }
-  
-  /* Soul secondary with leaf swirl effect */
-  .btn-soul-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300 relative overflow-hidden;
-    background: transparent;
-    color: hsl(var(--earth-green));
-    border: 2px solid hsl(var(--earth-green));
-  }
-  
-  .btn-soul-secondary::before {
-    content: '🍃';
-    position: absolute;
-    right: -20px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    font-size: 12px;
-  }
-  
-  .btn-soul-secondary:hover {
-    background: hsl(var(--earth-green) / 0.1);
-    transform: scale(1.05);
-    padding-right: 2.5rem;
-  }
-  
-  .btn-soul-secondary:hover::before {
-    right: 16px;
-    opacity: 0.7;
-    animation: leaf-swirl 0.6s ease-in-out;
+  .btn-secondary-vintage:hover {
+    background: hsl(var(--vintage-teal) / 0.1);
+    transform: scale(0.98);
   }
 
-  /* Glass card effect with warmth */
-  .glass-card {
-    background: hsl(var(--card) / 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid hsl(var(--border) / 0.5);
-    box-shadow: var(--shadow-inner-glow);
-  }
-  
-  /* Soul glass with inner glow */
-  .glass-soul {
-    background: hsl(var(--card-warm) / 0.9);
-    backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--earth-green) / 0.15);
-    box-shadow: var(--shadow-inner-glow), inset 0 0 30px hsl(var(--earth-green) / 0.03);
+  /* Glass card - aged */
+  .glass-vintage {
+    background: hsl(var(--card) / 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: var(--shadow-vintage);
   }
 
-  /* Navigation link with teal underline */
+  /* Navigation link - vintage */
   .nav-link {
     @apply relative py-2 text-sm font-medium transition-colors;
     color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
   }
 
   .nav-link:hover {
@@ -475,268 +491,197 @@
   }
 
   .nav-link.active {
-    color: hsl(var(--earth-green));
+    color: hsl(var(--vintage-teal));
   }
 
   .nav-link.active::after {
     content: '';
     @apply absolute bottom-0 left-0 w-full h-0.5 rounded-full;
-    background: hsl(var(--earth-green));
+    background: hsl(var(--vintage-teal));
   }
 
-  /* Gradient border effect */
-  .gradient-border {
-    position: relative;
-  }
-
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, hsl(var(--earth-green) / 0.5), hsl(var(--soul-amber) / 0.3));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-  
-  /* Soul quote styling */
-  .soul-quote {
-    @apply relative italic text-muted-foreground;
-    padding-left: 1.5rem;
-  }
-  
-  .soul-quote::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, hsl(var(--earth-green)), hsl(var(--soul-amber)));
-    border-radius: 2px;
-  }
-  
-  /* Leaf border frame for profile */
-  .leaf-frame {
-    position: relative;
-    padding: 4px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, hsl(var(--earth-green) / 0.3), hsl(var(--soul-amber) / 0.2));
-  }
-  
-  .leaf-frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(135deg, hsl(var(--earth-green)), hsl(var(--soul-amber)));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5;
-  }
-
-  /* Feature card style */
-  .feature-card {
-    @apply relative overflow-hidden rounded-xl p-6 transition-all duration-300;
-    background: var(--gradient-card-warm);
+  /* Input vintage style */
+  .input-vintage {
+    @apply rounded-lg px-4 py-3;
+    background: hsl(var(--input));
     border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-inner-glow);
-  }
-
-  .feature-card:hover {
-    border-color: hsl(var(--earth-green) / 0.3);
-    box-shadow: var(--shadow-glow);
-  }
-
-  /* Road pattern overlay */
-  .road-pattern {
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 90 Q 30 60, 50 70 T 90 30' stroke='%23ffffff08' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-  }
-
-  /* Page enter animation with soul */
-  .page-enter {
-    animation: pageEnter 0.6s ease-out forwards;
-  }
-
-  @keyframes pageEnter {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Mist fade-in for page transitions */
-  @keyframes mist-fade {
-    0% { opacity: 0; filter: blur(8px); }
-    100% { opacity: 1; filter: blur(0); }
-  }
-  
-  .mist-enter {
-    animation: mist-fade 0.8s ease-out forwards;
-  }
-
-  /* Fade up animation */
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-up {
-    animation: fade-up 0.6s ease-out forwards;
-  }
-
-  /* Fullscreen overlay for gallery */
-  .fullscreen-gallery {
-    @apply fixed inset-0 z-50 bg-background/98 backdrop-blur-md;
-  }
-
-  /* Custom scrollbar with soul */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(var(--border)), hsl(var(--earth-green) / 0.3));
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, hsl(var(--muted-foreground) / 0.3), hsl(var(--earth-green) / 0.5));
-  }
-
-  /* Map popup dark theme */
-  .dark-popup .leaflet-popup-content-wrapper {
-    background: hsl(222 40% 10%);
     color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border));
-    border-radius: 12px;
-    box-shadow: 0 10px 40px hsl(0 0% 0% / 0.5), 0 0 20px hsl(160 84% 39% / 0.1);
+    font-family: 'Special Elite', 'Courier New', monospace;
+  }
+  
+  .input-vintage::placeholder {
+    color: hsl(var(--muted-foreground));
+    font-style: italic;
+  }
+  
+  .input-vintage:focus {
+    outline: none;
+    border-color: hsl(var(--vintage-teal));
+    box-shadow: 0 0 0 2px hsl(var(--vintage-teal) / 0.2);
   }
 
-  .dark-popup .leaflet-popup-tip {
-    background: hsl(222 40% 10%);
-    border: 1px solid hsl(var(--border));
+  /* Bulletin board style */
+  .bulletin-card {
+    @apply relative p-4 rounded;
+    background: hsl(35 25% 90%);
+    box-shadow: 
+      2px 2px 8px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(40 30% 95%);
+    transform: rotate(-0.5deg);
+  }
+  
+  .bulletin-card::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, hsl(21 90% 42%) 0%, hsl(18 85% 38%) 100%);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px hsl(0 0% 0% / 0.3), 0 2px 4px hsl(0 0% 0% / 0.2);
   }
 
-  /* High contrast text for overlays */
-  .text-high-contrast {
-    color: hsl(var(--foreground));
-    text-shadow: 0 1px 3px hsl(0 0% 0% / 0.5);
+  /* Handwriting font for captions */
+  .handwriting {
+    font-family: 'Special Elite', 'Courier New', monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
   }
 
-  /* Film grain overlay - subtle */
-  .film-grain {
+  /* Worn photo corners */
+  .worn-corners {
     position: relative;
   }
   
-  .film-grain::after {
+  .worn-corners::before,
+  .worn-corners::after {
     content: '';
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.02;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Card gradient text */
-  .text-gradient-card {
-    background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.8) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Text glow on hover */
-  .text-gradient-glow {
-    text-shadow: 0 0 20px hsl(var(--earth-green) / 0.5);
-  }
-
-  /* Mountain divider SVG */
-  .mountain-divider {
-    background-image: url("data:image/svg+xml,%3Csvg width='1200' height='80' viewBox='0 0 1200 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 80 L50 60 L100 70 L180 40 L250 55 L350 25 L420 45 L500 15 L600 35 L680 10 L780 30 L860 5 L950 25 L1020 15 L1100 35 L1150 20 L1200 30 L1200 0 L0 0 Z' fill='none' stroke='%2310B981' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 80px;
-  }
-
-  /* Watercolor overlay for map */
-  .watercolor-overlay {
-    background-image: 
-      radial-gradient(ellipse at 20% 30%, hsl(var(--earth-green) / 0.1) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, hsl(var(--mountain-blue) / 0.08) 0%, transparent 45%),
-      radial-gradient(ellipse at 60% 80%, hsl(var(--soul-amber) / 0.05) 0%, transparent 40%);
+    width: 20px;
+    height: 20px;
+    background: hsl(35 20% 85%);
+    box-shadow: inset 0 1px 2px hsl(0 0% 0% / 0.1);
   }
   
-  /* Message bubble with wind tail */
+  .worn-corners::before {
+    top: -2px;
+    left: -2px;
+    border-radius: 0 0 8px 0;
+  }
+  
+  .worn-corners::after {
+    bottom: -2px;
+    right: -2px;
+    border-radius: 8px 0 0 0;
+  }
+
+  /* Map pin vintage */
+  .map-pin-vintage {
+    filter: drop-shadow(0 2px 4px hsl(0 0% 0% / 0.4));
+  }
+  
+  .map-pin-vintage::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: hsl(var(--rust-orange) / 0.3);
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+  /* Message bubble vintage */
+  .message-bubble {
+    @apply relative p-3 rounded-lg;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+  
   .message-bubble-own {
-    @apply relative rounded-2xl;
-    background: linear-gradient(135deg, hsl(var(--earth-green) / 0.2), hsl(var(--earth-green) / 0.1));
+    @apply relative p-3 rounded-lg;
+    background: hsl(var(--vintage-teal) / 0.15);
+    border: 1px solid hsl(var(--vintage-teal) / 0.3);
   }
   
   .message-bubble-own::after {
-    content: '~';
+    content: '🍃';
     position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: hsl(var(--earth-green) / 0.3);
-    font-size: 20px;
+    right: -8px;
+    bottom: -4px;
+    font-size: 10px;
+    opacity: 0.5;
+    transform: rotate(45deg);
   }
-  
-  /* Teal underline for explore title */
-  .road-underline {
+
+  /* Spot card - vintage */
+  .spot-card {
+    @apply relative overflow-hidden rounded-xl transition-all duration-300 ease-out;
+    background: var(--gradient-aged);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-vintage);
+  }
+
+  .spot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card), 0 0 25px hsl(174 72% 40% / 0.15);
+    border-color: hsl(var(--vintage-teal) / 0.4);
+  }
+
+  /* Route background gradient */
+  .route-card-bg {
     position: relative;
-    display: inline-block;
+    overflow: hidden;
   }
   
-  .road-underline::after {
+  .route-card-bg::before {
     content: '';
     position: absolute;
-    bottom: -8px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, hsl(var(--earth-green)), hsl(var(--soul-amber)), transparent);
-    border-radius: 2px;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath d='M0 80 Q50 60 100 70 T200 50' stroke='%230EA5E9' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-size: 200px;
+    background-repeat: repeat-x;
+    background-position: bottom;
   }
-}
 
-/* Focus styles */
-@layer utilities {
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
-    --tw-ring-color: hsl(var(--earth-green));
-    --tw-ring-offset-color: hsl(var(--background));
+  /* Profile photo frame - leaf border */
+  .profile-frame {
+    @apply relative rounded-full p-1;
+    background: var(--gradient-teal);
+    box-shadow: 0 4px 12px hsl(174 72% 40% / 0.3);
   }
   
-  /* Soul amber highlight */
-  .highlight-soul {
-    background: linear-gradient(120deg, hsl(var(--soul-amber) / 0.2) 0%, hsl(var(--soul-amber) / 0.1) 100%);
-    padding: 0.1em 0.3em;
-    border-radius: 0.2em;
+  .profile-frame::before {
+    content: '🌿';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+  }
+
+  /* Ensure smooth transitions globally */
+  * {
+    transition-timing-function: ease-out;
+  }
+  
+  /* Custom scrollbar - vintage */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--vintage-teal) / 0.5);
   }
 }
