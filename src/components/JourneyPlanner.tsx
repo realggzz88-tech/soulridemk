@@ -1,9 +1,10 @@
-import { useState, useMemo, useEffect } from "react";
-import { MapPin, Route, Clock, Utensils, Mountain, Zap, ChevronDown, Sparkles, ExternalLink } from "lucide-react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { MapPin, Route, Clock, Utensils, Mountain, Zap, Sparkles, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 import { macedonianLocations, foodDrinkStops, regionRouteMap, foodRegionMap } from "@/data/journeyData";
 import JourneyRouteMap from "./JourneyRouteMap";
+import LocationCombobox from "./LocationCombobox";
 
 interface JourneyPreferences {
   prioritizeViews: boolean;
@@ -24,20 +25,35 @@ interface GeneratedRoute {
 const JourneyPlanner = () => {
   const [startInput, setStartInput] = useState("");
   const [endInput, setEndInput] = useState("");
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Listen for prefill events from PopularRoutes
   useEffect(() => {
-    const handlePrefill = (event: CustomEvent<{ startLocation: string; endLocation: string }>) => {
+    const handlePrefill = (event: CustomEvent<{ 
+      startLocation: string; 
+      endLocation: string;
+      preferences?: Partial<JourneyPreferences>;
+    }>) => {
       setStartInput(event.detail.startLocation);
       setEndInput(event.detail.endLocation);
+      
+      // Apply preferences if provided
+      if (event.detail.preferences) {
+        setPreferences(prev => ({ ...prev, ...event.detail.preferences }));
+      }
+      
       setGeneratedRoute(null); // Reset any existing route
+      
+      // Scroll to the section
+      setTimeout(() => {
+        sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     };
 
     window.addEventListener("prefillJourney", handlePrefill as EventListener);
     return () => window.removeEventListener("prefillJourney", handlePrefill as EventListener);
   }, []);
-  const [showStartDropdown, setShowStartDropdown] = useState(false);
-  const [showEndDropdown, setShowEndDropdown] = useState(false);
+
   const [preferences, setPreferences] = useState<JourneyPreferences>({
     prioritizeViews: true,
     includeFoodStops: true,
@@ -47,97 +63,175 @@ const JourneyPlanner = () => {
   const [generatedRoute, setGeneratedRoute] = useState<GeneratedRoute | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // Filter locations for autocomplete
-  const filteredStartLocations = useMemo(() => {
-    if (!startInput) return macedonianLocations;
-    return macedonianLocations.filter(loc => 
-      loc.name.toLowerCase().includes(startInput.toLowerCase())
-    );
-  }, [startInput]);
+  // Smart route generation based on start/end regions
+  const getIntermediateSpots = (startId: string, endId: string): string[] => {
+    const intermediateSpots: string[] = [];
+    
+    // Skopje to Ohrid/Struga - classic route
+    if ((startId === "skopje" || startId === "tetovo") && 
+        (endId === "ohrid" || endId === "struga")) {
+      intermediateSpots.push("matka-canyon", "mavrovo-lake-loop", "galicica-pass");
+    }
+    
+    // Ohrid/Struga to Skopje - reverse
+    if ((startId === "ohrid" || startId === "struga") && 
+        (endId === "skopje" || endId === "tetovo")) {
+      intermediateSpots.push("galicica-pass", "mavrovo-lake-loop", "matka-canyon");
+    }
+    
+    // Skopje to Mavrovo
+    if (startId === "skopje" && endId === "mavrovo") {
+      intermediateSpots.push("matka-canyon", "vodno-mountain-cross");
+    }
+    
+    // Routes involving wine country
+    if (endId === "kavadarci" || startId === "kavadarci" || 
+        endId === "demir-kapija" || startId === "demir-kapija" ||
+        endId === "negotino" || startId === "negotino") {
+      intermediateSpots.push("demir-kapija-gorge", "popova-kula-winery", "stobi-ancient-city");
+    }
+    
+    // Routes to/from Bitola
+    if (endId === "bitola" || startId === "bitola" || 
+        endId === "pelister" || startId === "pelister") {
+      intermediateSpots.push("pelister-viewpoint", "pelister-national-park");
+    }
+    
+    // Lake Ohrid loop
+    if (startId === "ohrid" && endId === "ohrid") {
+      intermediateSpots.push("st-jovan-kaneo-overlook", "trpejca-beach", "sv-naum-monastery");
+    }
+    
+    // Eastern Macedonia routes
+    if (endId === "strumica" || startId === "strumica" ||
+        endId === "berovo" || startId === "berovo") {
+      intermediateSpots.push("smolari-waterfall", "carevi-kuli", "berovo-lake");
+    }
+    
+    // Northeastern routes
+    if (endId === "kratovo" || startId === "kratovo" ||
+        endId === "kumanovo" || startId === "kumanovo") {
+      intermediateSpots.push("kokino-observatory-overlook", "kratovo-old-town", "kuklica-stone-dolls");
+    }
+    
+    // Prespa routes
+    if (endId === "resen" || startId === "resen") {
+      intermediateSpots.push("prespa-lake-shore", "galicica-national-park-summit");
+    }
+    
+    // Gostivar/Tetovo to Mavrovo
+    if ((startId === "gostivar" || startId === "tetovo") && endId === "mavrovo") {
+      intermediateSpots.push("mavrovo-lake-loop", "bistra-mountain-pass");
+    }
+    
+    return intermediateSpots;
+  };
 
-  const filteredEndLocations = useMemo(() => {
-    if (!endInput) return macedonianLocations;
-    return macedonianLocations.filter(loc => 
-      loc.name.toLowerCase().includes(endInput.toLowerCase())
-    );
-  }, [endInput]);
+  // Get food stops based on route regions
+  const getRouteFoodStops = (startId: string, endId: string, intermediateSpots: string[]): typeof foodDrinkStops => {
+    const foodRegions = new Set<string>();
+    
+    // Map locations to food regions
+    const locationFoodMap: Record<string, string[]> = {
+      skopje: ["matka"],
+      ohrid: ["ohrid"],
+      struga: ["ohrid"],
+      mavrovo: ["mavrovo"],
+      gostivar: ["mavrovo"],
+      tetovo: ["mavrovo"],
+      bitola: ["pelister"],
+      kavadarci: ["tikves"],
+      "demir-kapija": ["tikves"],
+      negotino: ["tikves"],
+      veles: ["tikves"],
+      kratovo: ["kratovo"],
+      resen: ["prespa"],
+    };
+    
+    // Add food regions for start and end
+    (locationFoodMap[startId] || []).forEach(r => foodRegions.add(r));
+    (locationFoodMap[endId] || []).forEach(r => foodRegions.add(r));
+    
+    // Add food regions for intermediate spots
+    if (intermediateSpots.some(s => s.includes("galicica"))) foodRegions.add("galicica");
+    if (intermediateSpots.some(s => s.includes("mavrovo"))) foodRegions.add("mavrovo");
+    if (intermediateSpots.some(s => s.includes("prespa"))) foodRegions.add("prespa");
+    
+    return foodDrinkStops.filter(f => foodRegions.has(f.region));
+  };
 
   // Generate route based on start/end and preferences
   const generateRoute = () => {
+    if (!startInput.trim() || !endInput.trim()) return;
+    
     setIsGenerating(true);
     
-    // Find selected locations
+    // Find selected locations (case-insensitive match)
     const startLoc = macedonianLocations.find(l => 
       l.name.toLowerCase() === startInput.toLowerCase()
-    ) || macedonianLocations.find(l => l.id === "skopje")!;
+    ) || { 
+      id: startInput.toLowerCase().replace(/\s+/g, "-"), 
+      name: startInput, 
+      lat: 41.9973, 
+      lng: 21.4280 
+    };
     
     const endLoc = macedonianLocations.find(l => 
       l.name.toLowerCase() === endInput.toLowerCase()
-    ) || macedonianLocations.find(l => l.id === "ohrid")!;
+    ) || { 
+      id: endInput.toLowerCase().replace(/\s+/g, "-"), 
+      name: endInput, 
+      lat: 41.1231, 
+      lng: 20.8016 
+    };
 
-    // Get spots for start and end regions
+    // Get intermediate spots based on route
+    const intermediateSpotIds = getIntermediateSpots(startLoc.id, endLoc.id);
+    
+    // Also get spots from region mappings
     const startSpotIds = regionRouteMap[startLoc.id] || [];
     const endSpotIds = regionRouteMap[endLoc.id] || [];
     
-    // Find intermediary regions based on distance/path
-    const intermediateSpotIds: string[] = [];
-    
-    // Logic: If going from Skopje to Ohrid, add Mavrovo/Galicica
-    if ((startLoc.id === "skopje" || startLoc.id === "tetovo") && 
-        (endLoc.id === "ohrid" || endLoc.id === "struga")) {
-      intermediateSpotIds.push(...(regionRouteMap["mavrovo"] || []));
-      intermediateSpotIds.push("galicica-pass");
-    }
-    
-    // If going through wine country
-    if ((startLoc.id === "veles" || endLoc.id === "kavadarci") ||
-        (startLoc.id === "kavadarci" || endLoc.id === "veles")) {
-      intermediateSpotIds.push(...(regionRouteMap["kavadarci"] || []));
-    }
-    
-    // If going to eastern Macedonia
-    if (endLoc.id === "strumica" || endLoc.id === "berovo" || endLoc.id === "kratovo") {
-      intermediateSpotIds.push(...(regionRouteMap["kratovo"] || []));
-    }
-
-    // Collect all spot IDs and deduplicate
-    const allSpotIds = [...new Set([...startSpotIds, ...intermediateSpotIds, ...endSpotIds])];
+    // Combine all spot IDs (prioritize intermediate spots)
+    const allSpotIds = [...new Set([...intermediateSpotIds, ...startSpotIds, ...endSpotIds])];
     
     // Get actual spot objects
     let routeSpots = spots.filter(s => allSpotIds.includes(s.id));
     
+    // If no spots found, suggest popular ones
+    if (routeSpots.length === 0) {
+      routeSpots = spots.slice(0, 3);
+    }
+    
     // Filter by adventure level if needed
     if (preferences.adventureLevel === "easy") {
-      routeSpots = routeSpots.filter(s => !s.tags.includes("Adventure"));
+      const filtered = routeSpots.filter(s => 
+        !s.tags.includes("Adventure") && !s.tags.includes("Off-Road")
+      );
+      if (filtered.length > 0) routeSpots = filtered;
     } else if (preferences.adventureLevel === "challenging") {
-      routeSpots = routeSpots.filter(s => s.tags.includes("Adventure") || s.tags.includes("Mountain") || s.tags.includes("Roads"));
+      const filtered = routeSpots.filter(s => 
+        s.tags.includes("Adventure") || s.tags.includes("Mountain") || s.tags.includes("Roads")
+      );
+      if (filtered.length > 0) routeSpots = filtered;
     }
     
-    // Limit based on max drive time
-    const maxStops = Math.min(Math.floor(preferences.maxDriveTime / 1.5), 6);
+    // Limit based on max drive time (roughly 1.5 hours per stop)
+    const maxStops = Math.min(Math.max(Math.floor(preferences.maxDriveTime / 1.5), 2), 6);
     routeSpots = routeSpots.slice(0, maxStops);
     
-    // Get food stops for relevant regions
+    // Get food stops if preference is enabled
     let routeFoodStops: typeof foodDrinkStops = [];
     if (preferences.includeFoodStops) {
-      const foodRegions = new Set<string>();
-      
-      if (startLoc.id === "skopje") foodRegions.add("matka");
-      if (endLoc.id === "ohrid" || startLoc.id === "ohrid") foodRegions.add("ohrid");
-      if (intermediateSpotIds.some(id => id.includes("mavrovo"))) foodRegions.add("mavrovo");
-      if (intermediateSpotIds.some(id => id.includes("galicica"))) foodRegions.add("galicica");
-      if (endLoc.id === "kavadarci" || startLoc.id === "veles") foodRegions.add("tikves");
-      if (endLoc.id === "bitola" || startLoc.id === "bitola") foodRegions.add("pelister");
-      if (endLoc.id === "kratovo" || startLoc.id === "kratovo") foodRegions.add("kratovo");
-      if (endLoc.id === "resen" || routeSpots.some(s => s.id.includes("prespa"))) foodRegions.add("prespa");
-      
-      routeFoodStops = foodDrinkStops.filter(f => foodRegions.has(f.region));
+      routeFoodStops = getRouteFoodStops(startLoc.id, endLoc.id, intermediateSpotIds);
+      // Limit food stops
+      routeFoodStops = routeFoodStops.slice(0, Math.min(3, Math.floor(preferences.maxDriveTime / 2)));
     }
 
-    // Calculate estimated time (rough approximation)
-    const baseTime = 2; // Base travel time
-    const stopTime = routeSpots.length * 0.5; // 30 min per stop
-    const foodTime = routeFoodStops.length * 0.75; // 45 min per food stop
+    // Calculate estimated time
+    const baseTime = 2;
+    const stopTime = routeSpots.length * 0.5;
+    const foodTime = routeFoodStops.length * 0.75;
     const totalTime = baseTime + stopTime + foodTime;
     
     const estimatedTime = totalTime < 3 
@@ -145,7 +239,7 @@ const JourneyPlanner = () => {
       : `${Math.floor(totalTime)}-${Math.ceil(totalTime + 1)} hours`;
     
     // Rough distance estimate
-    const estimatedDistance = `${Math.round(50 + routeSpots.length * 25)} km`;
+    const estimatedDistance = `${Math.round(50 + routeSpots.length * 25 + routeFoodStops.length * 10)} km`;
 
     setTimeout(() => {
       setGeneratedRoute({
@@ -157,7 +251,7 @@ const JourneyPlanner = () => {
         estimatedDistance,
       });
       setIsGenerating(false);
-    }, 1200);
+    }, 1000);
   };
 
   // Generate Google Maps URL
@@ -175,7 +269,7 @@ const JourneyPlanner = () => {
   };
 
   return (
-    <section className="py-16 sm:py-24 px-4 relative overflow-hidden">
+    <section ref={sectionRef} id="journey-planner" className="py-16 sm:py-24 px-4 relative overflow-hidden">
       {/* Background gradient */}
       <div 
         className="absolute inset-0 opacity-90"
@@ -211,80 +305,24 @@ const JourneyPlanner = () => {
         <div className="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-md p-6 sm:p-8 shadow-[0_0_60px_hsl(var(--amber-soul)/0.1)]">
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {/* Starting Location */}
-            <div className="relative">
-              <label className="block text-sm font-medium text-foreground/80 mb-2 tracking-wide">
-                <MapPin size={14} className="inline mr-2 text-earth-green-glow" />
-                Starting Location
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={startInput}
-                  onChange={(e) => setStartInput(e.target.value)}
-                  onFocus={() => setShowStartDropdown(true)}
-                  onBlur={() => setTimeout(() => setShowStartDropdown(false), 200)}
-                  placeholder="e.g., Skopje"
-                  className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-soul-amber/50 focus:ring-2 focus:ring-soul-amber/20 transition-all"
-                />
-                <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                
-                {showStartDropdown && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border/50 rounded-xl shadow-xl z-50 max-h-60 overflow-y-auto">
-                    {filteredStartLocations.map((loc) => (
-                      <button
-                        key={loc.id}
-                        type="button"
-                        onClick={() => {
-                          setStartInput(loc.name);
-                          setShowStartDropdown(false);
-                        }}
-                        className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors first:rounded-t-xl last:rounded-b-xl"
-                      >
-                        <span className="text-foreground">{loc.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+            <LocationCombobox
+              locations={macedonianLocations}
+              value={startInput}
+              onChange={setStartInput}
+              label="Starting Location"
+              placeholder="e.g., Skopje"
+              iconColor="text-earth-green-glow"
+            />
 
             {/* Destination */}
-            <div className="relative">
-              <label className="block text-sm font-medium text-foreground/80 mb-2 tracking-wide">
-                <MapPin size={14} className="inline mr-2 text-soul-amber" />
-                Destination
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={endInput}
-                  onChange={(e) => setEndInput(e.target.value)}
-                  onFocus={() => setShowEndDropdown(true)}
-                  onBlur={() => setTimeout(() => setShowEndDropdown(false), 200)}
-                  placeholder="e.g., Ohrid"
-                  className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-soul-amber/50 focus:ring-2 focus:ring-soul-amber/20 transition-all"
-                />
-                <ChevronDown size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                
-                {showEndDropdown && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border/50 rounded-xl shadow-xl z-50 max-h-60 overflow-y-auto">
-                    {filteredEndLocations.map((loc) => (
-                      <button
-                        key={loc.id}
-                        type="button"
-                        onClick={() => {
-                          setEndInput(loc.name);
-                          setShowEndDropdown(false);
-                        }}
-                        className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors first:rounded-t-xl last:rounded-b-xl"
-                      >
-                        <span className="text-foreground">{loc.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+            <LocationCombobox
+              locations={macedonianLocations}
+              value={endInput}
+              onChange={setEndInput}
+              label="Destination"
+              placeholder="e.g., Ohrid"
+              iconColor="text-soul-amber"
+            />
           </div>
 
           {/* Preferences */}
@@ -362,7 +400,7 @@ const JourneyPlanner = () => {
           <div className="text-center">
             <button
               onClick={generateRoute}
-              disabled={isGenerating || (!startInput && !endInput)}
+              disabled={isGenerating || !startInput.trim() || !endInput.trim()}
               className={cn(
                 "inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium tracking-wide transition-all duration-300",
                 "bg-gradient-to-r from-earth-green via-mountain-blue to-soul-amber",
@@ -383,6 +421,12 @@ const JourneyPlanner = () => {
                 </>
               )}
             </button>
+            
+            {(!startInput.trim() || !endInput.trim()) && (
+              <p className="text-xs text-muted-foreground mt-3">
+                Select both starting location and destination to generate your route
+              </p>
+            )}
           </div>
         </div>
 
@@ -436,7 +480,7 @@ const JourneyPlanner = () => {
               ))}
 
               {/* Food Stops */}
-              {generatedRoute.foodStops.map((food, index) => (
+              {generatedRoute.foodStops.map((food) => (
                 <div key={food.id} className="flex items-start gap-4 p-4 rounded-xl bg-soul-amber/10 border border-soul-amber/30">
                   <div className="w-10 h-10 rounded-full bg-soul-amber/20 flex items-center justify-center flex-shrink-0">
                     <Utensils size={18} className="text-soul-amber" />
