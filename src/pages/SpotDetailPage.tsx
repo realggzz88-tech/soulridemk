@@ -50,7 +50,7 @@ const SpotDetailPage = () => {
   const rideSummary = `Soulride to ${spot.title}: ~${Math.floor(20 + Math.random() * 80)} km of twisty beauty from Ohrid. ${spot.tags.includes("twisty") ? "Expect hairpins and curves that awaken your spirit." : "A scenic journey through Macedonia's hidden landscapes."}`;
 
   return (
-    <div className="min-h-screen pt-20 page-enter">
+    <div className="min-h-screen pt-20 page-enter grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
       {/* Back Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <Link

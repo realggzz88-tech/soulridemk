@@ -730,4 +730,99 @@
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--sage-green) / 0.4);
   }
+
+  /* Page container base - use on all pages */
+  .page-container {
+    @apply min-h-screen;
+    background-color: hsl(var(--background));
+  }
+
+  /* Section container - consistent padding */
+  .section-container {
+    @apply py-16 sm:py-24 px-4;
+    background-color: hsl(var(--background));
+  }
+
+  /* Section container alt - for alternating backgrounds */
+  .section-container-alt {
+    @apply py-16 sm:py-24 px-4;
+    background: hsl(var(--card));
+  }
+
+  /* Content wrapper - max width and center */
+  .content-wrapper {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Page title styling */
+  .page-title {
+    font-family: 'Bitter', 'Rockwell', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: hsl(var(--cream-aged));
+    text-shadow: 3px 3px 0 hsl(0 0% 0% / 0.5);
+  }
+
+  /* Page subtitle - handwritten feel */
+  .page-subtitle {
+    font-family: 'Caveat', 'Brush Script MT', cursive;
+    font-weight: 500;
+    color: hsl(var(--sage-muted));
+  }
+
+  /* Body text - vintage serif */
+  .body-text {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    line-height: 1.8;
+    color: hsl(var(--text-secondary));
+  }
+
+  /* Card consistent styling */
+  .card-vintage {
+    @apply rounded-xl p-6;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-worn);
+  }
+
+  /* Optimized image loading */
+  .img-lazy {
+    @apply transition-opacity duration-300;
+    opacity: 0;
+  }
+  
+  .img-lazy.loaded {
+    opacity: 1;
+  }
+
+  /* Page entrance animation */
+  .page-enter {
+    animation: page-fade-in 0.4s ease-out;
+  }
+
+  @keyframes page-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter,
+    .leaf-flutter,
+    .vintage-pulse,
+    .campfire-glow {
+      animation: none;
+    }
+    
+    * {
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

@@ -8,11 +8,8 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div 
-      className="min-h-screen pt-24 pb-16 page-enter grain-overlay"
-      style={{ backgroundColor: 'hsl(200 20% 8%)' }}
-    >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="page-container pt-24 pb-16 page-enter grain-overlay">
+      <div className="content-wrapper px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 

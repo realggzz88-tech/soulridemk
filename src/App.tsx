@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,17 +7,28 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HomePage from "@/pages/HomePage";
-import SpotsPage from "@/pages/SpotsPage";
-import SpotDetailPage from "@/pages/SpotDetailPage";
-import RouteDetailPage from "@/pages/RouteDetailPage";
-import AboutPage from "@/pages/AboutPage";
-import AuthPage from "@/pages/AuthPage";
-import ChatPage from "@/pages/ChatPage";
-import ProfilePage from "@/pages/ProfilePage";
-import NotFound from "./pages/NotFound";
+import PageLoader from "@/components/PageLoader";
 
-const queryClient = new QueryClient();
+// Lazy load all pages for better performance
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const SpotsPage = lazy(() => import("@/pages/SpotsPage"));
+const SpotDetailPage = lazy(() => import("@/pages/SpotDetailPage"));
+const RouteDetailPage = lazy(() => import("@/pages/RouteDetailPage"));
+const AboutPage = lazy(() => import("@/pages/AboutPage"));
+const AuthPage = lazy(() => import("@/pages/AuthPage"));
+const ChatPage = lazy(() => import("@/pages/ChatPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -25,21 +37,23 @@ const App = () => (
         <AuthProvider>
           <Toaster />
           <Sonner />
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col bg-background">
             <Navbar />
             <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/spots" element={<SpotsPage />} />
-                <Route path="/spots/:id" element={<SpotDetailPage />} />
-                <Route path="/routes/:id" element={<RouteDetailPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/login" element={<AuthPage mode="login" />} />
-                <Route path="/signup" element={<AuthPage mode="signup" />} />
-                <Route path="/chat" element={<ChatPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/spots" element={<SpotsPage />} />
+                  <Route path="/spots/:id" element={<SpotDetailPage />} />
+                  <Route path="/routes/:id" element={<RouteDetailPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/login" element={<AuthPage mode="login" />} />
+                  <Route path="/signup" element={<AuthPage mode="signup" />} />
+                  <Route path="/chat" element={<ChatPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
             </main>
             <Footer />
           </div>

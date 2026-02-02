@@ -9,7 +9,7 @@ import WhySoulRide from "@/components/WhySoulRide";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen grain-overlay" style={{ background: 'hsl(200 20% 8%)' }}>
+    <div className="page-container grain-overlay">
       {/* Hero Section */}
       <HeroSection />
 
@@ -23,11 +23,8 @@ const HomePage = () => {
       <PopularRoutes />
 
       {/* Daily Soul Gem */}
-      <section 
-        className="py-16 sm:py-24 px-4 pine-scatter"
-        style={{ backgroundColor: 'hsl(200 20% 8%)' }}
-      >
-        <div className="max-w-7xl mx-auto">
+      <section className="section-container pine-scatter">
+        <div className="content-wrapper">
           <DailySoulGem />
         </div>
       </section>
