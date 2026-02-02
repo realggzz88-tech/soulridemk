@@ -9,7 +9,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, LogOut, MessageCircle } from "lucide-react";
+import { User, LogOut, MessageCircle, Bike } from "lucide-react";
+
+interface ExtendedProfile {
+  id: string;
+  user_id: string;
+  username: string;
+  email: string;
+  bio?: string | null;
+  what_you_ride?: string | null;
+  created_at: string;
+}
 
 const UserMenu = () => {
   const { user, profile, signOut, loading } = useAuth();
@@ -40,6 +50,8 @@ const UserMenu = () => {
     );
   }
 
+  const extendedProfile = profile as ExtendedProfile | null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,22 +63,28 @@ const UserMenu = () => {
           </Avatar>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 bg-background/95 backdrop-blur-lg border-border/50">
-        <div className="px-2 py-1.5">
+      <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-lg border-border/50">
+        <div className="px-2 py-2">
           <p className="text-sm font-medium">{profile?.username}</p>
           <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+          {extendedProfile?.what_you_ride && (
+            <p className="text-xs text-soul-amber flex items-center gap-1 mt-1">
+              <Bike className="h-3 w-3" />
+              {extendedProfile.what_you_ride}
+            </p>
+          )}
         </div>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/profile" className="flex items-center gap-2 cursor-pointer">
+            <User className="h-4 w-4" />
+            My Profile
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/chat" className="flex items-center gap-2 cursor-pointer">
             <MessageCircle className="h-4 w-4" />
             Soul Chat
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/spots" className="flex items-center gap-2 cursor-pointer">
-            <User className="h-4 w-4" />
-            My Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
