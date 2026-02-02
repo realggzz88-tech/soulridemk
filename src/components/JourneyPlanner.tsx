@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { MapPin, Route, Clock, Utensils, Mountain, Zap, Sparkles, ExternalLink } from "lucide-react";
+import { MapPin, Route, Clock, Utensils, Mountain, Zap, Sparkles, ExternalLink, Compass } from "lucide-react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 import { macedonianLocations, foodDrinkStops, regionRouteMap, foodRegionMap } from "@/data/journeyData";
@@ -27,7 +28,6 @@ const JourneyPlanner = () => {
   const [endInput, setEndInput] = useState("");
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Listen for prefill events from PopularRoutes
   useEffect(() => {
     const handlePrefill = (event: CustomEvent<{ 
       startLocation: string; 
@@ -37,14 +37,12 @@ const JourneyPlanner = () => {
       setStartInput(event.detail.startLocation);
       setEndInput(event.detail.endLocation);
       
-      // Apply preferences if provided
       if (event.detail.preferences) {
         setPreferences(prev => ({ ...prev, ...event.detail.preferences }));
       }
       
-      setGeneratedRoute(null); // Reset any existing route
+      setGeneratedRoute(null);
       
-      // Scroll to the section
       setTimeout(() => {
         sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
@@ -63,63 +61,52 @@ const JourneyPlanner = () => {
   const [generatedRoute, setGeneratedRoute] = useState<GeneratedRoute | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // Smart route generation based on start/end regions
   const getIntermediateSpots = (startId: string, endId: string): string[] => {
     const intermediateSpots: string[] = [];
     
-    // Skopje to Ohrid/Struga - classic route
     if ((startId === "skopje" || startId === "tetovo") && 
         (endId === "ohrid" || endId === "struga")) {
       intermediateSpots.push("matka-canyon", "mavrovo-lake-loop", "galicica-pass");
     }
     
-    // Ohrid/Struga to Skopje - reverse
     if ((startId === "ohrid" || startId === "struga") && 
         (endId === "skopje" || endId === "tetovo")) {
       intermediateSpots.push("galicica-pass", "mavrovo-lake-loop", "matka-canyon");
     }
     
-    // Skopje to Mavrovo
     if (startId === "skopje" && endId === "mavrovo") {
       intermediateSpots.push("matka-canyon", "vodno-mountain-cross");
     }
     
-    // Routes involving wine country
     if (endId === "kavadarci" || startId === "kavadarci" || 
         endId === "demir-kapija" || startId === "demir-kapija" ||
         endId === "negotino" || startId === "negotino") {
       intermediateSpots.push("demir-kapija-gorge", "popova-kula-winery", "stobi-ancient-city");
     }
     
-    // Routes to/from Bitola
     if (endId === "bitola" || startId === "bitola" || 
         endId === "pelister" || startId === "pelister") {
       intermediateSpots.push("pelister-viewpoint", "pelister-national-park");
     }
     
-    // Lake Ohrid loop
     if (startId === "ohrid" && endId === "ohrid") {
       intermediateSpots.push("st-jovan-kaneo-overlook", "trpejca-beach", "sv-naum-monastery");
     }
     
-    // Eastern Macedonia routes
     if (endId === "strumica" || startId === "strumica" ||
         endId === "berovo" || startId === "berovo") {
       intermediateSpots.push("smolari-waterfall", "carevi-kuli", "berovo-lake");
     }
     
-    // Northeastern routes
     if (endId === "kratovo" || startId === "kratovo" ||
         endId === "kumanovo" || startId === "kumanovo") {
       intermediateSpots.push("kokino-observatory-overlook", "kratovo-old-town", "kuklica-stone-dolls");
     }
     
-    // Prespa routes
     if (endId === "resen" || startId === "resen") {
       intermediateSpots.push("prespa-lake-shore", "galicica-national-park-summit");
     }
     
-    // Gostivar/Tetovo to Mavrovo
     if ((startId === "gostivar" || startId === "tetovo") && endId === "mavrovo") {
       intermediateSpots.push("mavrovo-lake-loop", "bistra-mountain-pass");
     }
@@ -127,11 +114,9 @@ const JourneyPlanner = () => {
     return intermediateSpots;
   };
 
-  // Get food stops based on route regions
   const getRouteFoodStops = (startId: string, endId: string, intermediateSpots: string[]): typeof foodDrinkStops => {
     const foodRegions = new Set<string>();
     
-    // Map locations to food regions
     const locationFoodMap: Record<string, string[]> = {
       skopje: ["matka"],
       ohrid: ["ohrid"],
@@ -148,11 +133,9 @@ const JourneyPlanner = () => {
       resen: ["prespa"],
     };
     
-    // Add food regions for start and end
     (locationFoodMap[startId] || []).forEach(r => foodRegions.add(r));
     (locationFoodMap[endId] || []).forEach(r => foodRegions.add(r));
     
-    // Add food regions for intermediate spots
     if (intermediateSpots.some(s => s.includes("galicica"))) foodRegions.add("galicica");
     if (intermediateSpots.some(s => s.includes("mavrovo"))) foodRegions.add("mavrovo");
     if (intermediateSpots.some(s => s.includes("prespa"))) foodRegions.add("prespa");
@@ -160,13 +143,11 @@ const JourneyPlanner = () => {
     return foodDrinkStops.filter(f => foodRegions.has(f.region));
   };
 
-  // Generate route based on start/end and preferences
   const generateRoute = () => {
     if (!startInput.trim() || !endInput.trim()) return;
     
     setIsGenerating(true);
     
-    // Find selected locations (case-insensitive match)
     const startLoc = macedonianLocations.find(l => 
       l.name.toLowerCase() === startInput.toLowerCase()
     ) || { 
@@ -185,25 +166,17 @@ const JourneyPlanner = () => {
       lng: 20.8016 
     };
 
-    // Get intermediate spots based on route
     const intermediateSpotIds = getIntermediateSpots(startLoc.id, endLoc.id);
-    
-    // Also get spots from region mappings
     const startSpotIds = regionRouteMap[startLoc.id] || [];
     const endSpotIds = regionRouteMap[endLoc.id] || [];
-    
-    // Combine all spot IDs (prioritize intermediate spots)
     const allSpotIds = [...new Set([...intermediateSpotIds, ...startSpotIds, ...endSpotIds])];
     
-    // Get actual spot objects
     let routeSpots = spots.filter(s => allSpotIds.includes(s.id));
     
-    // If no spots found, suggest popular ones
     if (routeSpots.length === 0) {
       routeSpots = spots.slice(0, 3);
     }
     
-    // Filter by adventure level if needed
     if (preferences.adventureLevel === "easy") {
       const filtered = routeSpots.filter(s => 
         !s.tags.includes("Adventure") && !s.tags.includes("Off-Road")
@@ -216,19 +189,15 @@ const JourneyPlanner = () => {
       if (filtered.length > 0) routeSpots = filtered;
     }
     
-    // Limit based on max drive time (roughly 1.5 hours per stop)
     const maxStops = Math.min(Math.max(Math.floor(preferences.maxDriveTime / 1.5), 2), 6);
     routeSpots = routeSpots.slice(0, maxStops);
     
-    // Get food stops if preference is enabled
     let routeFoodStops: typeof foodDrinkStops = [];
     if (preferences.includeFoodStops) {
       routeFoodStops = getRouteFoodStops(startLoc.id, endLoc.id, intermediateSpotIds);
-      // Limit food stops
       routeFoodStops = routeFoodStops.slice(0, Math.min(3, Math.floor(preferences.maxDriveTime / 2)));
     }
 
-    // Calculate estimated time
     const baseTime = 2;
     const stopTime = routeSpots.length * 0.5;
     const foodTime = routeFoodStops.length * 0.75;
@@ -238,7 +207,6 @@ const JourneyPlanner = () => {
       ? `${Math.round(totalTime * 60)} minutes`
       : `${Math.floor(totalTime)}-${Math.ceil(totalTime + 1)} hours`;
     
-    // Rough distance estimate
     const estimatedDistance = `${Math.round(50 + routeSpots.length * 25 + routeFoodStops.length * 10)} km`;
 
     setTimeout(() => {
@@ -254,7 +222,6 @@ const JourneyPlanner = () => {
     }, 1000);
   };
 
-  // Generate Google Maps URL
   const generateMapsUrl = () => {
     if (!generatedRoute) return "";
     
@@ -269,103 +236,206 @@ const JourneyPlanner = () => {
   };
 
   return (
-    <section ref={sectionRef} id="journey-planner" className="py-16 sm:py-24 px-4 relative overflow-hidden">
-      {/* Background gradient */}
+    <section 
+      ref={sectionRef} 
+      id="journey-planner" 
+      className="py-20 px-4 relative overflow-hidden grain-overlay"
+      style={{ 
+        background: 'linear-gradient(180deg, hsl(180 15% 10%) 0%, hsl(200 20% 9%) 50%, hsl(25 12% 10%) 100%)' 
+      }}
+    >
+      {/* Aged paper texture */}
       <div 
-        className="absolute inset-0 opacity-90"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          background: `linear-gradient(135deg, 
-            hsl(180 40% 15% / 0.8) 0%, 
-            hsl(200 35% 12% / 0.9) 30%,
-            hsl(220 30% 10% / 0.95) 50%,
-            hsl(25 50% 15% / 0.85) 75%,
-            hsl(32 55% 18% / 0.8) 100%
-          )`
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       />
-      <div className="absolute inset-0 road-pattern opacity-10" />
       
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-soul-amber/20 border border-soul-amber/30 mb-6">
-            <Sparkles size={16} className="text-soul-amber" />
-            <span className="text-sm text-soul-amber tracking-wide font-medium">JOURNEY BUILDER</span>
-          </div>
+        <div className="text-center mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg mb-6"
+            style={{
+              backgroundColor: 'hsl(35 50% 45% / 0.15)',
+              border: '1px dashed hsl(35 50% 50% / 0.4)',
+            }}
+          >
+            <Sparkles size={14} style={{ color: 'hsl(35 50% 55%)' }} />
+            <span 
+              className="text-xs tracking-[0.15em] uppercase"
+              style={{ 
+                fontFamily: "'Special Elite', monospace",
+                color: 'hsl(35 50% 60%)',
+              }}
+            >
+              Journey Builder
+            </span>
+          </motion.div>
           
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-wider mb-4 text-gradient-subtle">
-            CREATE YOUR SOULRIDE JOURNEY
-          </h2>
-          <p className="max-w-2xl mx-auto text-muted-foreground">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl mb-4 tracking-wider"
+            style={{
+              fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+              fontWeight: 700,
+              color: 'hsl(40 30% 94%)',
+              textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)',
+            }}
+          >
+            CREATE YOUR SOULRIDE
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="max-w-2xl mx-auto text-lg"
+            style={{ 
+              fontFamily: "'Caveat', cursive",
+              color: 'hsl(140 22% 55%)',
+            }}
+          >
             Enter start and end, get a route full of soul views, peaceful stops, and local flavors.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Journey Form Card */}
-        <div className="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-md p-6 sm:p-8 shadow-[0_0_60px_hsl(var(--amber-soul)/0.1)]">
+        {/* Journey Form Card - Vintage Map Legend Style */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="rounded-xl p-6 sm:p-8"
+          style={{
+            backgroundColor: 'hsl(180 12% 11%)',
+            border: '2px solid hsl(140 15% 25% / 0.4)',
+            boxShadow: '0 8px 40px hsl(0 0% 0% / 0.4), inset 0 1px 0 hsl(40 30% 90% / 0.03)',
+          }}
+        >
+          {/* Brass rivets */}
+          <div className="absolute top-3 left-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          <div className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full" style={{ background: 'linear-gradient(135deg, hsl(35 50% 55%) 0%, hsl(30 40% 35%) 100%)' }} />
+          
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {/* Starting Location */}
             <LocationCombobox
               locations={macedonianLocations}
               value={startInput}
               onChange={setStartInput}
               label="Starting Location"
               placeholder="e.g., Skopje"
-              iconColor="text-earth-green-glow"
+              iconColor="hsl(140 22% 55%)"
             />
 
-            {/* Destination */}
             <LocationCombobox
               locations={macedonianLocations}
               value={endInput}
               onChange={setEndInput}
               label="Destination"
               placeholder="e.g., Ohrid"
-              iconColor="text-soul-amber"
+              iconColor="hsl(25 40% 55%)"
             />
           </div>
 
-          {/* Preferences */}
+          {/* Preferences - Vintage Style */}
           <div className="mb-8">
-            <h3 className="text-sm font-medium text-foreground/80 mb-4 tracking-wide">
-              <Sparkles size={14} className="inline mr-2 text-mountain-blue" />
+            <h3 
+              className="text-sm mb-4 tracking-wide flex items-center gap-2"
+              style={{ 
+                fontFamily: "'Special Elite', monospace",
+                color: 'hsl(35 50% 60%)',
+              }}
+            >
+              <Compass size={14} />
               Journey Preferences
             </h3>
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Prioritize Views */}
-              <label className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/30 cursor-pointer hover:bg-muted/50 transition-colors">
+              <label 
+                className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+                style={{
+                  backgroundColor: 'hsl(140 22% 42% / 0.1)',
+                  border: '1px solid hsl(140 22% 42% / 0.25)',
+                }}
+              >
                 <input
                   type="checkbox"
                   checked={preferences.prioritizeViews}
                   onChange={(e) => setPreferences(p => ({ ...p, prioritizeViews: e.target.checked }))}
-                  className="w-4 h-4 rounded accent-soul-amber"
+                  className="w-4 h-4 rounded"
+                  style={{ accentColor: 'hsl(140 22% 50%)' }}
                 />
                 <div className="flex items-center gap-2">
-                  <Mountain size={16} className="text-earth-green-glow" />
-                  <span className="text-sm">Soul Views</span>
+                  <Mountain size={16} style={{ color: 'hsl(140 22% 55%)' }} />
+                  <span 
+                    className="text-sm"
+                    style={{ 
+                      fontFamily: "'Special Elite', monospace",
+                      color: 'hsl(40 30% 80%)',
+                    }}
+                  >
+                    Soul Views
+                  </span>
                 </div>
               </label>
 
               {/* Include Food Stops */}
-              <label className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/30 cursor-pointer hover:bg-muted/50 transition-colors">
+              <label 
+                className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+                style={{
+                  backgroundColor: 'hsl(25 40% 35% / 0.1)',
+                  border: '1px solid hsl(25 40% 40% / 0.25)',
+                }}
+              >
                 <input
                   type="checkbox"
                   checked={preferences.includeFoodStops}
                   onChange={(e) => setPreferences(p => ({ ...p, includeFoodStops: e.target.checked }))}
-                  className="w-4 h-4 rounded accent-soul-amber"
+                  className="w-4 h-4 rounded"
+                  style={{ accentColor: 'hsl(25 40% 50%)' }}
                 />
                 <div className="flex items-center gap-2">
-                  <Utensils size={16} className="text-soul-amber" />
-                  <span className="text-sm">Food & Drink</span>
+                  <Utensils size={16} style={{ color: 'hsl(25 40% 55%)' }} />
+                  <span 
+                    className="text-sm"
+                    style={{ 
+                      fontFamily: "'Special Elite', monospace",
+                      color: 'hsl(40 30% 80%)',
+                    }}
+                  >
+                    Food & Drink
+                  </span>
                 </div>
               </label>
 
               {/* Max Drive Time */}
-              <div className="p-3 rounded-xl bg-muted/30 border border-border/30">
+              <div 
+                className="p-3 rounded-lg"
+                style={{
+                  backgroundColor: 'hsl(35 50% 45% / 0.1)',
+                  border: '1px solid hsl(35 50% 45% / 0.25)',
+                }}
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <Clock size={16} className="text-mountain-blue" />
-                  <span className="text-sm">{preferences.maxDriveTime}h max</span>
+                  <Clock size={16} style={{ color: 'hsl(35 50% 55%)' }} />
+                  <span 
+                    className="text-sm"
+                    style={{ 
+                      fontFamily: "'Special Elite', monospace",
+                      color: 'hsl(40 30% 80%)',
+                    }}
+                  >
+                    {preferences.maxDriveTime}h max
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -373,24 +443,46 @@ const JourneyPlanner = () => {
                   max={12}
                   value={preferences.maxDriveTime}
                   onChange={(e) => setPreferences(p => ({ ...p, maxDriveTime: Number(e.target.value) }))}
-                  className="w-full h-2 rounded-full appearance-none bg-muted cursor-pointer accent-soul-amber"
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer"
+                  style={{ 
+                    backgroundColor: 'hsl(35 15% 25%)',
+                    accentColor: 'hsl(35 50% 55%)',
+                  }}
                 />
               </div>
 
               {/* Adventure Level */}
-              <div className="p-3 rounded-xl bg-muted/30 border border-border/30">
+              <div 
+                className="p-3 rounded-lg"
+                style={{
+                  backgroundColor: 'hsl(140 22% 42% / 0.1)',
+                  border: '1px solid hsl(140 22% 42% / 0.25)',
+                }}
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <Zap size={16} className="text-soul-amber" />
-                  <span className="text-sm">Adventure</span>
+                  <Zap size={16} style={{ color: 'hsl(35 50% 55%)' }} />
+                  <span 
+                    className="text-sm"
+                    style={{ 
+                      fontFamily: "'Special Elite', monospace",
+                      color: 'hsl(40 30% 80%)',
+                    }}
+                  >
+                    Adventure
+                  </span>
                 </div>
                 <select
                   value={preferences.adventureLevel}
                   onChange={(e) => setPreferences(p => ({ ...p, adventureLevel: e.target.value as any }))}
-                  className="w-full bg-transparent text-sm border-none focus:outline-none cursor-pointer text-foreground"
+                  className="w-full bg-transparent text-sm border-none focus:outline-none cursor-pointer"
+                  style={{ 
+                    fontFamily: "'Special Elite', monospace",
+                    color: 'hsl(40 30% 85%)',
+                  }}
                 >
-                  <option value="easy" className="bg-background text-foreground">Easy Scenic</option>
-                  <option value="moderate" className="bg-background text-foreground">Moderate</option>
-                  <option value="challenging" className="bg-background text-foreground">Winding Roads</option>
+                  <option value="easy" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Easy Scenic</option>
+                  <option value="moderate" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Moderate</option>
+                  <option value="challenging" style={{ backgroundColor: 'hsl(200 20% 12%)' }}>Winding Roads</option>
                 </select>
               </div>
             </div>
@@ -401,17 +493,11 @@ const JourneyPlanner = () => {
             <button
               onClick={generateRoute}
               disabled={isGenerating || !startInput.trim() || !endInput.trim()}
-              className={cn(
-                "inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium tracking-wide transition-all duration-300",
-                "bg-gradient-to-r from-earth-green via-mountain-blue to-soul-amber",
-                "text-white shadow-[0_0_30px_hsl(var(--earth-green)/0.3)]",
-                "hover:shadow-[0_0_50px_hsl(var(--amber-soul)/0.4)] hover:scale-105",
-                "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-              )}
+              className="btn-soul-primary inline-flex items-center gap-3 px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isGenerating ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-current/30 border-t-current rounded-full animate-spin" />
                   <span>Mapping Your Soul Route...</span>
                 </>
               ) : (
@@ -423,94 +509,96 @@ const JourneyPlanner = () => {
             </button>
             
             {(!startInput.trim() || !endInput.trim()) && (
-              <p className="text-xs text-muted-foreground mt-3">
+              <p 
+                className="text-xs mt-3"
+                style={{ 
+                  fontFamily: "'Libre Baskerville', serif",
+                  color: 'hsl(35 15% 50%)',
+                }}
+              >
                 Select both starting location and destination to generate your route
               </p>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Generated Route Results */}
         {generatedRoute && (
-          <div className="mt-12 animate-fade-up">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-12"
+          >
             {/* Route Summary */}
             <div className="text-center mb-8">
-              <h3 className="font-display text-2xl sm:text-3xl tracking-wider mb-2 text-gradient-subtle">
+              <h3 
+                className="text-2xl sm:text-3xl tracking-wider mb-2"
+                style={{
+                  fontFamily: "'Bitter', serif",
+                  color: 'hsl(40 30% 94%)',
+                }}
+              >
                 YOUR SOULRIDE AWAITS
               </h3>
-              <p className="text-muted-foreground">
-                {generatedRoute.startLocation.name} → {generatedRoute.endLocation.name} • 
-                <span className="text-soul-amber"> {generatedRoute.estimatedTime}</span> • 
-                <span className="text-earth-green-glow"> {generatedRoute.estimatedDistance}</span>
+              <p 
+                className="text-lg"
+                style={{ 
+                  fontFamily: "'Caveat', cursive",
+                  color: 'hsl(140 22% 55%)',
+                }}
+              >
+                {generatedRoute.startLocation.name} → {generatedRoute.endLocation.name}
               </p>
             </div>
 
-            {/* Route Stops List */}
-            <div className="grid gap-4 mb-8">
-              {/* Start Point */}
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-earth-green/10 border border-earth-green/30">
-                <div className="w-10 h-10 rounded-full bg-earth-green/20 flex items-center justify-center">
-                  <MapPin size={18} className="text-earth-green-glow" />
-                </div>
-                <div>
-                  <p className="font-medium text-earth-green-glow">Start</p>
-                  <p className="text-foreground">{generatedRoute.startLocation.name}</p>
-                </div>
-              </div>
-
-              {/* Soul View Stops */}
-              {generatedRoute.stops.map((stop, index) => (
-                <div key={stop.id} className="flex items-start gap-4 p-4 rounded-xl bg-muted/30 border border-border/30 group hover:border-soul-amber/30 transition-colors">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                    <img 
-                      src={stop.images[0]} 
-                      alt={stop.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
+            {/* Stats */}
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              {[
+                { icon: Clock, value: generatedRoute.estimatedTime, label: "Total Time" },
+                { icon: Route, value: generatedRoute.estimatedDistance, label: "Distance" },
+                { icon: Mountain, value: `${generatedRoute.stops.length} stops`, label: "Soul Views" },
+                { icon: Utensils, value: `${generatedRoute.foodStops.length} spots`, label: "Food & Rest" },
+              ].map((stat) => (
+                <div 
+                  key={stat.label}
+                  className="text-center px-4 py-3 rounded-lg"
+                  style={{
+                    backgroundColor: 'hsl(140 22% 42% / 0.1)',
+                    border: '1px solid hsl(140 22% 42% / 0.25)',
+                  }}
+                >
+                  <stat.icon size={18} className="mx-auto mb-1" style={{ color: 'hsl(140 22% 55%)' }} />
+                  <div 
+                    className="text-lg font-bold"
+                    style={{ 
+                      fontFamily: "'Bitter', serif",
+                      color: 'hsl(40 30% 90%)',
+                    }}
+                  >
+                    {stat.value}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-soul-amber/20 text-soul-amber">Stop {index + 1}</span>
-                      <span className="text-xs text-muted-foreground">Soul View</span>
-                    </div>
-                    <p className="font-medium text-foreground truncate">{stop.title}</p>
-                    <p className="text-sm text-muted-foreground italic truncate">"{stop.poeticTagline}"</p>
-                  </div>
-                </div>
-              ))}
-
-              {/* Food Stops */}
-              {generatedRoute.foodStops.map((food) => (
-                <div key={food.id} className="flex items-start gap-4 p-4 rounded-xl bg-soul-amber/10 border border-soul-amber/30">
-                  <div className="w-10 h-10 rounded-full bg-soul-amber/20 flex items-center justify-center flex-shrink-0">
-                    <Utensils size={18} className="text-soul-amber" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-soul-amber/30 text-soul-amber">Food Stop</span>
-                      <span className="text-xs text-muted-foreground capitalize">{food.type}</span>
-                    </div>
-                    <p className="font-medium text-foreground">{food.name}</p>
-                    <p className="text-sm text-muted-foreground">{food.description}</p>
+                  <div 
+                    className="text-xs"
+                    style={{ 
+                      fontFamily: "'Special Elite', monospace",
+                      color: 'hsl(35 15% 50%)',
+                    }}
+                  >
+                    {stat.label}
                   </div>
                 </div>
               ))}
-
-              {/* End Point */}
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-soul-amber/10 border border-soul-amber/30">
-                <div className="w-10 h-10 rounded-full bg-soul-amber/20 flex items-center justify-center">
-                  <MapPin size={18} className="text-soul-amber" />
-                </div>
-                <div>
-                  <p className="font-medium text-soul-amber">Destination</p>
-                  <p className="text-foreground">{generatedRoute.endLocation.name}</p>
-                </div>
-              </div>
             </div>
 
             {/* Map */}
-            <div className="mb-8">
-              <JourneyRouteMap 
+            <div 
+              className="rounded-xl overflow-hidden mb-8"
+              style={{
+                border: '2px solid hsl(140 15% 25% / 0.4)',
+                boxShadow: '0 4px 20px hsl(0 0% 0% / 0.3)',
+              }}
+            >
+              <JourneyRouteMap
                 startLocation={generatedRoute.startLocation}
                 endLocation={generatedRoute.endLocation}
                 stops={generatedRoute.stops}
@@ -518,32 +606,19 @@ const JourneyPlanner = () => {
               />
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap justify-center gap-4">
+            {/* Open in Google Maps */}
+            <div className="text-center">
               <a
                 href={generateMapsUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-earth-green to-mountain-blue text-white font-medium tracking-wide hover:shadow-[0_0_30px_hsl(var(--earth-green)/0.4)] transition-all"
+                className="btn-soul-secondary inline-flex items-center gap-2"
               >
-                <ExternalLink size={18} />
-                <span>Open in Maps App</span>
+                <ExternalLink size={16} />
+                <span>Open in Google Maps</span>
               </a>
-              
-              <button
-                onClick={() => setGeneratedRoute(null)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border/50 text-foreground/80 hover:bg-muted/50 transition-all"
-              >
-                <Route size={18} />
-                <span>Plan New Journey</span>
-              </button>
             </div>
-
-            {/* Disclaimer */}
-            <p className="text-center text-xs text-muted-foreground mt-6">
-              Routes are suggestions — always check real-time conditions in your Maps app. Drive safe, ride with soul.
-            </p>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

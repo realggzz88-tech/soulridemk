@@ -243,36 +243,76 @@ const ChatPage = () => {
     return null;
   }
 
+  // Get room icon based on name
+  const getRoomIcon = (roomName: string) => {
+    const name = roomName.toLowerCase();
+    if (name.includes('motorbike') || name.includes('rider')) return '🏍️';
+    if (name.includes('offroad') || name.includes('adventure')) return '🧭';
+    if (name.includes('camping') || name.includes('camp')) return '🏕️';
+    if (name.includes('food') || name.includes('restaurant')) return '🍺';
+    if (name.includes('route') || name.includes('road')) return '🛤️';
+    return '🔥'; // Default campfire icon
+  };
+
   const RoomList = ({ onSelect }: { onSelect?: (name: string) => void }) => (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {loadingRooms ? (
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="h-5 w-5 animate-spin text-earth-green" />
+          <Loader2 className="h-5 w-5 animate-spin" style={{ color: 'hsl(140 22% 50%)' }} />
         </div>
       ) : (
         rooms.map((room) => (
           <button
             key={room.id}
             onClick={() => onSelect ? onSelect(room.name) : handleRoomSelect(room.name)}
-            className={cn(
-              "w-full text-left p-3 rounded-lg transition-all duration-200 group",
-              selectedRoom === room.name
-                ? "bg-gradient-to-r from-earth-green/20 to-soul-amber/10 border border-earth-green/30"
-                : "hover:bg-muted/50 border border-transparent"
-            )}
+            className="w-full text-left p-4 rounded-lg transition-all duration-300 group relative"
+            style={{
+              backgroundColor: selectedRoom === room.name 
+                ? 'hsl(140 22% 42% / 0.15)' 
+                : 'hsl(180 12% 12%)',
+              border: selectedRoom === room.name 
+                ? '1px solid hsl(140 22% 42% / 0.4)' 
+                : '1px solid hsl(140 15% 25% / 0.3)',
+              boxShadow: selectedRoom === room.name 
+                ? '0 4px 12px hsl(140 22% 30% / 0.2)' 
+                : '0 2px 8px hsl(0 0% 0% / 0.2)',
+            }}
           >
+            {/* Rusty pin icon */}
+            <div 
+              className="absolute -top-1.5 left-4 w-3 h-3 rounded-full"
+              style={{ 
+                background: 'linear-gradient(135deg, hsl(25 50% 50%) 0%, hsl(20 40% 35%) 100%)',
+                boxShadow: '0 2px 4px hsl(0 0% 0% / 0.3)',
+              }}
+            />
+            
             <div className="flex items-center justify-between">
-              <span className={cn(
-                "font-medium text-sm",
-                selectedRoom === room.name ? "text-earth-green-glow" : "text-foreground"
-              )}>
-                {room.name}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg">{getRoomIcon(room.name)}</span>
+                <span 
+                  className="text-sm"
+                  style={{ 
+                    fontFamily: "'Bitter', serif",
+                    fontWeight: 600,
+                    color: selectedRoom === room.name ? 'hsl(140 22% 60%)' : 'hsl(40 30% 90%)',
+                  }}
+                >
+                  {room.name}
+                </span>
+              </div>
               {selectedRoom === room.name && (
-                <Radio className="h-3 w-3 text-soul-amber animate-pulse" />
+                <Radio className="h-3 w-3 animate-pulse" style={{ color: 'hsl(25 40% 55%)' }} />
               )}
             </div>
-            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+            <p 
+              className="text-xs mt-2 line-clamp-2"
+              style={{ 
+                fontFamily: "'Libre Baskerville', serif",
+                color: 'hsl(35 15% 50%)',
+                lineHeight: 1.6,
+              }}
+            >
               {room.description}
             </p>
           </button>
@@ -282,18 +322,45 @@ const ChatPage = () => {
   );
 
   return (
-    <div className="min-h-screen pt-16">
+    <div 
+      className="min-h-screen pt-16 grain-overlay"
+      style={{ background: 'linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(180 15% 10%) 100%)' }}
+    >
       <div className="flex h-[calc(100vh-4rem)]">
-        {/* Desktop Sidebar */}
-        <aside className="hidden md:flex w-72 border-r border-border/50 flex-col bg-background/50">
-          <div className="p-4 border-b border-border/50">
-            <h2 className="font-display text-lg tracking-wide flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-earth-green" />
-              Chat Rooms
+        {/* Desktop Sidebar - Bulletin Board Style */}
+        <aside 
+          className="hidden md:flex w-80 flex-col"
+          style={{
+            backgroundColor: 'hsl(180 12% 9%)',
+            borderRight: '1px solid hsl(140 15% 20% / 0.4)',
+          }}
+        >
+          <div 
+            className="p-5"
+            style={{ borderBottom: '1px solid hsl(140 15% 20% / 0.3)' }}
+          >
+            <h2 
+              className="text-lg tracking-wide flex items-center gap-2"
+              style={{ 
+                fontFamily: "'Bitter', serif",
+                fontWeight: 700,
+                color: 'hsl(40 30% 94%)',
+              }}
+            >
+              <MessageCircle className="h-5 w-5" style={{ color: 'hsl(140 22% 55%)' }} />
+              Soul Chat
             </h2>
-            <p className="text-xs text-muted-foreground mt-1">Choose your tribe</p>
+            <p 
+              className="text-sm mt-1"
+              style={{ 
+                fontFamily: "'Caveat', cursive",
+                color: 'hsl(35 50% 55%)',
+              }}
+            >
+              Choose your tribe, share your story
+            </p>
           </div>
-          <ScrollArea className="flex-1 p-3">
+          <ScrollArea className="flex-1 p-4">
             <RoomList />
           </ScrollArea>
         </aside>
@@ -301,7 +368,13 @@ const ChatPage = () => {
         {/* Main Chat Area */}
         <main className="flex-1 flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-sm">
+          <div 
+            className="flex items-center justify-between p-4"
+            style={{
+              backgroundColor: 'hsl(180 12% 10% / 0.95)',
+              borderBottom: '1px solid hsl(140 15% 20% / 0.3)',
+            }}
+          >
             <div className="flex items-center gap-3">
               {/* Mobile Menu Button */}
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -310,15 +383,37 @@ const ChatPage = () => {
                     <Menu className="h-5 w-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-80 p-0 bg-background/95 backdrop-blur-lg">
-                  <div className="p-4 border-b border-border/50">
-                    <h2 className="font-display text-lg tracking-wide flex items-center gap-2">
-                      <MessageCircle className="h-5 w-5 text-earth-green" />
-                      Chat Rooms
+                <SheetContent 
+                  side="left" 
+                  className="w-80 p-0"
+                  style={{ backgroundColor: 'hsl(180 12% 9% / 0.98)' }}
+                >
+                  <div 
+                    className="p-5"
+                    style={{ borderBottom: '1px solid hsl(140 15% 20% / 0.3)' }}
+                  >
+                    <h2 
+                      className="text-lg tracking-wide flex items-center gap-2"
+                      style={{ 
+                        fontFamily: "'Bitter', serif",
+                        fontWeight: 700,
+                        color: 'hsl(40 30% 94%)',
+                      }}
+                    >
+                      <MessageCircle className="h-5 w-5" style={{ color: 'hsl(140 22% 55%)' }} />
+                      Soul Chat
                     </h2>
-                    <p className="text-xs text-muted-foreground mt-1">Choose your tribe</p>
+                    <p 
+                      className="text-sm mt-1"
+                      style={{ 
+                        fontFamily: "'Caveat', cursive",
+                        color: 'hsl(35 50% 55%)',
+                      }}
+                    >
+                      Choose your tribe
+                    </p>
                   </div>
-                  <ScrollArea className="h-[calc(100vh-80px)] p-3">
+                  <ScrollArea className="h-[calc(100vh-80px)] p-4">
                     <RoomList onSelect={handleRoomSelect} />
                   </ScrollArea>
                 </SheetContent>
@@ -326,28 +421,76 @@ const ChatPage = () => {
 
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="font-display text-xl tracking-wide">{selectedRoom}</h1>
-                  <span className="flex items-center gap-1 text-xs text-soul-amber bg-soul-amber/10 px-2 py-0.5 rounded-full">
+                  <h1 
+                    className="text-xl tracking-wide"
+                    style={{ 
+                      fontFamily: "'Bitter', serif",
+                      fontWeight: 600,
+                      color: 'hsl(40 30% 94%)',
+                    }}
+                  >
+                    {selectedRoom}
+                  </h1>
+                  <span 
+                    className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full"
+                    style={{
+                      fontFamily: "'Special Elite', monospace",
+                      backgroundColor: 'hsl(25 40% 35% / 0.2)',
+                      color: 'hsl(25 40% 60%)',
+                      border: '1px solid hsl(25 40% 40% / 0.3)',
+                    }}
+                  >
                     <Radio className="h-2.5 w-2.5 animate-pulse" />
                     Live
                   </span>
                 </div>
                 {currentRoom && (
-                  <p className="text-xs text-muted-foreground mt-0.5 max-w-md truncate">
+                  <p 
+                    className="text-xs mt-0.5 max-w-md truncate"
+                    style={{ 
+                      fontFamily: "'Libre Baskerville', serif",
+                      color: 'hsl(35 15% 50%)',
+                    }}
+                  >
                     {currentRoom.description}
                   </p>
                 )}
               </div>
             </div>
             <div className="text-right hidden sm:block">
-              <p className="text-xs text-muted-foreground">Riding as</p>
-              <p className="text-sm font-medium text-earth-green-glow">{profile?.username}</p>
+              <p 
+                className="text-xs"
+                style={{ 
+                  fontFamily: "'Special Elite', monospace",
+                  color: 'hsl(35 15% 50%)',
+                }}
+              >
+                Riding as
+              </p>
+              <p 
+                className="text-sm font-medium"
+                style={{ 
+                  fontFamily: "'Bitter', serif",
+                  color: 'hsl(140 22% 60%)',
+                }}
+              >
+                {profile?.username}
+              </p>
             </div>
           </div>
 
-          {/* Moderation note */}
-          <div className="py-2 px-4 bg-earth-green/10 text-center">
-            <p className="text-xs text-muted-foreground">
+          {/* Moderation note - handwritten */}
+          <div 
+            className="py-2 px-4 text-center"
+            style={{ backgroundColor: 'hsl(140 22% 42% / 0.08)' }}
+          >
+            <p 
+              className="text-sm"
+              style={{ 
+                fontFamily: "'Caveat', cursive",
+                color: 'hsl(140 22% 55%)',
+              }}
+            >
               ✨ Be kind, share soulfully. Every rider has a story worth hearing.
             </p>
           </div>
@@ -397,12 +540,19 @@ const ChatPage = () => {
                             {format(new Date(message.created_at), "HH:mm")}
                           </span>
                         </div>
+                        {/* Message bubble - torn notebook page style */}
                         <div
-                          className={`inline-block rounded-2xl overflow-hidden ${
-                            isOwn
-                              ? "bg-gradient-to-r from-earth-green/20 to-earth-green/10 rounded-tr-sm"
-                              : "bg-muted/50 rounded-tl-sm"
-                          }`}
+                          className="inline-block rounded-xl overflow-hidden"
+                          style={{
+                            backgroundColor: isOwn 
+                              ? 'hsl(140 22% 42% / 0.15)' 
+                              : 'hsl(180 12% 14%)',
+                            border: isOwn 
+                              ? '1px solid hsl(140 22% 42% / 0.3)' 
+                              : '1px solid hsl(140 15% 20% / 0.3)',
+                            borderRadius: isOwn ? '12px 4px 12px 12px' : '4px 12px 12px 12px',
+                            boxShadow: '0 2px 8px hsl(0 0% 0% / 0.2)',
+                          }}
                         >
                           {message.image_url && (
                             <Dialog>
@@ -412,6 +562,7 @@ const ChatPage = () => {
                                     src={message.image_url} 
                                     alt="Shared image" 
                                     className="w-full h-auto max-h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                                    style={{ filter: 'sepia(10%) saturate(90%)' }}
                                   />
                                 </button>
                               </DialogTrigger>
@@ -425,7 +576,14 @@ const ChatPage = () => {
                             </Dialog>
                           )}
                           {message.content && (
-                            <p className="text-sm whitespace-pre-wrap break-words px-4 py-2">
+                            <p 
+                              className="text-sm whitespace-pre-wrap break-words px-4 py-3"
+                              style={{
+                                fontFamily: "'Libre Baskerville', Georgia, serif",
+                                color: 'hsl(40 30% 88%)',
+                                lineHeight: 1.7,
+                              }}
+                            >
                               {message.content}
                             </p>
                           )}
