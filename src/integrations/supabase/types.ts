@@ -14,11 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_rooms: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
           created_at: string
           id: string
+          room_name: string
           user_id: string
           username: string
         }
@@ -26,6 +48,7 @@ export type Database = {
           content: string
           created_at?: string
           id?: string
+          room_name?: string
           user_id: string
           username: string
         }
@@ -33,6 +56,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: string
+          room_name?: string
           user_id?: string
           username?: string
         }
