@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Flame } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from "lucide-react";
 import { z } from "zod";
 import { motion } from "framer-motion";
 
@@ -102,7 +102,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
           }
         } else {
           toast({
-            title: "Welcome back, old friend!",
+            title: "Welcome back!",
             description: "The road awaits you.",
           });
           navigate("/");
@@ -136,23 +136,15 @@ const AuthPage = ({ mode }: AuthPageProps) => {
   };
 
   return (
-    <div className="page-container flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden grain-overlay">
-      {/* Aged parchment background */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: `
-            radial-gradient(ellipse at center top, hsl(140 22% 42% / 0.06) 0%, transparent 50%),
-            radial-gradient(ellipse at 30% 70%, hsl(25 40% 35% / 0.04) 0%, transparent 40%)
-          `
-        }}
-      />
-      
-      {/* Vignette */}
+    <div 
+      className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden"
+      style={{ backgroundColor: 'hsl(20 15% 8%)' }}
+    >
+      {/* Background glow */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 45%, hsl(0 0% 0% / 0.35) 100%)'
+          background: 'radial-gradient(ellipse at 50% 30%, hsl(15 70% 50% / 0.08) 0%, transparent 60%)',
         }}
       />
       
@@ -162,58 +154,38 @@ const AuthPage = ({ mode }: AuthPageProps) => {
         transition={{ duration: 0.6 }}
         className="w-full max-w-md relative z-10"
       >
-        {/* Logo - vintage soul */}
+        {/* Header */}
         <div className="text-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="flex justify-center mb-4"
-          >
-            <Flame className="w-8 h-8" style={{ color: 'hsl(25 45% 45%)' }} />
-          </motion.div>
           <motion.h1 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="font-display text-3xl sm:text-4xl tracking-wider mb-3"
-            style={{ 
-              color: 'hsl(40 30% 92%)',
-              textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)'
-            }}
+            className="text-3xl sm:text-4xl font-bold tracking-tight mb-3"
+            style={{ color: 'hsl(0 0% 100%)' }}
           >
-            SOULRIDE
+            {isLogin ? "Welcome Back" : "Join the Ride"}
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.25 }}
-            className="handwriting text-xl"
-            style={{ color: 'hsl(140 22% 50%)' }}
+            className="text-xl font-script"
+            style={{ color: 'hsl(30 15% 60%)' }}
           >
-            {isLogin ? "Welcome Back, Old Friend" : "Join the Brotherhood"}
-          </motion.p>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
-            className="text-sm mt-3 typewriter"
-            style={{ color: 'hsl(35 15% 45%)' }}
-          >
-            "The road remembers those who ride with heart"
+            {isLogin ? "The road awaits your return" : "Begin your soulful journey"}
           </motion.p>
         </div>
 
-        {/* Form Card - campfire glow */}
+        {/* Form Card */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="p-8 rounded-xl campfire-glow"
+          className="p-8 rounded-2xl"
           style={{
-            backgroundColor: 'hsl(180 12% 11%)',
-            border: '1px solid hsl(170 12% 20%)',
-            boxShadow: 'inset 0 1px 0 hsl(40 30% 94% / 0.03), 0 8px 32px hsl(0 0% 0% / 0.5)'
+            background: 'linear-gradient(180deg, hsl(20 18% 12%) 0%, hsl(25 15% 10%) 100%)',
+            border: '1px solid hsl(25 15% 18%)',
+            boxShadow: '0 8px 40px -8px hsl(0 0% 0% / 0.5)',
           }}
         >
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -221,24 +193,32 @@ const AuthPage = ({ mode }: AuthPageProps) => {
               <div className="space-y-2">
                 <Label 
                   htmlFor="username" 
-                  className="text-sm typewriter tracking-wider"
-                  style={{ color: 'hsl(140 22% 55%)' }}
+                  className="text-sm font-medium"
+                  style={{ color: 'hsl(30 10% 70%)' }}
                 >
-                  USERNAME
+                  Username
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(140 22% 50%)' }} />
+                  <User 
+                    className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" 
+                    style={{ color: 'hsl(30 10% 45%)' }} 
+                  />
                   <Input
                     id="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="roadwarrior"
-                    className="pl-10 input-vintage"
+                    className="pl-11 py-5 rounded-xl"
+                    style={{
+                      background: 'hsl(20 12% 16%)',
+                      border: '1px solid hsl(25 15% 22%)',
+                      color: 'hsl(0 0% 100%)',
+                    }}
                   />
                 </div>
                 {errors.username && (
-                  <p className="text-xs" style={{ color: 'hsl(20 50% 50%)' }}>{errors.username}</p>
+                  <p className="text-xs" style={{ color: 'hsl(0 60% 55%)' }}>{errors.username}</p>
                 )}
               </div>
             )}
@@ -246,67 +226,88 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             <div className="space-y-2">
               <Label 
                 htmlFor="email" 
-                className="text-sm typewriter tracking-wider"
-                style={{ color: 'hsl(140 22% 55%)' }}
+                className="text-sm font-medium"
+                style={{ color: 'hsl(30 10% 70%)' }}
               >
-                EMAIL
+                Email
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(140 22% 50%)' }} />
+                <Mail 
+                  className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" 
+                  style={{ color: 'hsl(30 10% 45%)' }} 
+                />
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="rider@soulride.mk"
-                  className="pl-10 input-vintage"
+                  className="pl-11 py-5 rounded-xl"
+                  style={{
+                    background: 'hsl(20 12% 16%)',
+                    border: '1px solid hsl(25 15% 22%)',
+                    color: 'hsl(0 0% 100%)',
+                  }}
                 />
               </div>
               {errors.email && (
-                <p className="text-xs" style={{ color: 'hsl(20 50% 50%)' }}>{errors.email}</p>
+                <p className="text-xs" style={{ color: 'hsl(0 60% 55%)' }}>{errors.email}</p>
               )}
             </div>
 
             <div className="space-y-2">
               <Label 
                 htmlFor="password" 
-                className="text-sm typewriter tracking-wider"
-                style={{ color: 'hsl(140 22% 55%)' }}
+                className="text-sm font-medium"
+                style={{ color: 'hsl(30 10% 70%)' }}
               >
-                PASSWORD
+                Password
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(140 22% 50%)' }} />
+                <Lock 
+                  className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4" 
+                  style={{ color: 'hsl(30 10% 45%)' }} 
+                />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 input-vintage"
+                  className="pl-11 pr-11 py-5 rounded-xl"
+                  style={{
+                    background: 'hsl(20 12% 16%)',
+                    border: '1px solid hsl(25 15% 22%)',
+                    color: 'hsl(0 0% 100%)',
+                  }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:scale-110"
-                  style={{ color: 'hsl(140 22% 50%)' }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: 'hsl(30 10% 50%)' }}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs" style={{ color: 'hsl(20 50% 50%)' }}>{errors.password}</p>
+                <p className="text-xs" style={{ color: 'hsl(0 60% 55%)' }}>{errors.password}</p>
               )}
             </div>
 
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full rounded-full py-6 transition-all duration-300 hover:scale-[0.98] group btn-rust"
+              className="w-full rounded-full py-6 transition-all duration-300 hover:scale-[1.02] group"
+              style={{
+                background: 'linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%)',
+                color: 'hsl(0 0% 100%)',
+                boxShadow: '0 4px 16px hsl(15 70% 45% / 0.35)',
+              }}
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                  <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   {isLogin ? "Signing in..." : "Creating account..."}
                 </span>
               ) : (
@@ -318,13 +319,13 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm" style={{ color: 'hsl(35 15% 50%)' }}>
+          <div className="mt-6 text-center pt-6" style={{ borderTop: '1px solid hsl(25 15% 18%)' }}>
+            <p className="text-sm" style={{ color: 'hsl(30 10% 55%)' }}>
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <button
                 onClick={() => navigate(isLogin ? "/signup" : "/login")}
                 className="ml-1 font-medium hover:underline transition-colors"
-                style={{ color: 'hsl(140 22% 55%)' }}
+                style={{ color: 'hsl(170 60% 55%)' }}
               >
                 {isLogin ? "Sign up" : "Sign in"}
               </button>
@@ -332,15 +333,15 @@ const AuthPage = ({ mode }: AuthPageProps) => {
           </div>
         </motion.div>
 
-        {/* Soul footer quote */}
+        {/* Quote */}
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="text-center text-xs mt-6 typewriter"
-          style={{ color: 'hsl(35 12% 38%)' }}
+          className="text-center text-sm mt-8 font-script"
+          style={{ color: 'hsl(30 15% 50%)' }}
         >
-          Keep the rubber side down.
+          "Where every journey begins with a single turn"
         </motion.p>
       </motion.div>
     </div>

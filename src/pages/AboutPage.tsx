@@ -1,71 +1,72 @@
 import { Mountain, Heart, Compass } from "lucide-react";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const AboutPage = () => {
-  // Scroll to top on page load
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
   return (
-    <div className="page-container pt-24 pb-16 page-enter grain-overlay">
-      <div className="content-wrapper px-4 sm:px-6 lg:px-8">
+    <div 
+      className="min-h-screen pt-24 pb-16 page-enter"
+      style={{ backgroundColor: 'hsl(20 15% 8%)' }}
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 
-            className="text-5xl md:text-6xl font-extrabold tracking-wider mb-6 animate-fade-up"
-            style={{
-              fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
-              color: 'hsl(40 30% 94%)',
-              textShadow: '3px 3px 0 hsl(0 0% 0% / 0.5)',
-            }}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p 
+            className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
+            style={{ color: 'hsl(170 60% 55%)' }}
           >
-            ABOUT SOULRIDE
+            Our Story
+          </p>
+          <h1 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+            style={{ color: 'hsl(0 0% 100%)' }}
+          >
+            About SoulRide
           </h1>
           <p 
-            className="text-xl animate-fade-up italic" 
-            style={{ 
-              animationDelay: "0.1s",
-              fontFamily: "'Caveat', 'Brush Script MT', cursive",
-              color: 'hsl(20 45% 55%)',
-              fontSize: '1.5rem',
-            }}
+            className="text-xl font-script"
+            style={{ color: 'hsl(30 15% 60%)' }}
           >
             Inspiring motorbike journeys through undiscovered beauty
           </p>
-        </div>
+        </motion.div>
 
         {/* Story Section */}
-        <div className="space-y-8 mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="space-y-8 mb-16"
+        >
           <div 
-            className="p-8 md:p-12 rounded-xl animate-fade-up"
-            style={{ 
-              animationDelay: "0.2s",
-              backgroundColor: 'hsl(180 15% 11%)',
-              border: '1px solid hsl(140 15% 25% / 0.3)',
-              boxShadow: 'inset 0 0 60px hsl(20 45% 38% / 0.05)',
+            className="p-8 md:p-10 rounded-2xl"
+            style={{
+              background: 'linear-gradient(180deg, hsl(20 18% 12%) 0%, hsl(25 15% 10%) 100%)',
+              border: '1px solid hsl(25 15% 18%)',
+              boxShadow: '0 8px 40px -8px hsl(0 0% 0% / 0.4)',
             }}
           >
             <p 
               className="text-lg leading-relaxed mb-6"
-              style={{
-                fontFamily: "'Libre Baskerville', Georgia, serif",
-                color: 'hsl(40 25% 85%)',
-                lineHeight: '1.8',
-              }}
+              style={{ color: 'hsl(30 15% 75%)' }}
             >
-              Soulride was born from a simple truth: the best roads are the ones most riders never find. 
+              SoulRide was born from a simple truth: the best roads are the ones most riders never find. 
               They're not on popular GPS routes or tourist maps. They hide in the folds of mountains, 
               wind through villages time forgot, and lead to viewpoints that make you pull over and 
               simply breathe.
             </p>
             <p 
               className="text-lg leading-relaxed mb-6"
-              style={{
-                fontFamily: "'Libre Baskerville', Georgia, serif",
-                color: 'hsl(40 25% 85%)',
-                lineHeight: '1.8',
-              }}
+              style={{ color: 'hsl(30 15% 75%)' }}
             >
               We are a collective of riders, dreamers, and wanderers based in Ohrid, Macedonia—a land 
               where ancient lakes mirror endless skies and mountain passes test both machine and spirit. 
@@ -74,20 +75,16 @@ const AboutPage = () => {
             </p>
             <p 
               className="text-lg leading-relaxed"
-              style={{
-                fontFamily: "'Libre Baskerville', Georgia, serif",
-                color: 'hsl(40 25% 85%)',
-                lineHeight: '1.8',
-              }}
+              style={{ color: 'hsl(30 15% 75%)' }}
             >
               This isn't just a directory of destinations. It's an invitation to ride with intention, 
               to seek beauty in the forgotten corners, and to let the road transform you one curve at a time.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Values */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
           {[
             {
               icon: Mountain,
@@ -105,73 +102,68 @@ const AboutPage = () => {
               description: "The road answers to no schedule. Neither do we.",
             },
           ].map((value, index) => (
-            <div
+            <motion.div
               key={value.title}
-              className="p-6 text-center rounded-xl animate-fade-up transition-all duration-300"
-              style={{ 
-                animationDelay: `${(index + 3) * 100}ms`,
-                backgroundColor: 'hsl(180 15% 11%)',
-                border: '1px solid hsl(140 15% 25% / 0.3)',
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              className="p-6 text-center rounded-2xl transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: 'linear-gradient(180deg, hsl(20 18% 12%) 0%, hsl(25 15% 10%) 100%)',
+                border: '1px solid hsl(25 15% 18%)',
               }}
             >
               <div 
-                className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
-                style={{ background: 'hsl(140 22% 42% / 0.2)' }}
+                className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4"
+                style={{ 
+                  background: 'hsl(15 70% 50% / 0.15)',
+                  border: '1px solid hsl(15 70% 50% / 0.25)',
+                }}
               >
-                <value.icon className="w-6 h-6" style={{ color: 'hsl(140 22% 50%)' }} />
+                <value.icon className="w-7 h-7" style={{ color: 'hsl(15 70% 55%)' }} />
               </div>
               <h3 
-                className="text-xl font-bold tracking-wider mb-2"
-                style={{
-                  fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
-                  color: 'hsl(40 30% 94%)',
-                }}
+                className="text-xl font-bold tracking-tight mb-2"
+                style={{ color: 'hsl(0 0% 100%)' }}
               >
                 {value.title}
               </h3>
               <p 
                 className="text-sm"
-                style={{
-                  fontFamily: "'Libre Baskerville', Georgia, serif",
-                  color: 'hsl(40 15% 55%)',
-                }}
+                style={{ color: 'hsl(30 10% 60%)' }}
               >
                 {value.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Soulful quote */}
-        <div 
-          className="mt-16 p-6 rounded-xl text-center"
+        {/* Quote */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="p-8 rounded-2xl text-center"
           style={{
-            background: 'hsl(20 45% 38% / 0.1)',
-            border: '1px solid hsl(20 45% 38% / 0.2)',
+            background: 'hsl(15 70% 50% / 0.08)',
+            border: '1px solid hsl(15 70% 50% / 0.2)',
           }}
         >
           <p 
-            className="italic"
-            style={{
-              fontFamily: "'Caveat', 'Brush Script MT', cursive",
-              color: 'hsl(20 45% 55%)',
-              fontSize: '1.25rem',
-            }}
+            className="font-script text-xl"
+            style={{ color: 'hsl(30 25% 65%)' }}
           >
             "The best roads are not marked on any map — they are found by those who ride with soul."
           </p>
-        </div>
+        </motion.div>
 
         {/* Built in Ohrid */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <p 
             className="text-sm"
-            style={{
-              fontFamily: "'Special Elite', 'Courier New', monospace",
-              color: 'hsl(40 15% 45%)',
-            }}
+            style={{ color: 'hsl(30 10% 50%)' }}
           >
-            Built with soul in <span style={{ color: 'hsl(140 22% 50%)' }}>Ohrid, Macedonia</span>
+            Built with soul in <span style={{ color: 'hsl(170 60% 55%)' }}>Ohrid, Macedonia</span>
           </p>
         </div>
       </div>

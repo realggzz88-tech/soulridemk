@@ -1,93 +1,114 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import BikerLogo from "./BikerLogo";
+import heroBackground from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
-    <section 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden grain-overlay mountain-mist"
-      style={{ background: 'linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(180 15% 10%) 50%, hsl(25 15% 11%) 100%)' }}
-    >
-      {/* Aged parchment texture overlay */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with sunset road */}
+      <div className="absolute inset-0">
+        <img
+          src={heroBackground}
+          alt="Sunset road through mountains"
+          className="w-full h-full object-cover"
+          style={{
+            filter: 'brightness(0.85) saturate(1.1)',
+          }}
+        />
+        {/* Gradient overlay for readability */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(180deg, 
+                hsl(20 15% 8% / 0.3) 0%, 
+                hsl(20 15% 8% / 0.1) 30%,
+                hsl(20 15% 8% / 0.2) 60%,
+                hsl(20 15% 8% / 0.85) 90%,
+                hsl(20 15% 8%) 100%
+              )
+            `,
+          }}
+        />
+        {/* Warm sunset tint overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 50% 30%, hsl(25 60% 50% / 0.08) 0%, transparent 60%)',
+          }}
+        />
+      </div>
+
+      {/* Subtle grain texture */}
       <div 
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          background: `
-            radial-gradient(ellipse at center, hsl(140 22% 42% / 0.05) 0%, transparent 50%),
-            radial-gradient(ellipse at 25% 75%, hsl(25 40% 35% / 0.04) 0%, transparent 40%),
-            radial-gradient(ellipse at 80% 20%, hsl(35 35% 48% / 0.03) 0%, transparent 35%)
-          `,
-        }}
-      />
-      
-      {/* Subtle road/horizon pattern */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Cpath d='M-100 520 Q200 380 350 280 T600 100 T850 -30' stroke='%235F7A6A' stroke-width='3' fill='none' stroke-dasharray='20,10'/%3E%3Cpath d='M-50 580 Q250 420 400 320 T700 140' stroke='%238B7355' stroke-width='2' fill='none' opacity='0.6' stroke-dasharray='15,8'/%3E%3C/svg%3E")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E")`,
+          mixBlendMode: 'overlay',
         }}
       />
 
       {/* Main content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        {/* Soulful Biker Logo */}
+        {/* Logo/Brand mark */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="flex justify-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-6"
         >
-          <BikerLogo size="lg" />
+          <span 
+            className="text-sm uppercase tracking-[0.4em] font-medium"
+            style={{ color: 'hsl(170 60% 55%)' }}
+          >
+            SoulRide Macedonia
+          </span>
         </motion.div>
 
-        {/* Main headline - letterpress soul */}
+        {/* Main headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="hero-title-soul text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 vintage-pulse"
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6"
         >
-          SoulRide
+          Macedonia's
+          <br />
+          <span className="relative">
+            Forgotten Roads
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              className="absolute -bottom-2 left-0 right-0 h-1 rounded-full origin-left"
+              style={{ background: 'linear-gradient(90deg, transparent, hsl(15 70% 55%), transparent)' }}
+            />
+          </span>
         </motion.h1>
 
-        {/* Handwritten tagline */}
+        {/* Script tagline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="hero-subtitle-soul text-xl sm:text-2xl md:text-3xl mb-8"
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="hero-subtitle text-2xl sm:text-3xl mb-12"
+          style={{ color: 'hsl(35 20% 75%)' }}
         >
-          Where the road meets the soul... Macedonia calls
+          "The road remembers those who ride with heart"
         </motion.p>
 
-        {/* Poetic Tagline - vintage serif */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-          className="text-base sm:text-lg max-w-2xl mx-auto mb-14 leading-relaxed"
-          style={{ 
-            color: 'hsl(35 18% 60%)',
-            fontFamily: "'Libre Baskerville', Georgia, serif",
-          }}
-        >
-          Discover quiet beauties, hidden views, honest flavors & kindred spirits on Macedonia's forgotten roads
-        </motion.p>
-
-        {/* CTA Buttons - stitched leather/metal feel */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-5"
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           {/* Primary Button */}
           <Link
             to="/spots"
-            className="btn-soul-primary arrow-animate group"
+            className="btn-primary arrow-animate group"
           >
             Start Your Journey
             <ArrowRight size={16} className="arrow-icon transition-transform" />
@@ -96,48 +117,27 @@ const HeroSection = () => {
           {/* Secondary Button */}
           <Link
             to="/chat"
-            className="btn-soul-secondary"
+            className="btn-secondary"
           >
             Join the Brotherhood
           </Link>
         </motion.div>
-
-        {/* Soul quote - handwritten */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 1 }}
-          className="mt-20 handwriting text-lg"
-          style={{ color: 'hsl(35 15% 45%)' }}
-        >
-          "The road remembers those who ride with heart"
-        </motion.p>
       </div>
 
-      {/* Sepia horizon glow at bottom */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to top, hsl(25 20% 10% / 0.5) 0%, transparent 100%)',
-        }}
-      />
-
-      {/* Scroll indicator - natural style */}
+      {/* Scroll indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <div 
           className="w-6 h-10 rounded-full border-2 flex items-start justify-center pt-2"
-          style={{ 
-            borderColor: 'hsl(140 22% 42% / 0.35)',
-          }}
+          style={{ borderColor: 'hsl(0 0% 100% / 0.3)' }}
         >
           <motion.div 
             className="w-1.5 h-2.5 rounded-full"
-            style={{ backgroundColor: 'hsl(140 22% 50%)' }}
+            style={{ backgroundColor: 'hsl(15 70% 55%)' }}
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />

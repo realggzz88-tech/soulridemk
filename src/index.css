@@ -2,106 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Caveat:wght@400;500;600;700&family=Bitter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Deep Natural Dark Theme - Forest Floor */
-    --background: 200 20% 8%;
-    --foreground: 40 25% 92%;
+    /* Modern Sunset Rider Theme */
+    --background: 20 15% 8%;
+    --foreground: 40 20% 95%;
 
-    --card: 180 15% 11%;
-    --card-foreground: 40 25% 92%;
-    --card-warm: 160 12% 14%;
+    --card: 20 18% 11%;
+    --card-foreground: 40 20% 95%;
 
-    --popover: 190 18% 10%;
-    --popover-foreground: 40 25% 92%;
+    --popover: 20 20% 10%;
+    --popover-foreground: 40 20% 95%;
 
-    /* Weathered sage green - muted natural */
-    --primary: 140 22% 42%;
-    --primary-foreground: 40 30% 94%;
+    /* Warm sunset orange - primary action */
+    --primary: 15 70% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Deep forest secondary */
-    --secondary: 180 15% 14%;
-    --secondary-foreground: 40 20% 85%;
+    /* Deep charcoal secondary */
+    --secondary: 20 15% 15%;
+    --secondary-foreground: 40 15% 85%;
 
-    --muted: 170 12% 18%;
-    --muted-foreground: 35 15% 50%;
+    --muted: 20 12% 20%;
+    --muted-foreground: 30 10% 55%;
 
-    /* Rusty terracotta accent */
-    --accent: 20 45% 38%;
-    --accent-foreground: 40 30% 94%;
+    /* Warm sunset accent */
+    --accent: 20 80% 55%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 50% 40%;
-    --destructive-foreground: 40 25% 95%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 170 12% 20%;
-    --input: 170 12% 18%;
-    --ring: 140 22% 42%;
+    --border: 25 15% 20%;
+    --input: 20 12% 18%;
+    --ring: 15 70% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Soul Earth Tokens */
-    --sage-green: 140 22% 42%;
-    --sage-muted: 145 18% 48%;
-    --sage-deep: 138 25% 35%;
-    --sage-glow: 142 20% 55%;
+    /* Sunset Color Tokens */
+    --sunset-orange: 15 70% 50%;
+    --sunset-coral: 10 75% 55%;
+    --sunset-red: 5 65% 48%;
+    --sunset-gold: 35 80% 55%;
+    --sunset-amber: 30 70% 50%;
     
-    /* Rusty terracotta/sepia */
-    --rust-terra: 20 45% 38%;
-    --rust-sienna: 15 55% 35%;
-    --rust-warm: 25 40% 45%;
-    --sepia-gold: 35 35% 48%;
-    --sepia-amber: 32 30% 42%;
+    /* Sky gradient tones */
+    --sky-pink: 340 40% 60%;
+    --sky-purple: 280 30% 45%;
+    --sky-dusk: 220 25% 25%;
     
-    /* Aged cream/paper tones */
-    --cream-aged: 40 30% 92%;
-    --cream-paper: 38 25% 88%;
-    --cream-worn: 35 20% 78%;
-    --parchment: 42 35% 85%;
-    
-    /* Forest floor browns */
-    --forest-floor: 180 15% 10%;
-    --forest-deep: 170 18% 8%;
-    --bark-brown: 25 20% 22%;
-    --earth-dark: 20 15% 15%;
-    
-    /* Weathered/patina tones */
-    --patina-green: 155 20% 38%;
-    --oxidized: 165 15% 32%;
+    /* Earth tones */
+    --earth-brown: 25 30% 20%;
+    --earth-warm: 20 25% 15%;
+    --road-dark: 25 15% 12%;
     
     /* Text layers */
-    --text-primary: 40 25% 92%;
-    --text-secondary: 35 18% 65%;
-    --text-muted: 30 12% 48%;
-    --text-faded: 28 10% 40%;
+    --text-primary: 40 20% 95%;
+    --text-secondary: 35 15% 70%;
+    --text-muted: 30 10% 50%;
     
-    /* Natural gradients */
-    --gradient-sage: linear-gradient(135deg, hsl(140 22% 42%) 0%, hsl(145 18% 48%) 100%);
-    --gradient-rust: linear-gradient(135deg, hsl(20 45% 38%) 0%, hsl(25 40% 45%) 100%);
-    --gradient-forest: linear-gradient(180deg, hsl(180 15% 11%) 0%, hsl(170 18% 8%) 100%);
-    --gradient-sepia: linear-gradient(145deg, hsl(35 35% 48% / 0.2) 0%, transparent 100%);
-    --gradient-dusk: linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(25 15% 12%) 100%);
+    /* Teal accent for highlights */
+    --teal-accent: 170 60% 45%;
+    --teal-glow: 175 55% 50%;
     
-    /* Analog shadows */
-    --shadow-worn: 0 4px 16px -4px hsl(0 0% 0% / 0.6), 0 2px 4px hsl(0 0% 0% / 0.4);
-    --shadow-emboss: inset 0 1px 0 hsl(40 30% 94% / 0.05), inset 0 -1px 0 hsl(0 0% 0% / 0.3);
-    --shadow-stitch: 0 0 0 2px hsl(170 12% 20%), 0 0 0 4px hsl(180 15% 11%);
-    --shadow-polaroid: 0 6px 20px -4px hsl(0 0% 0% / 0.5), 0 2px 6px hsl(0 0% 0% / 0.3);
+    /* Cream/white variants */
+    --cream-light: 40 30% 95%;
+    --cream-warm: 35 25% 90%;
+    
+    /* Gradients */
+    --gradient-sunset: linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%);
+    --gradient-sunset-dark: linear-gradient(180deg, hsl(20 15% 8%) 0%, hsl(25 20% 12%) 100%);
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(20 15% 8% / 0.3) 50%, hsl(20 15% 8% / 0.95) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(20 18% 11%) 0%, hsl(25 15% 9%) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(15 70% 50% / 0.3);
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
+    --shadow-button: 0 4px 16px hsl(15 70% 45% / 0.35);
 
-    --sidebar-background: 180 18% 9%;
-    --sidebar-foreground: 40 20% 88%;
-    --sidebar-primary: 140 22% 42%;
-    --sidebar-primary-foreground: 40 30% 94%;
-    --sidebar-accent: 20 45% 38%;
-    --sidebar-accent-foreground: 40 30% 94%;
-    --sidebar-border: 170 12% 18%;
-    --sidebar-ring: 140 22% 42%;
+    --sidebar-background: 20 18% 9%;
+    --sidebar-foreground: 40 15% 90%;
+    --sidebar-primary: 15 70% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 170 60% 45%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 25 15% 18%;
+    --sidebar-ring: 15 70% 50%;
   }
 
   .dark {
-    --background: 200 20% 8%;
-    --foreground: 40 25% 92%;
+    --background: 20 15% 8%;
+    --foreground: 40 20% 95%;
   }
 }
 
@@ -118,40 +110,38 @@
 
   body {
     @apply bg-background antialiased;
-    font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
-    letter-spacing: 0.02em;
-    line-height: 1.8;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
     color: hsl(var(--foreground));
     overflow-x: hidden;
-    background-color: hsl(200 20% 8%);
+    background-color: hsl(20 15% 8%);
   }
 
-  /* Vintage headings - letterpress feel */
+  /* Modern clean headings */
   h1, h2, h3 {
-    font-family: 'Bitter', 'Rockwell', 'Georgia', serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
-    color: hsl(var(--cream-aged));
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    color: hsl(var(--foreground));
+    letter-spacing: -0.02em;
   }
 
   h4, h5, h6 {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    font-weight: 700;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600;
     color: hsl(var(--foreground) / 0.9);
-    letter-spacing: 0.5px;
   }
 
   p, span, li {
-    letter-spacing: 0.02em;
-    line-height: 1.85;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
   }
 }
 
 @layer components {
-  /* ===== AGED PAPER & NATURAL TEXTURES ===== */
+  /* ===== MODERN SUNSET TEXTURES ===== */
   
-  /* Canvas/paper grain overlay */
+  /* Subtle grain overlay */
   .grain-overlay {
     position: relative;
   }
@@ -161,107 +151,27 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.12;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
     mix-blend-mode: overlay;
   }
-  
-  /* Coffee stain effect */
-  .coffee-stain::before {
-    content: '';
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse, hsl(30 40% 30% / 0.08) 0%, hsl(25 35% 25% / 0.04) 40%, transparent 70%);
-    pointer-events: none;
-  }
-  
-  /* Aged parchment texture */
-  .aged-parchment {
-    position: relative;
-    background: linear-gradient(145deg, hsl(40 20% 12%) 0%, hsl(35 15% 10%) 100%);
-  }
-  
-  .aged-parchment::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
-    background: 
-      radial-gradient(ellipse at 25% 25%, hsl(35 40% 50% / 0.3) 0%, transparent 50%),
-      radial-gradient(ellipse at 75% 60%, hsl(25 45% 45% / 0.2) 0%, transparent 45%),
-      radial-gradient(ellipse at 50% 80%, hsl(30 35% 55% / 0.15) 0%, transparent 40%);
-  }
-  
-  /* Pine needle scatter */
-  .pine-scatter::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M10 20 L18 22 L10 24 Z' fill='%235F7A6A' opacity='0.6'/%3E%3Cpath d='M50 45 L58 44 L52 48 Z' fill='%235F7A6A' opacity='0.4'/%3E%3Cpath d='M30 65 L36 63 L32 68 Z' fill='%238B4513' opacity='0.3'/%3E%3Cpath d='M65 15 L72 17 L66 20 Z' fill='%235F7A6A' opacity='0.5'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-  }
 
-  /* ===== NATURAL ANIMATIONS ===== */
+  /* ===== ANIMATIONS ===== */
   
-  /* Gentle leaf flutter */
-  @keyframes leaf-flutter {
-    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-    25% { transform: translateY(-6px) rotate(3deg); opacity: 0.8; }
-    50% { transform: translateY(-3px) rotate(-2deg); opacity: 0.7; }
-    75% { transform: translateY(-8px) rotate(4deg); opacity: 0.9; }
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
   
-  .leaf-flutter {
-    animation: leaf-flutter 5s ease-in-out infinite;
-  }
-  
-  /* Dust trail on hover */
-  @keyframes dust-trail {
-    0% { transform: translateX(0) scale(1); opacity: 0.5; }
-    50% { transform: translateX(8px) scale(0.8); opacity: 0.8; }
-    100% { transform: translateX(20px) scale(0.3); opacity: 0; }
-  }
-  
-  /* Campfire glow */
-  @keyframes campfire-glow {
+  @keyframes glow-pulse {
     0%, 100% { 
-      box-shadow: 0 0 20px hsl(25 50% 35% / 0.2), 0 0 40px hsl(20 45% 30% / 0.1);
+      box-shadow: 0 0 20px hsl(15 70% 50% / 0.3), 0 4px 16px hsl(15 70% 45% / 0.25);
     }
     50% { 
-      box-shadow: 0 0 30px hsl(25 50% 40% / 0.3), 0 0 60px hsl(20 45% 35% / 0.15);
+      box-shadow: 0 0 30px hsl(15 70% 50% / 0.4), 0 6px 24px hsl(15 70% 45% / 0.35);
     }
   }
   
-  .campfire-glow {
-    animation: campfire-glow 4s ease-in-out infinite;
-  }
-  
-  /* Typewriter underline */
-  @keyframes typewriter-underline {
-    0% { width: 0; }
-    100% { width: 100%; }
-  }
-  
-  /* Vintage pulse - warm and subtle */
-  @keyframes vintage-pulse {
-    0%, 100% { 
-      text-shadow: 0 0 8px hsl(140 22% 42% / 0.2), 2px 2px 0 hsl(0 0% 0% / 0.3);
-    }
-    50% { 
-      text-shadow: 0 0 15px hsl(140 22% 42% / 0.3), 2px 2px 0 hsl(0 0% 0% / 0.3);
-    }
-  }
-  
-  .vintage-pulse {
-    animation: vintage-pulse 5s ease-in-out infinite;
-  }
-  
-  /* Arrow forward */
   @keyframes arrow-forward {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(4px); }
@@ -271,297 +181,115 @@
     animation: arrow-forward 0.8s ease-in-out infinite;
   }
   
-  /* Leaf burst on hover */
-  @keyframes leaf-burst {
-    0% { transform: scale(0) rotate(0deg); opacity: 0; }
-    50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
-    100% { transform: scale(0.5) rotate(360deg) translateX(20px); opacity: 0; }
+  .float-gentle {
+    animation: float-gentle 6s ease-in-out infinite;
   }
 
-  /* ===== NATURAL OVERLAYS ===== */
+  /* ===== HERO STYLES ===== */
   
-  /* Misty mountain silhouette */
-  .mountain-mist::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    pointer-events: none;
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 200 L80 160 L180 185 L300 100 L400 140 L500 70 L600 110 L720 45 L820 90 L920 35 L1020 80 L1120 55 L1200 75 L1200 200 Z' fill='%235F7A6A'/%3E%3C/svg%3E");
-    background-size: cover;
-    background-position: bottom;
-    filter: blur(1px);
+  /* Hero title - modern bold */
+  .hero-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: hsl(var(--cream-light));
+    text-shadow: 0 4px 24px hsl(0 0% 0% / 0.5);
   }
   
-  /* Sepia horizon glow */
-  .horizon-glow::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    pointer-events: none;
-    background: linear-gradient(to top, hsl(25 30% 15% / 0.4) 0%, transparent 100%);
-  }
-  
-  /* Road dust overlay */
-  .road-dust {
-    position: relative;
-  }
-  
-  .road-dust::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cpath d='M-50 350 Q150 280 280 220 T500 100 T700 20' stroke='%238B7355' stroke-width='2' fill='none' stroke-dasharray='12,6' opacity='0.5'/%3E%3Cpath d='M0 380 Q180 300 320 240 T550 130' stroke='%235F7A6A' stroke-width='1.5' fill='none' stroke-dasharray='8,4' opacity='0.4'/%3E%3C/svg%3E");
-    background-size: cover;
-  }
-
-  /* ===== SOUL COMPONENTS ===== */
-  
-  /* Logo with patina glow */
-  .logo-soul {
-    color: hsl(var(--sage-green));
-    filter: drop-shadow(0 0 6px hsl(140 22% 42% / 0.3)) drop-shadow(2px 2px 4px hsl(0 0% 0% / 0.5));
-    transition: filter 0.4s ease;
-  }
-
-  .logo-soul:hover {
-    filter: drop-shadow(0 0 12px hsl(140 22% 42% / 0.4)) drop-shadow(2px 2px 4px hsl(0 0% 0% / 0.5)) drop-shadow(0 0 20px hsl(25 40% 40% / 0.2));
-  }
-
-  /* Hero title - letterpress feel */
-  .hero-title-soul {
-    font-family: 'Bitter', 'Rockwell', Georgia, serif;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: hsl(var(--cream-aged));
-    text-shadow: 
-      3px 3px 0 hsl(0 0% 0% / 0.5),
-      -1px -1px 0 hsl(40 30% 94% / 0.08),
-      0 0 20px hsl(140 22% 42% / 0.15);
-  }
-  
-  /* Handwritten subtitle */
-  .hero-subtitle-soul {
-    font-family: 'Caveat', 'Brush Script MT', cursive;
+  /* Hero subtitle - script accent */
+  .hero-subtitle {
+    font-family: 'Caveat', cursive;
     font-weight: 500;
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    color: hsl(var(--sage-muted));
-  }
-  
-  /* Typewriter text */
-  .typewriter {
-    font-family: 'Special Elite', 'Courier New', monospace;
-    letter-spacing: 1px;
-  }
-
-  /* Polaroid frame */
-  .polaroid-frame {
-    @apply relative p-3 pb-12;
-    background: linear-gradient(145deg, hsl(40 20% 90%) 0%, hsl(35 15% 82%) 100%);
-    box-shadow: var(--shadow-polaroid);
-    transform: rotate(-1.5deg);
-  }
-  
-  .polaroid-frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    box-shadow: inset 0 0 30px hsl(30 20% 50% / 0.1);
-  }
-  
-  .polaroid-frame::after {
-    content: '';
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    height: 1px;
-    background: hsl(30 15% 70%);
-    opacity: 0.5;
-  }
-  
-  /* Worn corners */
-  .worn-corners {
-    position: relative;
-  }
-  
-  .worn-corners::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(135deg, hsl(35 20% 82%) 0%, transparent 50%);
-    border-radius: 0 0 12px 0;
-    opacity: 0.6;
-  }
-  
-  .worn-corners::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    right: -3px;
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(315deg, hsl(35 20% 82%) 0%, transparent 50%);
-    border-radius: 12px 0 0 0;
-    opacity: 0.6;
-  }
-
-  /* Soul card - leather/worn feel */
-  .soul-card {
-    @apply relative overflow-hidden rounded-lg;
-    background: var(--gradient-forest);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-worn), var(--shadow-emboss);
-  }
-  
-  .soul-card:hover {
-    border-color: hsl(var(--sage-green) / 0.4);
-  }
-
-  /* Vintage card */
-  .vintage-card {
-    @apply relative overflow-hidden rounded-lg;
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-worn);
-  }
-  
-  .vintage-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: var(--shadow-emboss);
-    border-radius: inherit;
-  }
-
-  .vintage-card:hover {
-    transform: translateY(-3px);
-    border-color: hsl(var(--sage-green) / 0.3);
-  }
-
-  /* Tag pills - natural */
-  .tag-pill {
-    @apply px-3 py-1 text-xs font-medium rounded-full;
-    background: hsl(var(--sage-green) / 0.12);
-    color: hsl(var(--sage-muted));
-    border: 1px solid hsl(var(--sage-green) / 0.25);
-    text-transform: uppercase;
+    font-size: 1.5rem;
     letter-spacing: 0.5px;
+    color: hsl(var(--text-secondary));
   }
   
-  .tag-pill-rust {
-    @apply px-3 py-1 text-xs font-medium rounded-full;
-    background: hsl(var(--rust-terra) / 0.12);
-    color: hsl(var(--rust-warm));
-    border: 1px solid hsl(var(--rust-terra) / 0.25);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  /* Hero tagline */
+  .hero-tagline {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    color: hsl(var(--text-secondary));
+    line-height: 1.7;
   }
 
-  /* Soul buttons - stitched leather/metal feel */
-  .btn-soul-primary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
-    font-family: 'Special Elite', 'Courier New', monospace;
-    background: var(--gradient-sage);
-    color: hsl(var(--cream-aged));
-    box-shadow: var(--shadow-emboss), 0 4px 12px hsl(140 22% 35% / 0.25);
+  /* ===== BUTTONS - MODERN PILL STYLE ===== */
+  
+  /* Primary button - sunset orange */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--gradient-sunset);
+    color: hsl(0 0% 100%);
+    box-shadow: var(--shadow-button), inset 0 1px 0 hsl(40 80% 70% / 0.2);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1em;
     font-size: 0.8rem;
     position: relative;
     overflow: hidden;
   }
   
-  .btn-soul-primary::before {
+  .btn-primary::before {
     content: '';
     position: absolute;
-    inset: 2px;
-    border: 1px dashed hsl(40 30% 94% / 0.15);
-    border-radius: inherit;
+    inset: 0;
+    background: linear-gradient(180deg, hsl(0 0% 100% / 0.1) 0%, transparent 50%);
     pointer-events: none;
   }
 
-  .btn-soul-primary:hover {
-    transform: scale(0.98);
-    filter: brightness(1.08);
-    box-shadow: var(--shadow-emboss), 0 6px 16px hsl(140 22% 35% / 0.3);
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 24px hsl(15 70% 45% / 0.45), inset 0 1px 0 hsl(40 80% 70% / 0.25);
+    filter: brightness(1.05);
   }
   
-  .btn-rust {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
-    font-family: 'Special Elite', 'Courier New', monospace;
-    background: var(--gradient-rust);
-    color: hsl(var(--cream-aged));
-    box-shadow: var(--shadow-emboss), 0 4px 12px hsl(20 45% 35% / 0.25);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: 0.8rem;
-    position: relative;
+  .btn-primary:active {
+    transform: scale(0.98);
   }
   
-  .btn-rust::before {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    border: 1px dashed hsl(40 30% 94% / 0.12);
-    border-radius: inherit;
-    pointer-events: none;
-  }
-
-  .btn-rust:hover {
-    transform: scale(0.98);
-    filter: brightness(1.08);
-  }
-
-  .btn-soul-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
-    font-family: 'Special Elite', 'Courier New', monospace;
-    background: transparent;
-    color: hsl(var(--sage-green));
-    border: 2px solid hsl(var(--sage-green) / 0.6);
+  /* Secondary button - outline style */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: hsl(20 15% 12% / 0.8);
+    color: hsl(var(--text-secondary));
+    border: 1px solid hsl(var(--border));
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1em;
     font-size: 0.8rem;
-  }
-
-  .btn-soul-secondary:hover {
-    background: hsl(var(--sage-green) / 0.1);
-    transform: scale(0.98);
-    border-color: hsl(var(--sage-green));
-  }
-
-  /* Glass vintage */
-  .glass-vintage {
-    background: hsl(var(--card) / 0.85);
     backdrop-filter: blur(8px);
-    border: 1px solid hsl(var(--border) / 0.6);
-    box-shadow: var(--shadow-worn);
   }
 
-  /* Navigation link - vintage */
+  .btn-secondary:hover {
+    background: hsl(20 15% 15%);
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--sunset-orange) / 0.5);
+    box-shadow: 0 0 20px hsl(15 70% 50% / 0.15);
+  }
+
+  /* Teal accent button */
+  .btn-teal {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, hsl(170 60% 45%) 0%, hsl(175 55% 50%) 100%);
+    color: hsl(20 15% 8%);
+    box-shadow: 0 4px 16px hsl(170 60% 40% / 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+  }
+  
+  .btn-teal:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 24px hsl(170 60% 40% / 0.45);
+  }
+
+  /* ===== NAVIGATION ===== */
+  
   .nav-link {
     @apply relative py-2 text-sm font-medium transition-colors;
-    font-family: 'Special Elite', 'Courier New', monospace;
-    color: hsl(var(--muted-foreground));
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: 0.7rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: hsl(var(--text-secondary));
+    letter-spacing: 0.02em;
   }
 
   .nav-link:hover {
@@ -569,151 +297,128 @@
   }
 
   .nav-link.active {
-    color: hsl(var(--sage-green));
+    color: hsl(var(--teal-accent));
   }
 
   .nav-link.active::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-full h-0.5;
-    background: hsl(var(--sage-green));
-    box-shadow: 0 0 8px hsl(var(--sage-green) / 0.4);
+    @apply absolute bottom-0 left-0 w-full h-0.5 rounded-full;
+    background: hsl(var(--teal-accent));
   }
 
-  /* Input vintage style */
-  .input-vintage {
-    @apply rounded-lg px-4 py-3;
+  /* ===== CARDS ===== */
+  
+  .card-modern {
+    @apply relative overflow-hidden rounded-2xl;
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+  
+  .card-modern:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--sunset-orange) / 0.3);
+    box-shadow: 0 12px 40px -8px hsl(0 0% 0% / 0.6), 0 0 30px hsl(15 70% 50% / 0.1);
+  }
+  
+  /* Glass card */
+  .card-glass {
+    @apply rounded-2xl p-6;
+    background: hsl(var(--card) / 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.6);
+  }
+
+  /* ===== INPUTS ===== */
+  
+  .input-modern {
+    @apply rounded-xl px-5 py-4;
     background: hsl(var(--input));
     border: 1px solid hsl(var(--border));
     color: hsl(var(--foreground));
-    font-family: 'Special Elite', 'Courier New', monospace;
-    letter-spacing: 0.5px;
+    font-family: 'Inter', system-ui, sans-serif;
+    transition: all 0.2s ease;
   }
   
-  .input-vintage::placeholder {
+  .input-modern::placeholder {
     color: hsl(var(--muted-foreground));
-    font-style: italic;
   }
   
-  .input-vintage:focus {
+  .input-modern:focus {
     outline: none;
-    border-color: hsl(var(--sage-green));
-    box-shadow: 0 0 0 2px hsl(var(--sage-green) / 0.15);
+    border-color: hsl(var(--sunset-orange));
+    box-shadow: 0 0 0 3px hsl(var(--sunset-orange) / 0.15);
   }
 
-  /* Logbook entry style */
-  .logbook-entry {
-    @apply relative p-4 rounded-lg;
-    background: hsl(var(--card));
-    border-left: 3px solid hsl(var(--rust-terra));
-    box-shadow: var(--shadow-worn);
+  /* ===== TAG PILLS ===== */
+  
+  .tag-pill {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+    background: hsl(var(--sunset-orange) / 0.15);
+    color: hsl(var(--sunset-coral));
+    border: 1px solid hsl(var(--sunset-orange) / 0.25);
   }
   
-  .logbook-entry::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: -8px;
-    width: 12px;
-    height: 12px;
-    background: hsl(var(--rust-terra));
-    border-radius: 50%;
-    box-shadow: inset 0 1px 2px hsl(0 0% 0% / 0.3);
+  .tag-pill-teal {
+    @apply px-3 py-1 text-xs font-medium rounded-full;
+    background: hsl(var(--teal-accent) / 0.15);
+    color: hsl(var(--teal-glow));
+    border: 1px solid hsl(var(--teal-accent) / 0.25);
   }
 
-  /* Torn notebook style */
-  .torn-page {
-    @apply relative p-4;
-    background: hsl(var(--card));
-  }
+  /* ===== MESSAGE BUBBLES ===== */
   
-  .torn-page::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: repeating-linear-gradient(
-      to bottom,
-      hsl(var(--rust-terra)) 0px,
-      hsl(var(--rust-terra)) 4px,
-      transparent 4px,
-      transparent 8px
-    );
-  }
-
-  /* Message bubble - notebook feel */
   .message-bubble {
-    @apply relative p-3 rounded-lg;
+    @apply relative p-4 rounded-2xl;
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 2px 6px hsl(0 0% 0% / 0.2);
   }
   
   .message-bubble-own {
-    @apply relative p-3 rounded-lg;
-    background: hsl(var(--sage-green) / 0.12);
-    border: 1px solid hsl(var(--sage-green) / 0.25);
+    @apply relative p-4 rounded-2xl;
+    background: hsl(var(--sunset-orange) / 0.15);
+    border: 1px solid hsl(var(--sunset-orange) / 0.25);
   }
 
-  /* Brass tack / pin style */
-  .brass-tack {
-    position: relative;
+  /* ===== SECTION STYLES ===== */
+  
+  .section-dark {
+    @apply py-20 sm:py-28;
+    background: hsl(var(--background));
   }
   
-  .brass-tack::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    background: radial-gradient(circle at 30% 30%, hsl(35 50% 55%) 0%, hsl(30 45% 40%) 50%, hsl(25 40% 30%) 100%);
-    border-radius: 50%;
-    box-shadow: 0 2px 4px hsl(0 0% 0% / 0.4), inset 0 1px 2px hsl(40 50% 70% / 0.3);
+  .section-gradient {
+    @apply py-20 sm:py-28;
+    background: var(--gradient-sunset-dark);
   }
 
-  /* Spot card - vintage */
-  .spot-card {
-    @apply relative overflow-hidden rounded-xl transition-all duration-300 ease-out;
-    background: var(--gradient-forest);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-worn);
-  }
-
-  .spot-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-polaroid);
-    border-color: hsl(var(--sage-green) / 0.35);
-  }
-
-  /* Sepia filter for images */
-  .sepia-vintage {
-    filter: sepia(25%) saturate(80%) contrast(95%) brightness(95%);
-    transition: filter 0.3s ease;
-  }
+  /* ===== PAGE UTILITIES ===== */
   
-  .sepia-vintage:hover {
-    filter: sepia(15%) saturate(90%) contrast(100%) brightness(100%);
+  .page-container {
+    @apply min-h-screen;
+    background-color: hsl(var(--background));
   }
 
-  /* Profile frame - with leaf border */
-  .profile-frame {
-    @apply relative rounded-full p-1;
-    background: var(--gradient-sage);
-    box-shadow: 0 4px 12px hsl(140 22% 35% / 0.25);
+  .content-wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Handwriting style */
-  .handwriting {
-    font-family: 'Caveat', 'Brush Script MT', cursive;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
+  .page-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+  }
+
+  .page-subtitle {
+    font-family: 'Caveat', cursive;
     font-weight: 500;
+    color: hsl(var(--text-secondary));
   }
 
-  /* Custom scrollbar - natural */
+  /* ===== CUSTOM SCROLLBAR ===== */
+  
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -728,72 +433,7 @@
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--sage-green) / 0.4);
-  }
-
-  /* Page container base - use on all pages */
-  .page-container {
-    @apply min-h-screen;
-    background-color: hsl(var(--background));
-  }
-
-  /* Section container - consistent padding */
-  .section-container {
-    @apply py-16 sm:py-24 px-4;
-    background-color: hsl(var(--background));
-  }
-
-  /* Section container alt - for alternating backgrounds */
-  .section-container-alt {
-    @apply py-16 sm:py-24 px-4;
-    background: hsl(var(--card));
-  }
-
-  /* Content wrapper - max width and center */
-  .content-wrapper {
-    @apply max-w-7xl mx-auto;
-  }
-
-  /* Page title styling */
-  .page-title {
-    font-family: 'Bitter', 'Rockwell', Georgia, serif;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: hsl(var(--cream-aged));
-    text-shadow: 3px 3px 0 hsl(0 0% 0% / 0.5);
-  }
-
-  /* Page subtitle - handwritten feel */
-  .page-subtitle {
-    font-family: 'Caveat', 'Brush Script MT', cursive;
-    font-weight: 500;
-    color: hsl(var(--sage-muted));
-  }
-
-  /* Body text - vintage serif */
-  .body-text {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    line-height: 1.8;
-    color: hsl(var(--text-secondary));
-  }
-
-  /* Card consistent styling */
-  .card-vintage {
-    @apply rounded-xl p-6;
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-worn);
-  }
-
-  /* Optimized image loading */
-  .img-lazy {
-    @apply transition-opacity duration-300;
-    opacity: 0;
-  }
-  
-  .img-lazy.loaded {
-    opacity: 1;
+    background: hsl(var(--sunset-orange) / 0.5);
   }
 
   /* Page entrance animation */
@@ -815,14 +455,36 @@
   /* Reduce motion for accessibility */
   @media (prefers-reduced-motion: reduce) {
     .page-enter,
-    .leaf-flutter,
-    .vintage-pulse,
-    .campfire-glow {
+    .float-gentle {
       animation: none;
     }
     
     * {
       transition-duration: 0.01ms !important;
     }
+  }
+
+  /* Handwriting style */
+  .handwriting {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  /* Road underline effect */
+  .road-underline {
+    position: relative;
+  }
+  
+  .road-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--sunset-orange)) 20%, hsl(var(--sunset-orange)) 80%, transparent 100%);
+    border-radius: 2px;
   }
 }

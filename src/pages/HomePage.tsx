@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Mountain, Compass, Users, Flame, MapPin, Wind } from "lucide-react";
+import { ArrowRight, Mountain, Compass, Users, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import DailySoulGem from "@/components/DailySoulGem";
 import HeroSection from "@/components/HeroSection";
@@ -9,7 +9,10 @@ import WhySoulRide from "@/components/WhySoulRide";
 
 const HomePage = () => {
   return (
-    <div className="page-container grain-overlay">
+    <div 
+      className="min-h-screen"
+      style={{ backgroundColor: 'hsl(20 15% 8%)' }}
+    >
       {/* Hero Section */}
       <HeroSection />
 
@@ -23,22 +26,28 @@ const HomePage = () => {
       <PopularRoutes />
 
       {/* Daily Soul Gem */}
-      <section className="section-container pine-scatter">
-        <div className="content-wrapper">
+      <section 
+        className="py-20 sm:py-28 px-4"
+        style={{ backgroundColor: 'hsl(20 15% 8%)' }}
+      >
+        <div className="max-w-7xl mx-auto">
           <DailySoulGem />
         </div>
       </section>
 
-      {/* Features Section - natural soul */}
+      {/* Features Section */}
       <section 
-        className="py-20 sm:py-28 px-4 relative overflow-hidden aged-parchment"
-        style={{ background: 'hsl(180 15% 10%)' }}
+        className="py-20 sm:py-28 px-4 relative overflow-hidden"
+        style={{ backgroundColor: 'hsl(20 15% 10%)' }}
       >
-        {/* Subtle grain */}
-        <div className="absolute inset-0 opacity-[0.08]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E")`,
-          mixBlendMode: 'overlay'
-        }} />
+        {/* Subtle glow */}
+        <div 
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-20 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, hsl(170 60% 50%) 0%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
         
         <div className="max-w-5xl mx-auto relative z-10">
           <motion.div 
@@ -48,27 +57,23 @@ const HomePage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-14"
           >
-            {/* Natural divider */}
-            <div className="inline-flex items-center gap-4 mb-5">
-              <span className="w-12 h-px" style={{ background: 'hsl(20 45% 38%)' }} />
-              <Wind className="w-5 h-5" style={{ color: 'hsl(140 22% 50%)' }} />
-              <span className="w-12 h-px" style={{ background: 'hsl(20 45% 38%)' }} />
-            </div>
-            
-            <h2 
-              className="font-display text-3xl sm:text-4xl md:text-5xl tracking-wider mb-5"
-              style={{ 
-                color: 'hsl(40 30% 92%)',
-                textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)'
-              }}
+            <p 
+              className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
+              style={{ color: 'hsl(170 60% 55%)' }}
             >
-              RIDE WITH PURPOSE
+              The Experience
+            </p>
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-5"
+              style={{ color: 'hsl(0 0% 100%)' }}
+            >
+              Ride With Purpose
             </h2>
             <p 
-              className="max-w-xl mx-auto text-base sm:text-lg leading-relaxed px-4 handwriting text-xl"
-              style={{ color: 'hsl(35 20% 55%)' }}
+              className="max-w-xl mx-auto text-lg font-script"
+              style={{ color: 'hsl(30 15% 60%)' }}
             >
-              "Every road tells a story. Every destination holds a secret. We map the journeys that transform travelers into explorers."
+              "Every road tells a story. Every destination holds a secret."
             </p>
           </motion.div>
 
@@ -78,19 +83,16 @@ const HomePage = () => {
                 icon: Mountain,
                 title: "Hidden Viewpoints",
                 description: "Discover overlooks and panoramas that most maps forgot. Where perspective is earned through winding roads.",
-                color: 'hsl(140 22% 42%)',
               },
               {
                 icon: Compass,
                 title: "Curated Routes",
-                description: "Hand-picked roads that wind, twist, and reward. Routes chosen for the joy of the journey, not efficiency.",
-                color: 'hsl(20 45% 42%)',
+                description: "Hand-picked roads that wind, twist, and reward. Routes chosen for the joy of the journey.",
               },
               {
                 icon: Users,
                 title: "Rider Brotherhood",
-                description: "Tips and tales from souls who live for the next curve. Wisdom shared, stories exchanged, roads remembered.",
-                color: 'hsl(140 22% 42%)',
+                description: "Tips and tales from souls who live for the next curve. Wisdom shared, stories exchanged.",
               },
             ].map((feature, index) => (
               <motion.div
@@ -99,24 +101,28 @@ const HomePage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15, duration: 0.5 }}
-                className="group rounded-xl p-7 sm:p-8 text-center transition-all duration-300 hover:-translate-y-2 vintage-card"
+                className="group rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: 'linear-gradient(180deg, hsl(20 18% 13%) 0%, hsl(25 15% 11%) 100%)',
+                  border: '1px solid hsl(25 15% 18%)',
+                }}
               >
                 <div 
-                  className="inline-flex items-center justify-center w-14 h-14 rounded-lg mb-5 transition-all duration-300 group-hover:scale-110"
+                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-5 transition-all duration-300 group-hover:scale-110"
                   style={{
-                    backgroundColor: `${feature.color.replace(')', ' / 0.12)')}`,
-                    border: `1px solid ${feature.color.replace(')', ' / 0.25)')}`,
+                    background: 'hsl(15 70% 50% / 0.15)',
+                    border: '1px solid hsl(15 70% 50% / 0.25)',
                   }}
                 >
-                  <feature.icon className="w-7 h-7" style={{ color: feature.color }} />
+                  <feature.icon className="w-7 h-7" style={{ color: 'hsl(15 70% 55%)' }} />
                 </div>
                 <h3 
-                  className="font-display text-lg sm:text-xl tracking-wider mb-3"
-                  style={{ color: 'hsl(40 30% 92%)' }}
+                  className="text-xl font-bold tracking-tight mb-3"
+                  style={{ color: 'hsl(0 0% 100%)' }}
                 >
-                  {feature.title.toUpperCase()}
+                  {feature.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'hsl(35 15% 50%)' }}>
+                <p className="text-sm leading-relaxed" style={{ color: 'hsl(30 10% 60%)' }}>
                   {feature.description}
                 </p>
               </motion.div>
@@ -125,20 +131,17 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA Section - soul deep */}
+      {/* CTA Section */}
       <section 
-        className="py-20 sm:py-28 px-4 relative overflow-hidden road-dust"
-        style={{ background: 'hsl(200 20% 8%)' }}
+        className="py-24 sm:py-32 px-4 relative overflow-hidden"
+        style={{ backgroundColor: 'hsl(20 15% 8%)' }}
       >
-        {/* Natural gradient glow */}
+        {/* Gradient glow */}
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
           style={{
-            background: `
-              radial-gradient(circle, hsl(140 22% 42% / 0.08) 0%, transparent 45%),
-              radial-gradient(circle at 35% 65%, hsl(25 40% 38% / 0.05) 0%, transparent 35%)
-            `,
-            filter: 'blur(80px)',
+            background: 'radial-gradient(circle, hsl(15 70% 50% / 0.1) 0%, transparent 50%)',
+            filter: 'blur(60px)',
           }}
         />
         
@@ -147,31 +150,27 @@ const HomePage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto text-center relative z-10 px-4"
+          className="max-w-2xl mx-auto text-center relative z-10"
         >
           <div className="inline-flex items-center gap-3 mb-6">
-            <Flame className="w-5 h-5" style={{ color: 'hsl(25 45% 45%)' }} />
-            <MapPin className="w-4 h-4" style={{ color: 'hsl(140 22% 50%)' }} />
+            <MapPin className="w-5 h-5" style={{ color: 'hsl(15 70% 55%)' }} />
           </div>
           
           <h2 
-            className="font-display text-3xl sm:text-4xl md:text-5xl tracking-wider mb-5 vintage-pulse"
-            style={{ 
-              color: 'hsl(40 30% 92%)',
-              textShadow: '2px 2px 0 hsl(0 0% 0% / 0.4)'
-            }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-5"
+            style={{ color: 'hsl(0 0% 100%)' }}
           >
-            YOUR JOURNEY AWAITS
+            Your Journey Awaits
           </h2>
           <p 
-            className="mb-12 max-w-lg mx-auto leading-relaxed handwriting text-xl"
-            style={{ color: 'hsl(35 20% 55%)' }}
+            className="mb-10 max-w-lg mx-auto text-lg font-script"
+            style={{ color: 'hsl(30 15% 60%)' }}
           >
-            "Countless hidden spots. Endless memories waiting to be made. Where will the road take you?"
+            "Countless hidden spots. Endless memories waiting to be made."
           </p>
           <Link
             to="/spots"
-            className="btn-rust arrow-animate inline-flex items-center gap-3 group"
+            className="btn-primary arrow-animate inline-flex items-center gap-3 group"
           >
             <span>Explore All Spots</span>
             <ArrowRight size={16} className="arrow-icon transition-transform" />
@@ -179,8 +178,8 @@ const HomePage = () => {
           
           {/* Soul quote */}
           <p 
-            className="mt-16 typewriter text-sm"
-            style={{ color: 'hsl(35 12% 40%)' }}
+            className="mt-14 text-sm"
+            style={{ color: 'hsl(30 10% 45%)' }}
           >
             "The road is calling. Will you answer?"
           </p>

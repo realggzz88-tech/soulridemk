@@ -21,13 +21,6 @@ const featuredSpots = [
   spots.find(s => s.id === "mavrovo-lake-loop"),
 ].filter(Boolean);
 
-// Premium colors
-const tealColor = 'hsl(160 84% 50%)';
-const tealBg = 'hsl(160 84% 39%)';
-const cardBg = 'hsl(222 40% 10%)';
-const borderColor = 'hsl(222 20% 18%)';
-const pageBg = 'hsl(222 47% 7%)';
-
 const WhySoulRide = () => {
   const [activeBeauty, setActiveBeauty] = useState(0);
 
@@ -36,14 +29,12 @@ const WhySoulRide = () => {
       icon: Mountain,
       title: "Epic Macedonian Beauties",
       description: "From Lake Ohrid's timeless shores to Galicica's winding passes — discover landscapes that take your breath away.",
-      accentColor: tealColor,
       hasCarousel: true,
     },
     {
       icon: Users,
       title: "Rider Community",
       description: "Connect with fellow explorers who share your love for open roads. Share stories, routes, and photos in themed chat rooms.",
-      accentColor: tealColor,
       link: "/chat",
       linkText: "Join the Community",
     },
@@ -51,7 +42,6 @@ const WhySoulRide = () => {
       icon: Compass,
       title: "Travel & Discover",
       description: "Plan journeys through hidden gems, canyon viewpoints, traditional konobas, and local wineries — all mapped for the curious traveler.",
-      accentColor: tealColor,
       extras: [
         { icon: Coffee, text: "Konobas" },
         { icon: Camera, text: "Viewpoints" },
@@ -62,7 +52,6 @@ const WhySoulRide = () => {
       icon: MapPin,
       title: "Local Treasures",
       description: "Explore authentic Macedonia — from mountain monasteries to riverside cafes. Every stop tells a story.",
-      accentColor: tealColor,
       stats: [
         { value: "35+", label: "Spots" },
         { value: "8", label: "Regions" },
@@ -73,14 +62,14 @@ const WhySoulRide = () => {
 
   return (
     <section 
-      className="relative py-20 sm:py-28 px-4 overflow-hidden"
-      style={{ backgroundColor: pageBg }}
+      className="relative py-24 sm:py-32 px-4 overflow-hidden"
+      style={{ backgroundColor: 'hsl(20 15% 8%)' }}
     >
-      {/* Subtle gradient accent */}
+      {/* Subtle gradient glow */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-20"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-20 pointer-events-none"
         style={{
-          background: `radial-gradient(circle, ${tealBg} 0%, transparent 70%)`,
+          background: 'radial-gradient(circle, hsl(15 70% 50%) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
       />
@@ -88,61 +77,73 @@ const WhySoulRide = () => {
       {/* Content */}
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-14 sm:mb-18">
+        <div className="text-center mb-16">
           <p 
-            className="text-xs sm:text-sm uppercase tracking-[0.3em] mb-4 font-medium"
-            style={{ color: tealColor }}
+            className="text-sm uppercase tracking-[0.3em] mb-4 font-medium"
+            style={{ color: 'hsl(170 60% 55%)' }}
           >
             Why SoulRide
           </p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-5 text-foreground">
+          <h2 
+            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6"
+            style={{ color: 'hsl(0 0% 100%)' }}
+          >
             Explore Macedonia's Soul
           </h2>
-          <p className="max-w-xl mx-auto text-base sm:text-lg font-light leading-relaxed text-muted-foreground">
+          <p 
+            className="max-w-xl mx-auto text-lg font-light leading-relaxed"
+            style={{ color: 'hsl(30 10% 60%)' }}
+          >
             A journey through breathtaking landscapes, warm community, and roads that lead to wonder.
           </p>
         </div>
 
         {/* Feature Cards Grid */}
         <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div
               key={feature.title}
-              className="group relative rounded-xl p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1"
+              className="group relative rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
               style={{
-                backgroundColor: cardBg,
-                border: `1px solid ${borderColor}`,
-                boxShadow: '0 4px 24px -4px hsl(222 47% 3% / 0.5)',
+                background: 'linear-gradient(180deg, hsl(20 18% 12%) 0%, hsl(25 15% 10%) 100%)',
+                border: '1px solid hsl(25 15% 18%)',
+                boxShadow: '0 4px 24px -4px hsl(0 0% 0% / 0.4)',
               }}
             >
               {/* Icon */}
               <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-105"
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-105"
                 style={{
-                  backgroundColor: 'hsl(160 84% 39% / 0.15)',
-                  border: '1px solid hsl(160 84% 39% / 0.25)',
+                  background: 'hsl(15 70% 50% / 0.15)',
+                  border: '1px solid hsl(15 70% 50% / 0.25)',
                 }}
               >
                 <feature.icon 
-                  className="w-6 h-6" 
-                  style={{ color: tealColor }}
+                  className="w-7 h-7" 
+                  style={{ color: 'hsl(15 70% 55%)' }}
                 />
               </div>
 
               {/* Title */}
-              <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight mb-3 text-foreground">
+              <h3 
+                className="text-xl sm:text-2xl font-bold tracking-tight mb-3"
+                style={{ color: 'hsl(0 0% 100%)' }}
+              >
                 {feature.title}
               </h3>
 
               {/* Description */}
-              <p className="text-sm leading-relaxed mb-5 text-muted-foreground">
+              <p 
+                className="text-sm leading-relaxed mb-5"
+                style={{ color: 'hsl(30 10% 60%)' }}
+              >
                 {feature.description}
               </p>
 
               {/* Beauties Carousel */}
               {feature.hasCarousel && (
                 <div className="mt-4 space-y-3">
-                  <div className="relative h-28 rounded-xl overflow-hidden">
+                  <div className="relative h-32 rounded-xl overflow-hidden">
                     {featuredSpots.map((spot, i) => (
                       <img
                         key={spot?.id}
@@ -154,8 +155,14 @@ const WhySoulRide = () => {
                         )}
                       />
                     ))}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <p className="absolute bottom-3 left-4 text-sm font-medium text-white">
+                    <div 
+                      className="absolute inset-0"
+                      style={{ background: 'linear-gradient(to top, hsl(20 15% 8% / 0.8) 0%, transparent 60%)' }}
+                    />
+                    <p 
+                      className="absolute bottom-3 left-4 text-sm font-medium"
+                      style={{ color: 'hsl(0 0% 100%)' }}
+                    >
                       {featuredSpots[activeBeauty]?.title}
                     </p>
                   </div>
@@ -166,7 +173,7 @@ const WhySoulRide = () => {
                         onClick={() => setActiveBeauty(i)}
                         className="flex-1 h-1.5 rounded-full transition-all duration-300"
                         style={{
-                          backgroundColor: i === activeBeauty ? tealBg : 'hsl(222 20% 25%)',
+                          backgroundColor: i === activeBeauty ? 'hsl(15 70% 50%)' : 'hsl(25 15% 25%)',
                         }}
                       />
                     ))}
@@ -179,7 +186,7 @@ const WhySoulRide = () => {
                 <Link
                   to={feature.link}
                   className="inline-flex items-center gap-2 mt-4 text-sm font-medium transition-all duration-300 group/link"
-                  style={{ color: tealColor }}
+                  style={{ color: 'hsl(170 60% 55%)' }}
                 >
                   <span>{feature.linkText}</span>
                   <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
@@ -194,12 +201,12 @@ const WhySoulRide = () => {
                       key={extra.text}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
                       style={{
-                        backgroundColor: 'hsl(160 84% 39% / 0.1)',
-                        color: 'hsl(160 70% 60%)',
-                        border: '1px solid hsl(160 84% 39% / 0.2)',
+                        background: 'hsl(15 70% 50% / 0.1)',
+                        color: 'hsl(25 60% 65%)',
+                        border: '1px solid hsl(15 70% 50% / 0.2)',
                       }}
                     >
-                      <extra.icon size={12} style={{ color: tealColor }} />
+                      <extra.icon size={12} style={{ color: 'hsl(15 70% 55%)' }} />
                       {extra.text}
                     </span>
                   ))}
@@ -209,18 +216,23 @@ const WhySoulRide = () => {
               {/* Stats */}
               {feature.stats && (
                 <div 
-                  className="flex justify-between mt-5 pt-5 border-t"
-                  style={{ borderColor }}
+                  className="flex justify-between mt-6 pt-6"
+                  style={{ borderTop: '1px solid hsl(25 15% 18%)' }}
                 >
                   {feature.stats.map((stat) => (
                     <div key={stat.label} className="text-center">
                       <p 
                         className="text-2xl font-bold"
-                        style={{ color: tealColor }}
+                        style={{ color: 'hsl(15 70% 55%)' }}
                       >
                         {stat.value}
                       </p>
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+                      <p 
+                        className="text-[10px] uppercase tracking-wider"
+                        style={{ color: 'hsl(30 10% 50%)' }}
+                      >
+                        {stat.label}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -230,18 +242,13 @@ const WhySoulRide = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-14 sm:mt-18 text-center">
+        <div className="mt-16 text-center">
           <Link
             to="/spots"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-300 group hover:scale-105"
-            style={{
-              background: 'linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(168 80% 42%) 100%)',
-              color: 'hsl(222 47% 7%)',
-              boxShadow: '0 4px 20px hsl(160 84% 39% / 0.3)',
-            }}
+            className="btn-primary arrow-animate group"
           >
             <span>Explore All Destinations</span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} className="arrow-icon group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
