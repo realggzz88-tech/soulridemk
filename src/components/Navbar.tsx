@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, Heart, Globe } from "lucide-react";
+import { Menu, X, Heart, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFavorites } from "@/hooks/use-favorites";
 import UserMenu from "@/components/UserMenu";
@@ -40,36 +40,36 @@ const Navbar = () => {
     <nav 
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled 
-          ? "py-2" 
-          : "py-4"
+        scrolled ? "py-2" : "py-4"
       )}
       style={{
         background: scrolled 
-          ? 'hsl(0 0% 4% / 0.9)' 
-          : 'linear-gradient(180deg, hsl(0 0% 0% / 0.8) 0%, transparent 100%)',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid hsl(0 0% 100% / 0.05)' : 'none',
+          ? 'hsl(200 12% 12% / 0.92)' 
+          : 'linear-gradient(180deg, hsl(200 15% 10% / 0.7) 0%, transparent 100%)',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid hsl(160 15% 25% / 0.15)' : 'none',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12">
-          {/* Logo with premium glow */}
+          {/* Logo with organic feel */}
           <Link 
             to="/" 
             className="flex items-center gap-2 group"
           >
+            <Leaf 
+              size={20} 
+              className="transition-transform duration-300 group-hover:rotate-12"
+              style={{ color: 'hsl(160 30% 50%)' }}
+            />
             <span 
-              className="font-display text-2xl tracking-[0.15em]"
+              className="text-xl sm:text-2xl font-serif tracking-wide"
               style={{
-                background: 'linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(174 50% 65%) 50%, hsl(16 70% 60%) 100%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 15px hsl(174 50% 50% / 0.4))',
+                fontFamily: "'Playfair Display', serif",
+                color: 'hsl(45 20% 90%)',
               }}
             >
-              SOULRIDE
+              SoulRide
             </span>
           </Link>
 
@@ -80,61 +80,47 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "relative py-2 text-sm font-medium tracking-[0.1em] uppercase transition-all duration-300",
+                  "relative py-2 text-sm font-medium tracking-wide transition-all duration-300",
                   isActive(link.to) 
-                    ? "text-white" 
-                    : "text-white/60 hover:text-white"
+                    ? "" 
+                    : "hover:opacity-100"
                 )}
+                style={{
+                  color: isActive(link.to) ? 'hsl(45 20% 92%)' : 'hsl(45 15% 70%)',
+                }}
               >
                 {link.label}
                 {isActive(link.to) && (
                   <span 
                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
-                      boxShadow: '0 0 10px hsl(174 60% 50% / 0.5)',
+                      background: 'linear-gradient(90deg, hsl(160 30% 45%), hsl(25 40% 55%))',
                     }}
                   />
                 )}
               </Link>
             ))}
             
-            {/* Global Riders indicator */}
-            <div 
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
-              style={{
-                background: 'hsl(0 0% 100% / 0.05)',
-                border: '1px solid hsl(0 0% 100% / 0.1)',
-                color: 'hsl(174 60% 60%)',
-              }}
-            >
-              <Globe size={12} />
-              <span>Global</span>
-            </div>
-            
             {/* Favorites link */}
             <Link
               to="/spots"
               className={cn(
-                "relative flex items-center gap-1.5 text-sm transition-all duration-300 group/fav",
-                favoritesCount > 0 
-                  ? "text-[hsl(16_80%_60%)]" 
-                  : "text-white/60 hover:text-white"
+                "relative flex items-center gap-1.5 text-sm transition-all duration-300 group/fav"
               )}
+              style={{
+                color: favoritesCount > 0 ? 'hsl(25 45% 58%)' : 'hsl(45 15% 65%)',
+              }}
               title={favoritesCount > 0 ? `${favoritesCount} saved spots` : "No saved spots"}
             >
               <Heart 
                 size={18} 
                 className={cn(
                   "transition-all duration-300",
-                  favoritesCount > 0 && "fill-[hsl(16_80%_60%)] group-hover/fav:scale-110"
+                  favoritesCount > 0 && "fill-current group-hover/fav:scale-110"
                 )}
-                style={{
-                  filter: favoritesCount > 0 ? "drop-shadow(0 0 8px hsl(16 80% 55% / 0.5))" : undefined
-                }}
               />
               {favoritesCount > 0 && (
-                <span className="font-medium tracking-wide">{favoritesCount}</span>
+                <span className="font-medium">{favoritesCount}</span>
               )}
             </Link>
             
@@ -146,14 +132,14 @@ const Navbar = () => {
           <div className="md:hidden flex items-center gap-3">
             <Link
               to="/spots"
-              className={cn(
-                "flex items-center gap-1 text-sm",
-                favoritesCount > 0 ? "text-[hsl(16_80%_60%)]" : "text-white/60"
-              )}
+              className="flex items-center gap-1 text-sm"
+              style={{
+                color: favoritesCount > 0 ? 'hsl(25 45% 58%)' : 'hsl(45 15% 65%)',
+              }}
             >
               <Heart 
                 size={16} 
-                className={cn(favoritesCount > 0 && "fill-[hsl(16_80%_60%)]")}
+                className={cn(favoritesCount > 0 && "fill-current")}
               />
               {favoritesCount > 0 && (
                 <span className="font-medium">{favoritesCount}</span>
@@ -161,7 +147,8 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-white/80 hover:text-white transition-colors"
+              className="p-2 transition-colors"
+              style={{ color: 'hsl(45 15% 80%)' }}
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -182,21 +169,21 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "px-4 py-3 rounded-xl text-sm font-medium tracking-[0.1em] uppercase transition-all duration-200",
-                  isActive(link.to)
-                    ? "text-white"
-                    : "text-white/60 hover:text-white hover:bg-white/5"
+                  "px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200"
                 )}
-                style={isActive(link.to) ? {
-                  background: 'linear-gradient(90deg, hsl(174 60% 30% / 0.3), hsl(16 70% 40% / 0.2))',
-                } : {}}
+                style={{
+                  color: isActive(link.to) ? 'hsl(45 20% 92%)' : 'hsl(45 15% 70%)',
+                  background: isActive(link.to) 
+                    ? 'linear-gradient(90deg, hsl(160 25% 25% / 0.3), hsl(25 35% 30% / 0.2))'
+                    : 'transparent',
+                }}
               >
                 {link.label}
               </Link>
             ))}
             
             {/* Mobile User Menu */}
-            <div className="pt-2 border-t border-white/10 mt-2">
+            <div className="pt-2 mt-2" style={{ borderTop: '1px solid hsl(160 15% 25% / 0.2)' }}>
               <UserMenu />
             </div>
           </div>

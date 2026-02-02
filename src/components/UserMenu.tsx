@@ -16,7 +16,10 @@ const UserMenu = () => {
 
   if (loading) {
     return (
-      <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+      <div 
+        className="h-8 w-8 rounded-full animate-pulse"
+        style={{ background: 'hsl(200 12% 20%)' }}
+      />
     );
   }
 
@@ -24,14 +27,23 @@ const UserMenu = () => {
     return (
       <div className="flex items-center gap-2">
         <Link to="/login">
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="font-medium"
+            style={{ color: 'hsl(45 15% 70%)' }}
+          >
             Sign In
           </Button>
         </Link>
         <Link to="/signup">
           <Button 
             size="sm" 
-            className="bg-gradient-to-r from-earth-green to-soul-amber hover:from-earth-green/90 hover:to-soul-amber/90 text-background"
+            className="rounded-full font-medium"
+            style={{
+              background: 'linear-gradient(135deg, hsl(160 25% 40%), hsl(160 20% 35%))',
+              color: 'hsl(45 20% 95%)',
+            }}
           >
             Join
           </Button>
@@ -43,45 +55,80 @@ const UserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 p-1 rounded-full hover:bg-muted/50 transition-colors">
+        <button 
+          className="flex items-center gap-2 p-1 rounded-full transition-colors"
+          style={{ background: 'transparent' }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'hsl(200 12% 20%)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+        >
           <Avatar className="h-8 w-8">
             {profile?.profile_photo_url ? (
               <AvatarImage src={profile.profile_photo_url} alt={profile.username} />
             ) : null}
-            <AvatarFallback className="bg-gradient-to-br from-earth-green to-earth-green/70 text-background text-xs font-medium">
+            <AvatarFallback 
+              className="text-xs font-medium"
+              style={{
+                background: 'linear-gradient(135deg, hsl(160 25% 35%), hsl(160 20% 30%))',
+                color: 'hsl(45 20% 95%)',
+              }}
+            >
               {profile?.username?.slice(0, 2).toUpperCase() || "U"}
             </AvatarFallback>
           </Avatar>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-lg border-border/50">
-        <div className="px-2 py-2">
-          <p className="text-sm font-medium">{profile?.username}</p>
-          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+      <DropdownMenuContent 
+        align="end" 
+        className="w-56 rounded-xl"
+        style={{
+          background: 'hsl(200 12% 14%)',
+          border: '1px solid hsl(160 15% 25% / 0.3)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <div className="px-3 py-3">
+          <p className="text-sm font-medium" style={{ color: 'hsl(45 20% 90%)' }}>
+            {profile?.username}
+          </p>
+          <p className="text-xs truncate" style={{ color: 'hsl(45 15% 55%)' }}>
+            {user.email}
+          </p>
           {profile?.what_you_ride && (
-            <p className="text-xs text-soul-amber flex items-center gap-1 mt-1">
+            <p 
+              className="text-xs flex items-center gap-1 mt-1"
+              style={{ color: 'hsl(25 40% 58%)' }}
+            >
               <Bike className="h-3 w-3" />
               {profile.what_you_ride}
             </p>
           )}
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator style={{ background: 'hsl(160 15% 25% / 0.2)' }} />
         <DropdownMenuItem asChild>
-          <Link to="/profile" className="flex items-center gap-2 cursor-pointer">
+          <Link 
+            to="/profile" 
+            className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg transition-colors"
+            style={{ color: 'hsl(45 15% 75%)' }}
+          >
             <User className="h-4 w-4" />
             My Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="/chat" className="flex items-center gap-2 cursor-pointer">
+          <Link 
+            to="/chat" 
+            className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg transition-colors"
+            style={{ color: 'hsl(45 15% 75%)' }}
+          >
             <MessageCircle className="h-4 w-4" />
-            Soul Chat
+            Community
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator style={{ background: 'hsl(160 15% 25% / 0.2)' }} />
         <DropdownMenuItem 
           onClick={signOut}
-          className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive"
+          className="flex items-center gap-2 cursor-pointer px-3 py-2 rounded-lg"
+          style={{ color: 'hsl(0 50% 60%)' }}
         >
           <LogOut className="h-4 w-4" />
           Sign Out

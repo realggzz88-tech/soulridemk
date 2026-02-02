@@ -2,81 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    /* Million-dollar dark base - pure black luxury */
-    --background: 0 0% 4%;
-    --foreground: 40 15% 94%;
+    /* Organic, earthy base - soft charcoal with forest undertones */
+    --background: 200 12% 12%;
+    --foreground: 45 20% 95%;
 
-    --card: 0 0% 6%;
-    --card-foreground: 40 15% 94%;
+    --card: 200 10% 14%;
+    --card-foreground: 45 15% 92%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 40 15% 94%;
+    --popover: 200 12% 13%;
+    --popover-foreground: 45 15% 92%;
 
-    /* Teal primary - premium ocean depth */
-    --primary: 174 60% 42%;
-    --primary-foreground: 0 0% 100%;
+    /* Moss/forest green primary */
+    --primary: 160 25% 42%;
+    --primary-foreground: 45 20% 96%;
 
-    /* Muted luxury tones */
-    --secondary: 220 10% 8%;
-    --secondary-foreground: 40 15% 88%;
+    /* Soft earthy secondary */
+    --secondary: 200 8% 18%;
+    --secondary-foreground: 45 15% 88%;
 
-    --muted: 220 10% 10%;
-    --muted-foreground: 220 8% 55%;
+    --muted: 200 8% 20%;
+    --muted-foreground: 200 10% 55%;
 
-    /* Coral/Orange accent for CTAs */
-    --accent: 16 85% 60%;
-    --accent-foreground: 0 0% 100%;
+    /* Warm terracotta accent */
+    --accent: 20 45% 55%;
+    --accent-foreground: 45 20% 96%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 40 15% 96%;
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 45 15% 96%;
 
-    --border: 220 10% 12%;
-    --input: 220 10% 14%;
-    --ring: 174 60% 50%;
+    --border: 200 8% 22%;
+    --input: 200 8% 24%;
+    --ring: 160 30% 45%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Premium SoulRide tokens - teal to coral */
-    --earth-green: 174 60% 42%;
-    --earth-green-glow: 174 70% 55%;
-    --deep-forest: 174 50% 15%;
-    --amber-soul: 16 85% 60%;
-    --amber-glow: 24 95% 65%;
-    --teal-deep: 180 50% 25%;
-    --coral-warm: 16 80% 55%;
-    --mountain-blue: 200 40% 30%;
-    --midnight-blue: 220 50% 12%;
-    --stone-brown: 25 18% 18%;
+    /* Organic SoulRide tokens */
+    --earth-green: 160 25% 42%;
+    --earth-green-soft: 160 20% 50%;
+    --moss-green: 150 18% 38%;
+    --forest-deep: 180 20% 18%;
+    --terracotta: 20 45% 55%;
+    --terracotta-soft: 25 40% 62%;
+    --sand-warm: 40 25% 85%;
+    --beige-soft: 45 20% 88%;
+    --cream: 45 20% 95%;
+    --sage: 140 15% 65%;
+    --mountain-mist: 200 15% 35%;
+    --stone-warm: 30 15% 25%;
     
-    /* Premium gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 2% / 0.95), hsl(174 40% 5% / 0.9));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 8%), hsl(0 0% 4%));
-    --gradient-accent: linear-gradient(135deg, hsl(174 60% 42%), hsl(16 85% 60%));
-    --gradient-premium: linear-gradient(135deg, hsl(174 60% 45%) 0%, hsl(16 85% 55%) 100%);
+    /* Organic gradients - very subtle */
+    --gradient-hero: linear-gradient(180deg, hsl(200 12% 10% / 0.9), hsl(160 15% 12% / 0.85));
+    --gradient-card: linear-gradient(180deg, hsl(200 10% 16%), hsl(200 12% 12%));
+    --gradient-accent: linear-gradient(135deg, hsl(160 25% 42%), hsl(20 40% 52%));
+    --gradient-soft: linear-gradient(135deg, hsl(160 20% 38%) 0%, hsl(25 35% 50%) 100%);
     
-    /* Luxury shadows */
-    --shadow-card: 0 12px 50px -12px hsl(0 0% 0% / 0.9);
-    --shadow-glow: 0 0 60px -15px hsl(174 60% 42% / 0.4);
-    --shadow-premium: 0 25px 80px -20px hsl(0 0% 0% / 0.8), 0 0 60px -20px hsl(174 50% 40% / 0.3);
-    --shadow-vignette: inset 0 0 120px 30px hsl(0 0% 0% / 0.4);
+    /* Gentle shadows */
+    --shadow-card: 0 8px 30px -8px hsl(200 20% 5% / 0.5);
+    --shadow-soft: 0 4px 20px -4px hsl(200 15% 10% / 0.4);
+    --shadow-inner: inset 0 2px 4px hsl(200 15% 5% / 0.1);
+    --shadow-vignette: inset 0 0 80px 20px hsl(200 15% 8% / 0.3);
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 40 15% 88%;
-    --sidebar-primary: 174 60% 42%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 10% 10%;
-    --sidebar-accent-foreground: 40 15% 88%;
-    --sidebar-border: 220 10% 12%;
-    --sidebar-ring: 174 60% 50%;
+    --sidebar-background: 200 12% 13%;
+    --sidebar-foreground: 45 15% 88%;
+    --sidebar-primary: 160 25% 42%;
+    --sidebar-primary-foreground: 45 20% 96%;
+    --sidebar-accent: 200 8% 18%;
+    --sidebar-accent-foreground: 45 15% 88%;
+    --sidebar-border: 200 8% 22%;
+    --sidebar-ring: 160 30% 45%;
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 40 15% 94%;
+    --background: 200 12% 12%;
+    --foreground: 45 20% 95%;
   }
 }
 
@@ -93,35 +95,38 @@
 
   body {
     @apply bg-background antialiased;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.02em;
-    color: hsl(220 10% 78%);
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 0.01em;
+    color: hsl(45 15% 75%);
     overflow-x: hidden;
   }
 
-  /* Titles get brighter color */
+  /* Titles with warm serif font */
   h1, h2, h3 {
-    color: hsl(40 15% 96%);
+    font-family: 'Playfair Display', serif;
+    color: hsl(45 20% 92%);
+    letter-spacing: 0.02em;
   }
 
-  /* Noise texture overlay on body */
+  h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: hsl(45 18% 88%);
+  }
+
+  /* Subtle paper texture overlay */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 0.08em;
+    opacity: 0.015;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
   p, span, a, li {
-    letter-spacing: 0.025em;
+    letter-spacing: 0.015em;
   }
 }
 
