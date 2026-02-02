@@ -14,9 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Bebas Neue', 'Arial Narrow', 'Impact', 'sans-serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
+        typewriter: ['Special Elite', 'Courier New', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,24 +53,21 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        earth: {
-          green: "hsl(var(--earth-green))",
-          "green-soft": "hsl(var(--earth-green-soft))",
-          "green-glow": "hsl(var(--earth-green-glow))",
+        vintage: {
+          teal: "hsl(var(--vintage-teal))",
+          "teal-soft": "hsl(var(--vintage-teal-soft))",
+          "teal-glow": "hsl(var(--vintage-teal-glow))",
         },
-        soul: {
-          amber: "hsl(var(--soul-amber))",
-          orange: "hsl(var(--soul-orange))",
+        rust: {
+          orange: "hsl(var(--rust-orange))",
+          amber: "hsl(var(--rust-amber))",
+          gold: "hsl(var(--rust-gold))",
+          deep: "hsl(var(--rust-deep))",
         },
-        mint: {
-          soft: "hsl(var(--mint-soft))",
-        },
-        teal: {
-          bright: "hsl(var(--teal-bright))",
-          hover: "hsl(var(--teal-hover))",
-        },
-        mountain: {
-          blue: "hsl(var(--mountain-blue))",
+        cream: {
+          light: "hsl(var(--cream-light))",
+          soft: "hsl(var(--cream-soft))",
+          aged: "hsl(var(--cream-aged))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -129,8 +127,8 @@ export default {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "hero-gradient": "linear-gradient(135deg, hsl(220 15% 6% / 0.9), hsl(160 30% 8% / 0.85))",
-        "card-gradient": "linear-gradient(180deg, hsl(220 15% 12%), hsl(220 15% 8%))",
-        "accent-gradient": "linear-gradient(135deg, hsl(30 80% 50%), hsl(35 90% 60%))",
+        "card-gradient": "linear-gradient(180deg, hsl(222 35% 11%), hsl(222 40% 8%))",
+        "vintage-gradient": "linear-gradient(135deg, hsl(21 90% 42%), hsl(25 85% 48%))",
       },
     },
   },
