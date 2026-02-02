@@ -460,7 +460,6 @@ const ProfilePage = () => {
                   </Dialog>
                 </div>
               </div>
-            </div>
 
             {/* My Ride Photo Section - Polaroid style */}
             <div className="mt-8 space-y-4">
@@ -635,7 +634,7 @@ const ProfilePage = () => {
                   : "Share your favorite routes with the community"}
               </p>
             </div>
-              <Dialog open={isAddingRoute} onOpenChange={(open) => {
+            <Dialog open={isAddingRoute} onOpenChange={(open) => {
                 setIsAddingRoute(open);
                 if (!open) setNewRoutePhotoUrl(null);
               }}>
@@ -748,7 +747,6 @@ const ProfilePage = () => {
                   </div>
                 </DialogContent>
               </Dialog>
-            </div>
           </div>
           <div className="mt-6">
             {loadingRoutes ? (
