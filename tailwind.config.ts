@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        serif: ['"Playfair Display"', 'serif'],
-        body: ['Nunito', 'sans-serif'],
+        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,16 +55,21 @@ export default {
         earth: {
           green: "hsl(var(--earth-green))",
           "green-soft": "hsl(var(--earth-green-soft))",
-          moss: "hsl(var(--moss-green))",
-          forest: "hsl(var(--forest-deep))",
+          "green-glow": "hsl(var(--earth-green-glow))",
         },
         soul: {
-          terracotta: "hsl(var(--terracotta))",
-          "terracotta-soft": "hsl(var(--terracotta-soft))",
-          sand: "hsl(var(--sand-warm))",
-          beige: "hsl(var(--beige-soft))",
-          cream: "hsl(var(--cream))",
-          sage: "hsl(var(--sage))",
+          amber: "hsl(var(--soul-amber))",
+          orange: "hsl(var(--soul-orange))",
+        },
+        mint: {
+          soft: "hsl(var(--mint-soft))",
+        },
+        teal: {
+          bright: "hsl(var(--teal-bright))",
+          hover: "hsl(var(--teal-hover))",
+        },
+        mountain: {
+          blue: "hsl(var(--mountain-blue))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

@@ -43,10 +43,10 @@ const Navbar = () => {
       )}
       style={{
         background: scrolled 
-          ? 'rgba(15, 23, 42, 0.95)' 
+          ? 'hsl(222 47% 7% / 0.95)' 
           : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+        borderBottom: scrolled ? '1px solid hsl(222 20% 18%)' : 'none',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

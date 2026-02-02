@@ -8,21 +8,31 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 page-enter">
+    <div 
+      className="min-h-screen pt-24 pb-16 page-enter"
+      style={{ backgroundColor: 'hsl(222 47% 7%)' }}
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="font-display text-5xl md:text-6xl tracking-wider mb-6 animate-fade-up">
+          <h1 className="font-display text-5xl md:text-6xl font-extrabold tracking-tight mb-6 animate-fade-up text-foreground">
             ABOUT SOULRIDE
           </h1>
-          <p className="text-xl text-muted-foreground animate-fade-up opacity-0" style={{ animationDelay: "0.1s" }}>
+          <p className="text-xl text-muted-foreground animate-fade-up" style={{ animationDelay: "0.1s" }}>
             Inspiring motorbike journeys through undiscovered beauty
           </p>
         </div>
 
         {/* Story Section */}
         <div className="space-y-8 mb-16">
-          <div className="spot-card p-8 md:p-12 animate-fade-up opacity-0" style={{ animationDelay: "0.2s" }}>
+          <div 
+            className="p-8 md:p-12 rounded-xl animate-fade-up border"
+            style={{ 
+              animationDelay: "0.2s",
+              backgroundColor: 'hsl(222 40% 10%)',
+              borderColor: 'hsl(222 20% 18%)'
+            }}
+          >
             <p className="text-lg leading-relaxed text-foreground/90 mb-6">
               Soulride was born from a simple truth: the best roads are the ones most riders never find. 
               They're not on popular GPS routes or tourist maps. They hide in the folds of mountains, 
@@ -63,13 +73,20 @@ const AboutPage = () => {
           ].map((value, index) => (
             <div
               key={value.title}
-              className="spot-card p-6 text-center animate-fade-up opacity-0"
-              style={{ animationDelay: `${(index + 3) * 100}ms` }}
+              className="p-6 text-center rounded-xl animate-fade-up border transition-all duration-300 hover:border-primary/30"
+              style={{ 
+                animationDelay: `${(index + 3) * 100}ms`,
+                backgroundColor: 'hsl(222 40% 10%)',
+                borderColor: 'hsl(222 20% 18%)'
+              }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-earth-green/20 mb-4">
-                <value.icon className="w-6 h-6 text-earth-green-glow" />
+              <div 
+                className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
+                style={{ backgroundColor: 'hsl(160 84% 39% / 0.15)' }}
+              >
+                <value.icon className="w-6 h-6" style={{ color: 'hsl(160 84% 50%)' }} />
               </div>
-              <h3 className="font-display text-xl tracking-wide mb-2">{value.title}</h3>
+              <h3 className="font-display text-xl font-bold tracking-tight mb-2 text-foreground">{value.title}</h3>
               <p className="text-sm text-muted-foreground">{value.description}</p>
             </div>
           ))}
@@ -78,7 +95,7 @@ const AboutPage = () => {
         {/* Built in Ohrid */}
         <div className="mt-16 text-center">
           <p className="text-muted-foreground text-sm">
-            Built with soul in <span className="text-earth-green-glow">Ohrid, Macedonia</span>
+            Built with soul in <span style={{ color: 'hsl(160 84% 50%)' }}>Ohrid, Macedonia</span>
           </p>
         </div>
       </div>

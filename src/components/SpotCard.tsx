@@ -12,9 +12,12 @@ interface SpotCardProps {
 const SpotCard = ({ spot, index }: SpotCardProps) => {
   return (
     <div
-      className="spot-card group block film-grain"
+      className="group block rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
       style={{
         animationDelay: `${index * 100}ms`,
+        backgroundColor: 'hsl(222 40% 10%)',
+        border: '1px solid hsl(222 20% 18%)',
+        boxShadow: '0 4px 24px -4px hsl(222 47% 3% / 0.5)',
       }}
     >
       <Link to={`/spots/${spot.id}`}>
@@ -26,22 +29,19 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           
-          {/* Enhanced Gradient Overlay with vignette */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-transparent" />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           
-          {/* Vignette shadow */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              boxShadow: 'inset 0 0 80px 20px hsl(0 0% 0% / 0.4)'
-            }}
-          />
-          
-          {/* Poetic Tagline Overlay - enhanced */}
+          {/* Poetic Tagline Overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-            <div className="bg-background/70 backdrop-blur-md px-5 py-3 rounded-xl border border-earth-green/40 shadow-[0_0_30px_hsl(var(--earth-green)/0.2)]">
-              <p className="text-sm italic text-foreground font-light tracking-wider text-high-contrast">
+            <div 
+              className="backdrop-blur-md px-5 py-3 rounded-xl border"
+              style={{
+                backgroundColor: 'hsl(222 40% 10% / 0.9)',
+                borderColor: 'hsl(160 84% 39% / 0.3)'
+              }}
+            >
+              <p className="text-sm italic text-foreground font-light tracking-wide">
                 "{spot.poeticTagline}"
               </p>
             </div>
@@ -50,11 +50,17 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           {/* Tags */}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
             {/* Region badge */}
-            <span className="px-2 py-1 rounded-md text-xs font-medium tracking-wide bg-soul-amber/80 text-background backdrop-blur-sm">
+            <span 
+              className="px-2 py-1 rounded-md text-xs font-medium tracking-wide text-white"
+              style={{ backgroundColor: 'hsl(32 95% 50% / 0.9)' }}
+            >
               {spot.region}
             </span>
             {spot.tags.slice(0, 2).map((tag) => (
-              <span key={tag} className="tag-pill tracking-wide">
+              <span 
+                key={tag} 
+                className="tag-pill"
+              >
                 {tag}
               </span>
             ))}
@@ -64,31 +70,20 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           <div className="absolute top-4 right-4 z-10">
             <FavoriteButton spotId={spot.id} size="sm" />
           </div>
-
-          {/* Line Art Overlay */}
-          <div className="absolute inset-0 road-pattern opacity-15 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
         </div>
 
         {/* Content */}
-        <div className="p-4 sm:p-6 relative">
-          {/* Inner shadow effect */}
-          <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-background/60 to-transparent pointer-events-none" />
-          
-          {/* Title with gradient */}
-          <h3 className="font-display text-xl sm:text-2xl tracking-wider mb-2 text-gradient-card group-hover:text-gradient-glow transition-all duration-300">
+        <div className="p-4 sm:p-6">
+          {/* Title */}
+          <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight mb-2 text-foreground group-hover:text-primary transition-colors">
             {spot.title}
           </h3>
-          <p className="text-sm leading-relaxed mb-4 line-clamp-2 tracking-wide" style={{ color: 'hsl(220 10% 72%)' }}>
+          <p className="text-sm leading-relaxed mb-4 line-clamp-2 text-muted-foreground">
             {spot.description}
           </p>
           
-          {/* Hidden poetic line that reveals on hover */}
-          <p className="text-earth-green-glow text-xs italic mb-4 max-h-0 overflow-hidden group-hover:max-h-16 transition-all duration-500 opacity-0 group-hover:opacity-100 tracking-wide">
-            Feel the call of the curve... where the road becomes your meditation.
-          </p>
-          
           {/* CTA */}
-          <div className="flex items-center gap-2 text-earth-green-glow text-sm font-medium tracking-wide">
+          <div className="flex items-center gap-2 text-sm font-medium" style={{ color: 'hsl(160 84% 50%)' }}>
             <span>Discover</span>
             <ArrowRight 
               size={16} 
