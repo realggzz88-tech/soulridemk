@@ -1,23 +1,19 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ArrowRight, Globe, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 
-// 12 featured spots for the hero carousel - diverse regional coverage
+// Featured spots for the hero - nature-focused selection
 const heroSlides = [
-  { spot: spots.find(s => s.id === "galicica-pass"), tagline: "Where the soul meets the horizon" },
-  { spot: spots.find(s => s.id === "st-jovan-kaneo-overlook"), tagline: "Ancient beauty suspended over crystal waters" },
-  { spot: spots.find(s => s.id === "mavrovo-lake-loop"), tagline: "Where reflections tell stories" },
-  { spot: spots.find(s => s.id === "matka-canyon-overlook"), tagline: "Emerald depths beneath endless skies" },
-  { spot: spots.find(s => s.id === "vodno-mountain-cross"), tagline: "Rise above the world below" },
-  { spot: spots.find(s => s.id === "carevi-kuli-fortress-overlook"), tagline: "Where history whispers through stone" },
-  { spot: spots.find(s => s.id === "galicica-national-park-summit"), tagline: "Two lakes, one infinite view" },
-  { spot: spots.find(s => s.id === "treskavec-monastery-cliff"), tagline: "Solitude carved into the mountain" },
-  { spot: spots.find(s => s.id === "shar-mountain-range"), tagline: "Peaks touching the divine" },
-  { spot: spots.find(s => s.id === "kokino-observatory-overlook"), tagline: "Where ancient eyes first mapped the stars" },
-  { spot: spots.find(s => s.id === "smolare-waterfall"), tagline: "Where water sings eternal songs" },
-  { spot: spots.find(s => s.id === "kratovo-old-town"), tagline: "Stone bridges to forgotten eras" },
+  { spot: spots.find(s => s.id === "galicica-pass"), tagline: "Where mountain air whispers secrets" },
+  { spot: spots.find(s => s.id === "st-jovan-kaneo-overlook"), tagline: "Ancient serenity by crystal waters" },
+  { spot: spots.find(s => s.id === "mavrovo-lake-loop"), tagline: "Stillness reflected in alpine calm" },
+  { spot: spots.find(s => s.id === "matka-canyon-overlook"), tagline: "Emerald depths, endless peace" },
+  { spot: spots.find(s => s.id === "vodno-mountain-cross"), tagline: "Rise gently above the everyday" },
+  { spot: spots.find(s => s.id === "galicica-national-park-summit"), tagline: "Two lakes cradled by mountains" },
+  { spot: spots.find(s => s.id === "smolare-waterfall"), tagline: "Where water finds its voice" },
+  { spot: spots.find(s => s.id === "kratovo-old-town"), tagline: "Stone bridges to quieter times" },
 ].filter(slide => slide.spot) as { spot: typeof spots[0]; tagline: string }[];
 
 const HeroCarousel = () => {
@@ -43,7 +39,7 @@ const HeroCarousel = () => {
   }, [isTransitioning]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsTransitioning(false), 800);
+    const timer = setTimeout(() => setIsTransitioning(false), 1000);
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
@@ -51,7 +47,7 @@ const HeroCarousel = () => {
     if (isPaused) return;
     const interval = setInterval(() => {
       if (!isTransitioning) goToNext();
-    }, 6000);
+    }, 8000); // Slower, calmer transitions
     return () => clearInterval(interval);
   }, [isTransitioning, isPaused, goToNext]);
 
@@ -85,93 +81,82 @@ const HeroCarousel = () => {
   return (
     <section 
       ref={carouselRef}
-      className="relative h-[100svh] min-h-[700px] overflow-hidden select-none"
+      className="relative h-[100svh] min-h-[650px] overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Background Images with Ken Burns Effect */}
+      {/* Background Images - Gentle crossfade */}
       {heroSlides.map((slide, index) => (
         <div
           key={slide.spot.id}
           className={cn(
-            "absolute inset-0 transition-all duration-[1500ms] ease-out",
-            index === currentIndex ? "opacity-100 scale-100" : "opacity-0 scale-110"
+            "absolute inset-0 transition-all duration-[2000ms] ease-out",
+            index === currentIndex ? "opacity-100" : "opacity-0"
           )}
         >
           <img
             src={slide.spot.images[0]}
             alt={slide.spot.title}
-            className={cn(
-              "w-full h-full object-cover transition-transform duration-[12000ms] ease-out",
-              index === currentIndex && "scale-110"
-            )}
+            className="w-full h-full object-cover"
             style={{ 
-              filter: 'brightness(0.35) contrast(1.15) saturate(1.1)',
-              objectPosition: 'center 30%'
+              filter: 'brightness(0.55) saturate(0.85) contrast(1.05)',
+              objectPosition: 'center 35%'
             }}
           />
         </div>
       ))}
 
-      {/* Premium Gradient Overlays */}
+      {/* Soft natural gradient overlays */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            linear-gradient(180deg, hsl(0 0% 0% / 0.7) 0%, transparent 30%, transparent 60%, hsl(0 0% 2%) 100%),
-            linear-gradient(90deg, hsl(174 40% 8% / 0.4) 0%, transparent 50%, hsl(16 40% 8% / 0.3) 100%)
+            linear-gradient(180deg, 
+              hsl(200 15% 12% / 0.6) 0%, 
+              transparent 35%, 
+              transparent 55%, 
+              hsl(200 15% 12% / 0.85) 100%
+            )
           `
         }}
       />
       
-      {/* Animated Fog/Mist Layer */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          background: `
-            radial-gradient(ellipse at 20% 80%, hsl(0 0% 100% / 0.05) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 70%, hsl(174 50% 50% / 0.04) 0%, transparent 40%),
-            radial-gradient(ellipse at 50% 100%, hsl(0 0% 100% / 0.06) 0%, transparent 50%)
-          `,
-          animation: 'fog-drift 20s ease-in-out infinite',
-        }}
-      />
-      
-      {/* Cinematic Vignette */}
+      {/* Soft vignette - like misty edges */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 30%, hsl(0 0% 0% / 0.7) 100%)'
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(200 15% 10% / 0.5) 100%)'
         }}
       />
 
-      {/* Content Overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-        {/* Premium Brand Title */}
-        <div className="text-center mb-6 animate-fade-up opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-6">
+        {/* Brand Title - Elegant serif */}
+        <div className="text-center mb-6 animate-fade-up opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
           <h1 
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[0.15em] mb-3"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-3 font-serif tracking-wide"
             style={{ 
-              background: 'linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(174 50% 70%) 40%, hsl(16 70% 65%) 80%, hsl(0 0% 100%) 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 0 80px hsl(174 60% 50% / 0.4)) drop-shadow(0 0 120px hsl(16 70% 50% / 0.3)) drop-shadow(0 8px 30px hsl(0 0% 0% / 0.6))',
+              fontFamily: "'Playfair Display', serif",
+              color: 'hsl(45 25% 92%)',
+              textShadow: '0 4px 40px hsl(160 30% 30% / 0.3), 0 2px 20px hsl(200 20% 10% / 0.4)',
             }}
           >
-            SOULRIDE
+            SoulRide
           </h1>
           
-          {/* Tagline */}
+          {/* Tagline with leaf accent */}
+          <div className="flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-gradient-to-r from-transparent to-[hsl(160_25%_50%/0.5)]" />
+            <Leaf size={16} style={{ color: 'hsl(160 30% 55%)' }} />
+            <span className="w-8 h-px bg-gradient-to-l from-transparent to-[hsl(160_25%_50%/0.5)]" />
+          </div>
+          
           <p 
-            className="font-display text-sm sm:text-base md:text-lg tracking-[0.4em] uppercase"
-            style={{ 
-              color: 'hsl(174 50% 60%)',
-              textShadow: '0 0 40px hsl(174 60% 50% / 0.5)',
-            }}
+            className="mt-3 text-sm sm:text-base tracking-[0.2em] uppercase font-light"
+            style={{ color: 'hsl(160 25% 60%)' }}
           >
             Ride with Soul
           </p>
@@ -179,186 +164,162 @@ const HeroCarousel = () => {
 
         {/* Subtitle */}
         <p 
-          className="text-center text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 animate-fade-up opacity-0 font-light tracking-wide"
+          className="text-center text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-up opacity-0 font-light leading-relaxed"
           style={{ 
-            animationDelay: '0.3s', 
+            animationDelay: '0.4s', 
             animationFillMode: 'forwards',
-            color: 'hsl(220 15% 75%)',
-            textShadow: '0 2px 20px hsl(0 0% 0% / 0.5)',
+            color: 'hsl(45 15% 80%)',
           }}
         >
-          Discover North Macedonia's Hidden Gems, Nature Views & Global Rider Community
+          Discover Macedonia's Quiet Beauties, Hidden Views, Local Flavors & Fellow Explorers
         </p>
 
-        {/* CTA Buttons */}
+        {/* Organic CTA Buttons */}
         <div 
-          className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-up opacity-0"
-          style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
+          className="flex flex-col sm:flex-row gap-4 mb-14 animate-fade-up opacity-0"
+          style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
         >
           <Link
             to="/signup"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-display tracking-[0.12em] text-sm transition-all duration-300 group"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-medium transition-all duration-400 group"
             style={{
-              background: 'linear-gradient(135deg, hsl(174 60% 45%) 0%, hsl(16 80% 55%) 100%)',
-              color: 'white',
-              boxShadow: '0 8px 40px -10px hsl(174 60% 45% / 0.5), 0 0 60px -20px hsl(16 80% 55% / 0.4)',
+              background: 'linear-gradient(135deg, hsl(160 25% 40%) 0%, hsl(160 20% 35%) 100%)',
+              color: 'hsl(45 20% 95%)',
+              boxShadow: '0 4px 20px -4px hsl(160 30% 30% / 0.4)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 12px 50px -10px hsl(174 60% 50% / 0.6), 0 0 80px -20px hsl(16 85% 60% / 0.5)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 30px -6px hsl(160 30% 35% / 0.5)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 40px -10px hsl(174 60% 45% / 0.5), 0 0 60px -20px hsl(16 80% 55% / 0.4)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 20px -4px hsl(160 30% 30% / 0.4)';
             }}
           >
-            <span>JOIN THE COMMUNITY</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <span>Start Your Journey</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
           
           <Link
-            to="/spots"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-display tracking-[0.12em] text-sm transition-all duration-300"
+            to="/chat"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-medium transition-all duration-400"
             style={{
-              background: 'hsl(0 0% 100% / 0.08)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid hsl(0 0% 100% / 0.15)',
-              color: 'hsl(0 0% 95%)',
+              background: 'hsl(200 15% 20% / 0.6)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid hsl(160 20% 40% / 0.3)',
+              color: 'hsl(45 20% 88%)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'hsl(0 0% 100% / 0.15)';
-              e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+              e.currentTarget.style.background = 'hsl(200 15% 25% / 0.7)';
+              e.currentTarget.style.borderColor = 'hsl(160 25% 50% / 0.4)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'hsl(0 0% 100% / 0.08)';
-              e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.15)';
+              e.currentTarget.style.background = 'hsl(200 15% 20% / 0.6)';
+              e.currentTarget.style.borderColor = 'hsl(160 20% 40% / 0.3)';
             }}
           >
-            <span>EXPLORE GEMS</span>
+            <span>Join Riders</span>
           </Link>
         </div>
 
-        {/* Dynamic Spot Showcase */}
+        {/* Current Spot Showcase */}
         <div 
-          className="text-center max-w-3xl mx-auto animate-fade-up opacity-0"
-          style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}
+          className="text-center max-w-2xl mx-auto animate-fade-up opacity-0"
+          style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}
         >
-          {/* Eyebrow */}
           <p 
             className={cn(
-              "text-[10px] sm:text-xs uppercase tracking-[0.4em] mb-3 transition-all duration-700 font-medium flex items-center justify-center gap-2",
-              isTransitioning ? "opacity-0 -translate-y-3" : "opacity-100 translate-y-0"
+              "text-xs uppercase tracking-[0.25em] mb-2 transition-all duration-700 font-medium",
+              isTransitioning ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"
             )}
-            style={{ color: 'hsl(16 70% 60%)' }}
+            style={{ color: 'hsl(25 40% 60%)' }}
           >
-            <span className="w-8 h-px bg-gradient-to-r from-transparent to-[hsl(16_60%_50%)]" />
-            Now Featuring
-            <span className="w-8 h-px bg-gradient-to-l from-transparent to-[hsl(16_60%_50%)]" />
+            Featured Destination
           </p>
           
-          {/* Spot Title */}
           <h2 
             className={cn(
-              "font-display text-xl sm:text-2xl md:text-4xl tracking-wider mb-3 transition-all duration-700",
-              isTransitioning ? "opacity-0 translate-y-5" : "opacity-100 translate-y-0"
+              "text-xl sm:text-2xl md:text-3xl font-serif mb-2 transition-all duration-700",
+              isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
             )}
             style={{ 
-              color: 'hsl(40 20% 92%)',
-              textShadow: '0 0 50px hsl(174 40% 40% / 0.3), 0 4px 30px hsl(0 0% 0% / 0.5)'
+              fontFamily: "'Playfair Display', serif",
+              color: 'hsl(45 20% 90%)',
             }}
           >
             {currentSlide.spot.title}
           </h2>
           
-          {/* Tagline */}
           <p 
             className={cn(
-              "text-sm sm:text-base italic font-light tracking-wide transition-all duration-700 delay-75",
-              isTransitioning ? "opacity-0 translate-y-5" : "opacity-100 translate-y-0"
+              "text-sm sm:text-base italic font-light transition-all duration-700 delay-75",
+              isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
             )}
-            style={{ color: 'hsl(220 15% 65%)' }}
+            style={{ color: 'hsl(45 15% 70%)' }}
           >
             "{currentSlide.tagline}"
           </p>
 
-          {/* View Spot Link */}
           <Link
             to={`/spots/${currentSlide.spot.id}`}
             className={cn(
-              "inline-flex items-center gap-2 mt-5 text-sm font-medium transition-all duration-300 group",
+              "inline-flex items-center gap-2 mt-4 text-sm font-medium transition-all duration-300 group",
               isTransitioning ? "opacity-0" : "opacity-100"
             )}
-            style={{ color: 'hsl(174 60% 55%)' }}
+            style={{ color: 'hsl(160 30% 55%)' }}
           >
-            <span>View this gem</span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <span>Explore this spot</span>
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
 
-      {/* Global Riders Badge - Bottom Left */}
-      <div 
-        className="absolute bottom-8 left-6 md:left-10 z-20 flex items-center gap-3 px-4 py-2.5 rounded-full animate-fade-up opacity-0"
-        style={{ 
-          animationDelay: '1s', 
-          animationFillMode: 'forwards',
-          background: 'hsl(0 0% 0% / 0.5)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid hsl(0 0% 100% / 0.1)',
-        }}
-      >
-        <Globe size={16} style={{ color: 'hsl(174 60% 55%)' }} />
-        <span className="text-xs font-medium tracking-wide" style={{ color: 'hsl(220 15% 80%)' }}>
-          10K+ Riders from 50+ Countries
-        </span>
-      </div>
-
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Softer, organic style */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full transition-all duration-300"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full transition-all duration-300"
         style={{
-          background: 'hsl(0 0% 0% / 0.4)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid hsl(0 0% 100% / 0.1)',
-          color: 'hsl(0 0% 90%)',
+          background: 'hsl(200 15% 15% / 0.5)',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid hsl(160 20% 40% / 0.2)',
+          color: 'hsl(45 15% 85%)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.6)';
-          e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+          e.currentTarget.style.background = 'hsl(200 15% 20% / 0.6)';
+          e.currentTarget.style.borderColor = 'hsl(160 25% 45% / 0.3)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.4)';
-          e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.1)';
+          e.currentTarget.style.background = 'hsl(200 15% 15% / 0.5)';
+          e.currentTarget.style.borderColor = 'hsl(160 20% 40% / 0.2)';
         }}
         aria-label="Previous slide"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={22} />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full transition-all duration-300"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full transition-all duration-300"
         style={{
-          background: 'hsl(0 0% 0% / 0.4)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid hsl(0 0% 100% / 0.1)',
-          color: 'hsl(0 0% 90%)',
+          background: 'hsl(200 15% 15% / 0.5)',
+          backdropFilter: 'blur(8px)',
+          border: '1px solid hsl(160 20% 40% / 0.2)',
+          color: 'hsl(45 15% 85%)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.6)';
-          e.currentTarget.style.borderColor = 'hsl(174 50% 50% / 0.4)';
+          e.currentTarget.style.background = 'hsl(200 15% 20% / 0.6)';
+          e.currentTarget.style.borderColor = 'hsl(160 25% 45% / 0.3)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'hsl(0 0% 0% / 0.4)';
-          e.currentTarget.style.borderColor = 'hsl(0 0% 100% / 0.1)';
+          e.currentTarget.style.background = 'hsl(200 15% 15% / 0.5)';
+          e.currentTarget.style.borderColor = 'hsl(160 20% 40% / 0.2)';
         }}
         aria-label="Next slide"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={22} />
       </button>
 
-      {/* Pagination Dots */}
-      <div className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Organic Pagination Dots */}
+      <div className="absolute bottom-24 md:bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroSlides.map((_, index) => (
           <button
             key={index}
@@ -369,64 +330,58 @@ const HeroCarousel = () => {
               }
             }}
             className={cn(
-              "rounded-full transition-all duration-400",
+              "rounded-full transition-all duration-500",
               index === currentIndex
-                ? "w-10 h-2"
-                : "w-2 h-2 hover:bg-white/40"
+                ? "w-8 h-2"
+                : "w-2 h-2 hover:bg-[hsl(45_20%_70%/0.5)]"
             )}
             style={index === currentIndex ? {
-              background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
-              boxShadow: '0 0 20px hsl(174 60% 50% / 0.5)',
+              background: 'linear-gradient(90deg, hsl(160 30% 50%), hsl(25 40% 55%))',
             } : {
-              background: 'hsl(0 0% 100% / 0.25)',
+              background: 'hsl(45 15% 70% / 0.3)',
             }}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
 
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 z-20 overflow-hidden">
+      {/* Gentle Progress Bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[hsl(160_20%_30%/0.2)] z-20 overflow-hidden">
         <div 
           key={`progress-${currentIndex}-${isPaused}`}
           className="h-full"
           style={{ 
-            background: 'linear-gradient(90deg, hsl(174 60% 50%), hsl(16 80% 55%))',
+            background: 'linear-gradient(90deg, hsl(160 30% 45%), hsl(25 40% 55%))',
             width: isPaused ? '100%' : '0%',
-            animation: isPaused ? 'none' : 'hero-progress 6s linear forwards',
-            boxShadow: '0 0 20px hsl(174 60% 50% / 0.5)',
+            animation: isPaused ? 'none' : 'hero-progress 8s linear forwards',
           }}
         />
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-float opacity-50">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-float opacity-40">
         <div 
-          className="w-6 h-10 rounded-full flex items-start justify-center p-2"
-          style={{ border: '1px solid hsl(0 0% 100% / 0.2)' }}
+          className="w-5 h-8 rounded-full flex items-start justify-center p-1.5"
+          style={{ border: '1px solid hsl(160 25% 50% / 0.3)' }}
         >
           <div 
-            className="w-1 h-2.5 rounded-full animate-pulse"
-            style={{ background: 'hsl(174 60% 55%)' }}
+            className="w-1 h-2 rounded-full animate-pulse"
+            style={{ background: 'hsl(160 30% 55%)' }}
           />
         </div>
       </div>
 
       {/* Slide counter */}
-      <div className="absolute bottom-10 right-6 md:right-10 z-20 font-display text-sm tracking-wider opacity-50">
-        <span style={{ color: 'hsl(174 60% 60%)' }}>{String(currentIndex + 1).padStart(2, '0')}</span>
-        <span className="mx-1.5" style={{ color: 'hsl(0 0% 50%)' }}>/</span>
-        <span style={{ color: 'hsl(0 0% 50%)' }}>{String(heroSlides.length).padStart(2, '0')}</span>
+      <div className="absolute bottom-8 right-6 md:right-10 z-20 text-sm tracking-wider opacity-40 font-light">
+        <span style={{ color: 'hsl(160 25% 60%)' }}>{String(currentIndex + 1).padStart(2, '0')}</span>
+        <span className="mx-1.5" style={{ color: 'hsl(45 15% 50%)' }}>/</span>
+        <span style={{ color: 'hsl(45 15% 50%)' }}>{String(heroSlides.length).padStart(2, '0')}</span>
       </div>
 
       <style>{`
         @keyframes hero-progress {
           from { width: 0%; }
           to { width: 100%; }
-        }
-        @keyframes fog-drift {
-          0%, 100% { transform: translateX(0) translateY(0); opacity: 0.4; }
-          50% { transform: translateX(40px) translateY(-20px); opacity: 0.6; }
         }
       `}</style>
     </section>

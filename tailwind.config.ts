@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Bebas Neue"', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['"Playfair Display"', 'serif'],
+        serif: ['"Playfair Display"', 'serif'],
+        body: ['Nunito', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -53,14 +54,17 @@ export default {
         },
         earth: {
           green: "hsl(var(--earth-green))",
-          "green-glow": "hsl(var(--earth-green-glow))",
-          forest: "hsl(var(--deep-forest))",
+          "green-soft": "hsl(var(--earth-green-soft))",
+          moss: "hsl(var(--moss-green))",
+          forest: "hsl(var(--forest-deep))",
         },
         soul: {
-          amber: "hsl(var(--amber-soul))",
-          "amber-glow": "hsl(var(--amber-glow))",
-          blue: "hsl(var(--mountain-blue))",
-          brown: "hsl(var(--stone-brown))",
+          terracotta: "hsl(var(--terracotta))",
+          "terracotta-soft": "hsl(var(--terracotta-soft))",
+          sand: "hsl(var(--sand-warm))",
+          beige: "hsl(var(--beige-soft))",
+          cream: "hsl(var(--cream))",
+          sage: "hsl(var(--sage))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
