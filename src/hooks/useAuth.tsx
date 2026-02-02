@@ -7,6 +7,8 @@ interface Profile {
   user_id: string;
   username: string;
   email: string;
+  bio: string | null;
+  what_you_ride: string | null;
   created_at: string;
 }
 

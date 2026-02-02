@@ -40,26 +40,68 @@ export type Database = {
       }
       profiles: {
         Row: {
+          bio: string | null
           created_at: string
           email: string
           id: string
           updated_at: string
           user_id: string
           username: string
+          what_you_ride: string | null
         }
         Insert: {
+          bio?: string | null
           created_at?: string
           email: string
           id?: string
           updated_at?: string
           user_id: string
           username: string
+          what_you_ride?: string | null
         }
         Update: {
+          bio?: string | null
           created_at?: string
           email?: string
           id?: string
           updated_at?: string
+          user_id?: string
+          username?: string
+          what_you_ride?: string | null
+        }
+        Relationships: []
+      }
+      user_routes: {
+        Row: {
+          created_at: string
+          description: string
+          end_location: string
+          id: string
+          likes_count: number
+          route_title: string
+          start_location: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          end_location: string
+          id?: string
+          likes_count?: number
+          route_title: string
+          start_location: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          end_location?: string
+          id?: string
+          likes_count?: number
+          route_title?: string
+          start_location?: string
           user_id?: string
           username?: string
         }
