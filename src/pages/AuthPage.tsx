@@ -135,15 +135,22 @@ const AuthPage = ({ mode }: AuthPageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-earth-green/10 via-background to-soul-amber/10" />
-      <div className="absolute inset-0 road-pattern opacity-10" />
+    <div 
+      className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden"
+      style={{ backgroundColor: 'hsl(222 47% 7%)' }}
+    >
+      {/* Background gradient */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at center top, hsl(160 84% 39% / 0.08) 0%, transparent 50%)'
+        }}
+      />
       
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="font-display text-3xl tracking-widest logo-glow mb-2">
+          <h1 className="font-display text-4xl font-extrabold tracking-tight text-foreground mb-2">
             SOULRIDE
           </h1>
           <p className="text-muted-foreground">
@@ -152,7 +159,13 @@ const AuthPage = ({ mode }: AuthPageProps) => {
         </div>
 
         {/* Form Card */}
-        <div className="glass-card p-8 rounded-2xl border border-border/50">
+        <div 
+          className="p-8 rounded-2xl border"
+          style={{
+            backgroundColor: 'hsl(222 40% 10%)',
+            borderColor: 'hsl(222 20% 18%)'
+          }}
+        >
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div className="space-y-2">
@@ -167,7 +180,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="roadwarrior"
-                    className="pl-10 bg-background/50 border-border/50 focus:border-earth-green"
+                    className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
                   />
                 </div>
                 {errors.username && (
@@ -188,7 +201,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="rider@soulride.mk"
-                  className="pl-10 bg-background/50 border-border/50 focus:border-earth-green"
+                  className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
                 />
               </div>
               {errors.email && (
@@ -208,7 +221,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 bg-background/50 border-border/50 focus:border-earth-green"
+                  className="pl-10 pr-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
                 />
                 <button
                   type="button"
@@ -226,7 +239,11 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-earth-green to-soul-amber hover:from-earth-green/90 hover:to-soul-amber/90 text-background font-medium"
+              className="w-full rounded-full font-semibold py-6 transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                background: 'linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(168 80% 42%) 100%)',
+                boxShadow: '0 4px 20px hsl(160 84% 39% / 0.3)'
+              }}
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
@@ -247,7 +264,8 @@ const AuthPage = ({ mode }: AuthPageProps) => {
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <button
                 onClick={() => navigate(isLogin ? "/signup" : "/login")}
-                className="ml-1 text-earth-green-glow hover:underline font-medium"
+                className="ml-1 font-medium hover:underline"
+                style={{ color: 'hsl(160 84% 50%)' }}
               >
                 {isLogin ? "Sign up" : "Sign in"}
               </button>

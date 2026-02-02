@@ -1,8 +1,21 @@
 import { motion } from "framer-motion";
 
-const BikerLogo = ({ size = 40 }: { size?: number }) => {
+interface BikerLogoProps {
+  size?: number | "sm" | "md" | "lg";
+}
+
+const BikerLogo = ({ size = 40 }: BikerLogoProps) => {
+  // Convert size prop to numeric value
+  const numericSize = typeof size === 'number' 
+    ? size 
+    : size === 'sm' 
+      ? 32 
+      : size === 'md' 
+        ? 48 
+        : 64;
+
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className="relative" style={{ width: numericSize, height: numericSize }}>
       <svg
         viewBox="0 0 100 100"
         fill="none"

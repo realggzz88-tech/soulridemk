@@ -4,7 +4,7 @@ import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
 import { SpotsOverviewMap } from "@/components/SpotMap";
 import SpotSearch from "@/components/SpotSearch";
-import { Map, Search } from "lucide-react";
+import { Map } from "lucide-react";
 
 const SpotsPage = () => {
   // Scroll to top on page load
@@ -44,23 +44,29 @@ const SpotsPage = () => {
   }, [selectedTags, selectedRegion]);
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter">
+    <div 
+      className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter"
+      style={{ backgroundColor: 'hsl(222 47% 7%)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl tracking-wider mb-3 sm:mb-4 animate-fade-up" style={{ animationFillMode: 'forwards' }}>
+          <h1 
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-3 sm:mb-4 animate-fade-up text-foreground"
+            style={{ animationFillMode: 'forwards' }}
+          >
             EXPLORE SPOTS
           </h1>
           <p
-            className="text-sm sm:text-base max-w-2xl mx-auto animate-fade-up opacity-0 mb-4 sm:mb-6 px-2"
-            style={{ animationDelay: "0.1s", animationFillMode: 'forwards', color: 'hsl(220 10% 70%)' }}
+            className="text-sm sm:text-base max-w-2xl mx-auto animate-fade-up mb-4 sm:mb-6 px-2 text-muted-foreground"
+            style={{ animationDelay: "0.1s", animationFillMode: 'forwards' }}
           >
             {filteredSpots.length} handpicked destinations across North Macedonia where the road becomes poetry
           </p>
           
           {/* Search Bar */}
           <div 
-            className="flex justify-center animate-fade-up opacity-0"
+            className="flex justify-center animate-fade-up"
             style={{ animationDelay: "0.12s" }}
           >
             <SpotSearch />
@@ -69,12 +75,12 @@ const SpotsPage = () => {
 
         {/* Overview Map */}
         <div
-          className="mb-10 animate-fade-up opacity-0"
+          className="mb-10 animate-fade-up"
           style={{ animationDelay: "0.15s" }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <Map size={20} className="text-earth-green-glow" />
-            <h2 className="font-display text-xl tracking-wide">
+            <Map size={20} style={{ color: 'hsl(160 84% 50%)' }} />
+            <h2 className="font-display text-xl font-bold tracking-tight text-foreground">
               {selectedRegion === "All" ? "ALL LOCATIONS" : `${selectedRegion.toUpperCase()}ERN MACEDONIA`}
             </h2>
             <span className="text-xs text-muted-foreground ml-2">(Click clusters to expand)</span>
@@ -84,7 +90,7 @@ const SpotsPage = () => {
 
         {/* Filter Bar */}
         <div
-          className="mb-10 animate-fade-up opacity-0"
+          className="mb-10 animate-fade-up"
           style={{ animationDelay: "0.2s" }}
         >
           <TagFilter
@@ -101,7 +107,7 @@ const SpotsPage = () => {
           {filteredSpots.map((spot, index) => (
             <div
               key={spot.id}
-              className="animate-fade-up opacity-0"
+              className="animate-fade-up"
               style={{ animationDelay: `${(index + 3) * 50}ms`, animationFillMode: 'forwards' }}
             >
               <SpotCard spot={spot} index={index} />
@@ -117,7 +123,8 @@ const SpotsPage = () => {
             </p>
             <button
               onClick={handleClearAll}
-              className="text-earth-green-glow hover:underline"
+              className="hover:underline"
+              style={{ color: 'hsl(160 84% 50%)' }}
             >
               Clear all filters
             </button>
