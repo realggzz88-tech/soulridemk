@@ -2,99 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Caveat:wght@400;500;600;700&family=Bitter:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    /* Vintage Dark Theme */
-    --background: 222 47% 7%;
-    --foreground: 40 10% 96%;
+    /* Deep Natural Dark Theme - Forest Floor */
+    --background: 200 20% 8%;
+    --foreground: 40 25% 92%;
 
-    --card: 222 35% 11%;
-    --card-foreground: 40 10% 96%;
-    --card-warm: 220 30% 14%;
+    --card: 180 15% 11%;
+    --card-foreground: 40 25% 92%;
+    --card-warm: 160 12% 14%;
 
-    --popover: 222 40% 10%;
-    --popover-foreground: 40 10% 96%;
+    --popover: 190 18% 10%;
+    --popover-foreground: 40 25% 92%;
 
-    /* Muted vintage teal */
-    --primary: 174 72% 40%;
-    --primary-foreground: 40 20% 95%;
+    /* Weathered sage green - muted natural */
+    --primary: 140 22% 42%;
+    --primary-foreground: 40 30% 94%;
 
-    /* Warm vintage secondary */
-    --secondary: 220 25% 16%;
-    --secondary-foreground: 40 10% 88%;
+    /* Deep forest secondary */
+    --secondary: 180 15% 14%;
+    --secondary-foreground: 40 20% 85%;
 
-    --muted: 220 20% 18%;
-    --muted-foreground: 40 8% 55%;
+    --muted: 170 12% 18%;
+    --muted-foreground: 35 15% 50%;
 
-    /* Rusty amber accent */
-    --accent: 21 90% 42%;
-    --accent-foreground: 40 20% 95%;
+    /* Rusty terracotta accent */
+    --accent: 20 45% 38%;
+    --accent-foreground: 40 30% 94%;
 
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 40 10% 98%;
+    --destructive: 0 50% 40%;
+    --destructive-foreground: 40 25% 95%;
 
-    --border: 220 18% 20%;
-    --input: 220 20% 22%;
-    --ring: 174 72% 40%;
+    --border: 170 12% 20%;
+    --input: 170 12% 18%;
+    --ring: 140 22% 42%;
 
     --radius: 0.5rem;
 
-    /* Vintage SoulRide tokens */
-    --vintage-teal: 174 72% 40%;
-    --vintage-teal-soft: 174 60% 50%;
-    --vintage-teal-glow: 180 65% 45%;
+    /* Soul Earth Tokens */
+    --sage-green: 140 22% 42%;
+    --sage-muted: 145 18% 48%;
+    --sage-deep: 138 25% 35%;
+    --sage-glow: 142 20% 55%;
     
-    /* Rusty warm tones */
-    --rust-orange: 21 90% 42%;
-    --rust-amber: 25 85% 48%;
-    --rust-gold: 35 80% 52%;
-    --rust-deep: 18 85% 38%;
+    /* Rusty terracotta/sepia */
+    --rust-terra: 20 45% 38%;
+    --rust-sienna: 15 55% 35%;
+    --rust-warm: 25 40% 45%;
+    --sepia-gold: 35 35% 48%;
+    --sepia-amber: 32 30% 42%;
     
-    /* Aged paper/cream tones */
-    --cream-light: 40 20% 95%;
-    --cream-soft: 38 15% 88%;
-    --cream-aged: 35 12% 78%;
+    /* Aged cream/paper tones */
+    --cream-aged: 40 30% 92%;
+    --cream-paper: 38 25% 88%;
+    --cream-worn: 35 20% 78%;
+    --parchment: 42 35% 85%;
     
-    /* Worn textures */
-    --worn-dark: 220 25% 12%;
-    --worn-charcoal: 218 22% 16%;
-    --patina-green: 170 40% 35%;
+    /* Forest floor browns */
+    --forest-floor: 180 15% 10%;
+    --forest-deep: 170 18% 8%;
+    --bark-brown: 25 20% 22%;
+    --earth-dark: 20 15% 15%;
     
-    /* Legacy/distressed */
-    --distress-shadow: 0 2px 4px hsl(0 0% 0% / 0.4);
+    /* Weathered/patina tones */
+    --patina-green: 155 20% 38%;
+    --oxidized: 165 15% 32%;
     
-    /* Neutral tones */
-    --text-primary: 40 10% 96%;
-    --text-secondary: 40 8% 70%;
-    --text-muted: 40 5% 55%;
+    /* Text layers */
+    --text-primary: 40 25% 92%;
+    --text-secondary: 35 18% 65%;
+    --text-muted: 30 12% 48%;
+    --text-faded: 28 10% 40%;
     
-    /* Vintage gradients */
-    --gradient-rust: linear-gradient(135deg, hsl(21 90% 42%) 0%, hsl(25 85% 48%) 100%);
-    --gradient-teal: linear-gradient(135deg, hsl(174 72% 40%) 0%, hsl(180 65% 45%) 100%);
-    --gradient-aged: linear-gradient(180deg, hsl(222 35% 11%) 0%, hsl(220 30% 14%) 100%);
-    --gradient-leather: linear-gradient(145deg, hsl(25 30% 18%) 0%, hsl(20 25% 12%) 100%);
+    /* Natural gradients */
+    --gradient-sage: linear-gradient(135deg, hsl(140 22% 42%) 0%, hsl(145 18% 48%) 100%);
+    --gradient-rust: linear-gradient(135deg, hsl(20 45% 38%) 0%, hsl(25 40% 45%) 100%);
+    --gradient-forest: linear-gradient(180deg, hsl(180 15% 11%) 0%, hsl(170 18% 8%) 100%);
+    --gradient-sepia: linear-gradient(145deg, hsl(35 35% 48% / 0.2) 0%, transparent 100%);
+    --gradient-dusk: linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(25 15% 12%) 100%);
     
-    /* Vintage shadows */
-    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.6);
-    --shadow-vintage: 0 2px 8px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(40 20% 95% / 0.05);
-    --shadow-badge: inset 0 2px 4px hsl(0 0% 0% / 0.3), 0 1px 0 hsl(40 20% 95% / 0.1);
-    --shadow-emboss: inset 0 -2px 4px hsl(0 0% 0% / 0.2), inset 0 2px 4px hsl(40 20% 95% / 0.05);
+    /* Analog shadows */
+    --shadow-worn: 0 4px 16px -4px hsl(0 0% 0% / 0.6), 0 2px 4px hsl(0 0% 0% / 0.4);
+    --shadow-emboss: inset 0 1px 0 hsl(40 30% 94% / 0.05), inset 0 -1px 0 hsl(0 0% 0% / 0.3);
+    --shadow-stitch: 0 0 0 2px hsl(170 12% 20%), 0 0 0 4px hsl(180 15% 11%);
+    --shadow-polaroid: 0 6px 20px -4px hsl(0 0% 0% / 0.5), 0 2px 6px hsl(0 0% 0% / 0.3);
 
-    --sidebar-background: 222 40% 9%;
-    --sidebar-foreground: 40 10% 90%;
-    --sidebar-primary: 174 72% 40%;
-    --sidebar-primary-foreground: 40 20% 95%;
-    --sidebar-accent: 21 90% 42%;
-    --sidebar-accent-foreground: 40 20% 95%;
-    --sidebar-border: 220 18% 20%;
-    --sidebar-ring: 174 72% 40%;
+    --sidebar-background: 180 18% 9%;
+    --sidebar-foreground: 40 20% 88%;
+    --sidebar-primary: 140 22% 42%;
+    --sidebar-primary-foreground: 40 30% 94%;
+    --sidebar-accent: 20 45% 38%;
+    --sidebar-accent-foreground: 40 30% 94%;
+    --sidebar-border: 170 12% 18%;
+    --sidebar-ring: 140 22% 42%;
   }
 
   .dark {
-    --background: 222 47% 7%;
-    --foreground: 40 10% 96%;
+    --background: 200 20% 8%;
+    --foreground: 40 25% 92%;
   }
 }
 
@@ -111,38 +118,40 @@
 
   body {
     @apply bg-background antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    letter-spacing: 0.01em;
-    line-height: 1.7;
+    font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
     color: hsl(var(--foreground));
     overflow-x: hidden;
-    background-color: hsl(222 47% 7%);
+    background-color: hsl(200 20% 8%);
   }
 
-  /* Vintage headings - retro slab/condensed feel */
+  /* Vintage headings - letterpress feel */
   h1, h2, h3 {
-    font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
-    font-weight: 400;
-    color: hsl(var(--foreground));
-    letter-spacing: 2px;
+    font-family: 'Bitter', 'Rockwell', 'Georgia', serif;
+    font-weight: 700;
+    color: hsl(var(--cream-aged));
+    letter-spacing: 1px;
     text-transform: uppercase;
   }
 
   h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 600;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-weight: 700;
     color: hsl(var(--foreground) / 0.9);
     letter-spacing: 0.5px;
   }
 
-  p, span, a, li {
-    letter-spacing: 0.01em;
-    line-height: 1.75;
+  p, span, li {
+    letter-spacing: 0.02em;
+    line-height: 1.85;
   }
 }
 
 @layer components {
-  /* ===== VINTAGE GRAIN/NOISE OVERLAY ===== */
+  /* ===== AGED PAPER & NATURAL TEXTURES ===== */
+  
+  /* Canvas/paper grain overlay */
   .grain-overlay {
     position: relative;
   }
@@ -152,120 +161,107 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.08;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
     mix-blend-mode: overlay;
   }
   
-  /* Aged paper texture */
-  .aged-paper {
-    position: relative;
+  /* Coffee stain effect */
+  .coffee-stain::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, hsl(30 40% 30% / 0.08) 0%, hsl(25 35% 25% / 0.04) 40%, transparent 70%);
+    pointer-events: none;
   }
   
-  .aged-paper::before {
+  /* Aged parchment texture */
+  .aged-parchment {
+    position: relative;
+    background: linear-gradient(145deg, hsl(40 20% 12%) 0%, hsl(35 15% 10%) 100%);
+  }
+  
+  .aged-parchment::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background: 
+      radial-gradient(ellipse at 25% 25%, hsl(35 40% 50% / 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 75% 60%, hsl(25 45% 45% / 0.2) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 80%, hsl(30 35% 55% / 0.15) 0%, transparent 40%);
+  }
+  
+  /* Pine needle scatter */
+  .pine-scatter::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
     opacity: 0.03;
-    background: 
-      radial-gradient(ellipse at 20% 30%, hsl(35 40% 60% / 0.3) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, hsl(25 50% 50% / 0.2) 0%, transparent 40%),
-      radial-gradient(ellipse at 50% 50%, hsl(40 30% 70% / 0.15) 0%, transparent 60%);
-  }
-  
-  /* Vignette effect */
-  .vignette {
-    position: relative;
-  }
-  
-  .vignette::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.4) 100%);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M10 20 L18 22 L10 24 Z' fill='%235F7A6A' opacity='0.6'/%3E%3Cpath d='M50 45 L58 44 L52 48 Z' fill='%235F7A6A' opacity='0.4'/%3E%3Cpath d='M30 65 L36 63 L32 68 Z' fill='%238B4513' opacity='0.3'/%3E%3Cpath d='M65 15 L72 17 L66 20 Z' fill='%235F7A6A' opacity='0.5'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
 
-  /* ===== VINTAGE ANIMATIONS ===== */
+  /* ===== NATURAL ANIMATIONS ===== */
   
-  /* Old film flicker */
-  @keyframes film-flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.98; }
-    75% { opacity: 0.99; }
+  /* Gentle leaf flutter */
+  @keyframes leaf-flutter {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    25% { transform: translateY(-6px) rotate(3deg); opacity: 0.8; }
+    50% { transform: translateY(-3px) rotate(-2deg); opacity: 0.7; }
+    75% { transform: translateY(-8px) rotate(4deg); opacity: 0.9; }
   }
   
-  .film-flicker {
-    animation: film-flicker 0.1s infinite;
+  .leaf-flutter {
+    animation: leaf-flutter 5s ease-in-out infinite;
   }
   
-  /* Typewriter cursor */
-  @keyframes typewriter-blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+  /* Dust trail on hover */
+  @keyframes dust-trail {
+    0% { transform: translateX(0) scale(1); opacity: 0.5; }
+    50% { transform: translateX(8px) scale(0.8); opacity: 0.8; }
+    100% { transform: translateX(20px) scale(0.3); opacity: 0; }
   }
   
-  .typewriter-cursor::after {
-    content: '|';
-    animation: typewriter-blink 1s infinite;
-    color: hsl(var(--rust-orange));
-  }
-  
-  /* Fade from road */
-  @keyframes fade-from-road {
-    0% { 
-      opacity: 0; 
-      transform: translateY(20px);
-      filter: blur(4px);
-    }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0);
-      filter: blur(0);
-    }
-  }
-  
-  .fade-from-road {
-    animation: fade-from-road 0.8s ease-out forwards;
-  }
-  
-  /* Gentle leaf scatter on hover */
-  @keyframes leaf-scatter {
-    0% { transform: translateX(0) rotate(0deg); opacity: 0.7; }
-    50% { transform: translateX(15px) rotate(45deg); opacity: 1; }
-    100% { transform: translateX(30px) rotate(90deg); opacity: 0; }
-  }
-  
-  .leaf-scatter:hover::before {
-    animation: leaf-scatter 0.8s ease-out forwards;
-  }
-  
-  /* Distressed text shadow */
-  .text-distressed {
-    text-shadow: 
-      1px 1px 0 hsl(0 0% 0% / 0.3),
-      -1px -1px 0 hsl(40 20% 95% / 0.05),
-      2px 2px 4px hsl(0 0% 0% / 0.2);
-  }
-  
-  /* Vintage glow - warm and subtle */
-  @keyframes vintage-glow {
+  /* Campfire glow */
+  @keyframes campfire-glow {
     0%, 100% { 
-      text-shadow: 0 0 10px hsl(21 90% 42% / 0.3);
-      filter: brightness(1);
+      box-shadow: 0 0 20px hsl(25 50% 35% / 0.2), 0 0 40px hsl(20 45% 30% / 0.1);
     }
     50% { 
-      text-shadow: 0 0 20px hsl(21 90% 42% / 0.5), 0 0 40px hsl(25 85% 48% / 0.2);
-      filter: brightness(1.02);
+      box-shadow: 0 0 30px hsl(25 50% 40% / 0.3), 0 0 60px hsl(20 45% 35% / 0.15);
     }
   }
   
-  .vintage-glow {
-    animation: vintage-glow 4s ease-in-out infinite;
+  .campfire-glow {
+    animation: campfire-glow 4s ease-in-out infinite;
   }
   
-  /* Arrow forward animation */
+  /* Typewriter underline */
+  @keyframes typewriter-underline {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+  
+  /* Vintage pulse - warm and subtle */
+  @keyframes vintage-pulse {
+    0%, 100% { 
+      text-shadow: 0 0 8px hsl(140 22% 42% / 0.2), 2px 2px 0 hsl(0 0% 0% / 0.3);
+    }
+    50% { 
+      text-shadow: 0 0 15px hsl(140 22% 42% / 0.3), 2px 2px 0 hsl(0 0% 0% / 0.3);
+    }
+  }
+  
+  .vintage-pulse {
+    animation: vintage-pulse 5s ease-in-out infinite;
+  }
+  
+  /* Arrow forward */
   @keyframes arrow-forward {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(4px); }
@@ -274,216 +270,298 @@
   .arrow-animate:hover .arrow-icon {
     animation: arrow-forward 0.8s ease-in-out infinite;
   }
+  
+  /* Leaf burst on hover */
+  @keyframes leaf-burst {
+    0% { transform: scale(0) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+    100% { transform: scale(0.5) rotate(360deg) translateX(20px); opacity: 0; }
+  }
 
-  /* ===== VINTAGE OVERLAYS ===== */
+  /* ===== NATURAL OVERLAYS ===== */
   
-  /* Road curve overlay - more worn */
-  .road-overlay {
-    position: relative;
-  }
-  
-  .road-overlay::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath d='M0 350 Q100 300 150 200 T300 50' stroke='%230EA5E9' stroke-width='3' fill='none' stroke-dasharray='10,5'/%3E%3Cpath d='M50 400 Q150 320 200 220 T380 80' stroke='%23C2410C' stroke-width='2' fill='none' opacity='0.6' stroke-dasharray='8,4'/%3E%3C/svg%3E");
-    background-size: cover;
-  }
-  
-  /* Mountain silhouette - aged */
-  .mountain-overlay {
-    position: relative;
-  }
-  
-  .mountain-overlay::before {
+  /* Misty mountain silhouette */
+  .mountain-mist::before {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 180px;
+    height: 200px;
     pointer-events: none;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 200 L100 150 L200 180 L350 80 L450 130 L550 60 L650 100 L750 40 L850 90 L950 30 L1050 80 L1150 50 L1200 70 L1200 200 Z' fill='%230EA5E9'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M0 200 L80 160 L180 185 L300 100 L400 140 L500 70 L600 110 L720 45 L820 90 L920 35 L1020 80 L1120 55 L1200 75 L1200 200 Z' fill='%235F7A6A'/%3E%3C/svg%3E");
     background-size: cover;
     background-position: bottom;
-    filter: grayscale(30%);
+    filter: blur(1px);
   }
-
-  /* ===== VINTAGE COMPONENTS ===== */
   
-  /* Logo glow - vintage warm */
-  .logo-glow {
-    color: hsl(var(--vintage-teal));
-    filter: drop-shadow(0 0 8px hsl(174 72% 40% / 0.4)) drop-shadow(0 2px 4px hsl(0 0% 0% / 0.5));
-    transition: filter 0.3s ease;
+  /* Sepia horizon glow */
+  .horizon-glow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    pointer-events: none;
+    background: linear-gradient(to top, hsl(25 30% 15% / 0.4) 0%, transparent 100%);
+  }
+  
+  /* Road dust overlay */
+  .road-dust {
+    position: relative;
+  }
+  
+  .road-dust::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cpath d='M-50 350 Q150 280 280 220 T500 100 T700 20' stroke='%238B7355' stroke-width='2' fill='none' stroke-dasharray='12,6' opacity='0.5'/%3E%3Cpath d='M0 380 Q180 300 320 240 T550 130' stroke='%235F7A6A' stroke-width='1.5' fill='none' stroke-dasharray='8,4' opacity='0.4'/%3E%3C/svg%3E");
+    background-size: cover;
   }
 
-  .logo-glow:hover {
-    filter: drop-shadow(0 0 15px hsl(174 72% 40% / 0.5)) drop-shadow(0 2px 4px hsl(0 0% 0% / 0.5)) drop-shadow(0 0 25px hsl(21 90% 42% / 0.2));
+  /* ===== SOUL COMPONENTS ===== */
+  
+  /* Logo with patina glow */
+  .logo-soul {
+    color: hsl(var(--sage-green));
+    filter: drop-shadow(0 0 6px hsl(140 22% 42% / 0.3)) drop-shadow(2px 2px 4px hsl(0 0% 0% / 0.5));
+    transition: filter 0.4s ease;
   }
 
-  /* Hero title - vintage distressed */
-  .hero-title-vintage {
-    font-family: 'Bebas Neue', Impact, sans-serif;
-    letter-spacing: 4px;
+  .logo-soul:hover {
+    filter: drop-shadow(0 0 12px hsl(140 22% 42% / 0.4)) drop-shadow(2px 2px 4px hsl(0 0% 0% / 0.5)) drop-shadow(0 0 20px hsl(25 40% 40% / 0.2));
+  }
+
+  /* Hero title - letterpress feel */
+  .hero-title-soul {
+    font-family: 'Bitter', 'Rockwell', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: hsl(var(--cream-light));
+    color: hsl(var(--cream-aged));
     text-shadow: 
-      2px 2px 0 hsl(0 0% 0% / 0.4),
-      -1px -1px 0 hsl(40 20% 95% / 0.1),
-      4px 4px 8px hsl(0 0% 0% / 0.3);
+      3px 3px 0 hsl(0 0% 0% / 0.5),
+      -1px -1px 0 hsl(40 30% 94% / 0.08),
+      0 0 20px hsl(140 22% 42% / 0.15);
   }
   
-  /* Subtitle - typewriter style */
-  .hero-subtitle-vintage {
+  /* Handwritten subtitle */
+  .hero-subtitle-soul {
+    font-family: 'Caveat', 'Brush Script MT', cursive;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: hsl(var(--sage-muted));
+  }
+  
+  /* Typewriter text */
+  .typewriter {
     font-family: 'Special Elite', 'Courier New', monospace;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: hsl(var(--vintage-teal));
+    letter-spacing: 1px;
   }
 
-  /* Vintage card - leather patch feel */
+  /* Polaroid frame */
+  .polaroid-frame {
+    @apply relative p-3 pb-12;
+    background: linear-gradient(145deg, hsl(40 20% 90%) 0%, hsl(35 15% 82%) 100%);
+    box-shadow: var(--shadow-polaroid);
+    transform: rotate(-1.5deg);
+  }
+  
+  .polaroid-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 0 30px hsl(30 20% 50% / 0.1);
+  }
+  
+  .polaroid-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: hsl(30 15% 70%);
+    opacity: 0.5;
+  }
+  
+  /* Worn corners */
+  .worn-corners {
+    position: relative;
+  }
+  
+  .worn-corners::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, hsl(35 20% 82%) 0%, transparent 50%);
+    border-radius: 0 0 12px 0;
+    opacity: 0.6;
+  }
+  
+  .worn-corners::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(315deg, hsl(35 20% 82%) 0%, transparent 50%);
+    border-radius: 12px 0 0 0;
+    opacity: 0.6;
+  }
+
+  /* Soul card - leather/worn feel */
+  .soul-card {
+    @apply relative overflow-hidden rounded-lg;
+    background: var(--gradient-forest);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-worn), var(--shadow-emboss);
+  }
+  
+  .soul-card:hover {
+    border-color: hsl(var(--sage-green) / 0.4);
+  }
+
+  /* Vintage card */
   .vintage-card {
     @apply relative overflow-hidden rounded-lg;
-    background: var(--gradient-aged);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-vintage);
+    box-shadow: var(--shadow-worn);
   }
   
   .vintage-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: inherit;
     pointer-events: none;
-    box-shadow: inset 0 1px 0 hsl(40 20% 95% / 0.05), inset 0 -1px 0 hsl(0 0% 0% / 0.2);
+    box-shadow: var(--shadow-emboss);
+    border-radius: inherit;
   }
 
   .vintage-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card), 0 0 20px hsl(174 72% 40% / 0.1);
-    border-color: hsl(var(--vintage-teal) / 0.3);
-  }
-  
-  /* Soul card - for content areas */
-  .soul-card {
-    @apply relative overflow-hidden rounded-lg;
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-vintage);
-  }
-  
-  .soul-card:hover {
-    border-color: hsl(var(--vintage-teal) / 0.4);
-  }
-  
-  /* Polaroid frame */
-  .polaroid-frame {
-    @apply relative p-2 pb-8;
-    background: linear-gradient(145deg, hsl(40 15% 92%) 0%, hsl(35 12% 85%) 100%);
-    box-shadow: 
-      0 4px 12px hsl(0 0% 0% / 0.3),
-      inset 0 1px 0 hsl(40 20% 98%),
-      inset 0 -1px 0 hsl(30 15% 75%);
-    transform: rotate(-1deg);
-  }
-  
-  .polaroid-frame::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 1px;
-    background: hsl(30 20% 70%);
+    transform: translateY(-3px);
+    border-color: hsl(var(--sage-green) / 0.3);
   }
 
-  /* Tag pills - vintage */
+  /* Tag pills - natural */
   .tag-pill {
     @apply px-3 py-1 text-xs font-medium rounded-full;
-    background: hsl(var(--vintage-teal) / 0.15);
-    color: hsl(var(--vintage-teal-soft));
-    border: 1px solid hsl(var(--vintage-teal) / 0.3);
+    background: hsl(var(--sage-green) / 0.12);
+    color: hsl(var(--sage-muted));
+    border: 1px solid hsl(var(--sage-green) / 0.25);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
   
   .tag-pill-rust {
     @apply px-3 py-1 text-xs font-medium rounded-full;
-    background: hsl(var(--rust-orange) / 0.15);
-    color: hsl(var(--rust-amber));
-    border: 1px solid hsl(var(--rust-orange) / 0.3);
+    background: hsl(var(--rust-terra) / 0.12);
+    color: hsl(var(--rust-warm));
+    border: 1px solid hsl(var(--rust-terra) / 0.25);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
-  /* Premium button styles - vintage badge */
-  .btn-primary-vintage {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
-    background: var(--gradient-teal);
-    color: hsl(var(--cream-light));
-    box-shadow: var(--shadow-badge);
+  /* Soul buttons - stitched leather/metal feel */
+  .btn-soul-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
+    font-family: 'Special Elite', 'Courier New', monospace;
+    background: var(--gradient-sage);
+    color: hsl(var(--cream-aged));
+    box-shadow: var(--shadow-emboss), 0 4px 12px hsl(140 22% 35% / 0.25);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.875rem;
+    letter-spacing: 1.5px;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-soul-primary::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px dashed hsl(40 30% 94% / 0.15);
+    border-radius: inherit;
+    pointer-events: none;
   }
 
-  .btn-primary-vintage:hover {
+  .btn-soul-primary:hover {
     transform: scale(0.98);
-    filter: brightness(1.1);
-    box-shadow: var(--shadow-emboss);
+    filter: brightness(1.08);
+    box-shadow: var(--shadow-emboss), 0 6px 16px hsl(140 22% 35% / 0.3);
   }
   
   .btn-rust {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
+    font-family: 'Special Elite', 'Courier New', monospace;
     background: var(--gradient-rust);
-    color: hsl(var(--cream-light));
-    box-shadow: var(--shadow-badge);
+    color: hsl(var(--cream-aged));
+    box-shadow: var(--shadow-emboss), 0 4px 12px hsl(20 45% 35% / 0.25);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.875rem;
+    letter-spacing: 1.5px;
+    font-size: 0.8rem;
+    position: relative;
+  }
+  
+  .btn-rust::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px dashed hsl(40 30% 94% / 0.12);
+    border-radius: inherit;
+    pointer-events: none;
   }
 
   .btn-rust:hover {
     transform: scale(0.98);
-    filter: brightness(1.1);
-    box-shadow: var(--shadow-emboss);
+    filter: brightness(1.08);
   }
 
-  .btn-secondary-vintage {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-200;
+  .btn-soul-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium transition-all duration-300;
+    font-family: 'Special Elite', 'Courier New', monospace;
     background: transparent;
-    color: hsl(var(--vintage-teal));
-    border: 2px solid hsl(var(--vintage-teal));
+    color: hsl(var(--sage-green));
+    border: 2px solid hsl(var(--sage-green) / 0.6);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.875rem;
+    letter-spacing: 1.5px;
+    font-size: 0.8rem;
   }
 
-  .btn-secondary-vintage:hover {
-    background: hsl(var(--vintage-teal) / 0.1);
+  .btn-soul-secondary:hover {
+    background: hsl(var(--sage-green) / 0.1);
     transform: scale(0.98);
+    border-color: hsl(var(--sage-green));
   }
 
-  /* Glass card - aged */
+  /* Glass vintage */
   .glass-vintage {
-    background: hsl(var(--card) / 0.9);
+    background: hsl(var(--card) / 0.85);
     backdrop-filter: blur(8px);
     border: 1px solid hsl(var(--border) / 0.6);
-    box-shadow: var(--shadow-vintage);
+    box-shadow: var(--shadow-worn);
   }
 
   /* Navigation link - vintage */
   .nav-link {
     @apply relative py-2 text-sm font-medium transition-colors;
+    font-family: 'Special Elite', 'Courier New', monospace;
     color: hsl(var(--muted-foreground));
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-size: 0.7rem;
   }
 
   .nav-link:hover {
@@ -491,13 +569,14 @@
   }
 
   .nav-link.active {
-    color: hsl(var(--vintage-teal));
+    color: hsl(var(--sage-green));
   }
 
   .nav-link.active::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-full h-0.5 rounded-full;
-    background: hsl(var(--vintage-teal));
+    @apply absolute bottom-0 left-0 w-full h-0.5;
+    background: hsl(var(--sage-green));
+    box-shadow: 0 0 8px hsl(var(--sage-green) / 0.4);
   }
 
   /* Input vintage style */
@@ -507,6 +586,7 @@
     border: 1px solid hsl(var(--border));
     color: hsl(var(--foreground));
     font-family: 'Special Elite', 'Courier New', monospace;
+    letter-spacing: 0.5px;
   }
   
   .input-vintage::placeholder {
@@ -516,158 +596,124 @@
   
   .input-vintage:focus {
     outline: none;
-    border-color: hsl(var(--vintage-teal));
-    box-shadow: 0 0 0 2px hsl(var(--vintage-teal) / 0.2);
+    border-color: hsl(var(--sage-green));
+    box-shadow: 0 0 0 2px hsl(var(--sage-green) / 0.15);
   }
 
-  /* Bulletin board style */
-  .bulletin-card {
-    @apply relative p-4 rounded;
-    background: hsl(35 25% 90%);
-    box-shadow: 
-      2px 2px 8px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(40 30% 95%);
-    transform: rotate(-0.5deg);
+  /* Logbook entry style */
+  .logbook-entry {
+    @apply relative p-4 rounded-lg;
+    background: hsl(var(--card));
+    border-left: 3px solid hsl(var(--rust-terra));
+    box-shadow: var(--shadow-worn);
   }
   
-  .bulletin-card::before {
+  .logbook-entry::before {
     content: '';
     position: absolute;
     top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 16px;
-    background: radial-gradient(circle, hsl(21 90% 42%) 0%, hsl(18 85% 38%) 100%);
+    left: -8px;
+    width: 12px;
+    height: 12px;
+    background: hsl(var(--rust-terra));
     border-radius: 50%;
-    box-shadow: inset 0 2px 4px hsl(0 0% 0% / 0.3), 0 2px 4px hsl(0 0% 0% / 0.2);
+    box-shadow: inset 0 1px 2px hsl(0 0% 0% / 0.3);
   }
 
-  /* Handwriting font for captions */
-  .handwriting {
-    font-family: 'Special Elite', 'Courier New', monospace;
-    font-size: 0.875rem;
-    letter-spacing: 0.5px;
-  }
-
-  /* Worn photo corners */
-  .worn-corners {
-    position: relative;
+  /* Torn notebook style */
+  .torn-page {
+    @apply relative p-4;
+    background: hsl(var(--card));
   }
   
-  .worn-corners::before,
-  .worn-corners::after {
+  .torn-page::before {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: hsl(35 20% 85%);
-    box-shadow: inset 0 1px 2px hsl(0 0% 0% / 0.1);
-  }
-  
-  .worn-corners::before {
-    top: -2px;
-    left: -2px;
-    border-radius: 0 0 8px 0;
-  }
-  
-  .worn-corners::after {
-    bottom: -2px;
-    right: -2px;
-    border-radius: 8px 0 0 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: repeating-linear-gradient(
+      to bottom,
+      hsl(var(--rust-terra)) 0px,
+      hsl(var(--rust-terra)) 4px,
+      transparent 4px,
+      transparent 8px
+    );
   }
 
-  /* Map pin vintage */
-  .map-pin-vintage {
-    filter: drop-shadow(0 2px 4px hsl(0 0% 0% / 0.4));
-  }
-  
-  .map-pin-vintage::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: hsl(var(--rust-orange) / 0.3);
-    filter: blur(8px);
-    z-index: -1;
-  }
-
-  /* Message bubble vintage */
+  /* Message bubble - notebook feel */
   .message-bubble {
     @apply relative p-3 rounded-lg;
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
+    box-shadow: 0 2px 6px hsl(0 0% 0% / 0.2);
   }
   
   .message-bubble-own {
     @apply relative p-3 rounded-lg;
-    background: hsl(var(--vintage-teal) / 0.15);
-    border: 1px solid hsl(var(--vintage-teal) / 0.3);
+    background: hsl(var(--sage-green) / 0.12);
+    border: 1px solid hsl(var(--sage-green) / 0.25);
+  }
+
+  /* Brass tack / pin style */
+  .brass-tack {
+    position: relative;
   }
   
-  .message-bubble-own::after {
-    content: '🍃';
+  .brass-tack::before {
+    content: '';
     position: absolute;
-    right: -8px;
-    bottom: -4px;
-    font-size: 10px;
-    opacity: 0.5;
-    transform: rotate(45deg);
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, hsl(35 50% 55%) 0%, hsl(30 45% 40%) 50%, hsl(25 40% 30%) 100%);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px hsl(0 0% 0% / 0.4), inset 0 1px 2px hsl(40 50% 70% / 0.3);
   }
 
   /* Spot card - vintage */
   .spot-card {
     @apply relative overflow-hidden rounded-xl transition-all duration-300 ease-out;
-    background: var(--gradient-aged);
+    background: var(--gradient-forest);
     border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-vintage);
+    box-shadow: var(--shadow-worn);
   }
 
   .spot-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-card), 0 0 25px hsl(174 72% 40% / 0.15);
-    border-color: hsl(var(--vintage-teal) / 0.4);
+    box-shadow: var(--shadow-polaroid);
+    border-color: hsl(var(--sage-green) / 0.35);
   }
 
-  /* Route background gradient */
-  .route-card-bg {
-    position: relative;
-    overflow: hidden;
+  /* Sepia filter for images */
+  .sepia-vintage {
+    filter: sepia(25%) saturate(80%) contrast(95%) brightness(95%);
+    transition: filter 0.3s ease;
   }
   
-  .route-card-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath d='M0 80 Q50 60 100 70 T200 50' stroke='%230EA5E9' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-    background-size: 200px;
-    background-repeat: repeat-x;
-    background-position: bottom;
+  .sepia-vintage:hover {
+    filter: sepia(15%) saturate(90%) contrast(100%) brightness(100%);
   }
 
-  /* Profile photo frame - leaf border */
+  /* Profile frame - with leaf border */
   .profile-frame {
     @apply relative rounded-full p-1;
-    background: var(--gradient-teal);
-    box-shadow: 0 4px 12px hsl(174 72% 40% / 0.3);
-  }
-  
-  .profile-frame::before {
-    content: '🌿';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
+    background: var(--gradient-sage);
+    box-shadow: 0 4px 12px hsl(140 22% 35% / 0.25);
   }
 
-  /* Ensure smooth transitions globally */
-  * {
-    transition-timing-function: ease-out;
+  /* Handwriting style */
+  .handwriting {
+    font-family: 'Caveat', 'Brush Script MT', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    font-weight: 500;
   }
-  
-  /* Custom scrollbar - vintage */
+
+  /* Custom scrollbar - natural */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -682,6 +728,6 @@
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--vintage-teal) / 0.5);
+    background: hsl(var(--sage-green) / 0.4);
   }
 }
