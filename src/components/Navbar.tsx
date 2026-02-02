@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useFavorites } from "@/hooks/use-favorites";
+import UserMenu from "@/components/UserMenu";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { count: favoritesCount } = useFavorites();
+  const { user } = useAuth();
 
   // Handle scroll for navbar styling
   useEffect(() => {
@@ -27,6 +30,7 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/spots", label: "Explore Spots" },
+    { to: "/chat", label: "Community" },
     { to: "/about", label: "About" },
   ];
 
@@ -93,6 +97,9 @@ const Navbar = () => {
                 <span className="font-medium tracking-wide">{favoritesCount}</span>
               )}
             </Link>
+            
+            {/* User Menu */}
+            <UserMenu />
           </div>
 
           {/* Mobile Menu Button */}
