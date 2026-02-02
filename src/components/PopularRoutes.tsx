@@ -4,17 +4,30 @@ import { Clock, Route, ChevronRight, Star, Mountain, MapPin } from "lucide-react
 import { cn } from "@/lib/utils";
 import { popularRoutes } from "@/data/journeyData";
 
-interface PopularRoutesProps {
-  onSelectRoute?: (startLocation: string, endLocation: string) => void;
-}
-
-const PopularRoutes = ({ onSelectRoute }: PopularRoutesProps) => {
+const PopularRoutes = () => {
   const [hoveredRoute, setHoveredRoute] = useState<string | null>(null);
 
   const difficultyColors = {
     easy: "text-earth-green-glow bg-earth-green/20",
     moderate: "text-mountain-blue bg-mountain-blue/20",
     challenging: "text-soul-amber bg-soul-amber/20",
+  };
+
+  const handleSelectRoute = (route: typeof popularRoutes[0]) => {
+    // Dispatch event to prefill journey planner
+    const event = new CustomEvent("prefillJourney", {
+      detail: {
+        startLocation: route.startLocation,
+        endLocation: route.endLocation,
+        preferences: {
+          prioritizeViews: true,
+          includeFoodStops: true,
+          maxDriveTime: route.difficulty === "easy" ? 4 : route.difficulty === "moderate" ? 6 : 8,
+          adventureLevel: route.difficulty,
+        },
+      },
+    });
+    window.dispatchEvent(event);
   };
 
   return (
@@ -33,7 +46,7 @@ const PopularRoutes = ({ onSelectRoute }: PopularRoutesProps) => {
             MOST LOVED SOULRIDES
           </h2>
           <p className="max-w-2xl mx-auto text-muted-foreground">
-            Curated routes tested by soul riders. Each journey chosen for its perfect blend of views, roads, and local flavors.
+            Curated routes tested by soul riders. Click any route to auto-fill the journey planner above.
           </p>
         </div>
 
@@ -43,13 +56,14 @@ const PopularRoutes = ({ onSelectRoute }: PopularRoutesProps) => {
             <div
               key={route.id}
               className={cn(
-                "group relative rounded-2xl overflow-hidden border transition-all duration-500",
+                "group relative rounded-2xl overflow-hidden border transition-all duration-500 cursor-pointer",
                 hoveredRoute === route.id 
                   ? "border-soul-amber/50 shadow-[0_0_40px_hsl(var(--amber-soul)/0.2)]" 
                   : "border-border/30"
               )}
               onMouseEnter={() => setHoveredRoute(route.id)}
               onMouseLeave={() => setHoveredRoute(null)}
+              onClick={() => handleSelectRoute(route)}
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -115,8 +129,7 @@ const PopularRoutes = ({ onSelectRoute }: PopularRoutesProps) => {
 
                 {/* Action Button */}
                 <button
-                  onClick={() => onSelectRoute?.(route.startLocation, route.endLocation)}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-muted/30 border border-border/30 text-foreground/80 hover:bg-soul-amber/20 hover:border-soul-amber/30 hover:text-soul-amber transition-all duration-300"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-muted/30 border border-border/30 text-foreground/80 group-hover:bg-soul-amber/20 group-hover:border-soul-amber/30 group-hover:text-soul-amber transition-all duration-300"
                 >
                   <Route size={16} />
                   <span className="text-sm font-medium">Plan This Journey</span>
