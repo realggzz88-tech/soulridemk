@@ -5,16 +5,16 @@ import SoulQuote from "@/components/SoulQuote";
 import DailySoulGem from "@/components/DailySoulGem";
 import FeaturedEasternLoop from "@/components/FeaturedEasternLoop";
 import RouteSuggestions from "@/components/RouteSuggestions";
-import HeroCarousel from "@/components/HeroCarousel";
+import HeroSection from "@/components/HeroSection";
 import JourneyPlanner from "@/components/JourneyPlanner";
 import PopularRoutes from "@/components/PopularRoutes";
 import WhySoulRide from "@/components/WhySoulRide";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen">
-      {/* Hero Carousel - Calm, immersive showcase */}
-      <HeroCarousel />
+    <div className="min-h-screen" style={{ background: '#0F172A' }}>
+      {/* Hero Section - Minimal, premium */}
+      <HeroSection />
 
       {/* Why SoulRide - Organic feature cards */}
       <WhySoulRide />
@@ -37,12 +37,10 @@ const HomePage = () => {
       {/* Inspiration Search */}
       <InspirationSearch />
 
-      {/* Features Section - Organic styling */}
+      {/* Features Section */}
       <section 
         className="py-20 sm:py-28 px-4 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, hsl(200 12% 12%) 0%, hsl(180 15% 14%) 50%, hsl(200 12% 12%) 100%)'
-        }}
+        style={{ background: '#0F172A' }}
       >
         {/* Subtle organic background shapes */}
         <div 
@@ -148,21 +146,17 @@ const HomePage = () => {
       {/* Soul Quote Section */}
       <section 
         className="py-14 px-4 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, hsl(200 12% 12%) 0%, hsl(200 10% 14%) 100%)'
-        }}
+        style={{ background: '#0F172A' }}
       >
         <div className="max-w-3xl mx-auto relative z-10">
           <SoulQuote />
         </div>
       </section>
 
-      {/* CTA Section - Organic feel */}
+      {/* CTA Section */}
       <section 
         className="py-20 sm:py-28 px-4 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, hsl(200 10% 14%) 0%, hsl(180 15% 15%) 50%, hsl(200 12% 12%) 100%)'
-        }}
+        style={{ background: '#0F172A' }}
       >
         {/* Soft gradient orb */}
         <div 
