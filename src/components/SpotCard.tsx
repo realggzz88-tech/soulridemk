@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Spot } from "@/data/spots";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Bike } from "lucide-react";
 import FavoriteButton from "./FavoriteButton";
 import ShareButtons from "./ShareButtons";
 
@@ -12,12 +12,9 @@ interface SpotCardProps {
 const SpotCard = ({ spot, index }: SpotCardProps) => {
   return (
     <div
-      className="group block rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+      className="group block rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 soul-card"
       style={{
         animationDelay: `${index * 100}ms`,
-        backgroundColor: 'hsl(222 40% 10%)',
-        border: '1px solid hsl(222 20% 18%)',
-        boxShadow: '0 4px 24px -4px hsl(222 47% 3% / 0.5)',
       }}
     >
       <Link to={`/spots/${spot.id}`}>
@@ -32,13 +29,14 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           
-          {/* Poetic Tagline Overlay */}
+          {/* Poetic Tagline Overlay with soul glow */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
             <div 
               className="backdrop-blur-md px-5 py-3 rounded-xl border"
               style={{
                 backgroundColor: 'hsl(222 40% 10% / 0.9)',
-                borderColor: 'hsl(160 84% 39% / 0.3)'
+                borderColor: 'hsl(160 84% 39% / 0.3)',
+                boxShadow: '0 0 20px hsl(160 84% 39% / 0.15)'
               }}
             >
               <p className="text-sm italic text-foreground font-light tracking-wide">
@@ -49,10 +47,12 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           
           {/* Tags */}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-            {/* Region badge */}
+            {/* Region badge with soul amber */}
             <span 
               className="px-2 py-1 rounded-md text-xs font-medium tracking-wide text-white"
-              style={{ backgroundColor: 'hsl(32 95% 50% / 0.9)' }}
+              style={{ 
+                background: 'linear-gradient(135deg, hsl(38 95% 55%) 0%, hsl(25 95% 53%) 100%)',
+              }}
             >
               {spot.region}
             </span>
@@ -70,6 +70,11 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
           <div className="absolute top-4 right-4 z-10">
             <FavoriteButton spotId={spot.id} size="sm" />
           </div>
+          
+          {/* Small rider silhouette icon */}
+          <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity duration-300">
+            <Bike className="h-6 w-6 text-white/60" />
+          </div>
         </div>
 
         {/* Content */}
@@ -82,12 +87,12 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
             {spot.description}
           </p>
           
-          {/* CTA */}
-          <div className="flex items-center gap-2 text-sm font-medium" style={{ color: 'hsl(160 84% 50%)' }}>
+          {/* CTA with animated arrow */}
+          <div className="flex items-center gap-2 text-sm font-medium arrow-animate" style={{ color: 'hsl(160 84% 50%)' }}>
             <span>Discover</span>
             <ArrowRight 
               size={16} 
-              className="transition-transform duration-300 group-hover:translate-x-2" 
+              className="arrow-icon transition-transform duration-300" 
             />
           </div>
         </div>

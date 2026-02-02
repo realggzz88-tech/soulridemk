@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from "lucide-react";
 import { z } from "zod";
+import { motion } from "framer-motion";
 
 const signUpSchema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -101,8 +102,8 @@ const AuthPage = ({ mode }: AuthPageProps) => {
           }
         } else {
           toast({
-            title: "Welcome back!",
-            description: "You've successfully signed in.",
+            title: "Welcome back, rider!",
+            description: "The road awaits you.",
           });
           navigate("/");
         }
@@ -136,51 +137,85 @@ const AuthPage = ({ mode }: AuthPageProps) => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden road-overlay"
       style={{ backgroundColor: 'hsl(222 47% 7%)' }}
     >
-      {/* Background gradient */}
+      {/* Background gradient with warm undertones */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse at center top, hsl(160 84% 39% / 0.08) 0%, transparent 50%)'
+          background: `
+            radial-gradient(ellipse at center top, hsl(160 84% 39% / 0.1) 0%, transparent 50%),
+            radial-gradient(ellipse at 30% 70%, hsl(38 95% 55% / 0.05) 0%, transparent 40%)
+          `
         }}
       />
       
-      <div className="w-full max-w-md relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md relative z-10"
+      >
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl font-extrabold tracking-tight text-foreground mb-2">
+          <motion.h1 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="font-display text-4xl font-extrabold tracking-tight text-foreground mb-3 soul-pulse"
+          >
             SOULRIDE
-          </h1>
-          <p className="text-muted-foreground">
-            {isLogin ? "Welcome back, rider" : "Join the soul riders"}
-          </p>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg font-medium"
+            style={{ color: 'hsl(160 84% 50%)' }}
+          >
+            {isLogin ? "Welcome Back, Rider" : "Join the Soul Riders"}
+          </motion.p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-sm italic text-muted-foreground mt-2"
+          >
+            "The road remembers those who ride with heart"
+          </motion.p>
         </div>
 
-        {/* Form Card */}
-        <div 
-          className="p-8 rounded-2xl border"
+        {/* Form Card with inner glow */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="p-8 rounded-2xl border glass-soul"
           style={{
-            backgroundColor: 'hsl(222 40% 10%)',
-            borderColor: 'hsl(222 20% 18%)'
+            backgroundColor: 'hsl(222 35% 11%)',
+            borderColor: 'hsl(160 84% 39% / 0.2)',
+            boxShadow: 'inset 0 1px 0 0 hsl(160 84% 39% / 0.1), 0 4px 30px hsl(222 47% 3% / 0.5), 0 0 40px hsl(160 84% 39% / 0.05)'
           }}
         >
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-sm text-muted-foreground">
+                <Label htmlFor="username" className="text-sm" style={{ color: 'hsl(160 84% 50%)' }}>
                   Username
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(160 84% 50%)' }} />
                   <Input
                     id="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="roadwarrior"
-                    className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
+                    className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary transition-all"
+                    style={{ 
+                      borderColor: 'hsl(160 84% 39% / 0.3)',
+                    }}
                   />
                 </div>
                 {errors.username && (
@@ -190,18 +225,19 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm text-muted-foreground">
+              <Label htmlFor="email" className="text-sm" style={{ color: 'hsl(160 84% 50%)' }}>
                 Email
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(160 84% 50%)' }} />
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="rider@soulride.mk"
-                  className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
+                  className="pl-10 bg-background/50 border-border focus:border-primary focus:ring-primary transition-all"
+                  style={{ borderColor: 'hsl(160 84% 39% / 0.3)' }}
                 />
               </div>
               {errors.email && (
@@ -210,23 +246,25 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm text-muted-foreground">
+              <Label htmlFor="password" className="text-sm" style={{ color: 'hsl(160 84% 50%)' }}>
                 Password
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'hsl(160 84% 50%)' }} />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 bg-background/50 border-border focus:border-primary focus:ring-primary"
+                  className="pl-10 pr-10 bg-background/50 border-border focus:border-primary focus:ring-primary transition-all"
+                  style={{ borderColor: 'hsl(160 84% 39% / 0.3)' }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:scale-110"
+                  style={{ color: 'hsl(160 84% 50%)' }}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -239,7 +277,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full rounded-full font-semibold py-6 transition-all duration-200 hover:scale-[1.02]"
+              className="w-full rounded-full font-semibold py-6 transition-all duration-300 hover:scale-[1.02] group"
               style={{
                 background: 'linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(168 80% 42%) 100%)',
                 boxShadow: '0 4px 20px hsl(160 84% 39% / 0.3)'
@@ -253,7 +291,7 @@ const AuthPage = ({ mode }: AuthPageProps) => {
               ) : (
                 <span className="flex items-center gap-2">
                   {isLogin ? "Sign In" : "Create Account"}
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               )}
             </Button>
@@ -264,20 +302,25 @@ const AuthPage = ({ mode }: AuthPageProps) => {
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <button
                 onClick={() => navigate(isLogin ? "/signup" : "/login")}
-                className="ml-1 font-medium hover:underline"
+                className="ml-1 font-medium hover:underline transition-colors"
                 style={{ color: 'hsl(160 84% 50%)' }}
               >
                 {isLogin ? "Sign up" : "Sign in"}
               </button>
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Footer note */}
-        <p className="text-center text-xs text-muted-foreground mt-6">
-          By continuing, you agree to ride with soul and share the road kindly.
-        </p>
-      </div>
+        {/* Soul footer */}
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="text-center text-xs text-muted-foreground mt-6 italic"
+        >
+          Ride on, share the soul, keep the road kind.
+        </motion.p>
+      </motion.div>
     </div>
   );
 };
