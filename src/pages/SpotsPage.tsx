@@ -47,11 +47,11 @@ const SpotsPage = () => {
 
   return (
     <div 
-      className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter pine-overlay"
-      style={{ backgroundColor: 'hsl(222 47% 7%)' }}
+      className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 page-enter grain-overlay"
+      style={{ backgroundColor: 'hsl(200 20% 8%)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with soul */}
+        {/* Header with vintage soul */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,27 +59,56 @@ const SpotsPage = () => {
           className="text-center mb-6 sm:mb-8"
         >
           {/* Soul badge */}
-          <div className="inline-flex items-center gap-2 mb-4">
-            <Sparkles className="h-4 w-4" style={{ color: 'hsl(38 95% 55%)' }} />
+          <div 
+            className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full"
+            style={{
+              background: 'hsl(140 22% 42% / 0.15)',
+              border: '1px solid hsl(140 22% 42% / 0.3)',
+            }}
+          >
+            <Sparkles className="h-4 w-4" style={{ color: 'hsl(20 45% 50%)' }} />
             <span 
               className="text-xs uppercase tracking-[0.3em] font-medium"
-              style={{ color: 'hsl(160 84% 50%)' }}
+              style={{ 
+                color: 'hsl(140 22% 55%)',
+                fontFamily: "'Special Elite', 'Courier New', monospace",
+              }}
             >
               Soul Destinations
             </span>
-            <Sparkles className="h-4 w-4" style={{ color: 'hsl(38 95% 55%)' }} />
+            <Sparkles className="h-4 w-4" style={{ color: 'hsl(20 45% 50%)' }} />
           </div>
           
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-3 sm:mb-4 text-foreground road-underline inline-block">
+          <h1 
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wider mb-3 sm:mb-4 road-underline inline-block"
+            style={{
+              fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+              color: 'hsl(40 30% 94%)',
+              textShadow: '3px 3px 0 hsl(0 0% 0% / 0.5)',
+            }}
+          >
             EXPLORE SPOTS
           </h1>
           
-          <p className="text-sm sm:text-base max-w-2xl mx-auto mb-2 px-2 italic text-muted-foreground mt-6">
-            "Handpicked corners of Macedonia where the soul meets the horizon"
+          <p 
+            className="text-base sm:text-lg max-w-2xl mx-auto mb-2 px-2 italic mt-6"
+            style={{
+              fontFamily: "'Caveat', 'Brush Script MT', cursive",
+              color: 'hsl(20 45% 55%)',
+              fontSize: '1.25rem',
+            }}
+          >
+            "Where Macedonia's secrets await the curious rider"
           </p>
           
-          <p className="text-sm text-muted-foreground/80">
-            <span style={{ color: 'hsl(160 84% 50%)' }}>{filteredSpots.length}</span> destinations waiting to be discovered
+          <p 
+            className="text-sm"
+            style={{ 
+              color: 'hsl(40 15% 55%)',
+              fontFamily: "'Special Elite', 'Courier New', monospace",
+            }}
+          >
+            <span style={{ color: 'hsl(140 22% 55%)' }}>{filteredSpots.length}</span> destinations waiting to be discovered
           </p>
           
           {/* Search Bar */}
@@ -88,7 +117,7 @@ const SpotsPage = () => {
           </div>
         </motion.div>
 
-        {/* Overview Map with soul styling */}
+        {/* Overview Map with vintage styling */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,17 +125,31 @@ const SpotsPage = () => {
           className="mb-10"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Map size={20} style={{ color: 'hsl(160 84% 50%)' }} />
-            <h2 className="font-display text-xl font-bold tracking-tight text-foreground">
+            <Map size={20} style={{ color: 'hsl(140 22% 50%)' }} />
+            <h2 
+              className="font-display text-xl font-bold tracking-wider"
+              style={{
+                fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+                color: 'hsl(40 30% 94%)',
+              }}
+            >
               {selectedRegion === "All" ? "ALL LOCATIONS" : `${selectedRegion.toUpperCase()}ERN MACEDONIA`}
             </h2>
-            <span className="text-xs text-muted-foreground ml-2">(Click clusters to expand)</span>
+            <span 
+              className="text-xs ml-2"
+              style={{ 
+                color: 'hsl(40 15% 50%)',
+                fontFamily: "'Special Elite', monospace",
+              }}
+            >
+              (Click clusters to expand)
+            </span>
           </div>
           <div 
-            className="rounded-xl overflow-hidden watercolor-overlay"
+            className="rounded-xl overflow-hidden"
             style={{
-              border: '1px solid hsl(160 84% 39% / 0.2)',
-              boxShadow: '0 0 40px hsl(160 84% 39% / 0.08)'
+              border: '1px solid hsl(140 22% 42% / 0.3)',
+              boxShadow: '0 0 40px hsl(140 22% 42% / 0.1), inset 0 0 80px hsl(20 45% 38% / 0.05)',
             }}
           >
             <SpotsOverviewMap spots={filteredSpots} />
@@ -143,7 +186,7 @@ const SpotsPage = () => {
           ))}
         </div>
 
-        {/* Empty State with soul */}
+        {/* Empty State with vintage soul */}
         {filteredSpots.length === 0 && (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -153,34 +196,50 @@ const SpotsPage = () => {
             <div 
               className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
               style={{
-                backgroundColor: 'hsl(160 84% 39% / 0.1)',
-                border: '1px solid hsl(160 84% 39% / 0.2)'
+                background: 'hsl(140 22% 42% / 0.15)',
+                border: '1px solid hsl(140 22% 42% / 0.3)',
               }}
             >
-              <Map className="h-8 w-8" style={{ color: 'hsl(160 84% 39%)' }} />
+              <Map className="h-8 w-8" style={{ color: 'hsl(140 22% 50%)' }} />
             </div>
-            <p className="text-muted-foreground text-lg mb-4">
+            <p 
+              className="text-lg mb-4"
+              style={{ 
+                color: 'hsl(40 15% 60%)',
+                fontFamily: "'Libre Baskerville', Georgia, serif",
+              }}
+            >
               No spots match your filters
             </p>
             <button
               onClick={handleClearAll}
               className="hover:underline transition-colors"
-              style={{ color: 'hsl(160 84% 50%)' }}
+              style={{ 
+                color: 'hsl(20 45% 50%)',
+                fontFamily: "'Special Elite', monospace",
+              }}
             >
               Clear all filters
             </button>
           </motion.div>
         )}
 
-        {/* Soul footer quote */}
+        {/* Vintage footer quote */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
           className="text-center mt-16 py-8"
-          style={{ borderTop: '1px solid hsl(222 20% 15%)' }}
+          style={{ borderTop: '1px solid hsl(140 15% 25% / 0.3)' }}
         >
-          <p className="text-sm italic text-muted-foreground/70">
+          <p 
+            className="italic"
+            style={{
+              fontFamily: "'Caveat', 'Brush Script MT', cursive",
+              color: 'hsl(20 45% 50%)',
+              fontSize: '1.1rem',
+            }}
+          >
             "Every road has a story. Every spot holds a secret. Ride on, explorer."
           </p>
         </motion.div>

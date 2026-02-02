@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { spots, Spot } from "@/data/spots";
+import { Spot } from "@/data/spots";
 import { macedonianLocations, foodDrinkStops } from "@/data/journeyData";
 
 interface JourneyRouteMapProps {
@@ -18,13 +18,11 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
   useEffect(() => {
     if (!mapRef.current) return;
 
-    // Clean up previous map instance
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
     }
 
-    // Initialize map
     const map = L.map(mapRef.current, {
       center: [41.5, 21.0],
       zoom: 8,
@@ -33,26 +31,27 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
 
     mapInstanceRef.current = map;
 
-    // Dark theme tiles
+    // Vintage earthy dark tiles
     L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       subdomains: "abcd",
       maxZoom: 19,
+      className: 'vintage-journey-tiles',
     }).addTo(map);
 
-    // Custom icons
+    // Vintage brass tack icons
     const startIcon = L.divIcon({
       className: "custom-marker",
       html: `
         <div style="
           width: 32px; height: 32px; 
-          background: linear-gradient(135deg, hsl(160, 45%, 40%), hsl(160, 45%, 30%));
-          border: 3px solid hsl(160, 45%, 50%);
+          background: linear-gradient(135deg, hsl(140 22% 42%) 0%, hsl(140 22% 35%) 100%);
+          border: 3px solid hsl(40 30% 85%);
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 0 20px hsl(160 45% 40% / 0.5);
+          box-shadow: 0 0 15px hsl(140 22% 42% / 0.5), inset 0 1px 0 hsl(40 30% 70% / 0.3);
         ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(40 30% 94%)" stroke-width="2">
             <circle cx="12" cy="12" r="10"></circle>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
@@ -67,13 +66,13 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
       html: `
         <div style="
           width: 32px; height: 32px; 
-          background: linear-gradient(135deg, hsl(32, 85%, 52%), hsl(32, 85%, 40%));
-          border: 3px solid hsl(32, 85%, 60%);
+          background: linear-gradient(135deg, hsl(20 45% 42%) 0%, hsl(20 45% 35%) 100%);
+          border: 3px solid hsl(40 30% 85%);
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 0 20px hsl(32 85% 52% / 0.5);
+          box-shadow: 0 0 15px hsl(20 45% 42% / 0.5), inset 0 1px 0 hsl(40 30% 70% / 0.3);
         ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(40 30% 94%)" stroke-width="2">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
@@ -88,13 +87,13 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
       html: `
         <div style="
           width: 28px; height: 28px; 
-          background: linear-gradient(135deg, hsl(215, 50%, 50%), hsl(215, 50%, 40%));
-          border: 2px solid hsl(215, 50%, 60%);
+          background: linear-gradient(135deg, hsl(140 22% 38%) 0%, hsl(20 45% 40%) 100%);
+          border: 2px solid hsl(40 30% 85%);
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 0 15px hsl(215 50% 50% / 0.4);
+          box-shadow: 0 0 12px hsl(140 22% 42% / 0.4), inset 0 1px 0 hsl(40 30% 70% / 0.2);
         ">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(40 30% 94%)" stroke-width="2">
             <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
             <path d="m2 17 10 5 10-5"></path>
             <path d="m2 12 10 5 10-5"></path>
@@ -110,13 +109,13 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
       html: `
         <div style="
           width: 24px; height: 24px; 
-          background: linear-gradient(135deg, hsl(32, 70%, 45%), hsl(32, 70%, 35%));
-          border: 2px solid hsl(32, 70%, 55%);
+          background: linear-gradient(135deg, hsl(20 45% 45%) 0%, hsl(20 45% 38%) 100%);
+          border: 2px solid hsl(40 30% 85%);
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 0 12px hsl(32 70% 45% / 0.4);
+          box-shadow: 0 0 10px hsl(20 45% 45% / 0.4), inset 0 1px 0 hsl(40 30% 70% / 0.2);
         ">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="hsl(40 30% 94%)" stroke-width="2">
             <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
             <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
             <line x1="6" y1="1" x2="6" y2="4"></line>
@@ -129,7 +128,6 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
       iconAnchor: [12, 12],
     });
 
-    // Add markers
     const allPoints: L.LatLngExpression[] = [];
 
     // Start marker
@@ -138,26 +136,26 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
     L.marker(startLatLng, { icon: startIcon })
       .addTo(map)
       .bindPopup(`
-        <div style="text-align: center; padding: 8px;">
-          <strong style="color: hsl(160, 45%, 40%);">Start</strong>
-          <p style="margin: 4px 0 0; font-weight: 500;">${startLocation.name}</p>
+        <div style="text-align: center; padding: 8px; font-family: 'Bitter', serif;">
+          <strong style="color: hsl(140 22% 50%);">Start</strong>
+          <p style="margin: 4px 0 0; font-weight: 500; color: hsl(40 30% 92%);">${startLocation.name}</p>
         </div>
-      `);
+      `, { className: 'vintage-journey-popup' });
 
     // Spot markers
-    stops.forEach((spot, index) => {
+    stops.forEach((spot) => {
       const latLng: L.LatLngExpression = [spot.coordinates.lat, spot.coordinates.lng];
       allPoints.push(latLng);
       
       L.marker(latLng, { icon: spotIcon })
         .addTo(map)
         .bindPopup(`
-          <div style="min-width: 200px; padding: 8px;">
-            <img src="${spot.images[0]}" alt="${spot.title}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />
-            <strong style="display: block; margin-bottom: 4px;">${spot.title}</strong>
-            <em style="color: #888; font-size: 12px;">"${spot.poeticTagline}"</em>
+          <div style="min-width: 200px; padding: 8px; font-family: 'Libre Baskerville', serif;">
+            <img src="${spot.images[0]}" alt="${spot.title}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; filter: sepia(10%) saturate(90%);" />
+            <strong style="display: block; margin-bottom: 4px; color: hsl(40 30% 92%); font-family: 'Bitter', serif;">${spot.title}</strong>
+            <em style="color: hsl(20 45% 55%); font-size: 12px; font-family: 'Caveat', cursive;">"${spot.poeticTagline}"</em>
           </div>
-        `);
+        `, { className: 'vintage-journey-popup' });
     });
 
     // Food stop markers
@@ -167,11 +165,11 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
       L.marker(latLng, { icon: foodIcon })
         .addTo(map)
         .bindPopup(`
-          <div style="min-width: 180px; padding: 8px;">
-            <strong style="display: block; margin-bottom: 4px; color: hsl(32, 70%, 50%);">${food.name}</strong>
-            <p style="margin: 0; font-size: 12px; color: #888;">${food.description}</p>
+          <div style="min-width: 180px; padding: 8px; font-family: 'Libre Baskerville', serif;">
+            <strong style="display: block; margin-bottom: 4px; color: hsl(20 45% 55%); font-family: 'Bitter', serif;">${food.name}</strong>
+            <p style="margin: 0; font-size: 12px; color: hsl(40 15% 55%);">${food.description}</p>
           </div>
-        `);
+        `, { className: 'vintage-journey-popup' });
     });
 
     // End marker
@@ -180,22 +178,30 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
     L.marker(endLatLng, { icon: endIcon })
       .addTo(map)
       .bindPopup(`
-        <div style="text-align: center; padding: 8px;">
-          <strong style="color: hsl(32, 85%, 52%);">Destination</strong>
-          <p style="margin: 4px 0 0; font-weight: 500;">${endLocation.name}</p>
+        <div style="text-align: center; padding: 8px; font-family: 'Bitter', serif;">
+          <strong style="color: hsl(20 45% 55%);">Destination</strong>
+          <p style="margin: 4px 0 0; font-weight: 500; color: hsl(40 30% 92%);">${endLocation.name}</p>
         </div>
-      `);
+      `, { className: 'vintage-journey-popup' });
 
-    // Draw route polyline
-    const routeLine = L.polyline(allPoints, {
-      color: "hsl(32, 85%, 52%)",
+    // Vintage route polyline
+    L.polyline(allPoints, {
+      color: "hsl(140, 22%, 42%)",
       weight: 3,
-      opacity: 0.8,
+      opacity: 0.9,
       dashArray: "10, 10",
       lineCap: "round",
     }).addTo(map);
 
-    // Fit bounds to show all markers
+    // Rusty glow line
+    const glowLine = L.polyline(allPoints, {
+      color: "hsl(20, 45%, 45%)",
+      weight: 7,
+      opacity: 0.25,
+      lineCap: "round",
+    }).addTo(map);
+    glowLine.bringToBack();
+
     if (allPoints.length > 1) {
       const bounds = L.latLngBounds(allPoints);
       map.fitBounds(bounds, { padding: [50, 50] });
@@ -210,12 +216,38 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
   }, [startLocation, endLocation, stops, foodStops]);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-border/30 shadow-lg">
+    <div 
+      className="rounded-xl overflow-hidden"
+      style={{
+        border: '1px solid hsl(140 15% 25% / 0.4)',
+        boxShadow: '0 8px 40px hsl(0 0% 0% / 0.4), 0 0 60px hsl(140 22% 42% / 0.1)',
+      }}
+    >
       <div 
         ref={mapRef} 
         className="w-full h-[400px] sm:h-[500px]"
-        style={{ background: "hsl(220 20% 10%)" }}
+        style={{ background: "hsl(200 20% 8%)" }}
       />
+      
+      {/* Grain overlay */}
+      <div className="absolute inset-0 pointer-events-none grain-overlay opacity-15" />
+      
+      <style>{`
+        .vintage-journey-popup .leaflet-popup-content-wrapper {
+          background: hsl(200 20% 10%);
+          color: hsl(40 30% 92%);
+          border: 1px solid hsl(140 15% 25% / 0.4);
+          border-radius: 10px;
+          box-shadow: 0 8px 30px hsl(0 0% 0% / 0.5);
+        }
+        .vintage-journey-popup .leaflet-popup-tip {
+          background: hsl(200 20% 10%);
+          border: 1px solid hsl(140 15% 25% / 0.4);
+        }
+        .vintage-journey-tiles {
+          filter: sepia(15%) saturate(85%) brightness(95%);
+        }
+      `}</style>
     </div>
   );
 };

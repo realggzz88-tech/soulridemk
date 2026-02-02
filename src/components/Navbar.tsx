@@ -43,10 +43,10 @@ const Navbar = () => {
       )}
       style={{
         background: scrolled 
-          ? 'hsl(222 47% 7% / 0.95)' 
+          ? 'linear-gradient(180deg, hsl(200 20% 8% / 0.98) 0%, hsl(180 15% 10% / 0.95) 100%)' 
           : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid hsl(222 20% 18%)' : 'none',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid hsl(140 15% 25% / 0.3)' : 'none',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,10 +58,11 @@ const Navbar = () => {
           >
             <BikerLogo size={42} />
             <span 
-              className="text-xl font-bold tracking-tight hidden sm:block"
+              className="text-xl font-bold tracking-wider hidden sm:block"
               style={{
-                fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                color: '#F8FAFC',
+                fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+                color: 'hsl(40 30% 94%)',
+                textShadow: '1px 1px 2px hsl(0 0% 0% / 0.5)',
               }}
             >
               SoulRide
@@ -74,19 +75,19 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className="relative py-2 text-sm font-medium transition-all duration-300"
+                className="relative py-2 text-sm font-medium transition-all duration-300 tracking-wide"
                 style={{
-                  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                  color: isActive(link.to) ? '#F8FAFC' : '#94A3B8',
+                  fontFamily: "'Libre Baskerville', Georgia, serif",
+                  color: isActive(link.to) ? 'hsl(40 30% 94%)' : 'hsl(40 15% 65%)',
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive(link.to)) {
-                    e.currentTarget.style.color = '#F8FAFC';
+                    e.currentTarget.style.color = 'hsl(40 30% 88%)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive(link.to)) {
-                    e.currentTarget.style.color = '#94A3B8';
+                    e.currentTarget.style.color = 'hsl(40 15% 65%)';
                   }
                 }}
               >
@@ -94,7 +95,7 @@ const Navbar = () => {
                 {isActive(link.to) && (
                   <span 
                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                    style={{ background: '#10B981' }}
+                    style={{ background: 'hsl(140 22% 42%)' }}
                   />
                 )}
               </Link>
@@ -106,7 +107,10 @@ const Navbar = () => {
             {/* Favorites */}
             <Link
               to="/spots"
-              className="relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 hover:bg-white/5"
+              className="relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300"
+              style={{
+                background: favoritesCount > 0 ? 'hsl(140 22% 42% / 0.15)' : 'transparent',
+              }}
               title={favoritesCount > 0 ? `${favoritesCount} saved spots` : "No saved spots"}
             >
               <Heart 
@@ -115,14 +119,16 @@ const Navbar = () => {
                   "transition-all duration-300",
                   favoritesCount > 0 && "fill-current"
                 )}
-                style={{ color: favoritesCount > 0 ? '#10B981' : '#94A3B8' }}
+                style={{ color: favoritesCount > 0 ? 'hsl(140 22% 48%)' : 'hsl(40 15% 55%)' }}
               />
               {favoritesCount > 0 && (
                 <span 
                   className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full"
                   style={{ 
-                    background: '#10B981',
-                    color: 'white',
+                    background: 'hsl(20 45% 38%)',
+                    color: 'hsl(40 30% 94%)',
+                    fontFamily: "'Special Elite', 'Courier New', monospace",
+                    fontSize: '10px',
                   }}
                 >
                   {favoritesCount}
@@ -134,25 +140,26 @@ const Navbar = () => {
             {!user ? (
               <div className="flex items-center gap-3">
                 <Link
-                  to="/auth"
-                  className="text-sm font-medium transition-colors duration-300"
+                  to="/login"
+                  className="text-sm font-medium transition-colors duration-300 tracking-wide"
                   style={{ 
-                    color: '#94A3B8',
-                    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                    color: 'hsl(40 15% 60%)',
+                    fontFamily: "'Libre Baskerville', Georgia, serif",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#F8FAFC'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(40 30% 88%)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(40 15% 60%)'}
                 >
                   Sign In
                 </Link>
                 <Link
-                  to="/auth"
-                  className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105"
+                  to="/signup"
+                  className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 tracking-wide vintage-button"
                   style={{
-                    background: 'linear-gradient(135deg, #10B981 0%, #00D4B4 100%)',
-                    color: 'white',
-                    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                    boxShadow: '0 2px 10px rgba(16, 185, 129, 0.3)',
+                    background: 'linear-gradient(135deg, hsl(20 45% 35%) 0%, hsl(25 40% 42%) 100%)',
+                    color: 'hsl(40 30% 94%)',
+                    fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
+                    boxShadow: 'inset 0 1px 0 hsl(40 30% 60% / 0.2), 0 2px 8px hsl(0 0% 0% / 0.4)',
+                    border: '1px solid hsl(20 35% 28%)',
                   }}
                 >
                   Join
@@ -168,20 +175,25 @@ const Navbar = () => {
             <Link
               to="/spots"
               className="flex items-center gap-1 text-sm"
-              style={{ color: favoritesCount > 0 ? '#10B981' : '#94A3B8' }}
+              style={{ color: favoritesCount > 0 ? 'hsl(140 22% 48%)' : 'hsl(40 15% 55%)' }}
             >
               <Heart 
                 size={18} 
                 className={cn(favoritesCount > 0 && "fill-current")}
               />
               {favoritesCount > 0 && (
-                <span className="font-medium">{favoritesCount}</span>
+                <span className="font-medium" style={{ fontFamily: "'Special Elite', monospace" }}>
+                  {favoritesCount}
+                </span>
               )}
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 transition-colors rounded-lg hover:bg-white/5"
-              style={{ color: '#F8FAFC' }}
+              className="p-2 transition-colors rounded-lg"
+              style={{ 
+                color: 'hsl(40 30% 94%)',
+                background: isOpen ? 'hsl(140 22% 42% / 0.1)' : 'transparent',
+              }}
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -198,17 +210,17 @@ const Navbar = () => {
         >
           <div 
             className="flex flex-col gap-1 pt-4 mt-4"
-            style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}
+            style={{ borderTop: '1px solid hsl(140 15% 25% / 0.3)' }}
           >
             {links.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
+                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 tracking-wide"
                 style={{
-                  color: isActive(link.to) ? '#F8FAFC' : '#94A3B8',
-                  background: isActive(link.to) ? 'rgba(16, 185, 129, 0.1)' : 'transparent',
-                  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                  color: isActive(link.to) ? 'hsl(40 30% 94%)' : 'hsl(40 15% 60%)',
+                  background: isActive(link.to) ? 'hsl(140 22% 42% / 0.15)' : 'transparent',
+                  fontFamily: "'Libre Baskerville', Georgia, serif",
                 }}
               >
                 {link.label}
@@ -219,21 +231,23 @@ const Navbar = () => {
             {!user && (
               <div className="flex gap-3 mt-3 px-4">
                 <Link
-                  to="/auth"
-                  className="flex-1 py-3 rounded-xl text-sm font-medium text-center transition-all duration-200"
+                  to="/login"
+                  className="flex-1 py-3 rounded-xl text-sm font-medium text-center transition-all duration-200 tracking-wide"
                   style={{
-                    color: '#94A3B8',
-                    border: '1px solid rgba(148, 163, 184, 0.3)',
+                    color: 'hsl(40 15% 65%)',
+                    border: '1px solid hsl(140 15% 25% / 0.4)',
+                    fontFamily: "'Libre Baskerville', Georgia, serif",
                   }}
                 >
                   Sign In
                 </Link>
                 <Link
-                  to="/auth"
-                  className="flex-1 py-3 rounded-xl text-sm font-semibold text-center"
+                  to="/signup"
+                  className="flex-1 py-3 rounded-xl text-sm font-semibold text-center tracking-wide"
                   style={{
-                    background: 'linear-gradient(135deg, #10B981 0%, #00D4B4 100%)',
-                    color: 'white',
+                    background: 'linear-gradient(135deg, hsl(20 45% 35%) 0%, hsl(25 40% 42%) 100%)',
+                    color: 'hsl(40 30% 94%)',
+                    fontFamily: "'Bitter', 'Rockwell', Georgia, serif",
                   }}
                 >
                   Join
@@ -242,7 +256,7 @@ const Navbar = () => {
             )}
             
             {user && (
-              <div className="pt-3 mt-3" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <div className="pt-3 mt-3" style={{ borderTop: '1px solid hsl(140 15% 25% / 0.3)' }}>
                 <UserMenu />
               </div>
             )}
