@@ -184,6 +184,16 @@ const ChatPage = () => {
     
     if ((!newMessage.trim() && !pendingImageUrl) || !user || !profile) return;
 
+    // Client-side validation for message length (server-side constraint is 5000 chars)
+    if (newMessage.length > 5000) {
+      toast({
+        title: "Пораката е премногу долга",
+        description: "Максимум 5000 знаци.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSending(true);
 
     const { error } = await supabase.from("messages").insert({

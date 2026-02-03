@@ -145,7 +145,42 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      profiles_public: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          id: string | null
+          profile_photo_url: string | null
+          ride_photo_url: string | null
+          updated_at: string | null
+          user_id: string | null
+          username: string | null
+          what_you_ride: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          profile_photo_url?: string | null
+          ride_photo_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          username?: string | null
+          what_you_ride?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          id?: string | null
+          profile_photo_url?: string | null
+          ride_photo_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          username?: string | null
+          what_you_ride?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
