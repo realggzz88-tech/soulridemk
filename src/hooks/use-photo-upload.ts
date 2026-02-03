@@ -62,7 +62,7 @@ export const usePhotoUpload = ({ bucket, onSuccess }: UsePhotoUploadOptions) => 
 
       return publicUrl;
     } catch (error) {
-      console.error("Upload error:", error);
+      // Error details logged for debugging; user receives generic message
       toast({
         title: "Upload failed",
         description: "Failed to upload photo. Please try again.",

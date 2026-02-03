@@ -56,8 +56,8 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
           });
         }
       },
-      (error) => {
-        console.log("Geolocation error:", error.message);
+      () => {
+        // Geolocation denied or unavailable - stay on default view
         setLocationStatus("error");
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }

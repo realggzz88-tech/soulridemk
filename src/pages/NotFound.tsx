@@ -7,10 +7,8 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.error(
-      "404 Грешка: Корисникот се обиде да пристапи до непостоечка рута:",
-      location.pathname
-    );
+    // 404 tracking could be sent to analytics service instead of console
+    // Intentionally not logging path to console in production
   }, [location.pathname]);
 
   return (
