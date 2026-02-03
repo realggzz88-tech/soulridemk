@@ -76,7 +76,7 @@ const ChatPage = () => {
         .order("created_at", { ascending: true });
 
       if (error) {
-        console.error("Error fetching rooms:", error);
+        // Database error - rooms failed to load
       } else {
         setRooms(data || []);
         if (data && data.length > 0 && !data.find(r => r.name === selectedRoom)) {
@@ -118,7 +118,7 @@ const ChatPage = () => {
         .limit(100);
 
       if (error) {
-        console.error("Error fetching messages:", error);
+        // Database error - user receives toast notification
         toast({
           title: "Error loading messages",
           description: "Please try refreshing the page.",
@@ -205,7 +205,7 @@ const ChatPage = () => {
     });
 
     if (error) {
-      console.error("Error sending message:", error);
+      // Send failed - user receives toast notification
       toast({
         title: "Failed to send message",
         description: "Please try again.",

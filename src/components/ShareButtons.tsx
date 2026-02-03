@@ -79,8 +79,8 @@ const ShareButtons = ({
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+    } catch {
+      // Clipboard API not available - fail silently
     }
   };
 

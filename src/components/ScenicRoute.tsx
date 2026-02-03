@@ -60,8 +60,8 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
         setUserPosition(coords);
         setLocationStatus("success");
       },
-      (error) => {
-        console.log("Geolocation error:", error.message);
+      () => {
+        // Geolocation denied or unavailable - fallback to default location
         setLocationStatus("error");
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
@@ -334,8 +334,8 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
       await navigator.clipboard.writeText(ridePlanText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+    } catch {
+      // Clipboard API not available - fail silently
     }
   };
 
