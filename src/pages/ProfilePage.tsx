@@ -156,6 +156,25 @@ const ProfilePage = () => {
 
   const handleSaveProfile = async () => {
     if (!user) return;
+
+    // Client-side validation for field lengths
+    if (editBio.length > 500) {
+      toast({
+        title: "Bio too long",
+        description: "Maximum 500 characters allowed.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (editWhatYouRide.length > 200) {
+      toast({
+        title: "Field too long",
+        description: "Maximum 200 characters for 'What I Ride'.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSavingProfile(true);
     
     const { error } = await supabase
@@ -190,6 +209,32 @@ const ProfilePage = () => {
       toast({
         title: "Missing Fields",
         description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Client-side validation for route field lengths
+    if (newRouteTitle.length > 100) {
+      toast({
+        title: "Title too long",
+        description: "Maximum 100 characters for route title.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (newRouteStart.length > 200 || newRouteEnd.length > 200) {
+      toast({
+        title: "Location too long",
+        description: "Maximum 200 characters for locations.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (newRouteDescription.length > 2000) {
+      toast({
+        title: "Description too long",
+        description: "Maximum 2000 characters for description.",
         variant: "destructive",
       });
       return;
