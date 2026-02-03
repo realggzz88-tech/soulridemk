@@ -9,10 +9,7 @@ import WhySoulRide from "@/components/WhySoulRide";
 
 const HomePage = () => {
   return (
-    <div 
-      className="min-h-screen"
-      style={{ backgroundColor: 'hsl(20 15% 8%)' }}
-    >
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <HeroSection />
 
