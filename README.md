@@ -59,6 +59,10 @@ Hosted builds should still set the Supabase variables in the host when they shou
 
 GitHub Actions (`.github/workflows/ci.yml`) runs install, lint, typecheck, tests, and build on push and pull request. CI uses placeholder Supabase values and does not call the hosted project.
 
+## Vercel
+
+Vercel does not set `VITE_BASE`, so its production and preview builds keep Vite `base` at `/`. GitHub Pages is the build that sets `VITE_BASE=/soulridemk/`. `vercel.json` rewrites every path that is not already a file in the build to `/index.html`. Existing files, including `/assets/*` and `favicon.ico`, are served unchanged.
+
 ## Preview on GitHub Pages
 
 `.github/workflows/pages.yml` publishes a static build to GitHub Pages. It does not deploy to soulridemk.lovable.app or soulridemk.vercel.app.
