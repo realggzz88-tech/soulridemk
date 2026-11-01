@@ -63,7 +63,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs install, lint, typecheck, tests
 
 `.github/workflows/pages.yml` publishes a static build to GitHub Pages. It does not deploy to soulridemk.lovable.app or soulridemk.vercel.app.
 
-The site is a project page, so the build sets Vite `base` to `/<repo>/` (for this repo, `/soulridemk/`). React Router uses that basename. The Pages build also copies `index.html` to `404.html` so deep links such as `/soulridemk/spots/galicica-pass` load the app instead of GitHub’s generic 404.
+The site is a project page, so the build sets Vite `base` to `/<repo>/` (for this repo, `/soulridemk/`). React Router uses that basename. The Pages build copies `index.html` onto each known screen (`routes.html`, `spots/<id>.html`, and the other app paths) so those URLs return 200. Anything else is `404.html`, which is the same app shell, so an unknown path still loads SoulRide instead of GitHub’s generic 404.
 
 Local `npm run dev` and the CI build keep `base` at `/`. To reproduce the Pages build locally:
 

@@ -1,4 +1,4 @@
-import { copyFileSync } from "fs";
+import { copyFileSync, mkdirSync, readFileSync } from "fs";
 import path from "path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
@@ -11,7 +11,15 @@ function githubPagesBase(): string {
   return withLeading.endsWith("/") ? withLeading : `${withLeading}/`;
 }
 
-/** Project Pages has no SPA rewrite, so unknown paths must serve the built app. */
+function quotedIds(file: string): string[] {
+  const source = readFileSync(path.resolve(__dirname, file), "utf8");
+  return [...source.matchAll(/id:\s*"([^"]+)"/g)].map((match) => match[1]);
+}
+
+/**
+ * GitHub Pages has no SPA rewrite. Unknown URLs get 404.html (status 404).
+ * Known screens are also copied to path.html so those URLs return 200.
+ */
 function spaFallbackPlugin(): Plugin {
   return {
     name: "spa-fallback",
@@ -19,7 +27,24 @@ function spaFallbackPlugin(): Plugin {
     closeBundle() {
       if (githubPagesBase() === "/") return;
       const dist = path.resolve(__dirname, "dist");
-      copyFileSync(path.join(dist, "index.html"), path.join(dist, "404.html"));
+      const index = path.join(dist, "index.html");
+      const pages = [
+        "404.html",
+        "routes.html",
+        "spots.html",
+        "about.html",
+        "login.html",
+        "signup.html",
+        "chat.html",
+        "profile.html",
+        ...quotedIds("src/data/routes.ts").map((id) => `routes/${id}.html`),
+        ...quotedIds("src/data/spots.ts").map((id) => `spots/${id}.html`),
+      ];
+      for (const page of pages) {
+        const target = path.join(dist, page);
+        mkdirSync(path.dirname(target), { recursive: true });
+        copyFileSync(index, target);
+      }
     },
   };
 }
