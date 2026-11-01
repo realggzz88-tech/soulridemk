@@ -38,12 +38,12 @@ This repo does not run Supabase migrations for you. SQL history is in `supabase/
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `VITE_SUPABASE_URL` | Yes | Supabase project URL |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Supabase anon/publishable key |
+| `VITE_SUPABASE_URL` | For a custom project | Supabase project URL. If either this or the anon key is missing, the app uses the previously published public anon project and prints a console warning. It does not throw. |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | For a custom project | Supabase anon/publishable key |
 | `VITE_SUPABASE_PROJECT_ID` | No (app) | Project ref. The Vite app does not read it today; `supabase/config.toml` holds the same id for the CLI |
 | `VITE_OPENWEATHER_API_KEY` | No | Live weather. Unset means the on-page estimate |
 
-Hosted builds (Vercel, Lovable, or anything else) must set the Supabase variables in the host. They used to be committed in `.env`, which this repo no longer tracks.
+Hosted builds should still set the Supabase variables in the host when they should point at a different project. They used to be committed in `.env`, which this repo no longer tracks. A build that omits them keeps starting with the old public anon configuration.
 
 ## Scripts
 
@@ -63,7 +63,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs install, lint, typecheck, tests
 
 `.github/workflows/pages.yml` publishes a static build to GitHub Pages. It does not deploy to soulridemk.lovable.app or soulridemk.vercel.app.
 
-The site is a project page, so the build sets Vite `base` to `/<repo>/` (for this repo, `/soulridemk/`). React Router uses that basename. The Pages build copies `index.html` onto each known screen (`routes.html`, `spots/<id>.html`, and the other app paths) so those URLs return 200. Anything else is `404.html`, which is the same app shell, so an unknown path still loads SoulRide instead of GitHub’s generic 404.
+The site is a project page, so the build sets Vite `base` to `/<repo>/` (for this repo, `/soulridemk/`). React Router uses that basename. The Pages build copies `index.html` onto each known screen (`routes.html` and `routes/index.html`, `spots/<id>.html` and `spots/<id>/index.html`, and the other app paths) so both `/routes` and `/routes/` return 200. Anything else is `404.html`, which is the same app shell, so an unknown path still loads SoulRide instead of GitHub’s generic 404.
 
 Local `npm run dev` and the CI build keep `base` at `/`. To reproduce the Pages build locally:
 

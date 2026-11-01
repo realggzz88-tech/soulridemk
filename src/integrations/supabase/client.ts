@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
-import { requireSupabasePublicConfig } from "@/lib/public-env";
+import { resolveSupabasePublicConfig } from "@/lib/public-env";
 
-const { url: SUPABASE_URL, publishableKey: SUPABASE_PUBLISHABLE_KEY } = requireSupabasePublicConfig();
+const { url: SUPABASE_URL, publishableKey: SUPABASE_PUBLISHABLE_KEY } = resolveSupabasePublicConfig();
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";

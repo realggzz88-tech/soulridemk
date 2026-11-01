@@ -28,13 +28,28 @@ export function isOpenWeatherConfigured(
   return true;
 }
 
-export function requireSupabasePublicConfig(): { url: string; publishableKey: string } {
-  const url = publicEnv.supabaseUrl;
-  const publishableKey = publicEnv.supabasePublishableKey;
-  if (!url || !publishableKey) {
-    throw new Error(
-      "Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY. Copy .env.example to .env and fill in the Supabase project values.",
-    );
+/**
+ * Public anon config that used to ship in the committed `.env`.
+ * Used only when the host did not provide both Vite variables, so a build
+ * without env still starts instead of blanking the page.
+ */
+export const PUBLISHED_SUPABASE_URL = "https://mmgnqtruwthyxakskgus.supabase.co";
+export const PUBLISHED_SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tZ25xdHJ1d3RoeXhha3NrZ3VzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNTA1NjUsImV4cCI6MjA4NTYyNjU2NX0.u7VGjABXbHX38QrAF1hJ614KQQ8DC9VoLekXReJzWlA";
+
+export function resolveSupabasePublicConfig(
+  url: string | null = publicEnv.supabaseUrl ?? null,
+  publishableKey: string | null = publicEnv.supabasePublishableKey ?? null,
+): { url: string; publishableKey: string; source: "env" | "published-fallback" } {
+  if (url && publishableKey) {
+    return { url, publishableKey, source: "env" };
   }
-  return { url, publishableKey };
+  console.warn(
+    "[SoulRide] VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY is missing. Using the previously published public Supabase anon configuration so the app can still start. Set both variables to override.",
+  );
+  return {
+    url: PUBLISHED_SUPABASE_URL,
+    publishableKey: PUBLISHED_SUPABASE_ANON_KEY,
+    source: "published-fallback",
+  };
 }

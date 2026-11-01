@@ -44,6 +44,10 @@ function spaFallbackPlugin(): Plugin {
         const target = path.join(dist, page);
         mkdirSync(path.dirname(target), { recursive: true });
         copyFileSync(index, target);
+        if (page === "404.html") continue;
+        const slashDir = path.join(dist, page.replace(/\.html$/, ""));
+        mkdirSync(slashDir, { recursive: true });
+        copyFileSync(index, path.join(slashDir, "index.html"));
       }
     },
   };
