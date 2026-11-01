@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { Map as LeafletMap, Marker } from "leaflet";
 import type { Spot } from "@/data/spots";
 import { MapPin, Navigation, Compass, Clock, Route, Share2, Copy, Check, Smartphone, ExternalLink } from "lucide-react";
+import { createOsrmRouter, createRoutingControl, readRouteSummary, type RoutingControl } from "@/lib/leaflet-plugins";
 import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
@@ -31,9 +33,9 @@ interface RouteInfo {
 
 const ScenicRoute = ({ spot }: ScenicRouteProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const routingControlRef = useRef<any>(null);
-  const userMarkerRef = useRef<any>(null);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
+  const routingControlRef = useRef<RoutingControl | null>(null);
+  const userMarkerRef = useRef<Marker | null>(null);
   
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationStatus, setLocationStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -70,10 +72,14 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
 
   // Initialize map
   useEffect(() => {
+    let cancelled = false;
+
     const initMap = async () => {
+      try {
       if (!mapRef.current || mapInstanceRef.current) return;
       
       const L = (await import("leaflet")).default;
+      if (cancelled || !mapRef.current || mapInstanceRef.current) return;
       
       // Calculate center between Skopje and spot for overview
       const centerLat = (SKOPJE_COORDS.lat + spot.coordinates.lat) / 2;
@@ -138,11 +144,15 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
 
       // Try to get user location on mount
       getUserLocation();
+      } catch {
+        if (!cancelled) setIsMapReady(false);
+      }
     };
 
     initMap();
 
     return () => {
+      cancelled = true;
       if (routingControlRef.current && mapInstanceRef.current) {
         mapInstanceRef.current.removeControl(routingControlRef.current);
       }
@@ -223,7 +233,7 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
     }
 
     // Custom line styles for scenic route
-    const routingControl = (L as any).Routing.control({
+    const routingControl = createRoutingControl(L, {
       waypoints: [
         L.latLng(startCoords.lat, startCoords.lng),
         L.latLng(spot.coordinates.lat, spot.coordinates.lng),
@@ -253,21 +263,19 @@ const ScenicRoute = ({ spot }: ScenicRouteProps) => {
         missingRouteTolerance: 0,
       },
       createMarker: () => null, // We handle our own markers
-      router: (L as any).Routing.osrmv1({
+      router: createOsrmRouter(L, {
         serviceUrl: 'https://router.project-osrm.org/route/v1',
         profile: 'driving', // car profile
       }),
     });
 
-    routingControl.on('routesfound', (e: any) => {
-      const routes = e.routes;
-      if (routes && routes.length > 0) {
-        const route = routes[0];
-        setRouteInfo({
-          distance: Math.round(route.summary.totalDistance / 1000 * 10) / 10,
-          duration: Math.round(route.summary.totalTime / 60),
-        });
-      }
+    routingControl.on('routesfound', (event) => {
+      const summary = readRouteSummary(event);
+      if (!summary) return;
+      setRouteInfo({
+        distance: Math.round(summary.totalDistance / 1000 * 10) / 10,
+        duration: Math.round(summary.totalTime / 60),
+      });
     });
 
     routingControl.addTo(mapInstanceRef.current);

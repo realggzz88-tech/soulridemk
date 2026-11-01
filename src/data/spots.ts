@@ -426,6 +426,26 @@ export const spots: Spot[] = [
     coordinates: { lat: 41.4412, lng: 22.6521 },
   },
   {
+    id: "vodoca-monastery",
+    title: "Vodoča Monastery",
+    description: "Saint Leontius's church in the village of Vodoča, a short ride west of Strumica.",
+    poeticTagline: "Where three churches share one silence",
+    longDescription: "About five kilometers from Strumica, the village of Vodoča keeps the monastery of Saint Leontius. The church you walk into is not one building but three, joined over centuries: an early Christian basilica stood here in the 5th and 6th centuries, a domed church rose later, and the present church was rebuilt after the 1931 earthquake. The road out from Strumica is short. The courtyard is not. Sit long enough and the eastern loop's waterfalls feel like the loud half of the same day.",
+    tags: ["Cultural", "Hidden Gem"],
+    region: "East",
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Vodo%C4%8Da-1.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Sv._Leontij_-_Vodo%C4%8Da_%2810%29.JPG/1280px-Sv._Leontij_-_Vodo%C4%8Da_%2810%29.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Orthodox_Church_%2C_54.JPG/1280px-Orthodox_Church_%2C_54.JPG",
+    ],
+    riderTips: [
+      "It is a few minutes from Strumica, so pair it with Kolesino and Smolare rather than a separate day",
+      "The church asks for modest dress — cover shoulders before you step inside",
+      "The 1931 earthquake took the old interior; the silence in the courtyard is what remains",
+    ],
+    coordinates: { lat: 41.4506, lng: 22.5903 },
+  },
+  {
     id: "kolesino-waterfall",
     title: "Kolesino Waterfall",
     description: "Cascading waters tumble through lush Belasica hills, offering the perfect refreshing stop for weary souls.",

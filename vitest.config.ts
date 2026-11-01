@@ -9,6 +9,12 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    env: {
+      // Keep tests off the real project even when a local .env is present.
+      VITE_SUPABASE_URL: "https://example.supabase.co",
+      VITE_SUPABASE_PUBLISHABLE_KEY: "test-publishable-key",
+      VITE_SUPABASE_PROJECT_ID: "test-project-id",
+    },
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },

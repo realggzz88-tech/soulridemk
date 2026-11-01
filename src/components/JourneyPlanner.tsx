@@ -7,11 +7,18 @@ import { macedonianLocations, foodDrinkStops, regionRouteMap, foodRegionMap } fr
 import JourneyRouteMap from "./JourneyRouteMap";
 import LocationCombobox from "./LocationCombobox";
 
+const ADVENTURE_LEVELS = ["easy", "moderate", "challenging"] as const;
+type AdventureLevel = (typeof ADVENTURE_LEVELS)[number];
+
+function isAdventureLevel(value: string): value is AdventureLevel {
+  return (ADVENTURE_LEVELS as readonly string[]).includes(value);
+}
+
 interface JourneyPreferences {
   prioritizeViews: boolean;
   includeFoodStops: boolean;
   maxDriveTime: number;
-  adventureLevel: "easy" | "moderate" | "challenging";
+  adventureLevel: AdventureLevel;
 }
 
 interface GeneratedRoute {
@@ -473,7 +480,11 @@ const JourneyPlanner = () => {
                 </div>
                 <select
                   value={preferences.adventureLevel}
-                  onChange={(e) => setPreferences(p => ({ ...p, adventureLevel: e.target.value as any }))}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (!isAdventureLevel(value)) return;
+                    setPreferences((p) => ({ ...p, adventureLevel: value }));
+                  }}
                   className="w-full bg-transparent text-sm border-none focus:outline-none cursor-pointer"
                   style={{ 
                     fontFamily: "'Special Elite', monospace",

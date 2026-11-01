@@ -1,4 +1,4 @@
-import { useMockWeather } from "@/hooks/use-weather";
+import { useWeather } from "@/hooks/use-weather";
 import { Cloud, Sun, CloudRain, CloudSnow, Wind, Thermometer, Droplets, CloudFog } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -36,8 +36,8 @@ const getWeatherIcon = (conditions: string, size: number = 24) => {
 };
 
 const WeatherWidget = ({ lat, lng, spotName, compact = false }: WeatherWidgetProps) => {
-  // Using mock weather for demo - switch to useWeather when API key is configured
-  const { weather, loading, error } = useMockWeather(lat, lng);
+  // Live OpenWeather when VITE_OPENWEATHER_API_KEY is set; otherwise a local estimate.
+  const { weather, loading, error } = useWeather(lat, lng);
 
   if (loading) {
     return (

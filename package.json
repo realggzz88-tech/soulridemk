@@ -1,13 +1,15 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "soulride",
   "private": true,
   "version": "0.0.0",
+  "description": "Rider guide to scenic roads, hidden spots, and routes in North Macedonia.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
