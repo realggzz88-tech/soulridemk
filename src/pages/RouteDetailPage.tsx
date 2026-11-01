@@ -466,7 +466,7 @@ const RouteDetailPage = () => {
           {/* Back to Routes Button */}
           <div className="flex justify-center">
             <Link
-              to="/"
+              to="/routes"
               className="group flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-earth-green/20 via-muted/30 to-soul-amber/20 border border-border/50 hover:border-earth-green/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(160_40%_28%/0.3)]"
             >
               <ArrowLeft size={18} className="text-earth-green-glow group-hover:-translate-x-1 transition-transform" />

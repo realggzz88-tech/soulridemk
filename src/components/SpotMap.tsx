@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+import type { FeatureGroup, Map as LeafletMap, Marker } from "leaflet";
 import type { Spot } from "@/data/spots";
 import { Compass, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
+import { createMarkerClusterGroup } from "@/lib/leaflet-plugins";
 import { cn } from "@/lib/utils";
 import MapLoadingSpinner from "./MapLoadingSpinner";
 import "leaflet/dist/leaflet.css";
@@ -18,9 +20,9 @@ interface SpotsOverviewMapProps {
 
 export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const userMarkerRef = useRef<any>(null);
-  const clusterGroupRef = useRef<any>(null);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
+  const userMarkerRef = useRef<Marker | null>(null);
+  const clusterGroupRef = useRef<FeatureGroup | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
@@ -80,11 +82,15 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
   };
 
   useEffect(() => {
+    let cancelled = false;
+
     const initMap = async () => {
+      try {
       if (!mapRef.current || mapInstanceRef.current) return;
       
       const L = (await import("leaflet")).default;
       await import("leaflet.markercluster");
+      if (cancelled || !mapRef.current || mapInstanceRef.current) return;
       
       const map = L.map(mapRef.current, {
         scrollWheelZoom: true,
@@ -101,12 +107,12 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
       }).addTo(map);
 
       // Vintage brass tack cluster styling
-      const clusterGroup = (L as any).markerClusterGroup({
+      const clusterGroup = createMarkerClusterGroup(L, {
         maxClusterRadius: 60,
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         zoomToBoundsOnClick: true,
-        iconCreateFunction: (cluster: any) => {
+        iconCreateFunction: (cluster) => {
           const count = cluster.getChildCount();
           return L.divIcon({
             className: "custom-cluster-icon",
@@ -186,7 +192,7 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
               <span style="font-size: 0.7rem; padding: 3px 8px; background: hsl(140 22% 42% / 0.2); border: 1px solid hsl(140 22% 42% / 0.3); border-radius: 999px; color: hsl(140 22% 55%); font-family: 'Special Elite', monospace;">📍 ${distanceFromSkopje} km</span>
               <span style="font-size: 0.7rem; padding: 3px 8px; background: hsl(20 45% 38% / 0.2); border: 1px solid hsl(20 45% 38% / 0.3); border-radius: 999px; color: hsl(20 45% 55%); font-family: 'Special Elite', monospace;">${spot.region}</span>
             </div>
-            <a href="/spots/${spot.id}" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: hsl(140 22% 55%); text-decoration: none; font-weight: 500; font-family: 'Bitter', serif;">
+            <a href="${import.meta.env.BASE_URL}spots/${spot.id}" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: hsl(140 22% 55%); text-decoration: none; font-weight: 500; font-family: 'Bitter', serif;">
               Explore this spot
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -206,11 +212,15 @@ export const SpotsOverviewMap = ({ spots }: SpotsOverviewMapProps) => {
       setIsLoading(false);
 
       getUserLocation();
+      } catch {
+        if (!cancelled) setIsLoading(false);
+      }
     };
 
     initMap();
 
     return () => {
+      cancelled = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -505,7 +515,7 @@ interface SpotDetailMapProps {
 
 export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const toggleFullscreen = () => {
@@ -516,10 +526,14 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
   };
 
   useEffect(() => {
+    let cancelled = false;
+
     const initMap = async () => {
+      try {
       if (!mapRef.current || mapInstanceRef.current) return;
       
       const L = (await import("leaflet")).default;
+      if (cancelled || !mapRef.current || mapInstanceRef.current) return;
 
       const map = L.map(mapRef.current, {
         scrollWheelZoom: true,
@@ -583,11 +597,18 @@ export const SpotDetailMap = ({ spot }: SpotDetailMapProps) => {
       `, { className: "dark-popup" }).openPopup();
 
       mapInstanceRef.current = map;
+      } catch {
+        if (!cancelled && mapInstanceRef.current) {
+          mapInstanceRef.current.remove();
+          mapInstanceRef.current = null;
+        }
+      }
     };
 
     initMap();
 
     return () => {
+      cancelled = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;

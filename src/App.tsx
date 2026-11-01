@@ -13,6 +13,7 @@ import PageLoader from "@/components/PageLoader";
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const SpotsPage = lazy(() => import("@/pages/SpotsPage"));
 const SpotDetailPage = lazy(() => import("@/pages/SpotDetailPage"));
+const RoutesPage = lazy(() => import("@/pages/RoutesPage"));
 const RouteDetailPage = lazy(() => import("@/pages/RouteDetailPage"));
 const AboutPage = lazy(() => import("@/pages/AboutPage"));
 const AuthPage = lazy(() => import("@/pages/AuthPage"));
@@ -30,9 +31,11 @@ const queryClient = new QueryClient({
   },
 });
 
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <TooltipProvider>
         <AuthProvider>
           <Toaster />
@@ -45,6 +48,7 @@ const App = () => (
                   <Route path="/" element={<HomePage />} />
                   <Route path="/spots" element={<SpotsPage />} />
                   <Route path="/spots/:id" element={<SpotDetailPage />} />
+                  <Route path="/routes" element={<RoutesPage />} />
                   <Route path="/routes/:id" element={<RouteDetailPage />} />
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/login" element={<AuthPage mode="login" />} />

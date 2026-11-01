@@ -130,6 +130,7 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
+    try {
     const lats = spots.map((s) => s.coordinates.lat);
     const lngs = spots.map((s) => s.coordinates.lng);
     const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
@@ -160,15 +161,23 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
     getUserLocation();
 
     return () => {
-      map.remove();
+      try {
+        map.remove();
+      } catch {
+        // A half-initialized map (fast unmount, or no real layout) cannot tear down.
+      }
       mapRef.current = null;
     };
+    } catch {
+      setIsMapLoading(false);
+    }
   }, [spots, getUserLocation]);
 
   // Update markers and route line
   useEffect(() => {
     if (!mapRef.current) return;
 
+    try {
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
     if (userMarkerRef.current) {
@@ -237,6 +246,9 @@ const RouteMap = ({ spots, routeTitle }: RouteMapProps) => {
 
     const bounds = L.latLngBounds(waypoints);
     mapRef.current.fitBounds(bounds, { padding: [50, 50] });
+    } catch {
+      // Keep the route page usable when the map cannot draw.
+    }
   }, [spots, userLocation]);
 
   return (

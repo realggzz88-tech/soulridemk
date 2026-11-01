@@ -70,13 +70,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         fetchProfile(session.user.id);
       }
       setLoading(false);
+    }).catch(() => {
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, username: string) => {
-    const redirectUrl = `${window.location.origin}/`;
+    const redirectUrl = new URL(import.meta.env.BASE_URL, window.location.origin).toString();
     
     const { error } = await supabase.auth.signUp({
       email,
