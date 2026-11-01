@@ -60,19 +60,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [react(), mode === "development" && componentTagger(), spaFallbackPlugin()].filter(Boolean),
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes("node_modules")) return;
-          if (id.includes("@supabase")) return "supabase";
-          if (id.includes("framer-motion")) return "motion";
-          if (id.includes("@radix-ui")) return "radix";
-          if (id.includes("react-dom") || id.includes("react-router") || id.includes("/react/")) return "react";
-        },
-      },
-    },
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
