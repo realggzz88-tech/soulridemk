@@ -389,7 +389,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const [params] = useSearchParams();
   const preview = params.get("state");
   const harness = previewHarnessEnabled(import.meta.env.DEV, preview);
-  const filled = harness && ["details", "photos", "photos-compress", "photos-err", "upload-failed", "story", "review", "success", "spot"].includes(preview ?? "");
+  const filled = harness && ["details", "photos", "photos-compress", "photos-err", "upload-failed", "story", "review", "success", "spot", "pending"].includes(preview ?? "");
   const showDemoPhotos = harness && ["photos", "photos-err", "photos-compress", "upload-failed", "story", "review"].includes(preview ?? "");
   const photoPreview = harness && ["photos", "story", "review", "photos-compress", "upload-failed"].includes(preview ?? "");
   const overlayJobs = harness && (preview === "upload-failed" || preview === "photos-compress");
