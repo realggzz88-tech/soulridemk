@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "Почетна",
+    "spots": "Места",
+    "routes": "Рути",
+    "favourites": "Омилени",
+    "profile": "Профил",
+    "language": "Јазик"
+  },
+  "routes": {
+    "meta": {
+      "title": "Рути за мотор низ Македонија · SoulRide",
+      "description": "7 рути за мотор со растојание, времетраење, тежина и застанувања."
+    },
+    "overline": "Рути за мотор",
+    "title": "Сите рути",
+    "tagline": "Патот го памети оној што вози со срце",
+    "count_one": "{{count}} рута",
+    "count_other": "{{count}} рути",
+    "countFiltered": "{{shown}} од {{total}} рути",
+    "card": {
+      "aria": "{{title}}, {{distance}}, {{difficulty}}"
+    },
+    "stops_one": "{{count}} место",
+    "stops_other": "{{count}} места",
+    "loading": "Се вчитуваат рутите…",
+    "errorBody": "Не можевме да ги вчитаме рутите. Провери ја врската и обиди се повторно.",
+    "filters": {
+      "label": "Филтри",
+      "all": "Сите",
+      "difficulty": "Тежина",
+      "region": "Регион",
+      "length": "Должина",
+      "lengthShort": "До 80 км",
+      "lengthMid": "81–120 км",
+      "lengthLong": "Над 120 км",
+      "clear": "Исчисти филтри",
+      "clearShort": "Исчисти",
+      "open": "Филтри",
+      "apply": "Прикажи",
+      "close": "Затвори",
+      "show_one": "Прикажи {{count}} рута",
+      "show_other": "Прикажи {{count}} рути"
+    },
+    "sort": {
+      "label": "Подреди",
+      "recommended": "Препорачано",
+      "shortest": "Најкратки",
+      "longest": "Најдолги",
+      "easiest": "Најлесни прво"
+    },
+    "empty": {
+      "title": "Нема рути за овие филтри",
+      "body": "Пробај друга тежина или регион — или исчисти ги филтрите.",
+      "action": "Исчисти филтри"
+    },
+    "none": {
+      "title": "Наскоро нови рути",
+      "action": "Види места"
+    },
+    "map": {
+      "show": "Прикажи мапа",
+      "hide": "Сокриј мапа",
+      "error": "Мапата не може да се вчита."
+    },
+    "items": {
+      "eastern-waterfalls-loop": {
+        "title": "Источни водопади",
+        "tagline": "Каде водите паѓаат, а душата се смирува."
+      },
+      "western-lakes-tour": {
+        "title": "Западни езера",
+        "tagline": "Од Охрид до Преспа — два брега, еден ден."
+      },
+      "central-canyon-ride": {
+        "title": "Кањонот Матка и Прилеп",
+        "tagline": "Карпи, кањон и мирис на тутун."
+      },
+      "northern-mountain-pass": {
+        "title": "Маврово: планински премин",
+        "tagline": "Серпентини над облаците."
+      },
+      "southern-winery-escape": {
+        "title": "Винарии на Демир Капија",
+        "tagline": "Лесна вожња низ лозја и клисура."
+      },
+      "pelister-peaks-hike": {
+        "title": "Врвовите на Пелистер",
+        "tagline": "Молика, гранит и поглед до Преспа."
+      },
+      "prespa-hidden-shores": {
+        "title": "Скриените брегови на Преспа",
+        "tagline": "Тивки плажи и остров на хоризонтот."
+      }
+    }
+  },
+  "difficulty": {
+    "easy": "Лесна",
+    "moderate": "Умерена",
+    "challenging": "Тешка"
+  },
+  "region": {
+    "east": "Исток",
+    "west": "Запад",
+    "central": "Центар",
+    "multi": "Повеќе региони"
+  },
+  "surface": {
+    "asphalt": "Асфалт",
+    "mixed": "Мешано",
+    "gravel": "Макадам"
+  },
+  "units": {
+    "km": "км",
+    "hours": "{{min}}–{{max}} ч"
+  },
+  "common": {
+    "photoUnavailable": "Фотографијата не е достапна",
+    "error": {
+      "title": "Нешто тргна наопаку",
+      "retry": "Обиди се повторно",
+      "home": "Кон почетна"
+    }
+  }
+}

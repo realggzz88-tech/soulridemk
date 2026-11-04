@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "Home",
+    "spots": "Spots",
+    "routes": "Routes",
+    "favourites": "Favourites",
+    "profile": "Profile",
+    "language": "Language"
+  },
+  "routes": {
+    "meta": {
+      "title": "Motorcycle routes in North Macedonia · SoulRide",
+      "description": "7 motorcycle routes with distance, duration, difficulty and stops."
+    },
+    "overline": "Motorcycle routes",
+    "title": "All routes",
+    "tagline": "The road remembers the rider who rides with heart",
+    "count_one": "{{count}} route",
+    "count_other": "{{count}} routes",
+    "countFiltered": "{{shown}} of {{total}} routes",
+    "card": {
+      "aria": "{{title}}, {{distance}}, {{difficulty}}"
+    },
+    "stops_one": "{{count}} stop",
+    "stops_other": "{{count}} stops",
+    "loading": "Loading routes…",
+    "errorBody": "We couldn't load the routes. Check your connection and try again.",
+    "filters": {
+      "label": "Filters",
+      "all": "All",
+      "difficulty": "Difficulty",
+      "region": "Region",
+      "length": "Length",
+      "lengthShort": "Up to 80 km",
+      "lengthMid": "81–120 km",
+      "lengthLong": "Over 120 km",
+      "clear": "Clear filters",
+      "clearShort": "Clear",
+      "open": "Filters",
+      "apply": "Show",
+      "close": "Close",
+      "show_one": "Show {{count}} route",
+      "show_other": "Show {{count}} routes"
+    },
+    "sort": {
+      "label": "Sort",
+      "recommended": "Recommended",
+      "shortest": "Shortest",
+      "longest": "Longest",
+      "easiest": "Easiest first"
+    },
+    "empty": {
+      "title": "No routes match these filters",
+      "body": "Try another difficulty or region — or clear the filters.",
+      "action": "Clear filters"
+    },
+    "none": {
+      "title": "New routes coming soon",
+      "action": "See spots"
+    },
+    "map": {
+      "show": "Show map",
+      "hide": "Hide map",
+      "error": "The map could not load."
+    },
+    "items": {
+      "eastern-waterfalls-loop": {
+        "title": "Eastern Waterfalls Loop",
+        "tagline": "Where the water falls and the soul grows quiet."
+      },
+      "western-lakes-tour": {
+        "title": "Western Lakes Tour",
+        "tagline": "From Ohrid to Prespa — two shores, one day."
+      },
+      "central-canyon-ride": {
+        "title": "Central Canyon Ride",
+        "tagline": "Rock, canyon and the smell of tobacco."
+      },
+      "northern-mountain-pass": {
+        "title": "Mavrovo Mountain Pass",
+        "tagline": "Hairpins above the clouds."
+      },
+      "southern-winery-escape": {
+        "title": "Demir Kapija Wineries",
+        "tagline": "An easy ride through vineyards and the gorge."
+      },
+      "pelister-peaks-hike": {
+        "title": "Pelister Peaks Ride",
+        "tagline": "Molika pine, granite and a view to Prespa."
+      },
+      "prespa-hidden-shores": {
+        "title": "Prespa Hidden Shores",
+        "tagline": "Quiet beaches and an island on the horizon."
+      }
+    }
+  },
+  "difficulty": {
+    "easy": "Easy",
+    "moderate": "Moderate",
+    "challenging": "Challenging"
+  },
+  "region": {
+    "east": "East",
+    "west": "West",
+    "central": "Central",
+    "multi": "Multiple regions"
+  },
+  "surface": {
+    "asphalt": "Asphalt",
+    "mixed": "Mixed",
+    "gravel": "Gravel"
+  },
+  "units": {
+    "km": "km",
+    "hours": "{{min}}–{{max}} h"
+  },
+  "common": {
+    "photoUnavailable": "Photo unavailable",
+    "error": {
+      "title": "Something went wrong",
+      "retry": "Try again",
+      "home": "Go home"
+    }
+  }
+}

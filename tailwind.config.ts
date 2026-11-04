@@ -1,118 +1,53 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
+import { soulrideTheme } from "./src/styles/tailwind.tokens.js";
+
+const legacyColor = (name: string) => `hsl(var(--${name}))`;
 
 export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
+    screens: soulrideTheme.screens,
+    container: soulrideTheme.container,
     extend: {
+      ...soulrideTheme.extend,
       fontFamily: {
-        display: ['Inter', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        script: ['Caveat', 'cursive'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
+        ...soulrideTheme.extend.fontFamily,
+        serif: ["Georgia", "serif"],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        ...soulrideTheme.extend.colors,
         sunset: {
-          DEFAULT: "hsl(var(--sunset-orange))",
-          coral: "hsl(var(--sunset-coral))",
-          red: "hsl(var(--sunset-red))",
-          gold: "hsl(var(--sunset-gold))",
-          amber: "hsl(var(--sunset-amber))",
+          DEFAULT: legacyColor("sunset-orange"),
+          coral: legacyColor("sunset-coral"),
+          red: legacyColor("sunset-red"),
+          gold: legacyColor("sunset-gold"),
+          amber: legacyColor("sunset-amber"),
         },
         teal: {
-          DEFAULT: "hsl(var(--teal-accent))",
-          glow: "hsl(var(--teal-glow))",
+          DEFAULT: legacyColor("teal-accent"),
+          glow: legacyColor("teal-glow"),
         },
         sky: {
-          pink: "hsl(var(--sky-pink))",
-          purple: "hsl(var(--sky-purple))",
-          dusk: "hsl(var(--sky-dusk))",
+          pink: legacyColor("sky-pink"),
+          purple: legacyColor("sky-purple"),
+          dusk: legacyColor("sky-dusk"),
         },
         earth: {
-          brown: "hsl(var(--earth-brown))",
-          warm: "hsl(var(--earth-warm))",
-          road: "hsl(var(--road-dark))",
+          brown: legacyColor("earth-brown"),
+          warm: legacyColor("earth-warm"),
+          road: legacyColor("road-dark"),
         },
         cream: {
-          DEFAULT: "hsl(var(--cream-light))",
-          warm: "hsl(var(--cream-warm))",
+          DEFAULT: legacyColor("cream-light"),
+          warm: legacyColor("cream-warm"),
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(30px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "fade-in": {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
+        ...soulrideTheme.extend.keyframes,
         "scale-in": {
           "0%": { opacity: "0", transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
@@ -127,10 +62,7 @@ export default {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-up": "fade-up 0.8s ease-out forwards",
-        "fade-in": "fade-in 0.6s ease-out forwards",
+        ...soulrideTheme.extend.animation,
         "scale-in": "scale-in 0.5s ease-out forwards",
         float: "float 6s ease-in-out infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
@@ -143,5 +75,5 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, typography],
 } satisfies Config;

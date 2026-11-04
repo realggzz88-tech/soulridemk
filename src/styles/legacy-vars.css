@@ -1,0 +1,31 @@
+/* Legacy palette kept so existing pages still resolve their colour utilities.
+   Semantic colours (--background, --primary, …) live in tokens.css. */
+@layer base {
+  :root,
+  .dark {
+    --sunset-orange: 15 70% 50%;
+    --sunset-coral: 10 75% 55%;
+    --sunset-red: 5 65% 48%;
+    --sunset-gold: 35 80% 55%;
+    --sunset-amber: 30 70% 50%;
+    --sky-pink: 340 40% 60%;
+    --sky-purple: 280 30% 45%;
+    --sky-dusk: 220 25% 25%;
+    --earth-brown: 25 30% 20%;
+    --earth-warm: 20 25% 15%;
+    --road-dark: 25 15% 12%;
+    --text-primary: 40 20% 95%;
+    --text-secondary: 35 15% 70%;
+    --text-muted: 30 10% 50%;
+    --teal-accent: 170 60% 45%;
+    --teal-glow: 175 55% 50%;
+    --cream-light: 40 30% 95%;
+    --cream-warm: 35 25% 90%;
+    --gradient-sunset: linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%);
+    --gradient-sunset-dark: linear-gradient(180deg, hsl(20 15% 8%) 0%, hsl(25 20% 12%) 100%);
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(20 15% 8% / 0.3) 50%, hsl(20 15% 8% / 0.95) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(20 18% 11%) 0%, hsl(25 15% 9%) 100%);
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
+    --shadow-button: 0 4px 16px hsl(15 70% 45% / 0.35);
+  }
+}
