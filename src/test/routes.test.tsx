@@ -17,7 +17,29 @@ vi.mock("@/integrations/supabase/client", () => ({
   },
 }));
 
+/**
+ * Pages are React.lazy. findByRole only waits 1s, and the first import of
+ * HomePage (framer-motion plus the catalog) can take longer than that on a
+ * busy CI runner. Load the module first so the assertion waits on render,
+ * not on the bundler.
+ */
+async function preload(path: string) {
+  if (path === "/") return import("@/pages/HomePage");
+  if (path === "/routes") return import("@/pages/RoutesPage");
+  if (path.startsWith("/routes/")) return import("@/pages/RouteDetailPage");
+  if (path === "/spots") return import("@/pages/SpotsPage");
+  if (path.startsWith("/spots/")) return import("@/pages/SpotDetailPage");
+  if (path === "/about") return import("@/pages/AboutPage");
+  if (path === "/login" || path === "/signup") return import("@/pages/AuthPage");
+  if (path === "/chat") {
+    await import("@/pages/ChatPage");
+    return import("@/pages/AuthPage");
+  }
+  return import("@/pages/NotFound");
+}
+
 async function renderAt(path: string) {
+  await preload(path);
   window.history.pushState({}, "", path);
   render(<App />);
 }
