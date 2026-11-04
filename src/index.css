@@ -1,144 +1,28 @@
+@import "./styles/tokens.css";
+@import "./styles/legacy-vars.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;500;600;700&display=swap');
-
-@layer base {
-  :root {
-    /* Modern Sunset Rider Theme */
-    --background: 20 15% 8%;
-    --foreground: 40 20% 95%;
-
-    --card: 20 18% 11%;
-    --card-foreground: 40 20% 95%;
-
-    --popover: 20 20% 10%;
-    --popover-foreground: 40 20% 95%;
-
-    /* Warm sunset orange - primary action */
-    --primary: 15 70% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Deep charcoal secondary */
-    --secondary: 20 15% 15%;
-    --secondary-foreground: 40 15% 85%;
-
-    --muted: 20 12% 20%;
-    --muted-foreground: 30 10% 55%;
-
-    /* Warm sunset accent */
-    --accent: 20 80% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 60% 50%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 25 15% 20%;
-    --input: 20 12% 18%;
-    --ring: 15 70% 50%;
-
-    --radius: 0.75rem;
-
-    /* Sunset Color Tokens */
-    --sunset-orange: 15 70% 50%;
-    --sunset-coral: 10 75% 55%;
-    --sunset-red: 5 65% 48%;
-    --sunset-gold: 35 80% 55%;
-    --sunset-amber: 30 70% 50%;
-    
-    /* Sky gradient tones */
-    --sky-pink: 340 40% 60%;
-    --sky-purple: 280 30% 45%;
-    --sky-dusk: 220 25% 25%;
-    
-    /* Earth tones */
-    --earth-brown: 25 30% 20%;
-    --earth-warm: 20 25% 15%;
-    --road-dark: 25 15% 12%;
-    
-    /* Text layers */
-    --text-primary: 40 20% 95%;
-    --text-secondary: 35 15% 70%;
-    --text-muted: 30 10% 50%;
-    
-    /* Teal accent for highlights */
-    --teal-accent: 170 60% 45%;
-    --teal-glow: 175 55% 50%;
-    
-    /* Cream/white variants */
-    --cream-light: 40 30% 95%;
-    --cream-warm: 35 25% 90%;
-    
-    /* Gradients */
-    --gradient-sunset: linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%);
-    --gradient-sunset-dark: linear-gradient(180deg, hsl(20 15% 8%) 0%, hsl(25 20% 12%) 100%);
-    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(20 15% 8% / 0.3) 50%, hsl(20 15% 8% / 0.95) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(20 18% 11%) 0%, hsl(25 15% 9%) 100%);
-    
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(15 70% 50% / 0.3);
-    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
-    --shadow-button: 0 4px 16px hsl(15 70% 45% / 0.35);
-
-    --sidebar-background: 20 18% 9%;
-    --sidebar-foreground: 40 15% 90%;
-    --sidebar-primary: 15 70% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 170 60% 45%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 25 15% 18%;
-    --sidebar-ring: 15 70% 50%;
-  }
-
-  .dark {
-    --background: 20 15% 8%;
-    --foreground: 40 20% 95%;
-  }
-}
-
 @layer base {
   * {
-    @apply border-border;
     box-sizing: border-box;
   }
 
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
-
+  html,
   body {
-    @apply bg-background antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    letter-spacing: -0.01em;
-    line-height: 1.6;
-    color: hsl(var(--foreground));
     overflow-x: hidden;
-    background-color: hsl(20 15% 8%);
-  }
-
-  /* Modern clean headings */
-  h1, h2, h3 {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 700;
-    color: hsl(var(--foreground));
-    letter-spacing: -0.02em;
-  }
-
-  h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 600;
-    color: hsl(var(--foreground) / 0.9);
-  }
-
-  p, span, li {
-    letter-spacing: 0.01em;
-    line-height: 1.7;
   }
 }
 
 @layer components {
+  .skeleton-bar {
+    background-color: hsl(var(--muted));
+    background-image: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.08), transparent);
+    background-size: 200% 100%;
+  }
+
   /* ===== MODERN SUNSET TEXTURES ===== */
   
   /* Subtle grain overlay */

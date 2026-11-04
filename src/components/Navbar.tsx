@@ -1,255 +1,140 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Menu, X, Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useFavorites } from "@/hooks/use-favorites";
-import UserMenu from "@/components/UserMenu";
+import { Heart, Home, MapPin, Route, User } from "lucide-react";
+import { useLang } from "@/features/shell/lang";
+import { translate, type Lang } from "@/features/routes/copy";
 import { useAuth } from "@/hooks/useAuth";
+import UserMenu from "@/components/UserMenu";
+
+const tabs = [
+  { to: "/", key: "nav.home", icon: Home, end: true },
+  { to: "/spots", key: "nav.spots", icon: MapPin, end: false },
+  { to: "/routes", key: "nav.routes", icon: Route, end: false },
+  { to: "/favorites", key: "nav.favourites", icon: Heart, end: false },
+  { to: "/profile", key: "nav.profile", icon: User, end: false },
+] as const;
+
+const desktopLinks = tabs.slice(0, 4);
+
+function active(pathname: string, to: string, end: boolean) {
+  if (end) return pathname === "/";
+  return pathname === to || pathname.startsWith(`${to}/`);
+}
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const { count: favoritesCount } = useFavorites();
+  const { lang, setLang } = useLang();
   const { user } = useAuth();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
-
-  const links = [
-    { to: "/", label: "Почетна" },
-    { to: "/spots", label: "Истражи" },
-    { to: "/chat", label: "Заедница" },
-    { to: "/about", label: "За нас" },
-  ];
-
-  const isActive = (path: string) => location.pathname === path;
+  const { pathname } = useLocation();
+  const t = (path: string) => translate(lang, path);
 
   return (
-    <nav 
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "py-3" : "py-5"
-      )}
-      style={{
-        background: scrolled 
-          ? 'hsl(20 15% 8% / 0.95)' 
-          : 'linear-gradient(180deg, hsl(20 15% 8% / 0.8) 0%, transparent 100%)',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid hsl(25 15% 18% / 0.5)' : 'none',
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12">
-          {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-3 group"
-          >
-            {/* Simple text logo */}
-            <span 
-              className="text-2xl font-bold tracking-tight"
-              style={{ color: 'hsl(0 0% 100%)' }}
-            >
-              Soul<span style={{ color: 'hsl(15 70% 55%)' }}>Ride</span>
-            </span>
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[80] focus:inline-flex focus:h-11 focus:items-center focus:rounded-lg focus:bg-primary focus:px-4 focus:font-semibold focus:text-primary-foreground"
+      >
+        {t("nav.skip")}
+      </a>
+      <header className="sticky top-0 z-header flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:hidden">
+        <Link to="/" className="inline-flex min-h-11 items-center font-display text-xl font-extrabold tracking-tight text-foreground">
+          Soul<span className="text-primary">Ride</span>
+        </Link>
+        <LangSwitch lang={lang} setLang={setLang} label={t("nav.language")} className="ml-auto" />
+      </header>
+
+      <header className="sticky top-0 z-header hidden h-16 border-b border-border bg-background/95 backdrop-blur md:block">
+        <div className="mx-auto flex h-full max-w-content items-center gap-8 px-4 sm:px-6 lg:px-8">
+          <Link to="/" className="inline-flex min-h-11 items-center font-display text-xl font-extrabold tracking-tight text-foreground">
+            Soul<span className="text-primary">Ride</span>
           </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="relative py-2 text-sm font-medium transition-all duration-300"
-                style={{
-                  color: isActive(link.to) ? 'hsl(170 60% 55%)' : 'hsl(0 0% 100% / 0.7)',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive(link.to)) {
-                    e.currentTarget.style.color = 'hsl(0 0% 100%)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive(link.to)) {
-                    e.currentTarget.style.color = 'hsl(0 0% 100% / 0.7)';
-                  }
-                }}
-              >
-                {link.label}
-                {isActive(link.to) && (
-                  <span 
-                    className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                    style={{ background: 'hsl(170 60% 55%)' }}
-                  />
-                )}
-              </Link>
-            ))}
-          </div>
-
-          {/* Right side actions */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* Favorites */}
-            <Link
-              to="/spots"
-              className="relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300"
-              style={{
-                background: favoritesCount > 0 ? 'hsl(15 70% 50% / 0.15)' : 'transparent',
-              }}
-              title={favoritesCount > 0 ? `${favoritesCount} зачувани места` : "Нема зачувани места"}
-            >
-              <Heart 
-                size={20} 
-                className={cn(
-                  "transition-all duration-300",
-                  favoritesCount > 0 && "fill-current"
-                )}
-                style={{ color: favoritesCount > 0 ? 'hsl(15 70% 55%)' : 'hsl(0 0% 100% / 0.6)' }}
-              />
-              {favoritesCount > 0 && (
-                <span 
-                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full"
-                  style={{ 
-                    background: 'hsl(15 70% 50%)',
-                    color: 'hsl(0 0% 100%)',
-                    fontSize: '10px',
-                  }}
-                >
-                  {favoritesCount}
-                </span>
-              )}
-            </Link>
-            
-            {/* Auth buttons */}
-            {!user ? (
-              <div className="flex items-center gap-3">
+          <nav className="flex gap-1" aria-label={t("nav.primary")}>
+            {desktopLinks.map((link) => {
+              const on = active(pathname, link.to, link.end);
+              return (
                 <Link
-                  to="/login"
-                  className="text-sm font-medium transition-colors duration-300"
-                  style={{ color: 'hsl(0 0% 100% / 0.7)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(0 0% 100%)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(0 0% 100% / 0.7)'}
+                  key={link.to}
+                  to={link.to}
+                  aria-current={on ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center rounded-lg px-3 text-[15px] font-medium ${
+                    on ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
-                  Најави се
+                  {t(link.key)}
                 </Link>
-                <Link
-                  to="/signup"
-                  className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%)',
-                    color: 'hsl(0 0% 100%)',
-                    boxShadow: '0 4px 12px hsl(15 70% 45% / 0.3)',
-                  }}
-                >
-                  Регистрирај се
-                </Link>
-              </div>
-            ) : (
+              );
+            })}
+          </nav>
+          <div className="ml-auto flex items-center gap-3">
+            <LangSwitch lang={lang} setLang={setLang} label={t("nav.language")} />
+            {user ? (
               <UserMenu />
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-3">
-            <Link
-              to="/spots"
-              className="flex items-center gap-1 text-sm"
-              style={{ color: favoritesCount > 0 ? 'hsl(15 70% 55%)' : 'hsl(0 0% 100% / 0.6)' }}
-            >
-              <Heart 
-                size={18} 
-                className={cn(favoritesCount > 0 && "fill-current")}
-              />
-              {favoritesCount > 0 && (
-                <span className="font-medium">
-                  {favoritesCount}
-                </span>
-              )}
-            </Link>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 transition-colors rounded-lg"
-              style={{ 
-                color: 'hsl(0 0% 100%)',
-                background: isOpen ? 'hsl(0 0% 100% / 0.1)' : 'transparent',
-              }}
-              aria-label="Отвори мени"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div
-          className={cn(
-            "md:hidden overflow-hidden transition-all duration-300 ease-out",
-            isOpen ? "max-h-96 pb-4" : "max-h-0"
-          )}
-        >
-          <div 
-            className="flex flex-col gap-1 pt-4 mt-4"
-            style={{ borderTop: '1px solid hsl(25 15% 20% / 0.5)' }}
-          >
-            {links.map((link) => (
+            ) : (
               <Link
-                key={link.to}
-                to={link.to}
-                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200"
-                style={{
-                  color: isActive(link.to) ? 'hsl(170 60% 55%)' : 'hsl(0 0% 100% / 0.7)',
-                  background: isActive(link.to) ? 'hsl(170 60% 50% / 0.1)' : 'transparent',
-                }}
+                to="/login"
+                aria-label={t("nav.profile")}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-foreground"
               >
-                {link.label}
+                <User aria-hidden className="h-4 w-4" />
               </Link>
-            ))}
-            
-            {/* Mobile Auth */}
-            {!user && (
-              <div className="flex gap-3 mt-3 px-4">
-                <Link
-                  to="/login"
-                  className="flex-1 py-3 rounded-xl text-sm font-medium text-center transition-all duration-200"
-                  style={{
-                    color: 'hsl(0 0% 100% / 0.7)',
-                    border: '1px solid hsl(25 15% 25%)',
-                  }}
-                >
-                  Најави се
-                </Link>
-                <Link
-                  to="/signup"
-                  className="flex-1 py-3 rounded-xl text-sm font-semibold text-center"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(15 70% 50%) 0%, hsl(25 75% 55%) 100%)',
-                    color: 'hsl(0 0% 100%)',
-                  }}
-                >
-                  Регистрирај се
-                </Link>
-              </div>
-            )}
-            
-            {user && (
-              <div className="pt-3 mt-3" style={{ borderTop: '1px solid hsl(25 15% 20% / 0.5)' }}>
-                <UserMenu />
-              </div>
             )}
           </div>
         </div>
-      </div>
-    </nav>
+      </header>
+
+      <nav
+        className="fixed inset-x-0 bottom-0 z-header grid h-[calc(var(--bottom-nav-h)+env(safe-area-inset-bottom))] grid-cols-5 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
+        aria-label="Главна навигација"
+      >
+        {tabs.map((tab) => {
+          const on = active(pathname, tab.to, tab.end);
+          const Icon = tab.icon;
+          return (
+            <Link
+              key={tab.to}
+              to={tab.to}
+              aria-current={on ? "page" : undefined}
+              className={`relative flex min-h-11 flex-col items-center justify-center gap-0.5 text-xs font-medium ${
+                on ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              {on && <span className="absolute inset-x-1/4 top-0 h-[3px] rounded-b bg-primary" />}
+              <Icon aria-hidden className="h-6 w-6" strokeWidth={2} />
+              <span>{t(tab.key)}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    </>
   );
 };
+
+function LangSwitch({
+  lang,
+  setLang,
+  label,
+  className = "",
+}: {
+  lang: Lang;
+  setLang: (lang: Lang) => void;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div className={`flex overflow-hidden rounded-pill border border-input ${className}`} role="group" aria-label={label}>
+      {(["mk", "en"] as const).map((code) => (
+        <button
+          key={code}
+          type="button"
+          aria-pressed={lang === code}
+          onClick={() => setLang(code)}
+          className={`inline-flex h-9 min-w-9 items-center justify-center px-2.5 text-[13px] font-semibold uppercase ${
+            lang === code ? "bg-secondary text-foreground" : "text-muted-foreground"
+          }`}
+        >
+          {code === "mk" ? "MK" : "EN"}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 export default Navbar;
