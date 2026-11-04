@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
 
 vi.mock("@/integrations/supabase/client", () => ({
+  supabaseConfigured: true,
   supabase: {
     auth: {
       onAuthStateChange: (callback: (event: string, session: null) => void) => {

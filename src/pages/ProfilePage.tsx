@@ -21,6 +21,7 @@ interface UserRoute {
   created_at: string;
   likes_count: number;
   route_photo_url: string | null;
+  is_public: boolean;
 }
 
 interface ExtendedProfile {
@@ -55,6 +56,7 @@ const ProfilePage = () => {
   const [newRouteEnd, setNewRouteEnd] = useState("");
   const [newRouteDescription, setNewRouteDescription] = useState("");
   const [newRoutePhotoUrl, setNewRoutePhotoUrl] = useState<string | null>(null);
+  const [newRoutePublic, setNewRoutePublic] = useState(false);
   const [savingRoute, setSavingRoute] = useState(false);
 
   // File input refs
@@ -252,6 +254,7 @@ const ProfilePage = () => {
         end_location: newRouteEnd.trim(),
         description: newRouteDescription.trim(),
         route_photo_url: newRoutePhotoUrl,
+        is_public: newRoutePublic,
       });
     
     if (error) {
@@ -263,13 +266,16 @@ const ProfilePage = () => {
     } else {
       toast({
         title: "Route Added",
-        description: "Your recommended route has been shared",
+        description: newRoutePublic
+          ? "Your route is public."
+          : "Saved as a private route. Only you can see it.",
       });
       setNewRouteTitle("");
       setNewRouteStart("");
       setNewRouteEnd("");
       setNewRouteDescription("");
       setNewRoutePhotoUrl(null);
+      setNewRoutePublic(false);
       setIsAddingRoute(false);
       fetchUserRoutes();
     }
@@ -782,12 +788,20 @@ const ProfilePage = () => {
                         className="bg-muted/50 resize-none"
                       />
                     </div>
+                    <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <input
+                        type="checkbox"
+                        checked={newRoutePublic}
+                        onChange={(e) => setNewRoutePublic(e.target.checked)}
+                      />
+                      List this route publicly. Leave it off and only you can see it.
+                    </label>
                     <Button 
                       onClick={handleAddRoute} 
                       disabled={savingRoute}
                       className="w-full bg-gradient-to-r from-earth-green to-soul-amber hover:from-earth-green/90 hover:to-soul-amber/90"
                     >
-                      {savingRoute ? "Adding..." : "Share This Route"}
+                      {savingRoute ? "Adding..." : newRoutePublic ? "Publish this route" : "Save private route"}
                     </Button>
                   </div>
                 </DialogContent>
@@ -875,6 +889,9 @@ const ProfilePage = () => {
                           >
                             {route.route_title}
                           </h4>
+                          <p className="text-xs text-muted-foreground">
+                            {route.is_public ? "Public" : "Private"}
+                          </p>
                           <p 
                             className="flex items-center gap-1 mt-1 text-sm"
                             style={{ 

@@ -38,12 +38,12 @@ This repo does not run Supabase migrations for you. SQL history is in `supabase/
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `VITE_SUPABASE_URL` | For a custom project | Supabase project URL. If either this or the anon key is missing, the app uses the previously published public anon project and prints a console warning. It does not throw. |
+| `VITE_SUPABASE_URL` | For accounts, chat, and profiles | Supabase project URL. If this or the anon key is missing, or still a CI placeholder, the app does not call any hosted project. It logs an error and shows “Backend not configured”. The static pages still render. |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | For a custom project | Supabase anon/publishable key |
 | `VITE_SUPABASE_PROJECT_ID` | No (app) | Project ref. The Vite app does not read it today; `supabase/config.toml` holds the same id for the CLI |
 | `VITE_OPENWEATHER_API_KEY` | No | Live weather. Unset means the on-page estimate |
 
-Hosted builds should still set the Supabase variables in the host when they should point at a different project. They used to be committed in `.env`, which this repo no longer tracks. A build that omits them keeps starting with the old public anon configuration.
+Hosted builds should set the Supabase variables in the host. CI and GitHub Pages inject non-secret placeholders when the real values are absent, so the build still succeeds. Those placeholders are not a backend.
 
 ## Scripts
 
