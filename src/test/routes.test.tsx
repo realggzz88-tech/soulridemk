@@ -62,7 +62,7 @@ describe("routes", () => {
     expect(screen.getAllByRole("link", { name: "Рути" })[0]).toHaveAttribute("href", "/routes");
     expect(screen.getAllByRole("link", { name: "Места" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "Омилени" })[0]).toHaveAttribute("href", "/favorites");
-    expect(screen.getByRole("link", { name: /Источни водопади/ })).toHaveAttribute(
+    expect(await screen.findByRole("link", { name: /Источни водопади/ })).toHaveAttribute(
       "href",
       "/routes/eastern-waterfalls-loop",
     );
