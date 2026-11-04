@@ -110,6 +110,7 @@ export type Database = {
           description: string
           end_location: string
           id: string
+          is_public: boolean
           likes_count: number
           route_photo_url: string | null
           route_title: string
@@ -122,6 +123,7 @@ export type Database = {
           description: string
           end_location: string
           id?: string
+          is_public?: boolean
           likes_count?: number
           route_photo_url?: string | null
           route_title: string
@@ -134,6 +136,7 @@ export type Database = {
           description?: string
           end_location?: string
           id?: string
+          is_public?: boolean
           likes_count?: number
           route_photo_url?: string | null
           route_title?: string

@@ -1,31 +1,44 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { PUBLISHED_SUPABASE_ANON_KEY, PUBLISHED_SUPABASE_URL, resolveSupabasePublicConfig } from "@/lib/public-env";
+import { resolveSupabasePublicConfig } from "@/lib/public-env";
 
 describe("Supabase public config", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it("uses both env values when they are set", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  it("uses both env values when they are a real project", () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
     expect(resolveSupabasePublicConfig("https://custom.supabase.co", "custom-anon")).toEqual({
       url: "https://custom.supabase.co",
       publishableKey: "custom-anon",
-      source: "env",
+      configured: true,
     });
-    expect(warn).not.toHaveBeenCalled();
+    expect(error).not.toHaveBeenCalled();
   });
 
-  it("does not throw when env is missing and falls back to the published anon project", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    expect(resolveSupabasePublicConfig(null, null)).toEqual({
-      url: PUBLISHED_SUPABASE_URL,
-      publishableKey: PUBLISHED_SUPABASE_ANON_KEY,
-      source: "published-fallback",
+  it("does not fall back to a hosted project when env is missing", () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const missing = resolveSupabasePublicConfig(null, null);
+    expect(missing).toEqual({
+      url: null,
+      publishableKey: null,
+      configured: false,
     });
-    expect(resolveSupabasePublicConfig("https://custom.supabase.co", null).source).toBe(
-      "published-fallback",
-    );
-    expect(warn).toHaveBeenCalled();
+    expect(missing.url).toBeNull();
+    expect(missing.publishableKey).toBeNull();
+    expect(resolveSupabasePublicConfig("https://custom.supabase.co", null).configured).toBe(false);
+    expect(error).toHaveBeenCalled();
+  });
+
+  it("treats CI placeholders as not configured", () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    expect(
+      resolveSupabasePublicConfig("https://example.supabase.co", "public-anon-key-placeholder"),
+    ).toEqual({
+      url: null,
+      publishableKey: null,
+      configured: false,
+    });
+    expect(error).toHaveBeenCalled();
   });
 });

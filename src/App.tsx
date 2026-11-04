@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { supabaseConfigured } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
@@ -42,6 +43,14 @@ const App = () => (
           <Sonner />
           <div className="min-h-screen flex flex-col bg-background">
             <Navbar />
+            {!supabaseConfigured && (
+              <div
+                role="alert"
+                className="bg-destructive px-4 py-2 text-center text-sm text-destructive-foreground"
+              >
+                Backend not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.
+              </div>
+            )}
             <main className="flex-1">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
