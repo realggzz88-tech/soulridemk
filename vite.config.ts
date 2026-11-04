@@ -25,11 +25,11 @@ function spaFallbackPlugin(): Plugin {
     name: "spa-fallback",
     apply: "build",
     closeBundle() {
-      if (githubPagesBase() === "/") return;
       const dist = path.resolve(__dirname, "dist");
       const index = path.join(dist, "index.html");
+      copyFileSync(index, path.join(dist, "404.html"));
+      if (githubPagesBase() === "/") return;
       const pages = [
-        "404.html",
         "routes.html",
         "spots.html",
         "about.html",
@@ -44,7 +44,6 @@ function spaFallbackPlugin(): Plugin {
         const target = path.join(dist, page);
         mkdirSync(path.dirname(target), { recursive: true });
         copyFileSync(index, target);
-        if (page === "404.html") continue;
         const slashDir = path.join(dist, page.replace(/\.html$/, ""));
         mkdirSync(slashDir, { recursive: true });
         copyFileSync(index, path.join(slashDir, "index.html"));
@@ -68,5 +67,10 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    // Do not set manualChunks. Stage 1 split React into its own chunk and the
+    // app crashed on load because other chunks ran before React initialized.
+    // Leaflet, framer-motion, and Supabase are split with dynamic import().
   },
 }));

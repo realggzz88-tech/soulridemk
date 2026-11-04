@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Home, MapPin, Compass } from "lucide-react";
+import Seo from "@/components/Seo";
+import { notFoundSeo } from "@/lib/seo";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,6 +15,12 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: 'hsl(20 15% 8%)' }}>
+      <Seo
+        title={notFoundSeo.title}
+        description={notFoundSeo.description}
+        path={location.pathname}
+        noindex
+      />
       <div className="text-center max-w-lg">
         {/* Lost rider illustration */}
         <div 

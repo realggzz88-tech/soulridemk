@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { User, Bike, MapPin, Plus, Calendar, Route, Pencil, Trash2, Camera, ImagePlus, Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import Seo from "@/components/Seo";
+import { profileSeo } from "@/lib/seo";
 
 interface UserRoute {
   id: string;
@@ -297,16 +299,21 @@ const ProfilePage = () => {
     }
   };
 
+  const pageSeo = (
+    <Seo title={profileSeo.title} description={profileSeo.description} path={profileSeo.path} noindex />
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
+        {pageSeo}
         <div className="animate-pulse text-muted-foreground">Loading...</div>
       </div>
     );
   }
 
   if (!user || !profile) {
-    return null;
+    return pageSeo;
   }
 
   return (
@@ -314,6 +321,7 @@ const ProfilePage = () => {
       className="min-h-screen pt-20 pb-16 px-4 grain-overlay"
       style={{ background: 'linear-gradient(180deg, hsl(200 20% 8%) 0%, hsl(180 15% 10%) 50%, hsl(25 12% 10%) 100%)' }}
     >
+      {pageSeo}
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Profile Header with Photos - Vintage Journal Style */}
         <div 

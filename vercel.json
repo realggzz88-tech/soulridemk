@@ -1,3 +1,232 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/about",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/chat",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/central-canyon-ride",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/eastern-waterfalls-loop",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/northern-mountain-pass",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/pelister-peaks-hike",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/prespa-hidden-shores",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/southern-winery-escape",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/routes/western-lakes-tour",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/belasica-mountain-summit",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/berovo-lake",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/bistra-mountain-pass",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/burial-mound-unbeaten",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/carevi-kuli",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/demir-kapija-gorge",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/dojran-lake",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/galicica-national-park-summit",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/galicica-pass",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/golem-grad-island",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kokino-observatory-overlook",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kolesino-waterfall",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kozjak-canyon",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kozjak-lake",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kratovo-old-town",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/krushevo-paragliding",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/kuklica-stone-dolls",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/markos-towers",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/matka-canyon",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/mavrovo-lake-loop",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/ohrid-old-town-overlook",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/pelister-national-park",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/pelister-viewpoint",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/popova-kula-winery",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/prespa-lake-shore",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/shar-mountain-range",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/smolare-waterfall",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/st-jovan-kaneo-overlook",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/stobi-ancient-city",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/sv-naum-monastery",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/tetovo-arabati-baba-tekke",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/treskavec-monastery",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/trpejca-beach",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/vevcani-village",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/vodno-mountain-cross",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/spots/vodoca-monastery",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co https://a.basemaps.cartocdn.com https://adventurousmiriam.com https://b.basemaps.cartocdn.com https://basemaps.cartocdn.com https://c.basemaps.cartocdn.com https://cdn.getyourguide.com https://d.basemaps.cartocdn.com https://live.staticflickr.com https://ourwanders.com https://static.euronews.com https://upload.wikimedia.org https://www.beinmacedonia.com https://www.discoveringmacedonia.com; media-src 'self' blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openweathermap.org https://router.project-osrm.org; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(self), camera=(), microphone=(), payment=()"
+        }
+      ]
+    }
+  ]
 }

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Clock, Compass, MapPin } from "lucide-react";
 import { routes } from "@/data/routes";
+import Seo from "@/components/Seo";
+import { routesSeo } from "@/lib/seo";
 
 const RoutesPage = () => {
   useEffect(() => {
@@ -10,9 +12,10 @@ const RoutesPage = () => {
 
   return (
     <div
-      className="min-h-screen pt-24 sm:pt-28 pb-16 page-enter"
+      className="min-h-screen pt-24 sm:pt-28 pb-16"
       style={{ backgroundColor: "hsl(20 15% 8%)" }}
     >
+      <Seo title={routesSeo.title} description={routesSeo.description} path={routesSeo.path} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-10">
           <div

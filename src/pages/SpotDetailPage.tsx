@@ -1,14 +1,21 @@
+import { lazy, Suspense, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, MapPin, Lightbulb, Navigation, Route, Cloud } from "lucide-react";
 import { spots } from "@/data/spots";
 import ImageCarousel from "@/components/ImageCarousel";
-import { SpotDetailMap } from "@/components/SpotMap";
 import FavoriteButton from "@/components/FavoriteButton";
 import ShareButtons from "@/components/ShareButtons";
-import ScenicRoute from "@/components/ScenicRoute";
 import WeatherWidget from "@/components/WeatherWidget";
 import StartDrivingButton from "@/components/StartDrivingButton";
-import { useState, useEffect } from "react";
+import { DeferMount } from "@/components/DeferMount";
+import { MapPlaceholder } from "@/components/MapPlaceholder";
+import Seo from "@/components/Seo";
+import { spotSeo } from "@/lib/seo";
+
+const SpotDetailMap = lazy(() =>
+  import("@/components/SpotMap").then((module) => ({ default: module.SpotDetailMap })),
+);
+const ScenicRoute = lazy(() => import("@/components/ScenicRoute"));
 
 const SpotDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,6 +43,12 @@ const SpotDetailPage = () => {
   if (!spot) {
     return (
       <div className="min-h-screen pt-24 flex items-center justify-center">
+        <Seo
+          title="Местото не е пронајдено"
+          description="Ова место го нема во SoulRide. Врати се на списокот и избери друго место за возење во Македонија."
+          path={`/spots/${id ?? ""}`}
+          noindex
+        />
         <div className="text-center">
           <h1 className="font-display text-4xl mb-4 tracking-wider">Spot Not Found</h1>
           <Link to="/spots" className="text-earth-green-glow hover:underline tracking-wide">
@@ -49,8 +62,11 @@ const SpotDetailPage = () => {
   // Generate ride summary
   const rideSummary = `Soulride to ${spot.title}: ~${Math.floor(20 + Math.random() * 80)} km of twisty beauty from Ohrid. ${spot.tags.includes("twisty") ? "Expect hairpins and curves that awaken your spirit." : "A scenic journey through Macedonia's hidden landscapes."}`;
 
+  const meta = spotSeo(spot);
+
   return (
-    <div className="min-h-screen pt-20 page-enter grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
+    <div className="min-h-screen pt-20 grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
+      <Seo title={meta.title} description={meta.description} path={meta.path} />
       {/* Back Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <Link
@@ -178,7 +194,15 @@ const SpotDetailPage = () => {
               </div>
               <h2 className="font-display text-2xl tracking-wider">LOCATION</h2>
             </div>
-            <SpotDetailMap spot={spot} />
+            <DeferMount
+              fallback={(activate) => (
+                <MapPlaceholder onActivate={activate} className="h-56 sm:h-64 md:h-96" />
+              )}
+            >
+              <Suspense fallback={<MapPlaceholder busy onActivate={() => undefined} className="h-56 sm:h-64 md:h-96" />}>
+                <SpotDetailMap spot={spot} />
+              </Suspense>
+            </DeferMount>
             
             {/* Prominent Start Driving Button */}
             <div className="flex justify-center py-4">
@@ -197,7 +221,17 @@ const SpotDetailPage = () => {
 
           {/* Scenic Route Planner */}
           <div className="mb-12">
-            <ScenicRoute spot={spot} />
+            <DeferMount
+              fallback={(activate) => (
+                <MapPlaceholder onActivate={activate} className="min-h-80 md:min-h-[450px]" />
+              )}
+            >
+              <Suspense
+                fallback={<MapPlaceholder busy onActivate={() => undefined} className="min-h-80 md:min-h-[450px]" />}
+              >
+                <ScenicRoute spot={spot} />
+              </Suspense>
+            </DeferMount>
           </div>
         </div>
 

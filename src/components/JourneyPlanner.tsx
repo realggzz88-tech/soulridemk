@@ -1,11 +1,12 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { lazy, Suspense, useState, useMemo, useEffect, useRef } from "react";
 import { MapPin, Route, Clock, Utensils, Mountain, Zap, Sparkles, ExternalLink, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { spots } from "@/data/spots";
 import { macedonianLocations, foodDrinkStops, regionRouteMap, foodRegionMap } from "@/data/journeyData";
-import JourneyRouteMap from "./JourneyRouteMap";
 import LocationCombobox from "./LocationCombobox";
+
+const JourneyRouteMap = lazy(() => import("./JourneyRouteMap"));
 
 const ADVENTURE_LEVELS = ["easy", "moderate", "challenging"] as const;
 type AdventureLevel = (typeof ADVENTURE_LEVELS)[number];
@@ -609,12 +610,16 @@ const JourneyPlanner = () => {
                 boxShadow: '0 4px 20px hsl(0 0% 0% / 0.3)',
               }}
             >
-              <JourneyRouteMap
-                startLocation={generatedRoute.startLocation}
-                endLocation={generatedRoute.endLocation}
-                stops={generatedRoute.stops}
-                foodStops={generatedRoute.foodStops}
-              />
+              <Suspense
+                fallback={<div className="w-full h-[400px] sm:h-[500px]" style={{ background: "hsl(200 20% 8%)" }} />}
+              >
+                <JourneyRouteMap
+                  startLocation={generatedRoute.startLocation}
+                  endLocation={generatedRoute.endLocation}
+                  stops={generatedRoute.stops}
+                  foodStops={generatedRoute.foodStops}
+                />
+              </Suspense>
             </div>
 
             {/* Open in Google Maps */}
