@@ -45,7 +45,7 @@ const App = () => (
             <Sonner />
             <div className="min-h-screen flex flex-col bg-background">
               <Navbar />
-              <main className="flex-1 pb-24 md:pb-0">
+              <main id="main" className="flex-1 pb-24 md:pb-0">
                 <Suspense fallback={<PageLoader />}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />

@@ -5,7 +5,9 @@
     "routes": "Routes",
     "favourites": "Favourites",
     "profile": "Profile",
-    "language": "Language"
+    "language": "Language",
+    "primary": "Main",
+    "skip": "Skip to content"
   },
   "routes": {
     "meta": {

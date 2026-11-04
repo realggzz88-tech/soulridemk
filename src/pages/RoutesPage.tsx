@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { AlertTriangle, RefreshCw, Route, Search } from "lucide-react";
+import { CircleAlert, RefreshCw, Route, Search } from "lucide-react";
 import { useLang } from "@/features/shell/lang";
 import { RouteCard } from "@/features/routes/RouteCard";
 import { RouteFilters } from "@/features/routes/RouteFilters";
@@ -110,7 +110,7 @@ const RoutesPage = ({ loadRouteList = loadDefault }: RoutesPageProps) => {
               <StatusBlock
                 icon={
                   <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-destructive">
-                    <AlertTriangle aria-hidden className="h-7 w-7" />
+                    <CircleAlert aria-hidden className="h-7 w-7" />
                   </span>
                 }
                 title={t("common.error.title")}
@@ -189,7 +189,7 @@ function RouteSkeletons({ label }: { label: string }) {
       <span className="sr-only">{label}</span>
       {Array.from({ length: 6 }, (_, index) => (
         <div key={index} aria-hidden className={`overflow-hidden rounded-lg border border-border bg-card ${index >= 3 ? "hidden lg:block" : ""}`}>
-          <div className="aspect-hero skeleton-bar motion-safe:animate-shimmer" />
+          <div className="aspect-[16/9] skeleton-bar motion-safe:animate-shimmer" />
           <div className="space-y-2 p-4">
             <div className="skeleton-bar h-5 w-3/5 rounded-md" />
             <div className="skeleton-bar h-4 w-4/5 rounded-md" />

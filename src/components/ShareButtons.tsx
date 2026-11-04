@@ -118,7 +118,7 @@ const ShareButtons = ({
       <div className={cn("flex items-center gap-2", className)}>
         <button
           onClick={handleCopyLink}
-          className={iconButtonClass}
+          className={cn(iconButtonClass, "inline-flex h-11 w-11 items-center justify-center")}
           aria-label="Copy link"
         >
           {copied ? (
@@ -129,21 +129,21 @@ const ShareButtons = ({
         </button>
         <button
           onClick={handleWhatsAppShare}
-          className={iconButtonClass}
+          className={cn(iconButtonClass, "inline-flex h-11 w-11 items-center justify-center")}
           aria-label="Share on WhatsApp"
         >
           <WhatsAppIcon size={16} className={cn(iconClass, "text-muted-foreground group-hover/share:text-earth-green-glow")} />
         </button>
         <button
           onClick={handleFacebookShare}
-          className={iconButtonClass}
+          className={cn(iconButtonClass, "inline-flex h-11 w-11 items-center justify-center")}
           aria-label="Share on Facebook"
         >
           <FacebookIcon size={16} className={cn(iconClass, "text-muted-foreground group-hover/share:text-soul-amber")} />
         </button>
         <button
           onClick={handleInstagramShare}
-          className={iconButtonClass}
+          className={cn(iconButtonClass, "inline-flex h-11 w-11 items-center justify-center")}
           aria-label="Share on Instagram"
         >
           <InstagramIcon size={16} className={cn(iconClass, "text-muted-foreground group-hover/share:text-soul-amber")} />

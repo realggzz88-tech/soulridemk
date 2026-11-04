@@ -52,7 +52,7 @@ export function RouteCard({ item, priority = false, forceFail = false }: RouteCa
       aria-label={cardLabel(lang, item)}
       className="group flex min-w-0 flex-col overflow-hidden rounded-lg border border-border bg-card shadow-sm outline-none transition-shadow duration-base ease-out hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
-      <div className="relative aspect-hero bg-muted">
+      <div className="relative aspect-[16/9] bg-muted">
         {showFail ? (
           <div
             role="img"

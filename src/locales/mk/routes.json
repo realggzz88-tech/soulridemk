@@ -5,7 +5,9 @@
     "routes": "Рути",
     "favourites": "Омилени",
     "profile": "Профил",
-    "language": "Јазик"
+    "language": "Јазик",
+    "primary": "Главна навигација",
+    "skip": "Прескокни до содржината"
   },
   "routes": {
     "meta": {
