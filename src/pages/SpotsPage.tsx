@@ -228,7 +228,7 @@ const SpotsPage = () => {
       </div>
       <Link
         to="/suggest"
-        className="fixed bottom-[calc(var(--bottom-nav-h)+1rem)] right-4 z-header inline-flex h-14 items-center gap-2 rounded-pill bg-primary px-5 font-semibold text-primary-foreground shadow-glow md:bottom-6"
+        className="fixed bottom-[calc(var(--bottom-nav-h)+1rem)] left-4 z-30 inline-flex h-14 items-center gap-2 rounded-pill bg-primary px-5 font-semibold text-primary-foreground shadow-glow md:bottom-6"
       >
         <Plus className="h-5 w-5" />
         Додај место

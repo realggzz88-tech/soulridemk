@@ -41,7 +41,8 @@ export function uploadTooLarge(bytes: number): boolean {
   return bytes > PHOTO_UPLOAD_MAX_BYTES;
 }
 
+/** Decimal megabytes (10^6 bytes), matching the "MB" label. */
 export function formatMegabytes(bytes: number): string {
-  const value = bytes / (1024 * 1024);
+  const value = bytes / 1_000_000;
   return value.toFixed(1).replace(".", ",");
 }

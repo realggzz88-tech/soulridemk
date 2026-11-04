@@ -6,9 +6,9 @@ import { copy as licenceCopy } from "./licence-copy";
 import { dailyLimit, NEW_ACCOUNT_DAILY_LIMIT, TRUSTED_ACCOUNT_DAILY_LIMIT } from "./limits";
 import { fittedEdge } from "./photos";
 import { distanceMeters, nearestSpot, zoneAt } from "./zones";
-import { nameError, storyError, uploadTooLarge, PHOTO_UPLOAD_MAX_BYTES } from "./validate";
+import { nameError, storyError, uploadTooLarge, PHOTO_UPLOAD_MAX_BYTES, formatMegabytes } from "./validate";
 import { toSubmission } from "./client";
-import { loadGemDraft, saveGemDraft } from "./draft";
+import { DraftSaveError, clearGemDraft, loadGemDraft, previewHarnessEnabled, saveGemDraft } from "./draft";
 import { altError } from "./validate";
 
 vi.mock("@/hooks/useAuth", () => ({
@@ -70,33 +70,59 @@ describe("gem rules", () => {
   it("requires cover alt text in both languages and keeps a draft on the device", async () => {
     expect(altError("")).toBe("required");
     expect(altError("Поглед")).toBeNull();
-    const store: { value: string | null } = { value: null };
-    await saveGemDraft(
-      {
+    localStorage.clear();
+    await saveGemDraft({
+      savedAt: "2026-11-04T00:00:00.000Z",
+      lat: 41.1,
+      lng: 20.8,
+      name: "Видиковец",
+      category: "nature",
+      subcategories: ["viewpoint"],
+      altMk: "Поглед",
+      altEn: "View",
+      story: "Од превојот се гледа целото езеро и патот е тесен на последните километри.",
+      storyLang: "mk",
+      seasons: ["spring", "autumn"],
+      own: true,
+      licence: true,
+      privacy: true,
+      photos: [],
+    });
+    const loaded = await loadGemDraft();
+    expect(loaded?.subcategories).toEqual(["viewpoint"]);
+    expect(loaded?.seasons).toEqual(["spring", "autumn"]);
+    expect(previewHarnessEnabled(false, "review")).toBe(false);
+    expect(previewHarnessEnabled(true, "review")).toBe(true);
+    expect(previewHarnessEnabled(true, "signin")).toBe(false);
+    expect(formatMegabytes(22_800_000)).toBe("22,8");
+    await clearGemDraft();
+    expect(localStorage.getItem("soulride.gem-draft")).toBeNull();
+  });
+
+  it("reports a failed draft save instead of throwing QuotaExceededError", async () => {
+    const setItem = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new DOMException("quota", "QuotaExceededError");
+    });
+    await expect(
+      saveGemDraft({
         savedAt: "2026-11-04T00:00:00.000Z",
-        lat: 41.1,
-        lng: 20.8,
-        name: "Видиковец",
+        lat: 41,
+        lng: 21,
+        name: "Име",
         category: "nature",
-        subcategories: ["viewpoint"],
+        subcategories: [],
         altMk: "Поглед",
         altEn: "View",
         story: "Од превојот се гледа целото езеро и патот е тесен на последните километри.",
         storyLang: "mk",
-        seasons: ["spring", "autumn"],
+        seasons: [],
         own: true,
         licence: true,
         privacy: true,
         photos: [],
-      },
-      (value) => {
-        store.value = value;
-      },
-    );
-    const loaded = await loadGemDraft(() => store.value);
-    expect(loaded?.subcategories).toEqual(["viewpoint"]);
-    expect(loaded?.seasons).toEqual(["spring", "autumn"]);
-    expect(JSON.stringify(loaded)).not.toMatch(/supabase|https?:\/\//);
+      }),
+    ).rejects.toBeInstanceOf(DraftSaveError);
+    setItem.mockRestore();
   });
 });
 
@@ -142,5 +168,50 @@ describe("add gem location", () => {
     expect(screen.getByText(/30 дена/)).toBeInTheDocument();
     expect(screen.queryByText(/6 месеци/)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Поднеси жалба" })).toBeInTheDocument();
+    expect(screen.queryByText("Пештера Врело")).not.toBeInTheDocument();
+  });
+
+  it("starts empty and keeps the demo spot inside the dev preview only", () => {
+    const { unmount } = render(
+      <MemoryRouter initialEntries={["/suggest"]}>
+        <Routes>
+          <Route path="/suggest" element={<AddGemPage signedIn />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.queryByDisplayValue("Видиковец над Трпејца")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Од превојот се гледа/)).not.toBeInTheDocument();
+    unmount();
+    render(
+      <MemoryRouter initialEntries={["/suggest?state=details"]}>
+        <Routes>
+          <Route path="/suggest" element={<AddGemPage signedIn />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByDisplayValue("Видиковец над Трпејца")).toBeInTheDocument();
+  });
+
+  it("shows per-photo progress and the upload-failed state", () => {
+    const { unmount } = render(
+      <MemoryRouter initialEntries={["/suggest?state=photos-compress"]}>
+        <Routes>
+          <Route path="/suggest" element={<AddGemPage signedIn />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText(/Компресирање 64%/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Се компресира…" })).toBeDisabled();
+    unmount();
+    render(
+      <MemoryRouter initialEntries={["/suggest?state=upload-failed"]}>
+        <Routes>
+          <Route path="/suggest" element={<AddGemPage signedIn />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText(/Нема интернет/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Се прикачува… 1 од 3" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Обиди се пак" })).toBeInTheDocument();
   });
 });

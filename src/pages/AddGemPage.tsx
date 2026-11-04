@@ -37,7 +37,7 @@ import {
 } from "@/features/gems/validate";
 import { nearestSpot, zoneAt } from "@/features/gems/zones";
 import { copy as licenceMk } from "@/features/gems/licence-copy";
-import { blobToDataUrl, loadGemDraft, saveGemDraft, type Season } from "@/features/gems/draft";
+import { clearGemDraft, loadGemDraft, previewHarnessEnabled, saveGemDraft, type Season } from "@/features/gems/draft";
 
 const SUBCATEGORIES: Record<GemCategory, Array<{ id: string; mk: string; en: string }>> = {
   nature: [
@@ -124,7 +124,7 @@ const copy = {
     photosLead: "До 5 фотографии што ти си ги снимил. Првата е насловна.",
     add: "Додај",
     cover: "Насловна",
-    photoHelp: "Од 1 до 5 фотографии, до 15 MB секоја. Пред прикачување ги компресираме на твојот уред на најмногу 2 MB и ги бришеме GPS-податоците.",
+    photoHelp: "Од 1 до 5 фотографии, до 15 MB секоја (JPG, PNG, WebP, HEIC). Пред прикачување ги компресираме на твојот уред на најмногу 2 MB и ги бришеме GPS-податоците.",
     tooBig: (mb: string) => `Фотографијата е ${mb} MB — максимумот е 15 MB. Избери помала или исечи ја.`,
     needPhoto: "Додај барем една фотографија.",
     shrinkingTitle: "Ги намалуваме фотографиите",
@@ -192,6 +192,28 @@ const copy = {
     seasons: "Најдобро време за посета",
     saveDraft: "Зачувај како нацрт",
     draftSaved: "Нацртот е зачуван само на овој уред.",
+    draftTextOnly: "Текстот е зачуван. Фотографиите не се собраа на уредот.",
+    draftFailed: "Нацртот не е зачуван. Ослободи простор и обиди се повторно.",
+    tooMany: "Можеш да додадеш најмногу 5 фотографии. Дополнителните не се земени.",
+    minOne: "мин. 1",
+    oversize: "Над 15 MB",
+    nameHint: (n: number) => `3–60 знаци · ${n}/${NAME_MAX}`,
+    storyHint: (n: number) => `${n}/${STORY_MAX} · најмалку ${STORY_MIN} знаци`,
+    accuracy: (n: number) => `±${n} м`,
+    readyCount: (done: number, total: number) => `${done} од ${total} готова`,
+    uploadingCount: (done: number, total: number) => `Се прикачува… ${done} од ${total}`,
+    compressingNow: "Се компресира…",
+    heic: "HEIC не може да се прочита во овој прелистувач. Зачувај ја фотографијата како JPG или PNG.",
+    photoFailed: "Не успеа",
+    retryPhoto: "Обиди се пак",
+    compressing: "Компресирање",
+    waitingPhoto: "Чека…",
+    uploadOffline: "Нема интернет. Ќе продолжиме кога ќе се врати врската.",
+    uploading: "Се прикачува…",
+    hours: (n: number) => `${n} ч`,
+    minutes: (n: number) => `${n} мин`,
+    limitMeter: (used: number, max: number) => `${used} / ${max}`,
+    steps: ["Локација", "Детали", "Фотографии", "Приказна", "Преглед"],
     appealTitle: "Не се согласуваш со одлуката?",
     appealBody: "Можеш да поднесеш жалба во рок од 30 дена.",
     appealAction: "Поднеси жалба",
@@ -241,7 +263,7 @@ const copy = {
     photosLead: "Up to 5 photos you took yourself. The first one is the cover.",
     add: "Add",
     cover: "Cover",
-    photoHelp: "1 to 5 photos, up to 15 MB each. Before uploading we compress them on your device to 2 MB or less and remove GPS data.",
+    photoHelp: "1 to 5 photos, up to 15 MB each (JPG, PNG, WebP, HEIC). Before uploading we compress them on your device to 2 MB or less and remove GPS data.",
     tooBig: (mb: string) => `This photo is ${mb} MB — the limit is 15 MB. Pick a smaller one or crop it.`,
     needPhoto: "Add at least one photo.",
     shrinkingTitle: "Shrinking your photos",
@@ -309,6 +331,28 @@ const copy = {
     seasons: "Best time to visit",
     saveDraft: "Save as draft",
     draftSaved: "The draft is saved on this device only.",
+    draftTextOnly: "The text is saved. The photos did not fit on this device.",
+    draftFailed: "The draft was not saved. Free some space and try again.",
+    tooMany: "You can add at most 5 photos. The extra files were not added.",
+    minOne: "min. 1",
+    oversize: "Over 15 MB",
+    nameHint: (n: number) => `3–60 characters · ${n}/${NAME_MAX}`,
+    storyHint: (n: number) => `${n}/${STORY_MAX} · at least ${STORY_MIN} characters`,
+    accuracy: (n: number) => `±${n} m`,
+    readyCount: (done: number, total: number) => `${done} of ${total} ready`,
+    uploadingCount: (done: number, total: number) => `Uploading… ${done} of ${total}`,
+    compressingNow: "Compressing…",
+    heic: "HEIC can't be read in this browser. Save the photo as JPG or PNG.",
+    photoFailed: "Failed",
+    retryPhoto: "Try again",
+    compressing: "Compressing",
+    waitingPhoto: "Waiting…",
+    uploadOffline: "No internet. We'll continue when the connection is back.",
+    uploading: "Uploading…",
+    hours: (n: number) => `${n} h`,
+    minutes: (n: number) => `${n} min`,
+    limitMeter: (used: number, max: number) => `${used} / ${max}`,
+    steps: ["Location", "Details", "Photos", "Story", "Review"],
     appealTitle: "Don't agree with the decision?",
     appealBody: "You can appeal within 30 days.",
     appealAction: "Submit an appeal",
@@ -324,7 +368,7 @@ function demoPhotos(): CompressedPhoto[] {
     name: `${id}.jpg`,
     type: "image/jpeg",
     blob: new Blob(),
-    bytes: 180_000,
+    bytes: 1_800_000,
     width: 800,
     height: 450,
     previewUrl: `${base}img/routes/${id}.jpg`,
@@ -344,33 +388,54 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const preview = params.get("state");
+  const harness = previewHarnessEnabled(import.meta.env.DEV, preview);
+  const filled = harness && ["details", "photos", "photos-compress", "photos-err", "upload-failed", "story", "review", "success", "spot"].includes(preview ?? "");
+  const showDemoPhotos = harness && ["photos", "photos-err", "photos-compress", "upload-failed", "story", "review"].includes(preview ?? "");
+  const photoPreview = harness && ["photos", "story", "review", "photos-compress", "upload-failed"].includes(preview ?? "");
+  const overlayJobs = harness && (preview === "upload-failed" || preview === "photos-compress");
   const pins = useMemo(() => listSpotPins(), []);
 
-  const [step, setStep] = useState<Step>(preview === "details" || preview === "details-err" ? "details" : preview === "photos" || preview === "photos-err" || preview === "photos-compress" || preview === "upload-failed" ? "photos" : preview === "story" ? "story" : preview === "review" ? "review" : "location");
-  const [lat, setLat] = useState(preview === "location-blocked" ? 40.9668 : preview === "duplicate" ? 41.0304 : 41.1897);
-  const [lng, setLng] = useState(preview === "location-blocked" ? 21.0402 : preview === "duplicate" ? 20.7506 : 20.7965);
-  const [accuracy, setAccuracy] = useState<number | null>(12);
-  const [locError, setLocError] = useState(preview === "location-err");
+  const [step, setStep] = useState<Step>(!harness ? "location" : preview === "details" || preview === "details-err" ? "details" : preview === "photos" || preview === "photos-err" || preview === "photos-compress" || preview === "upload-failed" ? "photos" : preview === "story" ? "story" : preview === "review" ? "review" : "location");
+  const [lat, setLat] = useState(!harness ? 41.6 : preview === "location-blocked" ? 40.9668 : preview === "duplicate" ? 41.0304 : 41.1897);
+  const [lng, setLng] = useState(!harness ? 21.43 : preview === "location-blocked" ? 21.0402 : preview === "duplicate" ? 20.7506 : 20.7965);
+  const [accuracy, setAccuracy] = useState<number | null>(harness ? 12 : null);
+  const [locError, setLocError] = useState(harness && preview === "location-err");
   const [ackDuplicate, setAckDuplicate] = useState(false);
   const [query, setQuery] = useState("");
-  const [name, setName] = useState(preview === "details-err" ? "" : "Видиковец над Трпејца");
-  const [category, setCategory] = useState<GemCategory | null>(preview === "details-err" ? null : "nature");
-  const [subcategories, setSubcategories] = useState<string[]>(preview === "details" || preview === "story" || preview === "review" ? ["viewpoint"] : []);
-  const [showDetailsErrors, setShowDetailsErrors] = useState(preview === "details-err");
-  const [photos, setPhotos] = useState<CompressedPhoto[]>(() =>
-    preview === "photos" || preview === "story" || preview === "review" ? demoPhotos() : [],
+  const [name, setName] = useState(filled ? "Видиковец над Трпејца" : "");
+  const [category, setCategory] = useState<GemCategory | null>(filled ? "nature" : null);
+  const [subcategories, setSubcategories] = useState<string[]>(filled ? ["viewpoint"] : []);
+  const [showDetailsErrors, setShowDetailsErrors] = useState(harness && preview === "details-err");
+  const [photos, setPhotos] = useState<CompressedPhoto[]>(() => (showDemoPhotos ? demoPhotos() : []));
+  const [altMk, setAltMk] = useState(showDemoPhotos ? "Поглед кон Трпејца и езерото" : "");
+  const [altEn, setAltEn] = useState(showDemoPhotos ? "View towards Trpejca and the lake" : "");
+  const [photoError, setPhotoError] = useState<string | null>(harness && preview === "photos-err" ? t.tooBig("23,4") : null);
+  const [compressing, setCompressing] = useState(harness && preview === "photos-compress");
+  const [uploadOffline, setUploadOffline] = useState(harness && preview === "upload-failed");
+  const [photoJobs, setPhotoJobs] = useState<Array<{ id: string; name: string; progress: number; status: "compressing" | "failed" | "waiting"; detail?: string }>>(
+    harness && preview === "upload-failed"
+      ? [
+          { id: "a", name: "cover.jpg", progress: 100, status: "waiting" },
+          { id: "b", name: "road.jpg", progress: 45, status: "compressing" },
+          { id: "c", name: "view.jpg", progress: 0, status: "failed" },
+        ]
+      : harness && preview === "photos-compress"
+        ? [
+            { id: "a", name: "cover.jpg", progress: 100, status: "waiting" },
+            { id: "b", name: "road.jpg", progress: 64, status: "compressing" },
+            { id: "c", name: "view.jpg", progress: 0, status: "waiting" },
+          ]
+        : harness && preview === "photos-err"
+          ? [{ id: "bad", name: "too-big.jpg", progress: 0, status: "failed", detail: `${t.oversize} (23,4 MB)` }]
+          : [],
   );
-  const [altMk, setAltMk] = useState(preview === "photos" || preview === "story" || preview === "review" ? "Поглед кон Трпејца и езерото" : "");
-  const [altEn, setAltEn] = useState(preview === "photos" || preview === "story" || preview === "review" ? "View towards Trpejca and the lake" : "");
-  const [photoError, setPhotoError] = useState<string | null>(preview === "photos-err" ? t.tooBig("23,4") : null);
-  const [compressing, setCompressing] = useState(preview === "photos-compress");
-  const [own, setOwn] = useState(preview !== "photos-err" && preview !== null && (preview === "photos" || preview === "review" || preview === "story"));
-  const [licence, setLicence] = useState(own);
-  const [privacy, setPrivacy] = useState(own);
+  const [own, setOwn] = useState(photoPreview);
+  const [licence, setLicence] = useState(photoPreview);
+  const [privacy, setPrivacy] = useState(photoPreview);
   const [showPhotoErrors, setShowPhotoErrors] = useState(preview === "photos-err");
   const [storyLang, setStoryLang] = useState<"mk" | "en">(lang === "en" ? "en" : "mk");
-  const [story, setStory] = useState("Од превојот се гледа целото езеро. Последните 2 км се макадам — со туристички мотор оди полека. Најубаво е пред зајдисонце.");
-  const [seasons, setSeasons] = useState<Season[]>(preview === "story" || preview === "review" ? ["spring", "summer", "autumn"] : []);
+  const [story, setStory] = useState(filled ? "Од превојот се гледа целото езеро. Последните 2 км се макадам — со туристички мотор оди полека. Најубаво е пред зајдисонце." : "");
+  const [seasons, setSeasons] = useState<Season[]>(harness && (preview === "story" || preview === "review") ? ["spring", "summer", "autumn"] : []);
   const [showStoryError, setShowStoryError] = useState(false);
   const [draftNote, setDraftNote] = useState<string | null>(null);
   const [appealNote, setAppealNote] = useState<string | null>(null);
@@ -384,38 +449,39 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const persistDraft = async () => {
-    const storedPhotos = await Promise.all(
-      photos.map(async (photo) => ({
-        name: photo.name,
-        type: photo.type,
-        bytes: photo.bytes,
-        width: photo.width,
-        height: photo.height,
-        dataUrl: photo.previewUrl.startsWith("blob:") ? await blobToDataUrl(photo.blob) : photo.previewUrl,
-      })),
-    );
-    await saveGemDraft({
-      savedAt: new Date().toISOString(),
-      lat,
-      lng,
-      name,
-      category,
-      subcategories,
-      altMk,
-      altEn,
-      story,
-      storyLang,
-      seasons,
-      own,
-      licence,
-      privacy,
-      photos: storedPhotos,
-    });
-    setDraftNote(t.draftSaved);
+    try {
+      const result = await saveGemDraft({
+        savedAt: new Date().toISOString(),
+        lat,
+        lng,
+        name,
+        category,
+        subcategories,
+        altMk,
+        altEn,
+        story,
+        storyLang,
+        seasons,
+        own,
+        licence,
+        privacy,
+        photos: photos.map((photo) => ({
+          name: photo.name,
+          type: photo.type,
+          bytes: photo.bytes,
+          width: photo.width,
+          height: photo.height,
+          blob: photo.blob,
+        })),
+      });
+      setDraftNote(result === "saved" ? t.draftSaved : t.draftTextOnly);
+    } catch {
+      setDraftNote(t.draftFailed);
+    }
   };
 
   useEffect(() => {
-    if (preview) return;
+    if (harness) return;
     void loadGemDraft().then((draft) => {
       if (!draft) return;
       setLat(draft.lat);
@@ -435,15 +501,15 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
         draft.photos.map((photo) => ({
           name: photo.name,
           type: photo.type,
-          blob: new Blob(),
+          blob: photo.blob,
           bytes: photo.bytes,
           width: photo.width,
           height: photo.height,
-          previewUrl: photo.dataUrl,
+          previewUrl: URL.createObjectURL(photo.blob),
         })),
       );
     });
-  }, [preview]);
+  }, [harness]);
 
   const zone = zoneAt(lat, lng);
   const nearby = nearestSpot(lat, lng, pins);
@@ -478,31 +544,54 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
     }
   };
 
+  const isHeic = (file: File) => file.type === "image/heic" || file.type === "image/heif" || /\.hei[cf]$/i.test(file.name);
+
   const addFiles = async (list: FileList | null) => {
-    if (!list) return;
+    if (!list || list.length === 0) return;
     setPhotoError(null);
     const room = PHOTO_MAX - photos.length;
-    const files = [...list].slice(0, room);
-    setCompressing(true);
-    try {
-      const next = [...photos];
-      for (const file of files) {
-        if (uploadTooLarge(file.size)) {
-          setPhotoError(t.tooBig(formatMegabytes(file.size)));
-          setShowPhotoErrors(true);
-          continue;
-        }
-        const compressed = await compressPhoto(file);
-        next.push(compressed);
-      }
-      setPhotos(next.slice(0, PHOTO_MAX));
-    } catch (error) {
-      if (error instanceof PhotoTooLargeError) setPhotoError(t.tooBig(formatMegabytes(error.bytes)));
-      else setPhotoError(t.tooBig("15,0"));
+    if (list.length > room) {
+      setPhotoError(t.tooMany);
       setShowPhotoErrors(true);
-    } finally {
-      setCompressing(false);
     }
+    const files = [...list].slice(0, Math.max(0, room));
+    if (typeof navigator !== "undefined" && navigator.onLine === false) {
+      setUploadOffline(true);
+      setPhotoJobs(files.map((file, index) => ({ id: `${Date.now()}-${index}`, name: file.name, progress: 0, status: "failed" as const })));
+      return;
+    }
+    setCompressing(true);
+    const next = [...photos];
+    for (const file of files) {
+      const id = `${Date.now()}-${file.name}-${file.size}`;
+      if (isHeic(file)) {
+        setPhotoJobs((jobs) => [...jobs, { id, name: file.name, progress: 0, status: "failed" }]);
+        setPhotoError(t.heic);
+        setShowPhotoErrors(true);
+        continue;
+      }
+      if (uploadTooLarge(file.size)) {
+        setPhotoJobs((jobs) => [...jobs, { id, name: file.name, progress: 0, status: "failed", detail: t.oversize }]);
+        setPhotoError(t.tooBig(formatMegabytes(file.size)));
+        setShowPhotoErrors(true);
+        continue;
+      }
+      setPhotoJobs((jobs) => [...jobs, { id, name: file.name, progress: 0, status: "compressing" }]);
+      try {
+        const compressed = await compressPhoto(file, (ratio) => {
+          setPhotoJobs((jobs) => jobs.map((job) => (job.id === id ? { ...job, progress: Math.round(ratio * 100) } : job)));
+        });
+        next.push(compressed);
+        setPhotoJobs((jobs) => jobs.filter((job) => job.id !== id));
+      } catch (error) {
+        setPhotoJobs((jobs) => jobs.map((job) => (job.id === id ? { ...job, status: "failed", detail: error instanceof PhotoTooLargeError ? t.oversize : undefined } : job)));
+        if (error instanceof PhotoTooLargeError) setPhotoError(t.tooBig(formatMegabytes(error.bytes)));
+        else setPhotoError(t.photoFailed);
+        setShowPhotoErrors(true);
+      }
+    }
+    setPhotos(next.slice(0, PHOTO_MAX));
+    setCompressing(false);
   };
 
   const goNext = async () => {
@@ -534,6 +623,10 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
       setStep("review");
       return;
     }
+    if (zoneAt(lat, lng)?.kind === "strict") {
+      setStep("location");
+      return;
+    }
     if (sendsToday() >= dailyLimit(isTrustedAccount())) {
       setScreen("limit");
       return;
@@ -556,16 +649,16 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
         privacy: true,
       });
       setSent(row);
+      await clearGemDraft();
       setScreen("success");
     } catch {
       setScreen("offline");
     }
   };
 
-  const previewing = Boolean(preview) && preview !== "signin";
-  if (!user && !signedIn && !previewing) {
+  if (!user && !signedIn && !harness) {
     return (
-      <Shell title={t.title} stepLabel="" onClose={() => navigate("/spots")} showProgress={false}>
+      <Shell title={t.title} stepLabel="" closeLabel={t.close} backLabel={t.back} onClose={() => navigate("/spots")} showProgress={false}>
         <div className="mx-auto flex min-h-[70vh] max-w-md flex-col items-center justify-center gap-4 px-4 text-center">
           <span className="grid h-20 w-20 place-items-center rounded-full bg-primary/15 text-primary">
             <MapPin className="h-10 w-10" />
@@ -584,13 +677,13 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
     const wait = formatRetry(retryInMs() || 9 * 3600000 + 18 * 60000);
     const used = Math.min(sendsToday() || 3, 3);
     return (
-      <Shell title={t.title} stepLabel="" onClose={() => navigate("/spots")} showProgress={false}>
+      <Shell title={t.title} stepLabel="" closeLabel={t.close} backLabel={t.back} onClose={() => navigate("/spots")} showProgress={false}>
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-10 text-center">
           <span className="grid h-20 w-20 place-items-center rounded-full bg-destructive/15 text-destructive"><Hourglass className="h-10 w-10" /></span>
           <h2 className="font-display text-[22px] font-extrabold">{t.limitTitle}</h2>
-          <p className="text-[15px] text-muted-foreground">{t.limitBody} <b className="font-mono text-foreground">{wait.hours} ч {wait.minutes} мин</b>.</p>
+          <p className="text-[15px] text-muted-foreground">{t.limitBody} <b className="font-mono text-foreground">{t.hours(wait.hours)} {t.minutes(wait.minutes)}</b>.</p>
           <div className="w-full text-left">
-            <div className="mb-1.5 flex justify-between text-[13px]"><span className="text-muted-foreground">{t.today}</span><span className="font-mono">{used} / 3</span></div>
+            <div className="mb-1.5 flex justify-between text-[13px]"><span className="text-muted-foreground">{t.today}</span><span className="font-mono">{t.limitMeter(used, 3)}</span></div>
             <div className="grid grid-cols-3 gap-1">{[0, 1, 2].map((i) => <span key={i} className={`h-2 rounded-full ${i < used ? "bg-destructive" : "bg-muted"}`} />)}</div>
           </div>
           <div className="flex gap-3 rounded-xl border border-info/45 bg-info/15 p-3 text-left text-sm"><Shield className="mt-0.5 h-4 w-4 shrink-0" /><div><b>{t.trusted}</b></div></div>
@@ -604,7 +697,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
 
   if (screen === "offline") {
     return (
-      <Shell title={t.title} stepLabel={t.step(5)} progress={5} onClose={() => setScreen("flow")} back>
+      <Shell title={t.title} stepLabel={t.step(5)} progress={5} steps={t.steps} closeLabel={t.close} backLabel={t.back} onClose={() => setScreen("flow")} back>
         <div className="bg-warning px-4 py-2 text-[13px] font-semibold text-warning-foreground">{t.offlineTitle}</div>
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-10 text-center">
           <span className="grid h-20 w-20 place-items-center rounded-full bg-muted"><WifiOff className="h-10 w-10" /></span>
@@ -621,7 +714,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   if (screen === "success") {
     const label = sent?.name ?? name;
     return (
-      <Shell title={lang === "mk" ? "Испратено" : "Sent"} stepLabel="" onClose={() => navigate("/spots")} showProgress={false}>
+      <Shell title={lang === "mk" ? "Испратено" : "Sent"} stepLabel="" closeLabel={t.close} backLabel={t.back} onClose={() => navigate("/spots")} showProgress={false}>
         <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-10 text-center">
           <span className="grid h-20 w-20 place-items-center rounded-full bg-success/20 text-success"><Check className="h-10 w-10" /></span>
           <h2 className="font-display text-[22px] font-extrabold">{t.thanks}</h2>
@@ -641,16 +734,12 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
 
   if (screen === "pending") {
     return (
-      <Shell title={t.mineTitle} stepLabel="" onClose={() => navigate("/spots")} showProgress={false}>
+      <Shell title={t.mineTitle} stepLabel="" closeLabel={t.close} backLabel={t.back} onClose={() => navigate("/spots")} showProgress={false}>
         <div className="mx-auto max-w-lg px-4 py-6">
           <p className="mb-4 text-[15px] text-muted-foreground">{t.mineLead}</p>
           <article className="mb-3 flex items-center gap-3 rounded-xl border border-border bg-card p-3">
             <div className="min-w-0 flex-1"><b>{sent?.name ?? name}</b><p className="text-[13px] text-muted-foreground">{t.sent}</p></div>
             <span className="rounded-pill bg-warning/20 px-2.5 py-1 text-xs font-bold text-warning">{t.waiting}</span>
-          </article>
-          <article className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-card p-3">
-            <div className="min-w-0 flex-1"><b>Пештера Врело</b><p className="text-[13px] text-muted-foreground">{t.rejectedReason}</p></div>
-            <span className="rounded-pill bg-destructive/20 px-2.5 py-1 text-xs font-bold text-destructive">{t.rejected}</span>
           </article>
           <div className="flex gap-3 rounded-xl border border-info/45 bg-info/15 p-3 text-sm">
             <Shield className="mt-0.5 h-4 w-4 shrink-0" />
@@ -688,16 +777,33 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
     );
   }
 
-  const continueLabel = step === "review" ? t.send : nearby && !ackDuplicate && step === "location" ? t.different : compressing ? t.shrinkingTitle : t.next;
+  const photoTotal = overlayJobs ? photos.length : photos.length + photoJobs.length;
+  const photoDone = overlayJobs
+    ? photos.filter((_, index) => {
+        const job = photoJobs[index];
+        return Boolean(job && job.status === "waiting" && job.progress >= 100);
+      }).length
+    : photos.length;
+  const photosBusy = compressing || uploadOffline || photoJobs.some((job) => job.status === "compressing");
+  const continueLabel = step === "review" ? t.send : nearby && !ackDuplicate && step === "location" ? t.different : uploadOffline ? t.uploadingCount(photoDone, Math.max(photoTotal, 1)) : compressing || photoJobs.some((job) => job.status === "compressing") ? t.compressingNow : t.next;
 
   return (
     <Shell
       title={t.title}
       stepLabel={t.step(stepIndex)}
       progress={stepIndex}
+      steps={t.steps}
+      closeLabel={t.close}
+      backLabel={t.back}
       onClose={() => (step === "location" ? navigate("/spots") : setStep(STEPS[stepIndex - 2]))}
       back={step !== "location"}
     >
+      {uploadOffline && (
+        <div className="flex items-center gap-2 bg-warning px-4 py-2 text-[13px] font-semibold text-warning-foreground">
+          <WifiOff className="h-4 w-4 shrink-0" />
+          {t.uploadOffline}
+        </div>
+      )}
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-5 pb-28 lg:px-8">
         {step === "location" && (
           <div className="grid gap-4 lg:grid-cols-2">
@@ -735,7 +841,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             </div>
             <div className="flex flex-col gap-3">
               {locError && <Note tone="err" title={t.locErrorTitle} body={t.locErrorBody} />}
-              <p className="font-mono text-[13px] text-muted-foreground">{lat.toFixed(4)}° N, {lng.toFixed(4)}° E{accuracy ? ` · ±${accuracy} м` : ""}</p>
+              <p className="font-mono text-[13px] text-muted-foreground">{lat.toFixed(4)}° N, {lng.toFixed(4)}° E{accuracy ? ` · ${t.accuracy(accuracy)}` : ""}</p>
               <button type="button" className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-input font-semibold" onClick={locate}><Crosshair className="h-4 w-4" />{t.locate}</button>
               {blocked && zone && <Note tone="err" title={t.blockedTitle} body={t.blockedBody(lang === "mk" ? zone.nameMk : zone.nameEn)} />}
               {!blocked && zone?.kind === "protected" && <Note tone="warn" title={t.protectedTitle} body={t.protectedBody(lang === "mk" ? zone.nameMk : zone.nameEn)} />}
@@ -758,7 +864,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             <label className="flex flex-col gap-1.5 text-sm font-semibold">
               {t.name}
               <input ref={nameRef} value={name} onChange={(event) => setName(event.target.value)} maxLength={NAME_MAX} placeholder={t.namePlaceholder} aria-invalid={showDetailsErrors && Boolean(nameError(name))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showDetailsErrors && nameError(name) ? "border-destructive" : "border-input"}`} />
-              {showDetailsErrors && nameError(name) ? <span className="text-[13px] font-normal text-destructive">{t.nameError}</span> : <span className="text-[13px] font-normal text-muted-foreground">{name.trim().length}/{NAME_MAX}</span>}
+              {showDetailsErrors && nameError(name) ? <span className="text-[13px] font-normal text-destructive">{t.nameError}</span> : <span className="text-[13px] font-normal text-muted-foreground">{t.nameHint(name.trim().length)}</span>}
             </label>
             <fieldset>
               <legend className="mb-2 text-sm font-semibold">{t.category}</legend>
@@ -794,32 +900,61 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
           <div className="mx-auto flex w-full max-w-xl flex-col gap-4">
             <div><h2 className="font-display text-[22px] font-extrabold">{t.photosTitle}</h2><p className="text-[15px] text-muted-foreground">{t.photosLead}</p></div>
             <div className="grid grid-cols-3 gap-2">
-              {photos.map((photo, index) => (
-                <div key={photo.previewUrl} className="relative aspect-square overflow-hidden rounded-lg bg-muted">
-                  <img src={photo.previewUrl} alt="" className="h-full w-full object-cover" />
-                  {index === 0 && <span className="absolute bottom-1 left-1 rounded bg-primary px-1.5 py-0.5 text-[11px] font-bold text-primary-foreground">{t.cover}</span>}
-                  <button type="button" aria-label={t.close} className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full bg-scrim/75 text-foreground" onClick={() => setPhotos(photos.filter((_, i) => i !== index))}><X className="h-3.5 w-3.5" /></button>
+              {photos.map((photo, index) => {
+                const job = overlayJobs ? photoJobs[index] : undefined;
+                const failed = job?.status === "failed";
+                return (
+                  <div key={photo.previewUrl} className={`relative aspect-square overflow-hidden rounded-lg bg-muted ${failed ? "outline outline-2 outline-destructive" : ""}`}>
+                    <img src={photo.previewUrl} alt={index === 0 ? altMk : ""} className={`h-full w-full object-cover ${failed ? "opacity-40" : ""}`} />
+                    {index === 0 && !job && <span className="absolute bottom-1 left-1 rounded bg-primary px-1.5 py-0.5 text-[11px] font-bold text-primary-foreground">{t.cover}</span>}
+                    {job?.status === "waiting" && job.progress >= 100 && <span className="absolute left-1 top-1 rounded bg-success px-1.5 py-0.5 text-[11px] font-bold text-success-foreground">{formatMegabytes(photo.bytes)} MB</span>}
+                    {job && job.status !== "failed" && job.progress < 100 && (
+                      <div className="absolute inset-x-0 bottom-0 bg-scrim/75 px-1.5 py-1 text-[11px] font-semibold text-foreground">
+                        {job.status === "compressing" ? `${t.compressing} ${job.progress}%` : t.waitingPhoto}
+                        <span className="mt-1 block h-1 overflow-hidden rounded bg-background/40"><span className="block h-full bg-accent" style={{ width: `${job.progress}%` }} /></span>
+                      </div>
+                    )}
+                    {failed && (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-destructive/75 px-1 text-center text-[11px] font-semibold text-primary-foreground">
+                        <AlertTriangle className="h-4 w-4" />
+                        {job.detail ?? t.photoFailed}
+                        <button type="button" className="min-h-11 underline" onClick={() => fileRef.current?.click()}>{t.retryPhoto}</button>
+                      </div>
+                    )}
+                    <button type="button" aria-label={t.close} className="absolute right-0 top-0 z-10 grid h-11 w-11 place-items-center" onClick={() => setPhotos(photos.filter((_, i) => i !== index))}><span className="grid h-7 w-7 place-items-center rounded-full bg-scrim/75"><X className="h-4 w-4" /></span></button>
+                  </div>
+                );
+              })}
+              {!overlayJobs && photoJobs.map((job) => (
+                <div key={job.id} className={`relative flex aspect-square flex-col items-center justify-center gap-1 overflow-hidden rounded-lg px-2 text-center text-[11px] font-semibold ${job.status === "failed" ? "bg-destructive/80 text-primary-foreground outline outline-2 outline-destructive" : "bg-muted"}`}>
+                  {job.status === "failed" && <AlertTriangle className="h-4 w-4" />}
+                  <span>{job.status === "failed" ? (job.detail ?? t.photoFailed) : job.status === "compressing" ? `${t.compressing} ${job.progress}%` : t.waitingPhoto}</span>
+                  {job.status !== "failed" && <span className="h-1 w-full overflow-hidden rounded bg-scrim/40"><span className="block h-full bg-accent" style={{ width: `${job.progress}%` }} /></span>}
+                  {job.status === "failed" && (
+                    <button type="button" className="min-h-11 underline" onClick={() => fileRef.current?.click()}>{t.retryPhoto}</button>
+                  )}
                 </div>
               ))}
               {photos.length < PHOTO_MAX && (
                 <button type="button" className="flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-input text-xs text-muted-foreground" onClick={() => fileRef.current?.click()}>
-                  <Camera className="h-5 w-5" />{t.add}<span>{photos.length}/{PHOTO_MAX} · мин. 1</span>
+                  <Camera className="h-5 w-5" />{t.add}<span>{photos.length}/{PHOTO_MAX} · {t.minOne}</span>
                 </button>
               )}
             </div>
-            <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple className="sr-only" onChange={(event) => void addFiles(event.target.files)} />
-            {compressing && <Note tone="info" title={t.shrinkingTitle} body={t.shrinkingBody} />}
+            <label htmlFor="gem-photos" className="sr-only">{t.photosTitle}</label>
+            <input id="gem-photos" ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/heic,.heic,.heif" multiple className="sr-only" aria-label={t.photosTitle} aria-describedby="gem-photo-help" onChange={(event) => void addFiles(event.target.files)} />
+            {(compressing || overlayJobs) && preview !== "upload-failed" && photoJobs.some((job) => job.status === "compressing") && <Note tone="info" title={t.shrinkingTitle} body={`${t.shrinkingBody} ${t.readyCount(photoDone, Math.max(photoTotal, 1))}`} />}
             {showPhotoErrors && photoError && <p className="text-[13px] text-destructive">{photoError}</p>}
             {showPhotoErrors && photoCountError(photos.length) === "min" && <p className="text-[13px] text-destructive">{t.needPhoto}</p>}
-            <p className="text-[13px] text-muted-foreground">{t.photoHelp}</p>
-            <p className="text-[13px] text-muted-foreground">{t.altHelp}</p>
+            <p id="gem-photo-help" className="text-[13px] text-muted-foreground">{t.photoHelp}</p>
+            <p id="gem-alt-help" className="text-[13px] text-muted-foreground">{t.altHelp}</p>
             <label className="flex flex-col gap-1.5 text-sm font-semibold">
               {t.altMk}
-              <input value={altMk} onChange={(event) => setAltMk(event.target.value)} aria-invalid={showPhotoErrors && Boolean(altError(altMk))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altMk) ? "border-destructive" : "border-input"}`} />
+              <input value={altMk} onChange={(event) => setAltMk(event.target.value)} maxLength={250} aria-describedby="gem-alt-help" aria-invalid={showPhotoErrors && Boolean(altError(altMk))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altMk) ? "border-destructive" : "border-input"}`} />
             </label>
             <label className="flex flex-col gap-1.5 text-sm font-semibold">
               {t.altEn}
-              <input value={altEn} onChange={(event) => setAltEn(event.target.value)} lang="en" aria-invalid={showPhotoErrors && Boolean(altError(altEn))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altEn) ? "border-destructive" : "border-input"}`} />
+              <input value={altEn} onChange={(event) => setAltEn(event.target.value)} maxLength={250} lang="en" aria-describedby="gem-alt-help" aria-invalid={showPhotoErrors && Boolean(altError(altEn))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altEn) ? "border-destructive" : "border-input"}`} />
             </label>
             {showPhotoErrors && (altError(altMk) || altError(altEn)) && <p className="text-[13px] text-destructive">{t.altError}</p>}
             <CheckRow checked={own} onChange={setOwn} label={t.own} invalid={showPhotoErrors && !own} />
@@ -837,8 +972,11 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
                 <button key={code} type="button" aria-pressed={storyLang === code} className={`h-11 flex-1 rounded-md text-sm font-semibold ${storyLang === code ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`} onClick={() => setStoryLang(code)}>{code === "mk" ? t.mk : t.en}</button>
               ))}
             </div>
-            <textarea value={story} onChange={(event) => setStory(event.target.value)} maxLength={STORY_MAX} className="min-h-[150px] rounded-lg border border-input bg-background p-3 text-base" />
-            <p className="text-right text-xs text-muted-foreground">{story.trim().length}/{STORY_MAX} · {STORY_MIN}</p>
+            <label className="flex flex-col gap-1.5 text-sm font-semibold">
+              {t.storyTitle}
+              <textarea value={story} onChange={(event) => setStory(event.target.value)} maxLength={STORY_MAX} aria-label={t.storyTitle} className="min-h-[150px] rounded-lg border border-input bg-background p-3 text-base font-normal" />
+            </label>
+            <p className="text-right text-xs text-muted-foreground">{t.storyHint(story.trim().length)}</p>
             {showStoryError && storyError(story) === "length" && <p className="text-[13px] text-destructive">{t.storyLength}</p>}
             {showStoryError && storyError(story) === "banned" && <p className="text-[13px] text-destructive">{t.storyBanned}</p>}
             <Note tone="info" title={storyLang === "mk" ? "Англиската верзија ја правиме ние" : "We write the other language"} body={`${t.translateNote} „${t.badge}“ ${t.translateUntil}`} />
@@ -881,24 +1019,33 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
           </div>
         )}
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-header flex gap-2 border-t border-border bg-background px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:static lg:justify-end">
+      <div className="fixed bottom-0 left-0 right-0 z-header flex gap-2 border-t border-border bg-background px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:right-auto lg:left-1/2 lg:w-full lg:max-w-5xl lg:-translate-x-1/2 lg:px-8">
         {step !== "location" && <button type="button" className="inline-flex h-[52px] items-center justify-center rounded-lg border border-input px-4 font-semibold" onClick={() => setStep(STEPS[stepIndex - 2])}>{t.back}</button>}
-        <button type="button" disabled={blocked || compressing} className="inline-flex h-[52px] flex-1 items-center justify-center rounded-lg bg-primary px-4 font-semibold text-primary-foreground disabled:opacity-50 lg:flex-none lg:min-w-[200px]" onClick={() => { if (nearby && !ackDuplicate && step === "location") { setAckDuplicate(true); return; } void goNext(); }}>{continueLabel}</button>
+        <button type="button" disabled={blocked || photosBusy} className="inline-flex h-[52px] flex-1 items-center justify-center rounded-lg bg-primary px-4 font-semibold text-primary-foreground disabled:opacity-50 lg:flex-none lg:min-w-[200px]" onClick={() => { if (nearby && !ackDuplicate && step === "location") { setAckDuplicate(true); return; } void goNext(); }}>{continueLabel}</button>
       </div>
     </Shell>
   );
 };
 
-function Shell({ title, stepLabel, progress = 0, onClose, back, showProgress = true, children }: { title: string; stepLabel: string; progress?: number; onClose: () => void; back?: boolean; showProgress?: boolean; children: ReactNode }) {
+function Shell({ title, stepLabel, progress = 0, onClose, back, showProgress = true, steps = [], closeLabel = "Close", backLabel = "Back", children }: { title: string; stepLabel: string; progress?: number; onClose: () => void; back?: boolean; showProgress?: boolean; steps?: readonly string[]; closeLabel?: string; backLabel?: string; children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-header border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center gap-1 px-2 lg:h-16 lg:px-8">
-          <button type="button" className="grid h-11 w-11 place-items-center" aria-label={back ? "Назад" : "Затвори"} onClick={onClose}>{back ? <ArrowLeft /> : <X />}</button>
+          <button type="button" className="grid h-11 w-11 place-items-center" aria-label={back ? backLabel : closeLabel} onClick={onClose}>{back ? <ArrowLeft /> : <X />}</button>
           <h1 className="truncate text-[17px] font-bold">{title}</h1>
           {stepLabel && <span className="ml-auto pr-2 text-[13px] text-muted-foreground">{stepLabel}</span>}
         </div>
-        {showProgress && progress > 0 && <div className="h-1 bg-muted"><div className="h-full bg-primary" style={{ width: `${progress * 20}%` }} /></div>}
+        {showProgress && progress > 0 && <div className="h-1 bg-muted lg:hidden"><div className="h-full bg-primary" style={{ width: `${progress * 20}%` }} /></div>}
+        {showProgress && steps.length > 0 && (
+          <ol className="mx-auto hidden max-w-5xl gap-2 px-8 pb-3 lg:flex">
+            {steps.map((label, index) => (
+              <li key={label} className={`flex-1 border-t-2 pt-1.5 text-xs font-semibold ${index < progress ? "border-primary text-foreground" : "border-muted text-muted-foreground"}`}>
+                {index + 1}. {label}
+              </li>
+            ))}
+          </ol>
+        )}
       </header>
       {children}
     </div>
@@ -918,7 +1065,10 @@ function Note({ tone, title, body, alert }: { tone: "err" | "warn" | "info"; tit
 function CheckRow({ checked, onChange, label, invalid }: { checked: boolean; onChange: (value: boolean) => void; label: ReactNode; invalid?: boolean }) {
   return (
     <label className="flex min-h-11 items-start gap-3 text-sm">
-      <input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} className="mt-1 h-5 w-5 accent-[hsl(var(--primary))]" />
+      <input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} className="peer sr-only" />
+      <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-[4px] border peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ring ${checked ? "border-primary bg-primary text-primary-foreground" : "border-input bg-background"} ${invalid ? "border-destructive" : ""}`}>
+        {checked && <Check className="h-3.5 w-3.5" />}
+      </span>
       <span className={invalid ? "text-destructive" : ""}>{label}</span>
     </label>
   );
