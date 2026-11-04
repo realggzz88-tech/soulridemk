@@ -8,6 +8,8 @@ import { fittedEdge } from "./photos";
 import { distanceMeters, nearestSpot, zoneAt } from "./zones";
 import { nameError, storyError, uploadTooLarge, PHOTO_UPLOAD_MAX_BYTES } from "./validate";
 import { toSubmission } from "./client";
+import { loadGemDraft, saveGemDraft } from "./draft";
+import { altError } from "./validate";
 
 vi.mock("@/hooks/useAuth", () => ({
   useAuth: () => ({ user: null, loading: false }),
@@ -47,6 +49,10 @@ describe("gem rules", () => {
     const row = toSubmission({
       name: "Видиковец",
       category: "nature",
+      subcategories: ["viewpoint"],
+      altMk: "Поглед кон езерото",
+      altEn: "View of the lake",
+      seasons: ["summer"],
       story: "Од превојот се гледа целото езеро и патот е тесен на последните километри.",
       storyLang: "mk",
       lat: 41.19,
@@ -59,6 +65,38 @@ describe("gem rules", () => {
     expect(row.status).toBe("pending");
     expect(row.description_en_status).toBe("machine");
     expect(row.description_mk_status).toBe("author");
+  });
+
+  it("requires cover alt text in both languages and keeps a draft on the device", async () => {
+    expect(altError("")).toBe("required");
+    expect(altError("Поглед")).toBeNull();
+    const store: { value: string | null } = { value: null };
+    await saveGemDraft(
+      {
+        savedAt: "2026-11-04T00:00:00.000Z",
+        lat: 41.1,
+        lng: 20.8,
+        name: "Видиковец",
+        category: "nature",
+        subcategories: ["viewpoint"],
+        altMk: "Поглед",
+        altEn: "View",
+        story: "Од превојот се гледа целото езеро и патот е тесен на последните километри.",
+        storyLang: "mk",
+        seasons: ["spring", "autumn"],
+        own: true,
+        licence: true,
+        privacy: true,
+        photos: [],
+      },
+      (value) => {
+        store.value = value;
+      },
+    );
+    const loaded = await loadGemDraft(() => store.value);
+    expect(loaded?.subcategories).toEqual(["viewpoint"]);
+    expect(loaded?.seasons).toEqual(["spring", "autumn"]);
+    expect(JSON.stringify(loaded)).not.toMatch(/supabase|https?:\/\//);
   });
 });
 
@@ -91,5 +129,18 @@ describe("add gem location", () => {
     );
     expect(screen.getByRole("button", { name: "Продолжи" })).toBeDisabled();
     expect(screen.getByRole("alert")).toHaveTextContent("Езерани");
+  });
+
+  it("shows a 30-day appeal on my suggestions", () => {
+    render(
+      <MemoryRouter initialEntries={["/suggest?state=pending"]}>
+        <Routes>
+          <Route path="/suggest" element={<AddGemPage signedIn />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText(/30 дена/)).toBeInTheDocument();
+    expect(screen.queryByText(/6 месеци/)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Поднеси жалба" })).toBeInTheDocument();
   });
 });

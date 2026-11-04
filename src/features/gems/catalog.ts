@@ -1,7 +1,7 @@
 import { spots } from "@/data/spots";
 
 /** Pin used for the 150 m duplicate check.
- * Replace this read with `getSpots()` from the data-layer PR once that merges.
+ * TODO(data-layer): replace this read with `getSpots()` once PR #3 merges.
  */
 export interface SpotPin {
   id: string;

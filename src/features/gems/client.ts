@@ -1,10 +1,11 @@
+import type { Season } from "./draft";
 import type { GemCategory } from "./validate";
 import { recordSend } from "./limits";
 
 /**
  * User suggestion. Column names follow `public.spots` (name_*, description_*, lat, lng, tags).
- * The backend spec has no submissions table yet; `status: "pending"` is the review state
- * until that table exists. This stub stores nothing remotely and uses no keys.
+ * TODO(backend): insert into the submissions table. This stub stores nothing remotely and uses no keys.
+ * `status: "pending"` is the review state until that table exists.
  */
 export interface GemPhotoMeta {
   name: string;
@@ -17,6 +18,10 @@ export interface GemPhotoMeta {
 export interface GemSubmissionInput {
   name: string;
   category: GemCategory;
+  subcategories: string[];
+  altMk: string;
+  altEn: string;
+  seasons: Season[];
   story: string;
   storyLang: "mk" | "en";
   lat: number;

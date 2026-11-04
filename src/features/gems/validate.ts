@@ -12,6 +12,12 @@ export type GemCategory = "nature" | "food" | "culture" | "road";
 const PHONE = /(?:\+?\d[\s-]?){8,}/;
 const LINK = /(?:https?:\/\/|www\.)\S+/i;
 
+export function altError(text: string): "required" | null {
+  const length = text.trim().length;
+  if (length < 3 || length > 250) return "required";
+  return null;
+}
+
 export function nameError(name: string): "required" | null {
   const length = name.trim().length;
   if (length < NAME_MIN || length > NAME_MAX) return "required";

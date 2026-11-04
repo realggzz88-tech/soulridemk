@@ -13,7 +13,10 @@ export interface Zone {
   maxLng: number;
 }
 
-/** Approximate boxes until official reserve polygons are approved. Strict wins over protected. */
+/**
+ * Approximate boxes. Strict wins over protected.
+ * TODO(backend): replace with OSM / WDPA reserve polygons when Dev Backend ships them.
+ */
 export const ZONES: Zone[] = [
   {
     id: "ezerani",

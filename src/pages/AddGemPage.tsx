@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   AlertTriangle,
@@ -28,6 +28,7 @@ import {
   STORY_MAX,
   STORY_MIN,
   formatMegabytes,
+  altError,
   nameError,
   photoCountError,
   storyError,
@@ -36,6 +37,39 @@ import {
 } from "@/features/gems/validate";
 import { nearestSpot, zoneAt } from "@/features/gems/zones";
 import { copy as licenceMk } from "@/features/gems/licence-copy";
+import { blobToDataUrl, loadGemDraft, saveGemDraft, type Season } from "@/features/gems/draft";
+
+const SUBCATEGORIES: Record<GemCategory, Array<{ id: string; mk: string; en: string }>> = {
+  nature: [
+    { id: "lake", mk: "Езеро", en: "Lake" },
+    { id: "waterfall", mk: "Водопад", en: "Waterfall" },
+    { id: "viewpoint", mk: "Видиковец", en: "Viewpoint" },
+    { id: "spring", mk: "Извор", en: "Spring" },
+    { id: "cave", mk: "Пештера", en: "Cave" },
+  ],
+  food: [
+    { id: "tavern", mk: "Кафана", en: "Tavern" },
+    { id: "home-cooking", mk: "Домашна кујна", en: "Home cooking" },
+  ],
+  culture: [
+    { id: "monastery", mk: "Манастир", en: "Monastery" },
+    { id: "bazaar", mk: "Чаршија", en: "Bazaar" },
+    { id: "village", mk: "Село", en: "Village" },
+    { id: "craft", mk: "Занает", en: "Craft" },
+  ],
+  road: [
+    { id: "pass", mk: "Превој", en: "Pass" },
+    { id: "hairpin", mk: "Серпентини", en: "Hairpins" },
+    { id: "track", mk: "Патека", en: "Track" },
+  ],
+};
+
+const SEASONS: Array<{ id: Season; mk: string; en: string }> = [
+  { id: "spring", mk: "Пролет", en: "Spring" },
+  { id: "summer", mk: "Лето", en: "Summer" },
+  { id: "autumn", mk: "Есен", en: "Autumn" },
+  { id: "winter", mk: "Зима", en: "Winter" },
+];
 
 const CATEGORIES: Array<{ id: GemCategory; mk: string; en: string; hintMk: string; hintEn: string }> = [
   { id: "nature", mk: "Природа", en: "Nature", hintMk: "езера, водопади, видиковци, извори, пештери", hintEn: "lakes, waterfalls, viewpoints, springs, caves" },
@@ -149,6 +183,21 @@ const copy = {
     showOriginal: "Прикажи оригинал",
     report: "Пријави грешка во преводот",
     autoFrom: "Автоматски преведено. Уредник уште не го проверил.",
+    subcategory: "Подкатегорија",
+    optional: "(незадолжително)",
+    altMk: "Опис на насловната фотографија (македонски)",
+    altEn: "Опис на насловната фотографија (англиски)",
+    altHelp: "За луѓе што не ја гледаат фотографијата. Задолжително на двата јазика.",
+    altError: "Внеси опис на двата јазика (3–250 знаци).",
+    seasons: "Најдобро време за посета",
+    saveDraft: "Зачувај како нацрт",
+    draftSaved: "Нацртот е зачуван само на овој уред.",
+    appealTitle: "Не се согласуваш со одлуката?",
+    appealBody: "Можеш да поднесеш жалба во рок од 30 дена.",
+    appealAction: "Поднеси жалба",
+    appealSaved: "Барањето за жалба е зачувано на овој уред.",
+    rejected: "Одбиено",
+    rejectedReason: "Причина: веќе постои",
   },
   en: {
     title: "Add a hidden spot",
@@ -251,8 +300,36 @@ const copy = {
     showOriginal: "Show original",
     report: "Report a translation error",
     autoFrom: "Machine-translated. An editor hasn't checked it yet.",
+    subcategory: "Subcategory",
+    optional: "(optional)",
+    altMk: "Cover photo description (Macedonian)",
+    altEn: "Cover photo description (English)",
+    altHelp: "For people who cannot see the photo. Required in both languages.",
+    altError: "Enter a description in both languages (3–250 characters).",
+    seasons: "Best time to visit",
+    saveDraft: "Save as draft",
+    draftSaved: "The draft is saved on this device only.",
+    appealTitle: "Don't agree with the decision?",
+    appealBody: "You can appeal within 30 days.",
+    appealAction: "Submit an appeal",
+    appealSaved: "The appeal request is saved on this device.",
+    rejected: "Rejected",
+    rejectedReason: "Reason: it already exists",
   },
 } as const;
+
+function demoPhotos(): CompressedPhoto[] {
+  const base = import.meta.env.BASE_URL;
+  return ["eastern-waterfalls-loop", "western-lakes-tour", "pelister-peaks-hike"].map((id) => ({
+    name: `${id}.jpg`,
+    type: "image/jpeg",
+    blob: new Blob(),
+    bytes: 180_000,
+    width: 800,
+    height: 450,
+    previewUrl: `${base}img/routes/${id}.jpg`,
+  }));
+}
 
 interface AddGemPageProps {
   client?: GemSubmissionClient;
@@ -278,8 +355,13 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const [query, setQuery] = useState("");
   const [name, setName] = useState(preview === "details-err" ? "" : "Видиковец над Трпејца");
   const [category, setCategory] = useState<GemCategory | null>(preview === "details-err" ? null : "nature");
+  const [subcategories, setSubcategories] = useState<string[]>(preview === "details" || preview === "story" || preview === "review" ? ["viewpoint"] : []);
   const [showDetailsErrors, setShowDetailsErrors] = useState(preview === "details-err");
-  const [photos, setPhotos] = useState<CompressedPhoto[]>([]);
+  const [photos, setPhotos] = useState<CompressedPhoto[]>(() =>
+    preview === "photos" || preview === "story" || preview === "review" ? demoPhotos() : [],
+  );
+  const [altMk, setAltMk] = useState(preview === "photos" || preview === "story" || preview === "review" ? "Поглед кон Трпејца и езерото" : "");
+  const [altEn, setAltEn] = useState(preview === "photos" || preview === "story" || preview === "review" ? "View towards Trpejca and the lake" : "");
   const [photoError, setPhotoError] = useState<string | null>(preview === "photos-err" ? t.tooBig("23,4") : null);
   const [compressing, setCompressing] = useState(preview === "photos-compress");
   const [own, setOwn] = useState(preview !== "photos-err" && preview !== null && (preview === "photos" || preview === "review" || preview === "story"));
@@ -288,7 +370,10 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const [showPhotoErrors, setShowPhotoErrors] = useState(preview === "photos-err");
   const [storyLang, setStoryLang] = useState<"mk" | "en">(lang === "en" ? "en" : "mk");
   const [story, setStory] = useState("Од превојот се гледа целото езеро. Последните 2 км се макадам — со туристички мотор оди полека. Најубаво е пред зајдисонце.");
+  const [seasons, setSeasons] = useState<Season[]>(preview === "story" || preview === "review" ? ["spring", "summer", "autumn"] : []);
   const [showStoryError, setShowStoryError] = useState(false);
+  const [draftNote, setDraftNote] = useState<string | null>(null);
+  const [appealNote, setAppealNote] = useState<string | null>(null);
   const [screen, setScreen] = useState<"flow" | "success" | "limit" | "offline" | "spot" | "pending">(
     preview === "success" ? "success" : preview === "limit" ? "limit" : preview === "offline" ? "offline" : preview === "spot" ? "spot" : preview === "pending" ? "pending" : "flow",
   );
@@ -297,6 +382,68 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
   const drag = useRef<{ x: number; y: number; lat: number; lng: number } | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const persistDraft = async () => {
+    const storedPhotos = await Promise.all(
+      photos.map(async (photo) => ({
+        name: photo.name,
+        type: photo.type,
+        bytes: photo.bytes,
+        width: photo.width,
+        height: photo.height,
+        dataUrl: photo.previewUrl.startsWith("blob:") ? await blobToDataUrl(photo.blob) : photo.previewUrl,
+      })),
+    );
+    await saveGemDraft({
+      savedAt: new Date().toISOString(),
+      lat,
+      lng,
+      name,
+      category,
+      subcategories,
+      altMk,
+      altEn,
+      story,
+      storyLang,
+      seasons,
+      own,
+      licence,
+      privacy,
+      photos: storedPhotos,
+    });
+    setDraftNote(t.draftSaved);
+  };
+
+  useEffect(() => {
+    if (preview) return;
+    void loadGemDraft().then((draft) => {
+      if (!draft) return;
+      setLat(draft.lat);
+      setLng(draft.lng);
+      setName(draft.name);
+      setCategory(draft.category);
+      setSubcategories(draft.subcategories);
+      setAltMk(draft.altMk);
+      setAltEn(draft.altEn);
+      setStory(draft.story);
+      setStoryLang(draft.storyLang);
+      setSeasons(draft.seasons);
+      setOwn(draft.own);
+      setLicence(draft.licence);
+      setPrivacy(draft.privacy);
+      setPhotos(
+        draft.photos.map((photo) => ({
+          name: photo.name,
+          type: photo.type,
+          blob: new Blob(),
+          bytes: photo.bytes,
+          width: photo.width,
+          height: photo.height,
+          previewUrl: photo.dataUrl,
+        })),
+      );
+    });
+  }, [preview]);
 
   const zone = zoneAt(lat, lng);
   const nearby = nearestSpot(lat, lng, pins);
@@ -377,7 +524,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
     }
     if (step === "photos") {
       setShowPhotoErrors(true);
-      if (photoCountError(photos.length) || !own || !licence || !privacy) return;
+      if (photoCountError(photos.length) || altError(altMk) || altError(altEn) || !own || !licence || !privacy) return;
       setStep("story");
       return;
     }
@@ -395,6 +542,10 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
       const row = await client.submit({
         name: name.trim(),
         category: category ?? "nature",
+        subcategories,
+        altMk: altMk.trim(),
+        altEn: altEn.trim(),
+        seasons,
         story: story.trim(),
         storyLang,
         lat,
@@ -443,6 +594,8 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             <div className="grid grid-cols-3 gap-1">{[0, 1, 2].map((i) => <span key={i} className={`h-2 rounded-full ${i < used ? "bg-destructive" : "bg-muted"}`} />)}</div>
           </div>
           <div className="flex gap-3 rounded-xl border border-info/45 bg-info/15 p-3 text-left text-sm"><Shield className="mt-0.5 h-4 w-4 shrink-0" /><div><b>{t.trusted}</b></div></div>
+          <button type="button" className="inline-flex h-[52px] w-full items-center justify-center rounded-lg bg-primary font-semibold text-primary-foreground" onClick={() => void persistDraft()}>{t.saveDraft}</button>
+          {draftNote && <p className="text-sm text-muted-foreground">{draftNote}</p>}
           <Link to="/spots" className="inline-flex h-[52px] w-full items-center justify-center rounded-lg border border-input font-semibold">{t.backSpots}</Link>
         </div>
       </Shell>
@@ -458,6 +611,8 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
           <h2 className="font-display text-[22px] font-extrabold">{t.offlineTitle}</h2>
           <p className="text-[15px] text-muted-foreground">{t.offlineBody}</p>
           <button type="button" className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-primary font-semibold text-primary-foreground" onClick={() => void goNext()}>{t.retry}</button>
+          <button type="button" className="inline-flex h-[52px] w-full items-center justify-center rounded-lg border border-input font-semibold" onClick={() => void persistDraft()}>{t.saveDraft}</button>
+          {draftNote && <p className="text-sm text-muted-foreground">{draftNote}</p>}
         </div>
       </Shell>
     );
@@ -489,10 +644,23 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
       <Shell title={t.mineTitle} stepLabel="" onClose={() => navigate("/spots")} showProgress={false}>
         <div className="mx-auto max-w-lg px-4 py-6">
           <p className="mb-4 text-[15px] text-muted-foreground">{t.mineLead}</p>
-          <article className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
+          <article className="mb-3 flex items-center gap-3 rounded-xl border border-border bg-card p-3">
             <div className="min-w-0 flex-1"><b>{sent?.name ?? name}</b><p className="text-[13px] text-muted-foreground">{t.sent}</p></div>
             <span className="rounded-pill bg-warning/20 px-2.5 py-1 text-xs font-bold text-warning">{t.waiting}</span>
           </article>
+          <article className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-card p-3">
+            <div className="min-w-0 flex-1"><b>Пештера Врело</b><p className="text-[13px] text-muted-foreground">{t.rejectedReason}</p></div>
+            <span className="rounded-pill bg-destructive/20 px-2.5 py-1 text-xs font-bold text-destructive">{t.rejected}</span>
+          </article>
+          <div className="flex gap-3 rounded-xl border border-info/45 bg-info/15 p-3 text-sm">
+            <Shield className="mt-0.5 h-4 w-4 shrink-0" />
+            <div>
+              <b className="block">{t.appealTitle}</b>
+              {t.appealBody}{" "}
+              <button type="button" className="underline" onClick={() => { localStorage.setItem("soulride.gem-appeal", new Date().toISOString()); setAppealNote(t.appealSaved); }}>{t.appealAction}</button>
+              {appealNote && <p className="mt-1 text-muted-foreground">{appealNote}</p>}
+            </div>
+          </div>
         </div>
       </Shell>
     );
@@ -596,7 +764,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
               <legend className="mb-2 text-sm font-semibold">{t.category}</legend>
               <div className="grid grid-cols-2 gap-2.5">
                 {CATEGORIES.map((item) => (
-                  <button key={item.id} type="button" aria-pressed={category === item.id} onClick={() => setCategory(item.id)} className={`min-h-11 rounded-xl border p-3 text-left ${category === item.id ? "border-2 border-primary bg-primary/10" : "border-input"} ${showDetailsErrors && !category ? "border-destructive" : ""}`}>
+                  <button key={item.id} type="button" aria-pressed={category === item.id} onClick={() => { setCategory(item.id); setSubcategories([]); }} className={`min-h-11 rounded-xl border p-3 text-left ${category === item.id ? "border-2 border-primary bg-primary/10" : "border-input"} ${showDetailsErrors && !category ? "border-destructive" : ""}`}>
                     <b className="block text-[15px]">{lang === "mk" ? item.mk : item.en}</b>
                     <small className="text-xs text-muted-foreground">{lang === "mk" ? item.hintMk : item.hintEn}</small>
                   </button>
@@ -604,6 +772,21 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
               </div>
               {showDetailsErrors && !category && <p className="mt-1 text-[13px] text-destructive">{t.categoryError}</p>}
             </fieldset>
+            {category && (
+              <fieldset>
+                <legend className="mb-2 text-sm font-semibold">{t.subcategory} <span className="font-normal text-muted-foreground">{t.optional}</span></legend>
+                <div className="flex flex-wrap gap-2">
+                  {SUBCATEGORIES[category].map((item) => {
+                    const on = subcategories.includes(item.id);
+                    return (
+                      <button key={item.id} type="button" aria-pressed={on} className="inline-flex h-11 items-center" onClick={() => setSubcategories(on ? subcategories.filter((id) => id !== item.id) : [...subcategories, item.id])}>
+                        <span className={on ? "inline-flex h-9 items-center rounded-pill border border-primary bg-primary px-3 text-sm font-medium text-primary-foreground" : "inline-flex h-9 items-center rounded-pill border border-input px-3 text-sm font-medium"}>{lang === "mk" ? item.mk : item.en}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
           </div>
         )}
 
@@ -629,6 +812,16 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             {showPhotoErrors && photoError && <p className="text-[13px] text-destructive">{photoError}</p>}
             {showPhotoErrors && photoCountError(photos.length) === "min" && <p className="text-[13px] text-destructive">{t.needPhoto}</p>}
             <p className="text-[13px] text-muted-foreground">{t.photoHelp}</p>
+            <p className="text-[13px] text-muted-foreground">{t.altHelp}</p>
+            <label className="flex flex-col gap-1.5 text-sm font-semibold">
+              {t.altMk}
+              <input value={altMk} onChange={(event) => setAltMk(event.target.value)} aria-invalid={showPhotoErrors && Boolean(altError(altMk))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altMk) ? "border-destructive" : "border-input"}`} />
+            </label>
+            <label className="flex flex-col gap-1.5 text-sm font-semibold">
+              {t.altEn}
+              <input value={altEn} onChange={(event) => setAltEn(event.target.value)} lang="en" aria-invalid={showPhotoErrors && Boolean(altError(altEn))} className={`h-11 rounded-lg border bg-background px-3 text-base font-normal ${showPhotoErrors && altError(altEn) ? "border-destructive" : "border-input"}`} />
+            </label>
+            {showPhotoErrors && (altError(altMk) || altError(altEn)) && <p className="text-[13px] text-destructive">{t.altError}</p>}
             <CheckRow checked={own} onChange={setOwn} label={t.own} invalid={showPhotoErrors && !own} />
             <CheckRow checked={licence} onChange={setLicence} label={<>{t.licence} <Link to="/about" className="underline">{t.terms}</Link></>} invalid={showPhotoErrors && !licence} />
             <CheckRow checked={privacy} onChange={setPrivacy} label={<>{t.privacy} <Link to="/about" className="underline">{t.privacyPolicy}</Link></>} invalid={showPhotoErrors && !privacy} />
@@ -649,6 +842,19 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             {showStoryError && storyError(story) === "length" && <p className="text-[13px] text-destructive">{t.storyLength}</p>}
             {showStoryError && storyError(story) === "banned" && <p className="text-[13px] text-destructive">{t.storyBanned}</p>}
             <Note tone="info" title={storyLang === "mk" ? "Англиската верзија ја правиме ние" : "We write the other language"} body={`${t.translateNote} „${t.badge}“ ${t.translateUntil}`} />
+            <fieldset>
+              <legend className="mb-2 text-sm font-semibold">{t.seasons} <span className="font-normal text-muted-foreground">{t.optional}</span></legend>
+              <div className="flex flex-wrap gap-2">
+                {SEASONS.map((item) => {
+                  const on = seasons.includes(item.id);
+                  return (
+                    <button key={item.id} type="button" aria-pressed={on} className="inline-flex h-11 items-center" onClick={() => setSeasons(on ? seasons.filter((id) => id !== item.id) : [...seasons, item.id])}>
+                      <span className={on ? "inline-flex h-9 items-center rounded-pill border border-primary bg-primary px-3 text-sm font-medium text-primary-foreground" : "inline-flex h-9 items-center rounded-pill border border-input px-3 text-sm font-medium"}>{lang === "mk" ? item.mk : item.en}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
           </div>
         )}
 
@@ -658,7 +864,7 @@ const AddGemPage = ({ client = mockGemClient, signedIn }: AddGemPageProps) => {
             <article className="overflow-hidden rounded-lg border border-border bg-card">
               {photos[0] && <img src={photos[0].previewUrl} alt="" className="aspect-hero w-full object-cover" />}
               <div className="flex flex-col gap-2 p-4">
-                <span className="inline-flex h-6 w-fit items-center rounded-pill bg-region-bg px-2 text-xs font-semibold text-region">{cat ? (lang === "mk" ? cat.mk : cat.en) : ""}</span>
+                <span className="inline-flex h-6 w-fit items-center rounded-pill bg-region-bg px-2 text-xs font-semibold text-region">{[cat ? (lang === "mk" ? cat.mk : cat.en) : "", ...subcategories.map((id) => SUBCATEGORIES[category ?? "nature"].find((item) => item.id === id)?.[lang === "mk" ? "mk" : "en"])].filter(Boolean).join(" · ")}</span>
                 <h3 className="font-display text-xl font-bold">{name}</h3>
                 <p className="line-clamp-3 text-sm text-muted-foreground">{story}</p>
                 <p className="text-[13px] text-muted-foreground">{t.credit}</p>

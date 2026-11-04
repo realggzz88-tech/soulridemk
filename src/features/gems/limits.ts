@@ -1,3 +1,4 @@
+/** TODO(backend): enforce 3/day for new accounts and 10/day for trusted ones on the server. This counter is a local preview only. */
 export const NEW_ACCOUNT_DAILY_LIMIT = 3;
 export const TRUSTED_ACCOUNT_DAILY_LIMIT = 10;
 const STORAGE_KEY = "soulride.gem-sends";
