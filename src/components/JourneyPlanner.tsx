@@ -2,8 +2,14 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { MapPin, Route, Clock, Utensils, Mountain, Zap, Sparkles, ExternalLink, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { spots } from "@/data/spots";
-import { macedonianLocations, foodDrinkStops, regionRouteMap, foodRegionMap } from "@/data/journeyData";
+import {
+  foodDrinkStops,
+  foodRegionMap,
+  macedonianLocations,
+  regionRouteMap,
+  useUiSpots,
+  type Spot,
+} from "@/lib/content";
 import JourneyRouteMap from "./JourneyRouteMap";
 import LocationCombobox from "./LocationCombobox";
 
@@ -24,13 +30,14 @@ interface JourneyPreferences {
 interface GeneratedRoute {
   startLocation: typeof macedonianLocations[0];
   endLocation: typeof macedonianLocations[0];
-  stops: typeof spots;
+  stops: Spot[];
   foodStops: typeof foodDrinkStops;
   estimatedTime: string;
   estimatedDistance: string;
 }
 
 const JourneyPlanner = () => {
+  const spots = useUiSpots();
   const [startInput, setStartInput] = useState("");
   const [endInput, setEndInput] = useState("");
   const sectionRef = useRef<HTMLElement>(null);

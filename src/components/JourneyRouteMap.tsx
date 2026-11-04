@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { Spot } from "@/data/spots";
-import { macedonianLocations, foodDrinkStops } from "@/data/journeyData";
+import { foodDrinkStops, macedonianLocations, type Spot } from "@/lib/content";
 
 interface JourneyRouteMapProps {
   startLocation: typeof macedonianLocations[0];

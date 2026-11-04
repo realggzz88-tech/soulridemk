@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Clock, Route, ChevronRight, Star, Mountain, MapPin, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { popularRoutes } from "@/data/journeyData";
+import { popularRoutes } from "@/lib/content";
 
 const PopularRoutes = () => {
   const [hoveredRoute, setHoveredRoute] = useState<string | null>(null);

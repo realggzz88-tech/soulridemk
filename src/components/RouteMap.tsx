@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Spot } from "@/data/spots";
+import type { Spot } from "@/lib/content";
 import { Compass, Navigation, Loader2, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { Spot } from "@/data/spots";
+import type { Spot } from "@/lib/content";
 import { ArrowRight } from "lucide-react";
 import FavoriteButton from "./FavoriteButton";
 import ShareButtons from "./ShareButtons";

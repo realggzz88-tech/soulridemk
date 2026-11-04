@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Map as LeafletMap, Marker } from "leaflet";
-import type { Spot } from "@/data/spots";
+import type { Spot } from "@/lib/content";
 import { MapPin, Navigation, Compass, Clock, Route, Share2, Copy, Check, Smartphone, ExternalLink } from "lucide-react";
 import { createOsrmRouter, createRoutingControl, readRouteSummary, type RoutingControl } from "@/lib/leaflet-plugins";
 import { cn } from "@/lib/utils";

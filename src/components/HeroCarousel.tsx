@@ -1,22 +1,30 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, ArrowRight, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { spots } from "@/data/spots";
+import { useUiSpots, type Spot } from "@/lib/content";
 
-// Featured spots for the hero - nature-focused selection
-const heroSlides = [
-  { spot: spots.find(s => s.id === "galicica-pass"), tagline: "Where mountain air whispers secrets" },
-  { spot: spots.find(s => s.id === "st-jovan-kaneo-overlook"), tagline: "Ancient serenity by crystal waters" },
-  { spot: spots.find(s => s.id === "mavrovo-lake-loop"), tagline: "Stillness reflected in alpine calm" },
-  { spot: spots.find(s => s.id === "matka-canyon-overlook"), tagline: "Emerald depths, endless peace" },
-  { spot: spots.find(s => s.id === "vodno-mountain-cross"), tagline: "Rise gently above the everyday" },
-  { spot: spots.find(s => s.id === "galicica-national-park-summit"), tagline: "Two lakes cradled by mountains" },
-  { spot: spots.find(s => s.id === "smolare-waterfall"), tagline: "Where water finds its voice" },
-  { spot: spots.find(s => s.id === "kratovo-old-town"), tagline: "Stone bridges to quieter times" },
-].filter(slide => slide.spot) as { spot: typeof spots[0]; tagline: string }[];
+const HERO_SLIDE_IDS = [
+  { id: "galicica-pass", tagline: "Where mountain air whispers secrets" },
+  { id: "st-jovan-kaneo-overlook", tagline: "Ancient serenity by crystal waters" },
+  { id: "mavrovo-lake-loop", tagline: "Stillness reflected in alpine calm" },
+  { id: "matka-canyon-overlook", tagline: "Emerald depths, endless peace" },
+  { id: "vodno-mountain-cross", tagline: "Rise gently above the everyday" },
+  { id: "galicica-national-park-summit", tagline: "Two lakes cradled by mountains" },
+  { id: "smolare-waterfall", tagline: "Where water finds its voice" },
+  { id: "kratovo-old-town", tagline: "Stone bridges to quieter times" },
+] as const;
+
+function buildHeroSlides(spots: Spot[]) {
+  return HERO_SLIDE_IDS.flatMap((slide) => {
+    const spot = spots.find((item) => item.id === slide.id);
+    return spot ? [{ spot, tagline: slide.tagline }] : [];
+  });
+}
 
 const HeroCarousel = () => {
+  const spots = useUiSpots();
+  const heroSlides = useMemo(() => buildHeroSlides(spots), [spots]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -30,13 +38,13 @@ const HeroCarousel = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev === 0 ? heroSlides.length - 1 : prev - 1));
-  }, [isTransitioning]);
+  }, [isTransitioning, heroSlides.length]);
 
   const goToNext = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
-  }, [isTransitioning]);
+  }, [isTransitioning, heroSlides.length]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsTransitioning(false), 1000);

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { allTags, regions, type Region } from "@/data/spots";
+import { allTags, regions, type Region } from "@/lib/content";
 import { Filter, MapPin } from "lucide-react";
 
 interface TagFilterProps {

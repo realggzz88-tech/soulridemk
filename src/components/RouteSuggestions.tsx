@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { routes } from "@/data/routes";
+import { useUiRoutes, type Route } from "@/lib/content";
 import { ArrowRight, Route as RouteIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const RouteSuggestions = () => {
+  const routes = useUiRoutes();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -120,7 +121,7 @@ const RouteSuggestions = () => {
 };
 
 interface RouteCardProps {
-  route: typeof routes[0];
+  route: Route;
 }
 
 const RouteCard = ({ route }: RouteCardProps) => {

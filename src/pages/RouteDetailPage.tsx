@@ -1,6 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { getRouteById, routes } from "@/data/routes";
-import { spots as allSpots } from "@/data/spots";
+import { useUiRoute, useUiRoutes, useUiSpots } from "@/lib/content";
 import { 
   ArrowLeft, Clock, MapPin, Mountain, ChevronRight, Star, Navigation, 
   Share2, Copy, Compass, AlertTriangle, Check, Utensils, Route, Eye, Info,
@@ -16,7 +15,9 @@ import RoutePhotoSlider from "@/components/RoutePhotoSlider";
 const RouteDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const route = getRouteById(id || "");
+  const route = useUiRoute(id);
+  const routes = useUiRoutes();
+  const allSpots = useUiSpots();
   const [copied, setCopied] = useState(false);
 
   // Scroll to top on mount
@@ -30,7 +31,7 @@ const RouteDetailPage = () => {
     return route.spotIds
       .map(spotId => allSpots.find(s => s.id === spotId))
       .filter((spot): spot is NonNullable<typeof spot> => spot !== undefined);
-  }, [route]);
+  }, [route, allSpots]);
 
   // Generate photos for slider from route spots
   const sliderPhotos = useMemo(() => {
