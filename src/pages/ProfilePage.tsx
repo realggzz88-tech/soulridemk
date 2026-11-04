@@ -344,7 +344,8 @@ const ProfilePage = () => {
                 <div className="h-32 w-32 rounded overflow-hidden">
                   {extendedProfile?.profile_photo_url ? (
                     <img 
-                      src={extendedProfile.profile_photo_url} 
+                      src={extendedProfile.profile_photo_url}
+                      loading="lazy" 
                       alt="Profile" 
                       className="h-full w-full object-cover"
                       style={{ filter: 'sepia(10%) saturate(90%)' }}
@@ -550,7 +551,8 @@ const ProfilePage = () => {
                 {extendedProfile?.ride_photo_url ? (
                   <>
                     <img 
-                      src={extendedProfile.ride_photo_url} 
+                      src={extendedProfile.ride_photo_url}
+                      loading="lazy" 
                       alt="My Ride" 
                       className="w-full h-full object-cover"
                       style={{ filter: 'sepia(10%) saturate(90%)' }}
@@ -732,7 +734,7 @@ const ProfilePage = () => {
                       <Label>Route Photo (Optional)</Label>
                       {newRoutePhotoUrl ? (
                         <div className="relative aspect-video rounded-lg overflow-hidden">
-                          <img src={newRoutePhotoUrl} alt="Route" className="w-full h-full object-cover" />
+                          <img src={newRoutePhotoUrl} alt="Route" loading="lazy" className="w-full h-full object-cover" />
                           <button
                             onClick={() => setNewRoutePhotoUrl(null)}
                             className="absolute top-2 right-2 p-1.5 rounded-full bg-background/80 hover:bg-background text-destructive"
@@ -836,7 +838,8 @@ const ProfilePage = () => {
                         }}
                       >
                         <img 
-                          src={route.route_photo_url} 
+                          src={route.route_photo_url}
+                          loading="lazy" 
                           alt={route.route_title}
                           className="w-full h-full object-cover"
                           style={{ filter: 'sepia(15%) saturate(85%)' }}

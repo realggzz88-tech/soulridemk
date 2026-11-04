@@ -12,6 +12,9 @@ const HeroSection = () => {
           src={heroBackground}
           alt="Пат на зајдисонце низ планини"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           style={{
             filter: 'brightness(0.85) saturate(1.1)',
           }}

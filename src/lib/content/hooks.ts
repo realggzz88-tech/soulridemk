@@ -1,9 +1,8 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { Route as UiRoute } from "@/data/routes";
-import type { Spot as UiSpot } from "@/data/spots";
 import { getCredits, getRoute, getRoutes, getSpot, getSpots } from "./api";
-import { toUiRoute, toUiSpot } from "./present";
+import { unlistedSpotPhotos } from "./catalog";
+import { toUiRoute, toUiSpot, type RouteWithPhotos, type SpotWithPhotos } from "./present";
 import { CONTENT_STALE_TIME_MS, resolveContentSource } from "./source";
 import { staticContentRoutes, staticContentSpots } from "./static";
 import type { CreditGroup, SpotQuery } from "./types";
@@ -72,25 +71,51 @@ export function useCredits() {
     queryKey: ["content", "credits", source],
     queryFn: () => getCredits(),
     staleTime: CONTENT_STALE_TIME_MS,
+    initialData: source === "static" ? creditPreview() : undefined,
+    initialDataUpdatedAt: source === "static" ? FRESH_AT : undefined,
   });
 }
 
-export function useUiSpots(): UiSpot[] {
+function creditPreview(): CreditGroup[] {
+  const spots = staticContentSpots();
+  return [
+    ...spots.map((spot) => ({
+      kind: "spot" as const,
+      slug: spot.slug,
+      t: { en: { title: spot.t.en.title }, mk: { title: spot.t.mk.title } },
+      photos: spot.photos,
+    })),
+    ...unlistedSpotPhotos(new Set(spots.map((spot) => spot.slug))).map((extra) => ({
+      kind: "spot" as const,
+      slug: extra.slug,
+      t: { en: { title: extra.title }, mk: { title: extra.title } },
+      photos: extra.photos,
+    })),
+    ...staticContentRoutes().map((route) => ({
+      kind: "route" as const,
+      slug: route.slug,
+      t: { en: { title: route.t.en.title }, mk: { title: route.t.mk.title } },
+      photos: route.photos,
+    })),
+  ];
+}
+
+export function useUiSpots(): SpotWithPhotos[] {
   const query = useSpots();
   return useMemo(() => (query.data?.items ?? []).map(toUiSpot), [query.data]);
 }
 
-export function useUiSpot(slug: string | undefined): UiSpot | undefined {
+export function useUiSpot(slug: string | undefined): SpotWithPhotos | undefined {
   const query = useSpot(slug);
   return useMemo(() => (query.data ? toUiSpot(query.data) : undefined), [query.data]);
 }
 
-export function useUiRoutes(): UiRoute[] {
+export function useUiRoutes(): RouteWithPhotos[] {
   const query = useRoutes();
   return useMemo(() => (query.data ?? []).map(toUiRoute), [query.data]);
 }
 
-export function useUiRoute(slug: string | undefined): UiRoute | undefined {
+export function useUiRoute(slug: string | undefined): RouteWithPhotos | undefined {
   const query = useRoute(slug);
   return useMemo(() => (query.data ? toUiRoute(query.data) : undefined), [query.data]);
 }

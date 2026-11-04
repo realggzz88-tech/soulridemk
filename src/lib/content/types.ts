@@ -32,20 +32,24 @@ export interface Photo {
   key: string;
   width: number;
   height: number;
+  /** WebP widths on disk. Every photo has 800. Heroes also have 1600. */
+  widths: number[];
+  /** Commons filename this row replaced, when Dev Designer swapped a bad file. */
+  replaces?: string;
   /**
-   * English alt is filled from the catalog.
-   * TODO(alt_mk): Macedonian alt text is not in the photo manifest yet.
-   * Leave `mk` empty until that copy exists; do not machine-fill it here.
+   * `mk` is the primary alt. `en` is the secondary alt.
+   * `needsNativeCheck` marks copy that Dev Designer flagged for a native reader.
    */
-  alt: { en: string; mk?: string };
+  alt: { mk: string; en: string };
+  needsNativeCheck: boolean;
+  altNote?: string;
+  /** Set for rows touched by the P-01..P-06 photo fixes. */
+  fix?: string;
   /** Focal point in 0–1 space. Default is the centre. */
   focal: { x: number; y: number };
   lqip?: string;
   dominantColor?: string;
-  /**
-   * Direct URL used only by the static adapter while photos are still the
-   * legacy strings in `src/data`. Local variants replace this.
-   */
+  /** Set only when a row still points at a remote file. Served photos leave this empty. */
   legacySrc?: string;
   credit?: ExternalCredit | OwnCredit;
 }
@@ -106,6 +110,8 @@ export interface Route {
   difficulty: Difficulty;
   distanceKm?: number;
   cover?: Photo;
+  /** Every route photo. `cover` is the hero, and it is also `photos[0]` when one exists. */
+  photos: Photo[];
   stops: RouteStop[];
   t: Record<Lang, RouteText>;
   details: Record<Lang, RouteDetails>;

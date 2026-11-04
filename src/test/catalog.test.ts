@@ -19,8 +19,6 @@ function expectSpotShape(spot: Spot) {
   expect(spot.tags.length, `${spot.id} tags`).toBeGreaterThan(0);
   expect(spot.tags.every((tag) => tag.trim().length > 0)).toBe(true);
   expect(SPOT_REGIONS, spot.id).toContain(spot.region);
-  expect(spot.images.length, `${spot.id} images`).toBeGreaterThan(0);
-  expect(spot.images.every((url) => url.startsWith("http"))).toBe(true);
   expect(spot.riderTips.length, `${spot.id} riderTips`).toBeGreaterThan(0);
   expect(Number.isFinite(spot.coordinates.lat)).toBe(true);
   expect(Number.isFinite(spot.coordinates.lng)).toBe(true);
@@ -38,7 +36,6 @@ function expectRouteShape(route: Route, spotIds: Set<string>) {
   expectNonEmpty(route.longDescription, `${route.id} longDescription`);
   expectNonEmpty(route.duration, `${route.id} duration`);
   expectNonEmpty(route.distance, `${route.id} distance`);
-  expect(route.mainImage.startsWith("http"), `${route.id} mainImage`).toBe(true);
   expect(ROUTE_REGIONS, route.id).toContain(route.region);
   expect(DIFFICULTIES, route.id).toContain(route.difficulty);
   expect(route.spotIds.length, `${route.id} spotIds`).toBeGreaterThan(0);

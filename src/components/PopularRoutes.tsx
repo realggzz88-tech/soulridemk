@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { Clock, Route, ChevronRight, Star, Mountain, MapPin, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { popularRoutes } from "@/lib/content";
+import { popularRoutes, useUiSpots } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 const PopularRoutes = () => {
+  const spots = useUiSpots();
   const [hoveredRoute, setHoveredRoute] = useState<string | null>(null);
 
   const difficultyStyles = {
@@ -108,6 +110,9 @@ const PopularRoutes = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {popularRoutes.map((route, index) => {
             const difficulty = difficultyStyles[route.difficulty];
+            const photo = route.spotIds
+              .map((id) => spots.find((spot) => spot.id === id)?.photos[0])
+              .find((item) => item);
             return (
               <motion.div
                 key={route.id}
@@ -134,11 +139,12 @@ const PopularRoutes = () => {
               >
                 {/* Polaroid-style image with sepia */}
                 <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={route.image}
-                    alt={route.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    style={{ filter: 'sepia(15%) saturate(85%)' }}
+                  <SmartImage
+                    photo={photo}
+                    alt={photo?.alt.mk || route.title}
+                    variant="card"
+                    imgClassName="transition-transform duration-700 group-hover:scale-110"
+                    imgStyle={{ filter: "sepia(15%) saturate(85%)" }}
                   />
                   {/* Vintage gradient overlay */}
                   <div 

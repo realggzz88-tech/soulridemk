@@ -16,6 +16,7 @@ const SpotDetailPage = lazy(() => import("@/pages/SpotDetailPage"));
 const RoutesPage = lazy(() => import("@/pages/RoutesPage"));
 const RouteDetailPage = lazy(() => import("@/pages/RouteDetailPage"));
 const AboutPage = lazy(() => import("@/pages/AboutPage"));
+const CreditsPage = lazy(() => import("@/pages/CreditsPage"));
 const AuthPage = lazy(() => import("@/pages/AuthPage"));
 const ChatPage = lazy(() => import("@/pages/ChatPage"));
 const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
@@ -51,6 +52,7 @@ const App = () => (
                   <Route path="/routes" element={<RoutesPage />} />
                   <Route path="/routes/:id" element={<RouteDetailPage />} />
                   <Route path="/about" element={<AboutPage />} />
+                  <Route path="/credits" element={<CreditsPage />} />
                   <Route path="/login" element={<AuthPage mode="login" />} />
                   <Route path="/signup" element={<AuthPage mode="signup" />} />
                   <Route path="/chat" element={<ChatPage />} />

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Spot } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 import { ArrowRight } from "lucide-react";
 import FavoriteButton from "./FavoriteButton";
 import ShareButtons from "./ShareButtons";
@@ -23,10 +24,11 @@ const SpotCard = ({ spot, index }: SpotCardProps) => {
       <Link to={`/spots/${spot.id}`}>
         {/* Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img
-            src={spot.images[0]}
-            alt={spot.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          <SmartImage
+            photo={spot.photos[0]}
+            alt={spot.photos[0]?.alt.mk || spot.title}
+            variant="card"
+            imgClassName="transition-transform duration-700 group-hover:scale-110"
           />
           
           {/* Gradient Overlay */}

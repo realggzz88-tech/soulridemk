@@ -119,7 +119,6 @@ export const popularRoutes = [
     startLocation: "Skopje",
     endLocation: "Ohrid",
     keyStops: ["Matka Canyon", "Mavrovo Lake", "Galicica Pass", "Lake Ohrid"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gali%C4%8Dica_-_panoramio_%283%29.jpg/1280px-Gali%C4%8Dica_-_panoramio_%283%29.jpg",
     spotIds: ["matka-canyon", "mavrovo-lake-loop", "galicica-pass", "ohrid-old-town-overlook"],
   },
   {
@@ -132,7 +131,6 @@ export const popularRoutes = [
     startLocation: "Ohrid",
     endLocation: "Ohrid",
     keyStops: ["St. Jovan Kaneo", "Trpejca Beach", "Sv. Naum Monastery", "Struga"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/St_Jovan_Kaneo_Ohrid.jpg/1280px-St_Jovan_Kaneo_Ohrid.jpg",
     spotIds: ["st-jovan-kaneo-overlook", "trpejca-beach", "sv-naum-monastery", "ohrid-old-town-overlook"],
   },
   {
@@ -145,7 +143,6 @@ export const popularRoutes = [
     startLocation: "Gostivar",
     endLocation: "Mavrovo",
     keyStops: ["Mavrovo Lake", "Jovan Bigorski Monastery", "Bistra Mountain"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mavrovsko_Ezero.jpg/1280px-Mavrovsko_Ezero.jpg",
     spotIds: ["mavrovo-lake-loop", "bistra-mountain-pass"],
   },
   {
@@ -158,7 +155,6 @@ export const popularRoutes = [
     startLocation: "Resen",
     endLocation: "Ohrid",
     keyStops: ["Prespa Lake", "Galicica Summit", "Lake Ohrid Overlook"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Prespa_Lake_Sunset.jpg/1280px-Prespa_Lake_Sunset.jpg",
     spotIds: ["prespa-lake-shore", "galicica-national-park-summit", "galicica-pass"],
   },
   {
@@ -171,7 +167,6 @@ export const popularRoutes = [
     startLocation: "Bitola",
     endLocation: "Bitola",
     keyStops: ["Pelister Viewpoint", "Glacial Lakes Trail", "Mountain Refuges"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
     spotIds: ["pelister-viewpoint", "pelister-national-park"],
   },
   {
@@ -184,7 +179,6 @@ export const popularRoutes = [
     startLocation: "Veles",
     endLocation: "Kavadarci",
     keyStops: ["Demir Kapija Gorge", "Stobi Ancient City", "Tikveš Wineries"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Demir_Kapija.jpg/1280px-Demir_Kapija.jpg",
     spotIds: ["demir-kapija-gorge", "stobi-ancient-city", "popova-kula-winery"],
   },
 ];

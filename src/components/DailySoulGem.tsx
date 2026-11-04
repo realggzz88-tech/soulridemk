@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Star } from "lucide-react";
 import { useUiSpots } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 const dailyQuotes = [
   "Денешното возење ја повикува твојата душа",
@@ -80,10 +81,11 @@ const DailySoulGem = () => {
             <div className="grid md:grid-cols-2 gap-0">
               {/* Image side */}
               <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
-                <img
-                  src={dailySpot.images[0]}
-                  alt={dailySpot.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                <SmartImage
+                  photo={dailySpot.photos[0]}
+                  alt={dailySpot.photos[0]?.alt.mk || dailySpot.title}
+                  variant="card"
+                  imgClassName="transition-transform duration-700 group-hover:scale-105"
                 />
                 
                 {/* Overlay gradients */}

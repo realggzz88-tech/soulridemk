@@ -159,8 +159,8 @@ export function mapPhotoRow(row: PhotoRow): Photo | null {
     return null;
   }
 
-  const altMk = text(row.alt_mk);
-  const altEn = text(row.alt_en) ?? altMk ?? "";
+  const altMk = text(row.alt_mk) ?? text(row.alt_en) ?? "";
+  const altEn = text(row.alt_en) ?? altMk;
   const credit: Photo["credit"] = row.is_own
     ? { own: true, author: row.author }
     : ({
@@ -176,11 +176,9 @@ export function mapPhotoRow(row: PhotoRow): Photo | null {
     key: row.key,
     width: row.width,
     height: row.height,
-    alt: {
-      en: altEn,
-      // TODO(alt_mk): surface `alt_mk` once bilingual alts are reviewed.
-      mk: altMk,
-    },
+    alt: { mk: altMk, en: altEn },
+    needsNativeCheck: false,
+    widths: [800, 1600],
     focal: { x: clampFocal(row.focal_x), y: clampFocal(row.focal_y) },
     lqip: text(row.lqip),
     dominantColor: text(row.placeholder_color),
@@ -287,6 +285,7 @@ export function mapRouteRow(row: RouteRow): Route | null {
     difficulty: row.difficulty as Difficulty,
     distanceKm: asNumber(row.distance_km),
     cover: mappedCover ?? undefined,
+    photos: mappedCover ? [mappedCover] : [],
     stops,
     t: {
       en: {

@@ -1,6 +1,7 @@
 import { spots as sourceSpots, type Spot as UiSpot } from "@/data/spots";
 import { routes as sourceRoutes, type Route as UiRoute } from "@/data/routes";
-import type { Lang, Photo, Route, RouteDetails, Spot, SpotText } from "./types";
+import { catalogPhotos } from "./catalog";
+import type { Lang, Route, RouteDetails, Spot, SpotText } from "./types";
 
 /**
  * MK copy is not in `src/data` yet (backend B1). Both languages carry the
@@ -18,18 +19,6 @@ function spotText(spot: UiSpot): SpotText {
     longDescription: spot.longDescription,
     tagline: spot.poeticTagline,
     riderTips: spot.riderTips,
-  };
-}
-
-function legacyPhoto(key: string, url: string, altEn: string): Photo {
-  return {
-    id: key,
-    key,
-    width: 1280,
-    height: 960,
-    alt: { en: altEn },
-    focal: { x: 0.5, y: 0.5 },
-    legacySrc: url,
   };
 }
 
@@ -51,9 +40,7 @@ function mapSpot(spot: UiSpot): Spot {
     tags: spot.tags,
     lat: spot.coordinates.lat,
     lng: spot.coordinates.lng,
-    photos: spot.images.map((url, index) =>
-      legacyPhoto(`spots/${spot.id}/${String(index + 1).padStart(2, "0")}`, url, spot.title),
-    ),
+    photos: catalogPhotos("spot", spot.id),
     t: bothLangs(spotText(spot)),
   };
   uiSpots.set(content, spot);
@@ -61,6 +48,7 @@ function mapSpot(spot: UiSpot): Spot {
 }
 
 function mapRoute(route: UiRoute): Route {
+  const photos = catalogPhotos("route", route.id);
   const details: RouteDetails = {
     elevation: route.routeDetails.elevation,
     roadCondition: route.routeDetails.roadCondition,
@@ -73,7 +61,8 @@ function mapRoute(route: UiRoute): Route {
     region: route.region,
     difficulty: route.difficulty,
     distanceKm: parseDistanceKm(route.distance),
-    cover: legacyPhoto(`routes/${route.id}/01`, route.mainImage, route.title),
+    photos,
+    cover: photos[0],
     stops: route.spotIds.map((spotSlug, position) => ({
       spotSlug,
       position,

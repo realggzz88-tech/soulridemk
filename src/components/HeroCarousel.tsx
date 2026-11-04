@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, ArrowRight, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUiSpots, type Spot } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 const HERO_SLIDE_IDS = [
   { id: "galicica-pass", tagline: "Where mountain air whispers secrets" },
@@ -105,14 +106,11 @@ const HeroCarousel = () => {
             index === currentIndex ? "opacity-100" : "opacity-0"
           )}
         >
-          <img
-            src={slide.spot.images[0]}
-            alt={slide.spot.title}
-            className="w-full h-full object-cover"
-            style={{ 
-              filter: 'brightness(0.55) saturate(0.85) contrast(1.05)',
-              objectPosition: 'center 35%'
-            }}
+          <SmartImage
+            photo={slide.spot.photos[0]}
+            alt={slide.spot.photos[0]?.alt.mk || slide.spot.title}
+            variant="hero"
+            imgStyle={{ filter: "brightness(0.55) saturate(0.85) contrast(1.05)" }}
           />
         </div>
       ))}

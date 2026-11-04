@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Clock, Compass, MapPin } from "lucide-react";
 import { useUiRoutes } from "@/lib/content";
+import { SmartImage } from "@/components/SmartImage";
 
 const RoutesPage = () => {
   const routes = useUiRoutes();
@@ -49,10 +50,11 @@ const RoutesPage = () => {
               to={`/routes/${route.id}`}
               className="group relative h-[260px] rounded-xl overflow-hidden border border-border/30 hover:border-earth-green/50 transition-all duration-300"
             >
-              <img
-                src={route.mainImage}
-                alt=""
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              <SmartImage
+                photo={route.photos[0]}
+                alt={route.photos[0]?.alt.mk || route.title}
+                variant="card"
+                imgClassName="group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">

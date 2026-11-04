@@ -6,7 +6,6 @@ export interface Spot {
   poeticTagline: string;
   tags: string[];
   region: "West" | "Central" | "East";
-  images: string[];
   riderTips: string[];
   coordinates: {
     lat: number;
@@ -24,13 +23,6 @@ export const spots: Spot[] = [
     longDescription: "Between heaven and the deep blue waters lies Galicica—a pass that doesn't merely connect two lakes, but two states of being. As your engine hums through each hairpin turn, Lake Ohrid glimmers on one side like liquid sapphire, while Lake Prespa dreams in quiet emerald on the other. The altitude steals your breath, but the vistas steal something deeper. Here, where eagles circle below your wheels and clouds kiss the tarmac, you understand why the ancients believed mountains were bridges to the divine. Every curve earned, every summit gained—this is where riders become pilgrims.",
     tags: ["Views", "Roads", "Mountain"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gali%C4%8Dica_-_panoramio_%283%29.jpg/1280px-Gali%C4%8Dica_-_panoramio_%283%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Gali%C4%8Dica_National_Park%2C_Macedonia.jpg/1280px-Gali%C4%8Dica_National_Park%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/View_from_Galicica_towards_Lake_Ohrid.jpg/1280px-View_from_Galicica_towards_Lake_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Galicica_National_Park_-_panoramio.jpg/1280px-Galicica_National_Park_-_panoramio.jpg",
-      "https://live.staticflickr.com/65535/49007089418_e6f1c7c4d6_b.jpg",
-    ],
     riderTips: [
       "Dawn rides offer mystical mist that weaves between peaks like spirits dancing",
       "Loose gravel haunts the hairpin exits—lean with respect, not recklessness",
@@ -46,12 +38,6 @@ export const spots: Spot[] = [
     longDescription: "Some places exist outside of time, and Vevčani is one such sanctuary. This self-declared republic—yes, it has its own passport—guards springs so pure they've quenched the thirst of emperors and rebels alike. The road narrows as you approach, forcing you to slow, to notice: the moss-covered stones, the water's endless song, the forest canopy filtering light into emerald cathedral rays. Locals still speak of water spirits and mountain guardians, and as the springs cascade over ancient rock, you'll understand this isn't superstition—it's recognition. The forest breathes here. And if you listen closely, it whispers secrets in languages older than roads.",
     tags: ["Hidden Gem", "Nature", "Cultural"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Vev%C4%8Dani_Springs.jpg/1280px-Vev%C4%8Dani_Springs.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Vev%C4%8Dani_-_panoramio.jpg/1280px-Vev%C4%8Dani_-_panoramio.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Vevcani_Springs_2.jpg/1280px-Vevcani_Springs_2.jpg",
-      "https://live.staticflickr.com/65535/49876543487_1d6c8f9d03_b.jpg",
-    ],
     riderTips: [
       "January's carnival transforms the village into a surreal dream of masks and fire",
       "Approach the springs in silence—some waters demand reverence",
@@ -67,13 +53,6 @@ export const spots: Spot[] = [
     longDescription: "Mavrovo is not one road but a meditation—a loop that teaches the rider patience, presence, and the profound beauty of going nowhere in particular. The lake itself holds a secret: beneath its surface sleeps a church, its cross rising above the waterline like a prayer that refused to drown. In summer, the pines exhale their ancient perfume; in autumn, the mountains blaze with color so vivid it seems painted by a divine hand; in winter, ice transforms everything into crystalline silence. The road follows the water's edge, curves around hidden coves, climbs through forests that have watched centuries pass. This is not a route to rush. This is a route to remember who you are when the world stops rushing you.",
     tags: ["Views", "Roads", "Nature"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mavrovsko_Ezero.jpg/1280px-Mavrovsko_Ezero.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/St._Nicholas_Mavrovo_Lake_2.jpg/1280px-St._Nicholas_Mavrovo_Lake_2.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Mavrovo_Lake_in_autumn.jpg/1280px-Mavrovo_Lake_in_autumn.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mavrovo_-_panoramio_%283%29.jpg/1280px-Mavrovo_-_panoramio_%283%29.jpg",
-      "https://live.staticflickr.com/65535/51502919532_377b2696d1_b.jpg",
-    ],
     riderTips: [
       "The full loop demands two hours without stops—but who rides Mavrovo without stopping?",
       "October's colors here rival any forest on Earth",
@@ -89,12 +68,6 @@ export const spots: Spot[] = [
     longDescription: "They call Trpejca 'the Macedonian Saint-Tropez,' but that misses the point entirely. This isn't glamour—it's grace. Stone houses tumble toward Lake Ohrid's shore like children rushing to the water's edge. Fishermen mend nets using techniques unchanged for centuries. The air smells of grilling fish and wild herbs. The road here winds through olive groves and past Byzantine churches whose frescoes have witnessed a millennium of sunsets. At the shore, you'll find pebbles smooth enough to sleep on, water clear enough to count fish at depth, and a pace of life that reminds you urgency is a modern invention. Order the catch of the day. Watch the sun melt into the lake. Let the waves teach you their ancient, patient rhythm.",
     tags: ["Views", "Food Stops", "Nature"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Trpejca_Village_Ohrid_Lake.jpg/1280px-Trpejca_Village_Ohrid_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Trpejca%2C_Ohrid_Lake.jpg/1280px-Trpejca%2C_Ohrid_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Trpejca_panorama.jpg/1280px-Trpejca_panorama.jpg",
-      "https://live.staticflickr.com/65535/48647891952_fb08e61e0c_b.jpg",
-    ],
     riderTips: [
       "The village streets test your slow-speed skills—embrace the challenge",
       "Letnik fish, grilled simply, needs no accompaniment but lake views",
@@ -110,13 +83,6 @@ export const spots: Spot[] = [
     longDescription: "Pelister is Macedonia's first national park, but numbers and designations fail it. This is where the endemic Molika pine—found nowhere else on Earth—has stood for five million years, watching ice ages come and go, watching civilizations rise and fall, watching riders like you seek something that only altitude and solitude can provide. The road climbs relentlessly, switching back through forests that whisper in winds that have crossed the entire Balkan peninsula. At the viewpoint, you'll understand why ancient peoples believed their gods lived on mountaintops. The world spreads below you—Greece to the south, the lakes to the west, plains stretching toward horizons you'll never reach. Some heights cannot be measured in meters. Some views cannot be captured in photographs. Some silences speak louder than any words ever could.",
     tags: ["Views", "Roads", "Mountain"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Golemo_Ezero_Pelister.jpg/1280px-Golemo_Ezero_Pelister.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pelister_National_Park%2C_Macedonia.jpg/1280px-Pelister_National_Park%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Pelister_Molika.jpg/1280px-Pelister_Molika.jpg",
-      "https://live.staticflickr.com/65535/51326924065_2bcb5d2f75_b.jpg",
-    ],
     riderTips: [
       "Mountain weather writes its own rules—pack layers even in summer",
       "The glacial lakes reward those willing to hike beyond the road's end",
@@ -132,12 +98,6 @@ export const spots: Spot[] = [
     longDescription: "Prespa is the shy sibling of famous Ohrid—less visited, more vulnerable, infinitely more mysterious. Three countries share these waters: North Macedonia, Albania, Greece. But the pelicans that nest on its islands recognize no borders, and neither does the profound stillness that settles over the lake at dawn. The road traces the shoreline through apple orchards and abandoned villages, past Byzantine churches hiding behind overgrown walls, through communities where time flows differently. Unlike its popular neighbor, Prespa asks nothing of you but attention. Watch the water birds paint circles in the sky. Listen to the reeds whisper secrets passed between nations. Feel the peculiar peace of a place the world hasn't yet discovered—or perhaps has wisely left alone.",
     tags: ["Views", "Nature", "Hidden Gem"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Prespa_Lake_Sunset.jpg/1280px-Prespa_Lake_Sunset.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lake_Prespa_North_Macedonia.jpg/1280px-Lake_Prespa_North_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Prespansko_ezero.jpg/1280px-Prespansko_ezero.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Prespa_Lake_View.jpg/1280px-Prespa_Lake_View.jpg",
-    ],
     riderTips: [
       "Dawn brings pelican flights—patience rewards the early rider",
       "The border villages serve authentic mountain cuisine untouched by tourism",
@@ -153,13 +113,6 @@ export const spots: Spot[] = [
     longDescription: "They call Ohrid the Jerusalem of the Balkans, and from the fortress overlooking the old town, you understand why. Every stone here has a story. Every narrow lane has heard footsteps of Romans, Byzantines, Ottomans, and now—you. The road winds through cobblestones polished by millennia of passage, past churches older than most nations, up to Samuel's Fortress where the view stops hearts and starts conversations with the cosmos. Lake Ohrid stretches below like liquid time itself—one of Europe's oldest and deepest lakes, home to species found nowhere else on Earth. The old town cascades down the hillside, a tumble of terracotta roofs and whitewashed walls that seem to glow at golden hour. Park the bike. Climb the remaining steps on foot. Let the view remind you that empires rise and fall, but some beauties endure forever.",
     tags: ["Views", "Cultural", "Food Stops"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Samuel%27s_Fortress_Ohrid.jpg/1280px-Samuel%27s_Fortress_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Ohrid_Lake_and_old_town.jpg/1280px-Ohrid_Lake_and_old_town.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Ohrid%2C_Macedonia.jpg/1280px-Ohrid%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Old_Town_Ohrid_2.jpg/1280px-Old_Town_Ohrid_2.jpg",
-      "https://live.staticflickr.com/65535/49547881218_9a4a4b7b7d_b.jpg",
-    ],
     riderTips: [
       "Sunset from the fortress turns the lake into molten gold—arrive early for the best perch",
       "The old town's cobblestones demand slow speeds and high appreciation",
@@ -175,12 +128,6 @@ export const spots: Spot[] = [
     longDescription: "Bistra doesn't welcome visitors—it tolerates them. This is Macedonia's untamed heart, where wolves still hunt and shepherds still know every star by name. The pass cuts through terrain that fought against the road's construction and continues to challenge its existence. Hairpins carved into mountainsides offer views that simultaneously humble and exhilarate. No guardrails here—just ancient stone markers placed by travelers who understood that some journeys require respect for risk. The air thins as you climb, sharpening every sense. Eagles circle thermals above exposed granite faces. The engine's note changes with altitude, becoming part of a symphony that includes wind, wildlife, and the profound silence between heartbeats. This is riding at its most elemental—machine, road, mountain, and the narrow space where they meet.",
     tags: ["Roads", "Adventure", "Mountain"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bistra_Mountain_Macedonia.jpg/1280px-Bistra_Mountain_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Mavrovo_NP_-_Bistra.jpg/1280px-Mavrovo_NP_-_Bistra.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mavrovsko_Ezero.jpg/1280px-Mavrovsko_Ezero.jpg",
-      "https://live.staticflickr.com/65535/49007089418_e6f1c7c4d6_b.jpg",
-    ],
     riderTips: [
       "Weather shifts without warning—waterproofs aren't optional, they're survival gear",
       "The mountain huts serve lamb slow-cooked over fires that never quite die",
@@ -196,13 +143,6 @@ export const spots: Spot[] = [
     longDescription: "At the southern edge of Lake Ohrid, where North Macedonia ends and Albania begins, stands one of the Balkans' most enchanting monasteries. Saint Naum founded this sanctuary over a millennium ago, and his spirit still seems to animate every peacock that struts through the gardens, every spring that bubbles up from the underground river feeding the lake. The road here follows the lakeshore through landscapes that defy season—lush in summer, golden in autumn, hauntingly beautiful under winter snow. At the monastery, boat rides take you to the springs where turquoise waters emerge from the earth like liquid gemstones. The church holds the saint's tomb, and locals swear that pressing your ear to the stone lets you hear his heartbeat still echoing across centuries.",
     tags: ["Cultural", "Nature", "Views"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/St_Naum_Monastery_Ohrid.jpg/1280px-St_Naum_Monastery_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/St._Naum_Springs.jpg/1280px-St._Naum_Springs.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Sveti_Naum_Monastery_2.jpg/1280px-Sveti_Naum_Monastery_2.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Saint_Naum_Lake_Ohrid.jpg/1280px-Saint_Naum_Lake_Ohrid.jpg",
-      "https://live.staticflickr.com/65535/48647891952_fb08e61e0c_b.jpg",
-    ],
     riderTips: [
       "The springs boat ride is worth every moment—arrive early to beat tour groups",
       "Peacocks are territorial—admire from a respectful distance",
@@ -218,12 +158,6 @@ export const spots: Spot[] = [
     longDescription: "Rising from Lake Prespa like a dream made stone, Golem Grad—the Great City—is one of the Balkans' strangest destinations. This uninhabited island holds Roman ruins, Byzantine basilicas, and a population of water snakes that have ruled here undisturbed for centuries. The road to the departure point winds through apple orchards and fishing villages frozen in time. The boat crossing builds anticipation as the island grows larger, revealing forested slopes hiding architectural secrets. Once ashore, you walk among temples where emperors once worshipped, walls where monks once prayed, and countless serpents that slither between stones with an ancient right of residence. This is nature reclaiming what humanity abandoned—a reminder that our monuments are temporary, but the wild always waits.",
     tags: ["Adventure", "Nature", "Hidden Gem"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Golem_Grad_Island.jpg/1280px-Golem_Grad_Island.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Golem_Grad_Prespa.jpg/1280px-Golem_Grad_Prespa.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Prespa_Lake_Sunset.jpg/1280px-Prespa_Lake_Sunset.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lake_Prespa_North_Macedonia.jpg/1280px-Lake_Prespa_North_Macedonia.jpg",
-    ],
     riderTips: [
       "Boats depart from Konjsko or Stenje—check seasonal schedules in advance",
       "The snakes are harmless but numerous—wear closed shoes and watch your step",
@@ -241,13 +175,6 @@ export const spots: Spot[] = [
     longDescription: "The Treska River spent millennia carving Matka Canyon, and the result is nothing short of geological poetry. Cliffs rise vertically from emerald waters, their faces pocked with caves that shelter Ice Age butterflies and stalactites older than civilization. Medieval monks chose these impossible walls for their monasteries, understanding that some devotions require dramatic settings. The road to Matka builds anticipation with each curve—you sense something monumental approaching before you see it. And when the canyon finally reveals itself, when those fortress walls of limestone tower above you, the only response is silence. This is where you understand that nature is the first and greatest architect, and we are merely visitors in her cathedral.",
     tags: ["Views", "Cultural", "Adventure"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Matka_Canyon_Skopje.jpg/1280px-Matka_Canyon_Skopje.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Canyon_Matka%2C_Macedonia.jpg/1280px-Canyon_Matka%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Matka_Lake.jpg/1280px-Matka_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Matka_Canyon_2.jpg/1280px-Matka_Canyon_2.jpg",
-      "https://live.staticflickr.com/65535/49654787158_5e36c69d83_b.jpg",
-    ],
     riderTips: [
       "Sunrise beats the kayak crowds and paints the canyon walls in gold",
       "The cave boat tour reveals an underworld of crystalline wonder",
@@ -263,12 +190,6 @@ export const spots: Spot[] = [
     longDescription: "Perched atop a barren mountain like a prayer frozen in stone, Treskavec Monastery demands everything from those who seek it. The road—if you can call it that—twists upward through terrain that separates the curious from the committed. Byzantine walls rise from the rock as if grown rather than built, their centuries of devotion weathering storms that would crumble lesser structures. Frescoes inside still glow with colors mixed from faith and mineral, depicting saints who knew that the path to enlightenment is always uphill. At the summit, wind and silence compete for dominance. The Pelagonia plain stretches impossibly far below. Here, at the edge of the sky, you understand why hermits chose hardship over comfort. Some truths only reveal themselves to those willing to climb.",
     tags: ["Cultural", "Adventure", "Mountain"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Treskavec_Monastery.jpg/1280px-Treskavec_Monastery.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Treskavec_Monastery_2.jpg/1280px-Treskavec_Monastery_2.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Treskavec_view.jpg/1280px-Treskavec_view.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Prilep_Treskavec.jpg/1280px-Prilep_Treskavec.jpg",
-    ],
     riderTips: [
       "The final kilometers demand adventure-ready tires and unwavering focus",
       "Carry water—the monastery's springs run dry in summer",
@@ -284,12 +205,6 @@ export const spots: Spot[] = [
     longDescription: "Hidden upstream from Matka Canyon, Kozjak Lake represents the quieter, more contemplative side of the Treska River valley. This reservoir, created by a dam that tamed once-wild waters, has evolved into something unexpectedly beautiful—a turquoise gem set in limestone walls that rise like natural fortresses. The road here rewards patient riders: narrow, winding, occasionally challenging, but offering vistas that make every careful turn worthwhile. At the water's edge, silence reigns. Kayakers occasionally disturb the mirror surface, but mostly, this is a place for reflection in both senses. The surrounding cliffs host caves and climbing routes, but most visitors simply sit, gaze at the improbably colored water, and wonder how such beauty hides so close to a capital city.",
     tags: ["Nature", "Views", "Hidden Gem"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Matka_Lake.jpg/1280px-Matka_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Matka_Canyon_Skopje.jpg/1280px-Matka_Canyon_Skopje.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Canyon_Matka%2C_Macedonia.jpg/1280px-Canyon_Matka%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Matka_Canyon_2.jpg/1280px-Matka_Canyon_2.jpg",
-    ],
     riderTips: [
       "The road from Matka continues to Kozjak—make it a double feature ride",
       "Early mornings offer the most mirror-like water reflections",
@@ -305,12 +220,6 @@ export const spots: Spot[] = [
     longDescription: "Krushevo sits at 1,350 meters, making it North Macedonia's highest town and a legendary destination for paragliders worldwide. The road up is itself a destination—switchbacks climbing through pastoral landscapes toward a town that seems to touch the clouds. The Ilinden monument crowns the town, a brutalist spaceship commemorating a rebellion that briefly created Europe's first republic. But it's the sky that draws most visitors here. From the launch sites above town, paragliders sail on thermals that rise from sun-warmed valleys, circling above a landscape that encompasses much of western Macedonia. Even if you never leave the ground, watching these human birds find freedom in air currents you can't see reminds you that perspective changes everything.",
     tags: ["Adventure", "Views", "Mountain"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Kru%C5%A1evo_Makedonium.jpg/1280px-Kru%C5%A1evo_Makedonium.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Krushevo_view.jpg/1280px-Krushevo_view.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Krushevo_panorama.jpg/1280px-Krushevo_panorama.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Ilinden_monument_Krushevo.jpg/1280px-Ilinden_monument_Krushevo.jpg",
-    ],
     riderTips: [
       "The climb to Krushevo tests engines and riders alike—check your cooling system",
       "Tandem paragliding flights available for the uninitiated—book in advance",
@@ -326,12 +235,6 @@ export const spots: Spot[] = [
     longDescription: "The name means 'Iron Gate,' and when you see the towering limestone walls through which the Vardar River forced its passage, you understand why. This is geology as drama—vertical cliffs rising hundreds of meters, carved by water's patient insistence over millennia. The road through the gorge ranks among the Balkans' most dramatic rides: tunnels punch through solid rock, bridges span the rushing river, and around every curve, new walls of stone rise to frame the sky. For adventurers, the cliffs offer world-class rock climbing; the river provides challenging kayaking when the spring melt runs high. But even viewed from the saddle, Demir Kapija demonstrates nature's power to reshape the world. Mountains bend to water. Stone yields to persistence. Some doors, once opened, can never close.",
     tags: ["Roads", "Adventure", "Nature"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Demir_Kapija.jpg/1280px-Demir_Kapija.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Demir_Kapija_Gorge.jpg/1280px-Demir_Kapija_Gorge.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Vardar_River_Gorge.jpg/1280px-Vardar_River_Gorge.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Demir_Kapija_landscape.jpg/1280px-Demir_Kapija_landscape.jpg",
-    ],
     riderTips: [
       "The gorge road offers limited stopping points—scout safe pull-offs carefully",
       "Local wineries near the southern exit produce excellent Vranec reds",
@@ -347,12 +250,6 @@ export const spots: Spot[] = [
     longDescription: "In the hills near Demir Kapija, where the Vardar River valley creates a microclimate perfect for grapes, Popova Kula has elevated Macedonian winemaking to an art form. The road here winds through terraced vineyards that seem to glow green against the region's characteristic red earth. The winery itself combines ancient winemaking traditions with modern vision, producing wines—especially their signature Vranec and rosé—that compete with the world's best. For riders, this represents a different kind of journey: a pause in motion, an appreciation of place expressed through taste rather than throttle. The tasting room overlooks endless vineyard rows, and each sip tells the story of this particular soil, this specific sun, this unique corner of a country that has grown wine for millennia.",
     tags: ["Food Stops", "Views", "Cultural"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tikves_Wine_Region.jpg/1280px-Tikves_Wine_Region.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Demir_Kapija.jpg/1280px-Demir_Kapija.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Demir_Kapija_Gorge.jpg/1280px-Demir_Kapija_Gorge.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Vardar_River_Gorge.jpg/1280px-Vardar_River_Gorge.jpg",
-    ],
     riderTips: [
       "Designate a sober rider or book accommodation nearby—the wines demand appreciation",
       "Sunset tastings on the terrace pair perfectly with local cheese boards",
@@ -368,12 +265,6 @@ export const spots: Spot[] = [
     longDescription: "On a hill overlooking Prilep, one of Yugoslavia's most dramatic spomeniks—memorial monuments—rises like a concrete dream against the Macedonian sky. The Makedonium, also known as the Burial Mound of the Unbeaten, commemorates the partisan resistance with architecture that challenges every expectation. Circles of concrete, walls of geometric precision, and spaces that somehow combine triumph with mourning create an experience unlike any other memorial on Earth. The road up passes through tobacco fields and orchards before reaching this otherworldly structure. Inside, acoustic effects amplify every sound; outside, panoramic views encompass the entire Prilep valley. Whether you appreciate brutalist architecture or simply seek places that defy categorization, this monument commands attention and respect.",
     tags: ["Cultural", "Views", "Hidden Gem"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Kru%C5%A1evo_Makedonium.jpg/1280px-Kru%C5%A1evo_Makedonium.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Ilinden_monument_Krushevo.jpg/1280px-Ilinden_monument_Krushevo.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Krushevo_panorama.jpg/1280px-Krushevo_panorama.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Krushevo_view.jpg/1280px-Krushevo_view.jpg",
-    ],
     riderTips: [
       "The interior acoustics create eerie echoes—stand in the center and whisper",
       "Sunset paints the concrete in warm tones impossible during harsh daylight",
@@ -389,12 +280,6 @@ export const spots: Spot[] = [
     longDescription: "Above Prilep, the dramatic rock formations known as Marko's Towers hold the ruins of a medieval fortress associated with one of the Balkans' most legendary figures. Prince Marko—part historical ruler, part mythological hero—features in folk songs throughout the region as a champion of justice riding his magical horse Šarac. The fortress that bears his name clings to impossible granite spires, demanding a hike that tests legs and rewards souls. The road brings you close, but the final ascent requires feet. Among the towers, wind carries whispers of battles fought and legends born. Views extend to horizons that once marked the boundaries of kingdoms now remembered only in song. Whether you believe in heroes or not, standing where Marko stood, you'll understand why some figures transcend mere history.",
     tags: ["Fortress", "Adventure", "Cultural"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Markovi_Kuli_Prilep.jpg/1280px-Markovi_Kuli_Prilep.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Markovi_Kuli_2.jpg/1280px-Markovi_Kuli_2.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Treskavec_Monastery.jpg/1280px-Treskavec_Monastery.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Treskavec_Monastery_2.jpg/1280px-Treskavec_Monastery_2.jpg",
-    ],
     riderTips: [
       "The hike to the towers takes 45-60 minutes—budget time and water accordingly",
       "Sturdy footwear is essential—the granite is unforgiving to slips",
@@ -412,12 +297,6 @@ export const spots: Spot[] = [
     longDescription: "High above Strumica, the ancient walls of Carevi Kuli—the Tsar's Towers—stand as silent witnesses to a thousand years of history. This Byzantine fortress, perched on a dramatic hilltop, once commanded views that made empires possible. Today, the same views command something different: awe, silence, and the peculiar peace that comes from standing where history happened. The road winds upward through oak forests and past orchards heavy with fruit, each switchback revealing more of the Strumica valley below. At the summit, ruined walls frame the sky like ancient picture frames, and the wind carries whispers of battles fought, lovers met, and prayers offered. This isn't mere archaeology—it's a conversation across centuries. The stones remember. And now, so will you.",
     tags: ["Fortress", "Views", "Cultural"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Strumica_Fortress.jpg/1280px-Strumica_Fortress.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Carevi_Kuli_Strumica.jpg/1280px-Carevi_Kuli_Strumica.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Strumica_Valley.jpg/1280px-Strumica_Valley.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Strumica_panorama.jpg/1280px-Strumica_panorama.jpg",
-    ],
     riderTips: [
       "Golden hour transforms the ruins into amber-lit poetry—time your arrival",
       "The final approach rewards capable tires and steady throttle control",
@@ -433,11 +312,6 @@ export const spots: Spot[] = [
     longDescription: "About five kilometers from Strumica, the village of Vodoča keeps the monastery of Saint Leontius. The church you walk into is not one building but three, joined over centuries: an early Christian basilica stood here in the 5th and 6th centuries, a domed church rose later, and the present church was rebuilt after the 1931 earthquake. The road out from Strumica is short. The courtyard is not. Sit long enough and the eastern loop's waterfalls feel like the loud half of the same day.",
     tags: ["Cultural", "Hidden Gem"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Vodo%C4%8Da-1.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Sv._Leontij_-_Vodo%C4%8Da_%2810%29.JPG/1280px-Sv._Leontij_-_Vodo%C4%8Da_%2810%29.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Orthodox_Church_%2C_54.JPG/1280px-Orthodox_Church_%2C_54.JPG",
-    ],
     riderTips: [
       "It is a few minutes from Strumica, so pair it with Kolesino and Smolare rather than a separate day",
       "The church asks for modest dress — cover shoulders before you step inside",
@@ -453,12 +327,6 @@ export const spots: Spot[] = [
     longDescription: "Hidden in the forested folds of Belasica Mountain, Kolesino Waterfall plunges 15 meters into a pool that seems designed for contemplation. The road winds through chestnut forests and past traditional stone houses where time moves at the pace of the river. A short trail leads from the parking area to the falls, each step accompanied by the growing thunder of falling water. At the viewpoint, mist refreshes riders weary from mountain roads, and the cascade itself creates a natural amphitheater of sound. In spring, snowmelt swells the flow to thundering power; in autumn, golden leaves frame the white rush. This isn't a destination for those who measure worth in scale—Kolesino teaches that sometimes the most powerful places are the most intimate.",
     tags: ["Waterfalls", "Nature", "Hidden Gem"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kolesino_Waterfall.jpg/1280px-Kolesino_Waterfall.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Smolare_Waterfall.jpg/1280px-Smolare_Waterfall.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Belasica_Mountain.jpg/1280px-Belasica_Mountain.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Strumica_Valley.jpg/1280px-Strumica_Valley.jpg",
-    ],
     riderTips: [
       "The short trail is steep but paved—the view rewards every step",
       "Spring runoff creates the most dramatic falls—summer offers easier swimming",
@@ -474,12 +342,6 @@ export const spots: Spot[] = [
     longDescription: "At 39 meters, Smolare claims the title of North Macedonia's tallest waterfall—but statistics fail to capture its soul. Hidden in the forests of Belasica, accessible only to those willing to leave the main roads behind, Smolare rewards commitment with spectacle. The trail climbs through beech forest, each switchback revealing glimpses of the cascade ahead, until the full height of falling water fills your vision. The sound builds as you approach—a white noise of nature that drowns thought and invites presence. At the viewpoint, spray creates rainbows when the angle is right, and the sheer verticality of the falls reminds you that gravity itself is an art form. This is Macedonia's most dramatic single drop, hidden in hills that most travelers never explore. Their loss. Your gain.",
     tags: ["Waterfalls", "Adventure", "Nature"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Smolare_Waterfall.jpg/1280px-Smolare_Waterfall.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kolesino_Waterfall.jpg/1280px-Kolesino_Waterfall.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Belasica_Mountain.jpg/1280px-Belasica_Mountain.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Strumica_panorama.jpg/1280px-Strumica_panorama.jpg",
-    ],
     riderTips: [
       "The 20-minute hike is worth every step—the falls demand to be seen up close",
       "Early morning visits offer solitude; weekends bring families",
@@ -495,12 +357,6 @@ export const spots: Spot[] = [
     longDescription: "In the far east of Macedonia, where the Maleshevo Mountains approach the Bulgarian border, Berovo Lake offers a different kind of escape. This artificial reservoir has aged into natural beauty—pine forests crowd its shores, fish circles disturb its surface, and the surrounding peaks create a natural amphitheater of green. The road here passes through some of Macedonia's least-visited landscapes, climbing through villages where traditional architecture remains unrestored because it never fell into disrepair. At the lake, hiking trails radiate into the surrounding wilderness, but many visitors simply find a spot on the shore and let the highland air work its restorative magic. This is Macedonia's quiet corner, where the pace slows naturally and the only urgency is sunset.",
     tags: ["Nature", "Views", "Hidden Gem"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Berovo_Lake.jpg/1280px-Berovo_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Berovo_Macedonia.jpg/1280px-Berovo_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Maleshevo_Mountains.jpg/1280px-Maleshevo_Mountains.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Belasica_Mountain.jpg/1280px-Belasica_Mountain.jpg",
-    ],
     riderTips: [
       "The white cheese of Berovo is legendary—buy some for the journey",
       "Forest trails offer shade on hot days—perfect for midday escapes",
@@ -516,12 +372,6 @@ export const spots: Spot[] = [
     longDescription: "Belasica rises as a wall between nations—its summit ridge marking where North Macedonia ends and Greece and Bulgaria begin. But at these altitudes, borders seem irrelevant. The mountain speaks a language older than nations: wind through alpine meadows, hawks circling on thermals, snow patches that linger until July. The road climbs through chestnut forests—Europe's most extensive—before giving way to beech and finally to open grassland where only sky remains above. The views from the upper slopes encompass three countries, two valleys, and a horizon so vast it curves with the Earth itself. Few riders venture this far east, which means you'll likely have the mountain largely to yourself. Some roads are worth the journey. Belasica is worth the pilgrimage.",
     tags: ["Mountain", "Adventure", "Views"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Belasica_Mountain.jpg/1280px-Belasica_Mountain.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Strumica_Valley.jpg/1280px-Strumica_Valley.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Smolare_Waterfall.jpg/1280px-Smolare_Waterfall.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kolesino_Waterfall.jpg/1280px-Kolesino_Waterfall.jpg",
-    ],
     riderTips: [
       "Morning ascents offer cooler temperatures and cleaner mountain air",
       "The road narrows above treeline—ride alert for oncoming shepherds and their flocks",
@@ -537,12 +387,6 @@ export const spots: Spot[] = [
     longDescription: "Macedonia's first national park protects something irreplaceable: the Molika pine, a species that has grown here—and almost nowhere else—for five million years. Riding into Pelister feels like entering a cathedral of living fossils. The road climbs steadily, switching back through forests that predate not just nations but epochs. At higher elevations, the famous 'Eyes of Pelister'—two glacial lakes—reflect skies so blue they seem painted. The park offers trails for those willing to leave wheels behind and continue on foot, leading to peaks where the entire region spreads below like a topographic dream. But even the road itself rewards: each meter of elevation brings new views, new silences, and new appreciation for a landscape that has waited five million years for you to notice.",
     tags: ["Mountain", "Nature", "Adventure"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Golemo_Ezero_Pelister.jpg/1280px-Golemo_Ezero_Pelister.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Pelister_National_Park%2C_Macedonia.jpg/1280px-Pelister_National_Park%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Pelister_Molika.jpg/1280px-Pelister_Molika.jpg",
-    ],
     riderTips: [
       "The glacial lakes require a hike from the road—plan 2-3 hours round trip",
       "Park facilities include mountain huts for overnight adventures",
@@ -558,12 +402,6 @@ export const spots: Spot[] = [
     longDescription: "Beyond the more famous Matka lies Kozjak—its quieter, more mysterious sibling. This canyon system, carved by waters now tamed into reservoirs, offers some of central Macedonia's most dramatic landscapes without the crowds. The road follows the water through increasingly tight passages, cliffs rising on both sides until the sky becomes a ribbon overhead. Swimming holes invite summer pauses; climbing routes challenge the vertical-minded; and everywhere, the peculiar silence of canyon country—sounds absorbed by stone, echoes returning unexpected—creates an atmosphere of profound solitude. Kozjak rewards those willing to venture beyond the obvious, to follow roads less marked, to discover that sometimes the greatest beauty hides just past the point where most travelers turn back.",
     tags: ["Nature", "Adventure", "Hidden Gem"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Matka_Lake.jpg/1280px-Matka_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Canyon_Matka%2C_Macedonia.jpg/1280px-Canyon_Matka%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Matka_Canyon_Skopje.jpg/1280px-Matka_Canyon_Skopje.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Matka_Canyon_2.jpg/1280px-Matka_Canyon_2.jpg",
-    ],
     riderTips: [
       "The canyon road can be rough in sections—adventure-ready tires recommended",
       "Bring swimming gear in summer—hidden pools await the prepared",
@@ -581,12 +419,6 @@ export const spots: Spot[] = [
     longDescription: "Rising 66 meters above Vodno's summit, the Millennium Cross is visible from across Skopje—a beacon that seems to invite the city skyward. But the true revelation comes when you reach the top: suddenly, the capital that seemed so vast becomes a toy city spread across the valley floor, and the mountains that ring it reveal themselves as an infinite amphitheater of peaks. On clear days, you can trace horizons that span into Greece, Kosovo, and Serbia. The ride up switches through oak and beech forests, gaining altitude with every curve until the cross appears above, shimmering in whatever light the day offers. At night, it glows amber, a warm signal visible from the roads below. This is Macedonia's most accessible high viewpoint—and somehow, that accessibility only heightens the magic of arrival.",
     tags: ["Viewpoints", "Views", "Mountain"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Millennium_Cross_Skopje.jpg/1280px-Millennium_Cross_Skopje.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Vodno_Mountain.jpg/1280px-Vodno_Mountain.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Skopje_from_Vodno.jpg/1280px-Skopje_from_Vodno.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Skopje_panorama.jpg/1280px-Skopje_panorama.jpg",
-    ],
     riderTips: [
       "The road closes to vehicles on busy days—check conditions before riding",
       "Sunrise here means watching the city wake while you float above",
@@ -602,12 +434,6 @@ export const spots: Spot[] = [
     longDescription: "Some churches were built to shelter worshippers; St. Jovan Kaneo was built to make them fly. Perched on a cliff directly above Lake Ohrid's crystalline waters, this 13th-century church is perhaps the most photographed building in all of North Macedonia—and from the overlook above, you understand why. The lake stretches to Albania's mountains, the old town cascades down to the shore, and the church itself seems to defy gravity, suspended between heaven and the deep. The path to the overlook winds through terraced gardens and ancient walls, revealing new angles with each step. At golden hour, the stone glows warm, the lake turns to liquid gold, and time dissolves into something eternal. This isn't just a viewpoint; it's a meditation on what humans can create when they build with reverence.",
     tags: ["Viewpoints", "Views", "Cultural"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/St_Jovan_Kaneo_Ohrid.jpg/1280px-St_Jovan_Kaneo_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Samuel%27s_Fortress_Ohrid.jpg/1280px-Samuel%27s_Fortress_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Ohrid_Lake_and_old_town.jpg/1280px-Ohrid_Lake_and_old_town.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Ohrid%2C_Macedonia.jpg/1280px-Ohrid%2C_Macedonia.jpg",
-    ],
     riderTips: [
       "Park at the old town and walk the final approach—the path rewards the patient",
       "Dawn light here is magical—beat the crowds and the heat together",
@@ -623,12 +449,6 @@ export const spots: Spot[] = [
     longDescription: "Four thousand years ago, Bronze Age astronomers stood on this rocky outcrop and tracked the heavens. Today, Kokino ranks among the world's most important ancient observatories—and from its summit, you understand why our ancestors chose this place. The landscape falls away in every direction, creating a natural amphitheater with the sky as its ceiling. Rock formations mark solstices and equinoxes with precision that modern instruments can barely improve. Come at dawn to watch the sun rise through ancient markers. Come at dusk to see stars emerge exactly where they emerged for Neolithic priests. Come at any hour to feel the profound connection between human curiosity and cosmic mystery. This is not just a viewpoint—it's a portal to humanity's first wonder at the universe above.",
     tags: ["Viewpoints", "Views", "Cultural", "Hidden Gem"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Kokino_Observatory.jpg/1280px-Kokino_Observatory.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Kokino_megalithic_site.jpg/1280px-Kokino_megalithic_site.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Berovo_Macedonia.jpg/1280px-Berovo_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Berovo_Lake.jpg/1280px-Berovo_Lake.jpg",
-    ],
     riderTips: [
       "New moon nights offer the best stargazing—plan around lunar cycles",
       "The final kilometer is unpaved—slow and steady rewards with arrival",
@@ -644,12 +464,6 @@ export const spots: Spot[] = [
     longDescription: "The summit of Galicica National Park offers what few places on Earth can: simultaneous views of two UNESCO-worthy lakes, separated by a mountain spine you've just conquered. Lake Ohrid glimmers to the west, ancient and deep; Lake Prespa spreads to the east, wild and mysterious. Between them, you stand at 2,265 meters, breathing air so thin and pure it feels borrowed from another era. The alpine meadows here bloom with rare flowers in late spring; the limestone formations create natural sculptures that seem designed for contemplation. The road to reach this summit tests every skill—hairpins, gravel, altitude—but the reward redefines what viewpoints can be. This is not looking at the world; this is standing above it, between two mirrors reflecting the infinite sky.",
     tags: ["Viewpoints", "Views", "Mountain", "Nature"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gali%C4%8Dica_-_panoramio_%283%29.jpg/1280px-Gali%C4%8Dica_-_panoramio_%283%29.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Gali%C4%8Dica_National_Park%2C_Macedonia.jpg/1280px-Gali%C4%8Dica_National_Park%2C_Macedonia.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/View_from_Galicica_towards_Lake_Ohrid.jpg/1280px-View_from_Galicica_towards_Lake_Ohrid.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Galicica_National_Park_-_panoramio.jpg/1280px-Galicica_National_Park_-_panoramio.jpg",
-    ],
     riderTips: [
       "The pass road opens only in summer—snow closes it from October to May",
       "Pack a picnic—the summit meadows are perfect for horizon-watching",
@@ -667,12 +481,6 @@ export const spots: Spot[] = [
     longDescription: "Straddling the Greek border like a secret shared between nations, Dojran Lake embodies a peculiar peace that only threshold places possess. Once famous for its cormorant-guided fishing—a tradition stretching back millennia—the lake nearly died in the 1990s when upstream diversions stole its waters. Yet Dojran returned, slowly refilling, its ecosystem reviving with the patient persistence of nature's memory. Today, reed beds shelter herons and pelicans, the shoreline promenades invite meditative walks, and the thermal waters of nearby springs promise healing. The ride here crosses fertile plains where peppers dry in crimson waves, through villages where time moves at the pace of conversation. At the water's edge, with Greece visible on the opposite shore, you understand that some borders are merely lines on maps. The lake ignores them. So does the soul.",
     tags: ["Nature", "Hidden Gem", "Views"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Dojran_Lake.jpg/1280px-Dojran_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Star_Dojran_Lake.jpg/1280px-Star_Dojran_Lake.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Dojran_sunset.jpg/1280px-Dojran_sunset.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Strumica_panorama.jpg/1280px-Strumica_panorama.jpg",
-    ],
     riderTips: [
       "The fish restaurants on the promenade serve the day's catch simply grilled—pure and fresh",
       "Spring brings migratory birds in spectacular numbers—binoculars enhance the experience",
@@ -688,12 +496,6 @@ export const spots: Spot[] = [
     longDescription: "At the confluence of the Crna and Vardar rivers, where ancient trade routes crossed and cultures collided, Stobi rose to prominence under Roman rule and flourished through Byzantine centuries. Today, walking its excavated streets, you traverse the ghost of a city that once held 30,000 souls. Mosaics emerge from the earth—deer, peacocks, geometric patterns—their colors somehow surviving fifteen centuries of burial. The theater's stone seats still hold echoes of performances; the baptistry's pool still reflects the sky; the palace foundations still trace the ambitions of governors and bishops. The road to Stobi crosses the Tikveš wine region, where vineyards carpet hills in orderly green rows. Stop here before sunset. Watch the light move across stone that has watched empires rise and fall. Remember that even cities die, but beauty—like these mosaics—sometimes outlasts everything.",
     tags: ["Cultural", "Hidden Gem", "Views"],
     region: "Central",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Stobi_ruins.jpg/1280px-Stobi_ruins.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Stobi_Theater.jpg/1280px-Stobi_Theater.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Stobi_mosaics.jpg/1280px-Stobi_mosaics.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tikves_Wine_Region.jpg/1280px-Tikves_Wine_Region.jpg",
-    ],
     riderTips: [
       "Morning light illuminates the mosaics best—arrive when the site opens",
       "Combine with Tikveš wine tasting for a day of history and viticulture",
@@ -709,12 +511,6 @@ export const spots: Spot[] = [
     longDescription: "The Šar Mountains rise like a wall between Macedonia and Kosovo, their peaks reaching above 2,700 meters into air so pure it tastes of ice and wild herbs. This is one of Europe's last true wildernesses—brown bears roam the forests, wolves hunt in the high meadows, and the Šarplaninec shepherd dogs guard flocks with ancestry stretching back millennia. The road climbs from the valley town of Tetovo through increasingly dramatic landscapes: orchards give way to forests, forests to alpine meadows, meadows to bare rock crowned with eternal snow. At the highest accessible points, glacial lakes—the 'Eyes of the Mountain'—reflect skies of impossible blue. Nomadic herders still spend summers in mountain huts called 'bačila,' making cheese and maintaining traditions that modernity forgot to erase. This is riding as pilgrimage: every switchback earned, every vista a reward, every breath a reminder that some wild places still exist.",
     tags: ["Mountain", "Adventure", "Nature"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Sar_Mountains.jpg/1280px-Sar_Mountains.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Popova_Sapka.jpg/1280px-Popova_Sapka.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pelister_Mountain.JPG/1280px-Pelister_Mountain.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Golemo_Ezero_Pelister.jpg/1280px-Golemo_Ezero_Pelister.jpg",
-    ],
     riderTips: [
       "The Popova Šapka ski resort offers summer access to the highest paved roads",
       "Local cheese from mountain shepherds is liquid gold—buy when offered",
@@ -730,12 +526,6 @@ export const spots: Spot[] = [
     longDescription: "Built in and around extinct volcanic craters, Kratovo defies the logic of conventional towns. Streets tunnel through rock, bridges leap over chasms once filled with fire, and medieval towers—twelve of them originally, six surviving—stand as reminders of the gold and silver that made this place wealthy beyond measure. Ottoman-era houses crowd along the Kratovska River, their wooden balconies jutting over waters that once powered ore-crushing mills. The surrounding landscape bears the scars and beauties of volcanic origin: bizarre rock formations, crater lakes, and hills of colors no ordinary geology produces. The ride to Kratovo winds through terrain that seems designed by surrealists, arriving at a town that somehow blends mining history, volcanic drama, and Ottoman charm into something entirely unique. Wander the bridges at dusk. Listen for echoes of hammers on ore. Remember that some wealth runs deeper than gold.",
     tags: ["Cultural", "Hidden Gem", "Adventure"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Kratovo_bridges.jpg/1280px-Kratovo_bridges.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Kratovo_town.jpg/1280px-Kratovo_town.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Kratovo_towers.jpg/1280px-Kratovo_towers.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Kokino_Observatory.jpg/1280px-Kokino_Observatory.jpg",
-    ],
     riderTips: [
       "The town's famous 'Kratovska banitsa' pastry demands sampling—ask at any bakery",
       "The medieval towers can be climbed for crater-rim views—vertigo-sufferers beware",
@@ -751,12 +541,6 @@ export const spots: Spot[] = [
     longDescription: "According to local legend, a young man couldn't choose between two brides, so he invited both to his wedding. When the first bride saw him marrying another, her curse turned the entire gathering to stone. Whether you believe in curses or prefer erosion's patient artistry, the effect is the same: over 120 stone pillars rise from the earth like figures frozen mid-celebration. Some stand over 10 meters tall, their 'heads' balanced improbably on eroded 'necks,' their forms suggesting dancers, priests, grieving mothers. The surrounding landscape adds to the surreal atmosphere—volcanic soil in unusual colors, sparse vegetation that seems deliberately theatrical. The road here crosses lonely countryside that builds anticipation for the reveal. When the 'dolls' finally appear, even the most skeptical visitor pauses. Some places defy explanation. Some legends, told often enough, become truer than fact.",
     tags: ["Nature", "Hidden Gem", "Adventure"],
     region: "East",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kuklica_Stone_Dolls.jpg/1280px-Kuklica_Stone_Dolls.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Kuklici_rock_formations.jpg/1280px-Kuklici_rock_formations.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Kratovo_bridges.jpg/1280px-Kratovo_bridges.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Kratovo_town.jpg/1280px-Kratovo_town.jpg",
-    ],
     riderTips: [
       "Golden hour transforms the pillars into amber sculptures—time your visit accordingly",
       "The site has no facilities—bring water and comfortable walking shoes",
@@ -772,12 +556,6 @@ export const spots: Spot[] = [
     longDescription: "In the shadow of the Šar Mountains, the Arabati Baba Tekke has offered spiritual refuge since the 15th century. This Bektashi dervish compound—one of the largest and best-preserved in the Balkans—encompasses prayer halls, tombs, guest houses, and gardens of almost impossible tranquility. The Bektashi order blends Sufi mysticism with unique traditions: whirling meditation, poetry as prayer, hospitality as spiritual practice. Walking these grounds, you encounter carved wooden screens, painted ceilings depicting the cosmos, and tombstones marking centuries of seekers who found peace within these walls. The keeper still welcomes visitors, offering Turkish coffee and conversations that spiral from history to philosophy to the nature of seeking itself. The road from Skopje crosses the Polog valley, mountains rising on all sides. Arrive quietly. Remove your shoes at the threshold. Some places require approaching with the soul already open.",
     tags: ["Cultural", "Hidden Gem", "Views"],
     region: "West",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arabati_Baba_Tekke.jpg/1280px-Arabati_Baba_Tekke.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Tetovo_Painted_Mosque.jpg/1280px-Tetovo_Painted_Mosque.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Sar_Mountains.jpg/1280px-Sar_Mountains.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Popova_Sapka.jpg/1280px-Popova_Sapka.jpg",
-    ],
     riderTips: [
       "Dress modestly—this remains an active spiritual site deserving respect",
       "The keeper's hospitality often includes tea—accept graciously",

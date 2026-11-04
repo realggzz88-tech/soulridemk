@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useUiRoutes, type Route } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 import { ArrowRight, Route as RouteIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -132,10 +133,11 @@ const RouteCard = ({ route }: RouteCardProps) => {
     >
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img
-          src={route.mainImage}
-          alt={route.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        <SmartImage
+          photo={route.photos[0]}
+          alt={route.photos[0]?.alt.mk || route.title}
+          variant="card"
+          imgClassName="transition-transform duration-700 group-hover:scale-110"
         />
         
         {/* Multi-layer Gradient Overlays - Moody */}
