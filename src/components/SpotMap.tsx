@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import type { FeatureGroup, Map as LeafletMap, Marker } from "leaflet";
-import type { Spot } from "@/data/spots";
+import type { Spot } from "@/lib/content";
 import { Compass, Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { createMarkerClusterGroup } from "@/lib/leaflet-plugins";
 import { cn } from "@/lib/utils";

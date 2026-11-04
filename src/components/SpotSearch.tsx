@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, MapPin, X } from "lucide-react";
-import { spots } from "@/data/spots";
+import { useUiSpots } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,7 @@ interface SpotSearchProps {
 }
 
 const SpotSearch = ({ onSpotSelect }: SpotSearchProps) => {
+  const spots = useUiSpots();
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +26,7 @@ const SpotSearch = ({ onSpotSelect }: SpotSearchProps) => {
         spot.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)) ||
         spot.region.toLowerCase().includes(lowerQuery)
     ).slice(0, 6);
-  }, [query]);
+  }, [query, spots]);
 
   // Close dropdown on outside click
   useEffect(() => {

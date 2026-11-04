@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Clock, Compass, MapPin } from "lucide-react";
-import { routes } from "@/data/routes";
+import { useUiRoutes } from "@/lib/content";
 
 const RoutesPage = () => {
+  const routes = useUiRoutes();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);

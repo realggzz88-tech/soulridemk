@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { 
   Mountain, 
@@ -11,17 +11,21 @@ import {
   TreePine
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { spots } from "@/data/spots";
+import { useUiSpots } from "@/lib/content";
 
-// Featured spots for the beauties carousel
-const featuredSpots = [
-  spots.find(s => s.id === "st-jovan-kaneo-overlook"),
-  spots.find(s => s.id === "matka-canyon-overlook"),
-  spots.find(s => s.id === "galicica-pass"),
-  spots.find(s => s.id === "mavrovo-lake-loop"),
-].filter(Boolean);
+const FEATURED_SPOT_IDS = [
+  "st-jovan-kaneo-overlook",
+  "matka-canyon-overlook",
+  "galicica-pass",
+  "mavrovo-lake-loop",
+];
 
 const WhySoulRide = () => {
+  const spots = useUiSpots();
+  const featuredSpots = useMemo(
+    () => FEATURED_SPOT_IDS.map((id) => spots.find((spot) => spot.id === id)).filter(Boolean),
+    [spots],
+  );
   const [activeBeauty, setActiveBeauty] = useState(0);
 
   const features = [

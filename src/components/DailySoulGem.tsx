@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Star } from "lucide-react";
-import { spots } from "@/data/spots";
+import { useUiSpots } from "@/lib/content";
 
 const dailyQuotes = [
   "Денешното возење ја повикува твојата душа",
@@ -12,6 +12,7 @@ const dailyQuotes = [
 ];
 
 const DailySoulGem = () => {
+  const spots = useUiSpots();
   const dailySpot = useMemo(() => {
     const today = new Date();
     const dayOfYear = Math.floor(
@@ -20,7 +21,7 @@ const DailySoulGem = () => {
     );
     const index = dayOfYear % spots.length;
     return spots[index];
-  }, []);
+  }, [spots]);
 
   const dailyQuote = useMemo(() => {
     const today = new Date();

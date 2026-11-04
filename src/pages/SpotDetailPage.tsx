@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, MapPin, Lightbulb, Navigation, Route, Cloud } from "lucide-react";
-import { spots } from "@/data/spots";
+import { useUiSpot } from "@/lib/content";
 import ImageCarousel from "@/components/ImageCarousel";
 import { SpotDetailMap } from "@/components/SpotMap";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 
 const SpotDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const spot = spots.find((s) => s.id === id);
+  const spot = useUiSpot(id);
   const [showRideSummary, setShowRideSummary] = useState(false);
 
   // Scroll to top on page load

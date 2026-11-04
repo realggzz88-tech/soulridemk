@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Search, Compass } from "lucide-react";
 import { motion } from "framer-motion";
-import { spots, type Spot } from "@/data/spots";
+import { useUiSpots, type Spot } from "@/lib/content";
 
 const InspirationSearch = () => {
+  const spots = useUiSpots();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Spot[]>([]);
   const [hasSearched, setHasSearched] = useState(false);

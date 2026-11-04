@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { spots, type Region } from "@/data/spots";
+import { useUiSpots, type Region } from "@/lib/content";
 import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
 import { SpotsOverviewMap } from "@/components/SpotMap";
@@ -8,6 +8,7 @@ import SpotSearch from "@/components/SpotSearch";
 import { Map, Compass } from "lucide-react";
 
 const SpotsPage = () => {
+  const spots = useUiSpots();
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -43,7 +44,7 @@ const SpotsPage = () => {
     }
     
     return filtered;
-  }, [selectedTags, selectedRegion]);
+  }, [spots, selectedTags, selectedRegion]);
 
   return (
     <div 
