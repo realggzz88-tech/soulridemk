@@ -9,7 +9,6 @@ export interface Route {
   difficulty: "Easy" | "Moderate" | "Challenging";
   duration: string;
   distance: string;
-  mainImage: string;
   highlights: string[];
   activities: string[];
   riderTips: string[];
@@ -35,7 +34,6 @@ export const routes: Route[] = [
     difficulty: "Moderate",
     duration: "4-5 hours",
     distance: "~85 km",
-    mainImage: "https://www.beinmacedonia.com/wp-content/uploads/2025/06/Smolare-Waterfall-North-Macedonia-Visit-North-Macedonia.jpg",
     highlights: [
       "Two of Macedonia's tallest waterfalls in one ride",
       "1000-year-old monastery with glowing frescoes",
@@ -83,7 +81,6 @@ export const routes: Route[] = [
     difficulty: "Challenging",
     duration: "5-6 hours",
     distance: "~120 km",
-    mainImage: "https://ourwanders.com/wp-content/uploads/2023/06/YourGuideToGalicicaNationalPark_NorthMacedonia_featured.jpg",
     highlights: [
       "Galicica Pass with dual-lake panoramas",
       "Medieval monastery with natural springs",
@@ -131,7 +128,6 @@ export const routes: Route[] = [
     difficulty: "Moderate",
     duration: "6-7 hours",
     distance: "~140 km",
-    mainImage: "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=center,quality=60,width=400,height=265,dpr=2/tour_img/7f1dd888b74ba0994170b1dae71ccbd0e76c2a6a88c29cfc84517eded3ebf2b0.jpeg",
     highlights: [
       "Cave exploration at Vrelo Cave",
       "Hiking to legendary King Marko's fortress",
@@ -178,7 +174,6 @@ export const routes: Route[] = [
     difficulty: "Challenging",
     duration: "4-5 hours",
     distance: "~95 km",
-    mainImage: "https://live.staticflickr.com/65535/53544878928_bb34f6dd19_h.jpg",
     highlights: [
       "Famous drowned church in Mavrovo Lake",
       "High-altitude hairpins with no guardrails",
@@ -225,7 +220,6 @@ export const routes: Route[] = [
     difficulty: "Easy",
     duration: "3-4 hours",
     distance: "~70 km",
-    mainImage: "https://adventurousmiriam.com/wp-content/uploads/2020/01/45662628464_553abbf66a_c.jpg",
     highlights: [
       "Limestone gorge with 500m cliffs",
       "Award-winning Macedonian wines",
@@ -272,7 +266,6 @@ export const routes: Route[] = [
     difficulty: "Moderate",
     duration: "5-6 hours",
     distance: "~80 km",
-    mainImage: "https://www.discoveringmacedonia.com/wp-content/uploads/2018/02/pelister-baba-mountain-macedonia-2.jpg",
     highlights: [
       "Endemic Molika pine forests",
       "Glacial lakes hike (2-3 hours)",
@@ -319,7 +312,6 @@ export const routes: Route[] = [
     difficulty: "Moderate",
     duration: "4-5 hours",
     distance: "~65 km",
-    mainImage: "https://static.euronews.com/articles/stories/08/57/96/04/1440x810_cmsv2_496958ef-277c-5baf-bbdb-26e588abb2fa-8579604.jpg",
     highlights: [
       "Pelican colonies at dawn",
       "Boat trip to snake-inhabited island",

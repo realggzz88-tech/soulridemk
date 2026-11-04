@@ -19,9 +19,9 @@ export { photoDisplaySrc, toUiRoute, toUiSpot } from "./present";
 export { CONTENT_STALE_TIME_MS, resolveContentSource } from "./source";
 export type { ContentEnv, ContentSource } from "./source";
 
-export type { Spot, Region } from "@/data/spots";
+export type { SpotWithPhotos as Spot, RouteWithPhotos as Route } from "./present";
+export type { Region } from "@/data/spots";
 export { allTags, regions } from "@/data/spots";
-export type { Route } from "@/data/routes";
 export {
   foodDrinkStops,
   foodRegionMap,

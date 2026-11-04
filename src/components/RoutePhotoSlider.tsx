@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Photo } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 interface RoutePhoto {
-  url: string;
+  photo: Photo;
   title: string;
   caption: string;
 }
@@ -58,20 +60,17 @@ const RoutePhotoSlider = ({ photos, routeTitle }: RoutePhotoSliderProps) => {
       {/* Photo Slides */}
       {photos.map((photo, index) => (
         <div
-          key={`${photo.url}-${index}`}
+          key={`${photo.photo.key}-${index}`}
           className={cn(
             "absolute inset-0 transition-all duration-[800ms] ease-out",
             index === currentIndex ? "opacity-100" : "opacity-0"
           )}
         >
-          <img
-            src={photo.url}
-            alt={photo.title}
-            className="w-full h-full object-cover"
-            style={{ 
-              filter: 'brightness(0.5) contrast(1.1) saturate(0.9)',
-              objectPosition: 'center 40%'
-            }}
+          <SmartImage
+            photo={photo.photo}
+            alt={photo.photo.alt.mk || photo.title}
+            variant="hero"
+            imgStyle={{ filter: "brightness(0.5) contrast(1.1) saturate(0.9)" }}
           />
         </div>
       ))}

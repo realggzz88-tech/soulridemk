@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight, Search, Compass } from "lucide-react";
 import { motion } from "framer-motion";
 import { useUiSpots, type Spot } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 const InspirationSearch = () => {
   const spots = useUiSpots();
@@ -324,11 +325,12 @@ const InspirationSearch = () => {
                       >
                         {/* Image with sepia */}
                         <div className="relative aspect-[3/2] overflow-hidden">
-                          <img
-                            src={spot.images[0]}
-                            alt={spot.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            style={{ filter: 'sepia(15%) saturate(85%)' }}
+                          <SmartImage
+                            photo={spot.photos[0]}
+                            alt={spot.photos[0]?.alt.mk || spot.title}
+                            variant="card"
+                            imgClassName="transition-transform duration-700 group-hover:scale-110"
+                            imgStyle={{ filter: "sepia(15%) saturate(85%)" }}
                           />
                           
                           <div 

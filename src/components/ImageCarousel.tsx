@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Photo } from "@/lib/content";
+import { SmartImage } from "@/components/SmartImage";
 
 interface ImageCarouselProps {
-  images: string[];
+  photos: Photo[];
   title: string;
   poeticTagline?: string;
 }
@@ -20,7 +22,7 @@ const poeticCaptions = [
   "The world, distilled to wonder",
 ];
 
-const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => {
+const ImageCarousel = ({ photos: images, title, poeticTagline }: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -97,7 +99,7 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
         <div className="relative w-full h-full flex items-center justify-center p-8 md:p-16">
           {images.map((image, index) => (
             <div
-              key={index}
+              key={image.key}
               className={cn(
                 "absolute inset-8 md:inset-16 transition-all duration-700 ease-out",
                 index === currentIndex 
@@ -105,10 +107,12 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
                   : "opacity-0 scale-95"
               )}
             >
-              <img
-                src={image}
-                alt={`${title} - Image ${index + 1}`}
-                className="w-full h-full object-contain"
+              <SmartImage
+                photo={image}
+                variant="gallery"
+                alt={image.alt.mk || title}
+                imgClassName="object-contain"
+                showCredit
               />
             </div>
           ))}
@@ -174,7 +178,7 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
       >
         {images.map((image, index) => (
           <div
-            key={index}
+            key={image.key}
             className={cn(
               "absolute inset-0 transition-all duration-700 ease-in-out",
               index === currentIndex 
@@ -182,11 +186,13 @@ const ImageCarousel = ({ images, title, poeticTagline }: ImageCarouselProps) => 
                 : "opacity-0 scale-105"
             )}
           >
-            <img
-              src={image}
-              alt={`${title} - Image ${index + 1}`}
-              className="w-full h-full object-cover"
-              style={{ transform: `scale(${1 + parallaxOffset * 0.0003})` }}
+            <SmartImage
+              photo={image}
+              variant="gallery"
+              alt={image.alt.mk || title}
+              imgClassName="object-cover"
+              imgStyle={{ transform: `scale(${1 + parallaxOffset * 0.0003})` }}
+              showCredit={index === currentIndex}
             />
           </div>
         ))}

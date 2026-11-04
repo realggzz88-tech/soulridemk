@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useUiRoute, useUiRoutes, useUiSpots } from "@/lib/content";
+import { SmartImage } from "@/components/SmartImage";
 import { 
   ArrowLeft, Clock, MapPin, Mountain, ChevronRight, Star, Navigation, 
   Share2, Copy, Compass, AlertTriangle, Check, Utensils, Route, Eye, Info,
@@ -44,12 +45,12 @@ const RouteDetailPage = () => {
       "Nature's masterpiece unfolds",
     ];
     
-    return routeSpots.slice(0, 6).flatMap((spot, spotIndex) => 
-      spot.images.slice(0, 1).map((img, imgIndex) => ({
-        url: img,
+    return routeSpots.slice(0, 6).flatMap((spot, spotIndex) =>
+      spot.photos.slice(0, 1).map((photo) => ({
+        photo,
         title: spot.title,
-        caption: `${poeticCaptions[spotIndex % poeticCaptions.length]}: ${spot.title.split(' ').slice(0, 3).join(' ')}`
-      }))
+        caption: `${poeticCaptions[spotIndex % poeticCaptions.length]}: ${spot.title.split(" ").slice(0, 3).join(" ")}`,
+      })),
     );
   }, [routeSpots]);
 
@@ -444,10 +445,11 @@ const RouteDetailPage = () => {
                   to={`/routes/${otherRoute.id}`}
                   className="group relative h-[200px] rounded-xl overflow-hidden border border-border/30 hover:border-earth-green/50 transition-all duration-300"
                 >
-                  <img
-                    src={otherRoute.mainImage}
-                    alt={otherRoute.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  <SmartImage
+                    photo={otherRoute.photos[0]}
+                    alt={otherRoute.photos[0]?.alt.mk || otherRoute.title}
+                    variant="card"
+                    imgClassName="group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
                   <div className="absolute inset-0" style={{ boxShadow: 'inset 0 0 40px 10px hsl(0 0% 0% / 0.4)' }} />

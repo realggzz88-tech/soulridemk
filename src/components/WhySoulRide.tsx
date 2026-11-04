@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUiSpots } from "@/lib/content";
+import { SmartImage } from "./SmartImage";
 
 const FEATURED_SPOT_IDS = [
   "st-jovan-kaneo-overlook",
@@ -149,15 +150,15 @@ const WhySoulRide = () => {
                 <div className="mt-4 space-y-3">
                   <div className="relative h-32 rounded-xl overflow-hidden">
                     {featuredSpots.map((spot, i) => (
-                      <img
+                      <div
                         key={spot?.id}
-                        src={spot?.images[0]}
-                        alt={spot?.title}
                         className={cn(
-                          "absolute inset-0 w-full h-full object-cover transition-all duration-700",
+                          "absolute inset-0 transition-opacity duration-700",
                           i === activeBeauty ? "opacity-100" : "opacity-0"
                         )}
-                      />
+                      >
+                        <SmartImage photo={spot?.photos[0]} alt={spot?.photos[0]?.alt.mk || spot?.title} variant="card" />
+                      </div>
                     ))}
                     <div 
                       className="absolute inset-0"

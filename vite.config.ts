@@ -33,6 +33,7 @@ function spaFallbackPlugin(): Plugin {
         "routes.html",
         "spots.html",
         "about.html",
+        "credits.html",
         "login.html",
         "signup.html",
         "chat.html",

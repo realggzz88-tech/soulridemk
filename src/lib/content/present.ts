@@ -3,14 +3,30 @@ import type { Spot as UiSpot } from "@/data/spots";
 import { bundledRoute, bundledSpot } from "./static";
 import type { Photo, Route, Spot } from "./types";
 
-/** URL the current `<img>` tags should use. Local files replace legacy hotlinks later. */
-export function photoDisplaySrc(photo: Photo): string {
-  if (photo.legacySrc) return photo.legacySrc;
-  const base = import.meta.env.BASE_URL ?? "/";
-  return `${base}img/${photo.key}-800.jpg`;
+export interface SpotWithPhotos extends UiSpot {
+  photos: Photo[];
+  images: string[];
 }
 
-function projectSpot(spot: Spot): UiSpot {
+export interface RouteWithPhotos extends UiRoute {
+  photos: Photo[];
+  mainImage: string;
+}
+
+/** Local variant URL. `legacySrc` is only for a row that has not been mirrored yet. */
+export function variantSrc(photo: Photo, width = 800, extension: "webp" = "webp"): string {
+  if (photo.legacySrc) return photo.legacySrc;
+  const widths = photo.widths?.length ? photo.widths : [width];
+  const chosen = widths.reduce((best, item) => (Math.abs(item - width) < Math.abs(best - width) ? item : best));
+  const base = import.meta.env.BASE_URL ?? "/";
+  return `${base}img/${photo.key}-${chosen}.${extension}`;
+}
+
+export function photoDisplaySrc(photo: Photo): string {
+  return variantSrc(photo, 800, "webp");
+}
+
+function projectSpot(spot: Spot): SpotWithPhotos {
   const text = spot.t.en;
   return {
     id: spot.slug,
@@ -23,10 +39,11 @@ function projectSpot(spot: Spot): UiSpot {
     images: spot.photos.map(photoDisplaySrc),
     riderTips: [...text.riderTips],
     coordinates: { lat: spot.lat, lng: spot.lng },
+    photos: spot.photos,
   };
 }
 
-function projectRoute(route: Route): UiRoute {
+function projectRoute(route: Route): RouteWithPhotos {
   const text = route.t.en;
   const thingsToDo: UiRoute["thingsToDo"] = {};
   for (const stop of route.stops) {
@@ -50,6 +67,7 @@ function projectRoute(route: Route): UiRoute {
     duration: text.durationText,
     distance,
     mainImage: route.cover ? photoDisplaySrc(route.cover) : "",
+    photos: route.photos,
     highlights: [...text.highlights],
     activities: [...text.activities],
     riderTips: [...text.riderTips],
@@ -64,11 +82,20 @@ function projectRoute(route: Route): UiRoute {
   };
 }
 
-/** Same object the page used to import, when the row came from `src/data`. */
-export function toUiSpot(spot: Spot): UiSpot {
-  return bundledSpot(spot) ?? projectSpot(spot);
+/**
+ * Text and coordinates stay the bundled record. Image URLs come from the
+ * self-hosted catalog, so the old hotlinks are not what the page renders.
+ */
+export function toUiSpot(spot: Spot): SpotWithPhotos {
+  const bundled = bundledSpot(spot);
+  const images = spot.photos.map(photoDisplaySrc);
+  if (!bundled) return projectSpot(spot);
+  return { ...bundled, images, photos: spot.photos };
 }
 
-export function toUiRoute(route: Route): UiRoute {
-  return bundledRoute(route) ?? projectRoute(route);
+export function toUiRoute(route: Route): RouteWithPhotos {
+  const bundled = bundledRoute(route);
+  const mainImage = route.cover ? photoDisplaySrc(route.cover) : "";
+  if (!bundled) return projectRoute(route);
+  return { ...bundled, mainImage, photos: route.photos };
 }

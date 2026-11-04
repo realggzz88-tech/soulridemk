@@ -524,6 +524,7 @@ const ChatPage = () => {
                                 <img
                                   src={message.image_url}
                                   alt="Shared image"
+                                  loading="lazy"
                                   className="mt-2 rounded-lg max-w-full cursor-pointer hover:opacity-90 transition-opacity"
                                   style={{ maxHeight: '200px' }}
                                   onClick={() => setSelectedImageUrl(message.image_url)}
@@ -536,6 +537,7 @@ const ChatPage = () => {
                                 <img
                                   src={message.image_url}
                                   alt="Shared image full"
+                                  loading="lazy"
                                   className="w-full rounded-lg"
                                 />
                               </DialogContent>
@@ -565,6 +567,7 @@ const ChatPage = () => {
                 <img
                   src={pendingImageUrl}
                   alt="Pending upload"
+                  loading="lazy"
                   className="h-20 rounded-lg"
                 />
                 <button

@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, MapPin, Lightbulb, Navigation, Route, Cloud } from "lucide-react";
 import { useUiSpot } from "@/lib/content";
+import { PhotoCredit } from "@/components/SmartImage";
 import ImageCarousel from "@/components/ImageCarousel";
 import { SpotDetailMap } from "@/components/SpotMap";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -65,10 +66,19 @@ const SpotDetailPage = () => {
       {/* Image Carousel */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ImageCarousel 
-          images={spot.images} 
+          photos={spot.photos} 
           title={spot.title} 
           poeticTagline={spot.poeticTagline}
         />
+        {spot.photos.length > 0 ? (
+          <ul className="mt-3 space-y-1 text-xs text-muted-foreground">
+            {spot.photos.map((photo) => (
+              <li key={photo.key}>
+                <PhotoCredit photo={photo} />
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
       {/* Content */}

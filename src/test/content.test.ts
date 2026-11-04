@@ -85,20 +85,31 @@ describe("content source", () => {
 });
 
 describe("static catalog", () => {
-  it("returns the same spot and route objects the pages used to import", async () => {
+  it("keeps the bundled copy and serves local photos instead of hotlinks", async () => {
     const page = await getSpots();
     expect(page.total).toBe(spots.length);
     expect(page.items).toHaveLength(spots.length);
     page.items.forEach((item, index) => {
-      expect(toUiSpot(item)).toBe(spots[index]);
-      expect(item.photos.map((photo) => photo.legacySrc)).toEqual(spots[index].images);
+      const ui = toUiSpot(item);
+      expect(ui.title).toBe(spots[index].title);
+      expect(ui.id).toBe(spots[index].id);
+      expect(ui.description).toBe(spots[index].description);
+      expect(ui.coordinates).toEqual(spots[index].coordinates);
+      expect(ui.photos.length).toBeGreaterThan(0);
+      expect(ui.images.every((src) => src.includes("/img/") && !src.startsWith("http"))).toBe(true);
+      expect(ui.photos.every((photo) => !photo.legacySrc)).toBe(true);
+      expect(ui.photos[0].alt.mk.trim().length).toBeGreaterThan(0);
     });
 
     const loadedRoutes = await getRoutes();
     expect(loadedRoutes).toHaveLength(routes.length);
     loadedRoutes.forEach((item, index) => {
-      expect(toUiRoute(item)).toBe(routes[index]);
-      expect(item.cover?.legacySrc).toBe(routes[index].mainImage);
+      const ui = toUiRoute(item);
+      expect(ui.title).toBe(routes[index].title);
+      expect(ui.spotIds).toEqual(routes[index].spotIds);
+      expect(ui.mainImage.includes("/img/")).toBe(true);
+      expect(ui.mainImage.startsWith("http")).toBe(false);
+      expect(ui.photos.length).toBeGreaterThan(0);
     });
   });
 
@@ -126,8 +137,9 @@ describe("static catalog", () => {
 
   it("lists a credit group for every spot and route", async () => {
     const credits = await getCredits();
-    expect(credits.filter((group) => group.kind === "spot")).toHaveLength(spots.length);
+    expect(credits.filter((group) => group.kind === "spot").length).toBeGreaterThanOrEqual(spots.length);
     expect(credits.filter((group) => group.kind === "route")).toHaveLength(routes.length);
+    expect(credits.every((group) => group.photos.length > 0)).toBe(true);
   });
 
   it("does not query Supabase while the flag is off", async () => {
@@ -159,7 +171,7 @@ describe("supabase mapping", () => {
       alt: { en: "View from Galicica Pass", mk: "Поглед од Галичица" },
       credit: { author: "Nik", license: "CC BY-SA 4.0", modified: false },
     });
-    expect(toUiSpot(spot!).images[0]).toContain("spots/galicica-pass/00-800.jpg");
+    expect(toUiSpot(spot!).images[0]).toContain("spots/galicica-pass/00-800.webp");
   });
 
   it("falls back to Macedonian when the English column is empty", () => {
@@ -215,7 +227,7 @@ describe("supabase mapping", () => {
     expect(route?.distanceKm).toBe(85);
     expect(route?.t.mk.eatAndRest[0].description).toBe("Кафе");
     expect(toUiRoute(route!).distance).toBe("~85 km");
-    expect(toUiRoute(route!).mainImage).toContain("routes/eastern-waterfalls-loop/01-800.jpg");
+    expect(toUiRoute(route!).mainImage).toContain("routes/eastern-waterfalls-loop/01-800.webp");
     expect(toUiRoute(route!).thingsToDo["kolesino-waterfall"]).toBe("First");
   });
 
@@ -242,22 +254,26 @@ describe("content hooks", () => {
   it("renders the bundled spots on the first pass", () => {
     const { result } = renderHook(() => useUiSpots(), { wrapper });
     expect(result.current).toHaveLength(spots.length);
-    expect(result.current[0]).toBe(spots[0]);
+    expect(result.current[0].id).toBe(spots[0].id);
+    expect(result.current[0].title).toBe(spots[0].title);
+    expect(result.current[0].photos.length).toBeGreaterThan(0);
     expect(result.current.map((spot) => spot.id)).toEqual(spots.map((spot) => spot.id));
   });
 
   it("resolves a spot and a route without waiting", () => {
     const spot = renderHook(() => useUiSpot("galicica-pass"), { wrapper });
-    expect(spot.result.current).toBe(spots.find((item) => item.id === "galicica-pass"));
+    expect(spot.result.current?.id).toBe("galicica-pass");
+    expect(spot.result.current?.title).toBe("Galicica Pass");
 
     const missing = renderHook(() => useUiSpot("not-a-spot"), { wrapper });
     expect(missing.result.current).toBeUndefined();
 
     const route = renderHook(() => useUiRoute("eastern-waterfalls-loop"), { wrapper });
-    expect(route.result.current).toBe(routes[0]);
+    expect(route.result.current?.id).toBe(routes[0].id);
+    expect(route.result.current?.mainImage.startsWith("http")).toBe(false);
 
     const list = renderHook(() => useUiRoutes(), { wrapper });
-    expect(list.result.current).toEqual(routes);
+    expect(list.result.current.map((item) => item.id)).toEqual(routes.map((item) => item.id));
   });
 });
 

@@ -53,6 +53,7 @@ const Footer = () => {
                 { to: "/spots", label: "Откријте места" },
                 { to: "/chat", label: "Заедница" },
                 { to: "/about", label: "Нашата приказна" },
+                { to: "/credits", label: "Фотографии и лиценци" },
               ].map(link => (
                 <Link 
                   key={link.to}

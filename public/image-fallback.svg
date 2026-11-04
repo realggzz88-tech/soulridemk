@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <!-- Broken-image fallback (dark theme). Scales via object-fit: cover. Label text is rendered in HTML, not in the SVG. -->
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#272320"/><stop offset="1" stop-color="#1A1614"/></linearGradient></defs>
+  <rect width="400" height="300" fill="url(#g)"/>
+  <circle cx="290" cy="95" r="22" fill="#F47434" opacity=".35"/>
+  <path d="M0 220 L90 150 L140 185 L220 120 L310 195 L400 160 L400 300 L0 300 Z" fill="#322D29"/>
+  <path d="M0 250 L110 205 L190 240 L280 200 L400 240 L400 300 L0 300 Z" fill="#35B6A5" opacity=".18"/>
+  <path d="M170 300 C170 262 250 268 250 238 C250 214 190 220 196 190" fill="none" stroke="#F47434" stroke-opacity=".45" stroke-width="10" stroke-linecap="round"/>
+</svg>

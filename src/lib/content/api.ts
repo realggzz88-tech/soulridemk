@@ -1,3 +1,4 @@
+import { unlistedSpotPhotos } from "./catalog";
 import { fetchSupabaseRoutes, fetchSupabaseSpots } from "./supabase";
 import { staticContentRoutes, staticContentSpots } from "./static";
 import { resolveContentSource, type ContentSource } from "./source";
@@ -72,14 +73,22 @@ export async function loadCredits(source: ContentSource): Promise<CreditGroup[]>
     t: { en: { title: spot.t.en.title }, mk: { title: spot.t.mk.title } },
     photos: spot.photos,
   }));
-  const routeGroups: CreditGroup[] = routes
-    .filter((route) => route.cover)
-    .map((route) => ({
-      kind: "route",
-      slug: route.slug,
-      t: { en: { title: route.t.en.title }, mk: { title: route.t.mk.title } },
-      photos: route.cover ? [route.cover] : [],
-    }));
+  if (source === "static") {
+    for (const extra of unlistedSpotPhotos(new Set(spots.map((spot) => spot.slug)))) {
+      spotGroups.push({
+        kind: "spot",
+        slug: extra.slug,
+        t: { en: { title: extra.title }, mk: { title: extra.title } },
+        photos: extra.photos,
+      });
+    }
+  }
+  const routeGroups: CreditGroup[] = routes.map((route) => ({
+    kind: "route",
+    slug: route.slug,
+    t: { en: { title: route.t.en.title }, mk: { title: route.t.mk.title } },
+    photos: route.photos.length > 0 ? route.photos : route.cover ? [route.cover] : [],
+  }));
   return [...spotGroups, ...routeGroups];
 }
 

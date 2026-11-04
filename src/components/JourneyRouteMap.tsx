@@ -150,7 +150,7 @@ const JourneyRouteMap = ({ startLocation, endLocation, stops, foodStops }: Journ
         .addTo(map)
         .bindPopup(`
           <div style="min-width: 200px; padding: 8px; font-family: 'Libre Baskerville', serif;">
-            <img src="${spot.images[0]}" alt="${spot.title}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; filter: sepia(10%) saturate(90%);" />
+            <img src="${spot.images[0] ?? ""}" alt="${spot.title.replace(/"/g, "")}" loading="lazy" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; filter: sepia(10%) saturate(90%);" onerror="this.onerror=null;this.src='${import.meta.env.BASE_URL}image-fallback.svg'" />
             <strong style="display: block; margin-bottom: 4px; color: hsl(40 30% 92%); font-family: 'Bitter', serif;">${spot.title}</strong>
             <em style="color: hsl(20 45% 55%); font-size: 12px; font-family: 'Caveat', cursive;">"${spot.poeticTagline}"</em>
           </div>
