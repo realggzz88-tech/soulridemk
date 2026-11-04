@@ -1,0 +1,16 @@
+{
+  "id": "vodoca-monastery",
+  "title": "Vodoča Monastery (St. Leontius)",
+  "description": "Approximate stub for the monastery of Saint Leontius near Strumica. Dev Content still has to confirm the pin and the English copy.",
+  "longDescription": "Fallback only. On current main, src/data/spots.ts already contains Vodoča Monastery, and the seed uses that row. These coordinates are the spec's approximate pin and are not what gets loaded when the slug already exists.",
+  "poeticTagline": "Where the eastern loop keeps a quiet hour",
+  "tags": ["Cultural", "Hidden Gem"],
+  "region": "East",
+  "images": [],
+  "riderTips": [
+    "Pair it with Kolesino and Smolare rather than riding it as its own day",
+    "Modest dress is expected in the church"
+  ],
+  "coordinates": { "lat": 41.43, "lng": 22.58 },
+  "coordinate_review": true
+}

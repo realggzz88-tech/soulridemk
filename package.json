@@ -12,7 +12,8 @@
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "seed:gen": "node --experimental-strip-types scripts/gen-seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

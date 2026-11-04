@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "generated_from": [
+    "src/data/spots.ts",
+    "src/data/routes.ts",
+    "content-src/spots-extra.json",
+    "content-src/i18n/mk/content.json"
+  ],
+  "counts": {
+    "spots": 36,
+    "routes": 7,
+    "route_spots": 16,
+    "photos": 0
+  },
+  "drafts": {
+    "spots": [
+      "galicica-pass",
+      "vevcani-village",
+      "mavrovo-lake-loop",
+      "trpejca-beach",
+      "pelister-viewpoint",
+      "prespa-lake-shore",
+      "ohrid-old-town-overlook",
+      "bistra-mountain-pass",
+      "sv-naum-monastery",
+      "golem-grad-island",
+      "matka-canyon",
+      "treskavec-monastery",
+      "kozjak-lake",
+      "krushevo-paragliding",
+      "demir-kapija-gorge",
+      "popova-kula-winery",
+      "burial-mound-unbeaten",
+      "markos-towers",
+      "carevi-kuli",
+      "vodoca-monastery",
+      "kolesino-waterfall",
+      "smolare-waterfall",
+      "berovo-lake",
+      "belasica-mountain-summit",
+      "pelister-national-park",
+      "kozjak-canyon",
+      "vodno-mountain-cross",
+      "st-jovan-kaneo-overlook",
+      "kokino-observatory-overlook",
+      "galicica-national-park-summit",
+      "dojran-lake",
+      "stobi-ancient-city",
+      "shar-mountain-range",
+      "kratovo-old-town",
+      "kuklica-stone-dolls",
+      "tetovo-arabati-baba-tekke"
+    ],
+    "routes": [
+      "eastern-waterfalls-loop",
+      "western-lakes-tour",
+      "central-canyon-ride",
+      "northern-mountain-pass",
+      "southern-winery-escape",
+      "pelister-peaks-hike",
+      "prespa-hidden-shores"
+    ]
+  },
+  "mk_status": {
+    "spots": {
+      "galicica-pass": "machine",
+      "vevcani-village": "machine",
+      "mavrovo-lake-loop": "machine",
+      "trpejca-beach": "machine",
+      "pelister-viewpoint": "machine",
+      "prespa-lake-shore": "machine",
+      "ohrid-old-town-overlook": "machine",
+      "bistra-mountain-pass": "machine",
+      "sv-naum-monastery": "machine",
+      "golem-grad-island": "machine",
+      "matka-canyon": "machine",
+      "treskavec-monastery": "machine",
+      "kozjak-lake": "machine",
+      "krushevo-paragliding": "machine",
+      "demir-kapija-gorge": "machine",
+      "popova-kula-winery": "machine",
+      "burial-mound-unbeaten": "machine",
+      "markos-towers": "machine",
+      "carevi-kuli": "machine",
+      "vodoca-monastery": "machine",
+      "kolesino-waterfall": "machine",
+      "smolare-waterfall": "machine",
+      "berovo-lake": "machine",
+      "belasica-mountain-summit": "machine",
+      "pelister-national-park": "machine",
+      "kozjak-canyon": "machine",
+      "vodno-mountain-cross": "machine",
+      "st-jovan-kaneo-overlook": "machine",
+      "kokino-observatory-overlook": "machine",
+      "galicica-national-park-summit": "machine",
+      "dojran-lake": "machine",
+      "stobi-ancient-city": "machine",
+      "shar-mountain-range": "machine",
+      "kratovo-old-town": "machine",
+      "kuklica-stone-dolls": "machine",
+      "tetovo-arabati-baba-tekke": "machine"
+    },
+    "routes": {
+      "eastern-waterfalls-loop": "machine",
+      "western-lakes-tour": "machine",
+      "central-canyon-ride": "machine",
+      "northern-mountain-pass": "machine",
+      "southern-winery-escape": "machine",
+      "pelister-peaks-hike": "machine",
+      "prespa-hidden-shores": "machine"
+    }
+  },
+  "spots_without_photos": [
+    "galicica-pass",
+    "vevcani-village",
+    "mavrovo-lake-loop",
+    "trpejca-beach",
+    "pelister-viewpoint",
+    "prespa-lake-shore",
+    "ohrid-old-town-overlook",
+    "bistra-mountain-pass",
+    "sv-naum-monastery",
+    "golem-grad-island",
+    "matka-canyon",
+    "treskavec-monastery",
+    "kozjak-lake",
+    "krushevo-paragliding",
+    "demir-kapija-gorge",
+    "popova-kula-winery",
+    "burial-mound-unbeaten",
+    "markos-towers",
+    "carevi-kuli",
+    "vodoca-monastery",
+    "kolesino-waterfall",
+    "smolare-waterfall",
+    "berovo-lake",
+    "belasica-mountain-summit",
+    "pelister-national-park",
+    "kozjak-canyon",
+    "vodno-mountain-cross",
+    "st-jovan-kaneo-overlook",
+    "kokino-observatory-overlook",
+    "galicica-national-park-summit",
+    "dojran-lake",
+    "stobi-ancient-city",
+    "shar-mountain-range",
+    "kratovo-old-town",
+    "kuklica-stone-dolls",
+    "tetovo-arabati-baba-tekke"
+  ],
+  "warnings": [
+    "content-src/photos/manifest.json is absent; no photo rows are seeded",
+    "36 spots have no photos yet"
+  ],
+  "coordinate_review": [
+    {
+      "slug": "vodoca-monastery",
+      "seeded": {
+        "lat": 41.4506,
+        "lng": 22.5903
+      },
+      "spec_approximate": {
+        "lat": 41.43,
+        "lng": 22.58
+      },
+      "status": "draft",
+      "reason": "Dev Content must verify the pin before this draft can be reviewed for publishing. src/data/spots.ts already has a pin; it is close to the spec's approximate 41.43, 22.58."
+    }
+  ],
+  "deviations": [
+    {
+      "slug": "vodoca-monastery",
+      "note": "slug already exists in src/data/spots.ts; the TypeScript row is seeded and spots-extra.json is only a fallback",
+      "spots_ts": {
+        "lat": 41.4506,
+        "lng": 22.5903
+      },
+      "extra": {
+        "lat": 41.43,
+        "lng": 22.58
+      }
+    }
+  ]
+}

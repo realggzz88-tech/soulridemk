@@ -16,6 +16,10 @@ dist-ssr
 .env*
 !.env.example
 
+# Supabase local CLI state. Migrations and seed-report.json stay tracked.
+supabase/.temp
+supabase/.branches
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
