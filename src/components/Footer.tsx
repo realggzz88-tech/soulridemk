@@ -23,7 +23,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="space-y-4 md:col-span-1">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-flex min-h-11 items-center">
               <span 
                 className="text-2xl font-bold tracking-tight"
                 style={{ color: 'hsl(0 0% 100%)' }}
@@ -33,7 +33,7 @@ const Footer = () => {
             </Link>
             <p 
               className="text-sm leading-relaxed max-w-xs"
-              style={{ color: 'hsl(30 10% 55%)' }}
+              style={{ color: 'hsl(36 18% 78%)' }}
             >
               Каде секој завој шепоти авантура и секој хоризонт ја повикува талкачката душа.
             </p>
@@ -57,10 +57,10 @@ const Footer = () => {
                 <Link 
                   key={link.to}
                   to={link.to} 
-                  className="text-sm transition-colors duration-300"
-                  style={{ color: 'hsl(30 10% 55%)' }}
+                  className="inline-flex min-h-11 items-center text-sm transition-colors duration-300"
+                  style={{ color: 'hsl(36 18% 78%)' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(0 0% 100%)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(30 10% 55%)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(36 18% 78%)'}
                 >
                   {link.label}
                 </Link>
@@ -82,11 +82,11 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300"
                   style={{
                     backgroundColor: 'hsl(20 15% 12%)',
                     border: '1px solid hsl(25 15% 18%)',
-                    color: 'hsl(30 10% 55%)',
+                    color: 'hsl(36 18% 78%)',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'hsl(15 70% 50% / 0.15)';
@@ -95,7 +95,7 @@ const Footer = () => {
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'hsl(20 15% 12%)';
-                    e.currentTarget.style.color = 'hsl(30 10% 55%)';
+                    e.currentTarget.style.color = 'hsl(36 18% 78%)';
                     e.currentTarget.style.borderColor = 'hsl(25 15% 18%)';
                   }}
                 >
@@ -105,7 +105,7 @@ const Footer = () => {
             </div>
             <div 
               className="flex items-start gap-2 text-sm mt-4"
-              style={{ color: 'hsl(30 10% 55%)' }}
+              style={{ color: 'hsl(36 18% 78%)' }}
             >
               <MapPin size={16} style={{ color: 'hsl(15 70% 55%)' }} className="mt-0.5 shrink-0" />
               <span>Охрид, Северна Македонија</span>
@@ -144,7 +144,7 @@ const Footer = () => {
             </p>
             <p 
               className="text-sm"
-              style={{ color: 'hsl(30 10% 45%)' }}
+              style={{ color: 'hsl(36 18% 78%)' }}
             >
               © {new Date().getFullYear()} SoulRide. Создадено со душа во Северна Македонија.
             </p>

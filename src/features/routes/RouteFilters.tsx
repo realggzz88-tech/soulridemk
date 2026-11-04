@@ -62,8 +62,9 @@ export function RouteFilters({ items, query, shown, onChange, defaultOpen = fals
     query.length === "all" ? t("routes.filters.length") : `${t("routes.filters.length")} · ${t(lengthKey[query.length])}`;
 
   return (
-    <div className="sticky top-14 z-sticky -mx-4 border-b border-border bg-background/95 px-4 py-2 backdrop-blur md:top-16 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="sticky top-14 z-sticky md:top-16">
+      <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-border bg-background/95 py-2 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-content flex-wrap items-center gap-2 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto md:flex-none" role="group" aria-label={t("routes.filters.difficulty")}>
           {difficulties.map((key) => (
             <Chip
@@ -133,6 +134,7 @@ export function RouteFilters({ items, query, shown, onChange, defaultOpen = fals
             )}
           </span>
         </button>
+      </div>
       </div>
 
       {sheetOpen &&

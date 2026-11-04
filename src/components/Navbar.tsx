@@ -28,8 +28,14 @@ const Navbar = () => {
 
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[80] focus:inline-flex focus:h-11 focus:items-center focus:rounded-lg focus:bg-primary focus:px-4 focus:font-semibold focus:text-primary-foreground"
+      >
+        {t("nav.skip")}
+      </a>
       <header className="sticky top-0 z-header flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur md:hidden">
-        <Link to="/" className="font-display text-xl font-extrabold tracking-tight text-foreground">
+        <Link to="/" className="inline-flex min-h-11 items-center font-display text-xl font-extrabold tracking-tight text-foreground">
           Soul<span className="text-primary">Ride</span>
         </Link>
         <LangSwitch lang={lang} setLang={setLang} label={t("nav.language")} className="ml-auto" />
@@ -37,10 +43,10 @@ const Navbar = () => {
 
       <header className="sticky top-0 z-header hidden h-16 border-b border-border bg-background/95 backdrop-blur md:block">
         <div className="mx-auto flex h-full max-w-content items-center gap-8 px-4 sm:px-6 lg:px-8">
-          <Link to="/" className="font-display text-xl font-extrabold tracking-tight text-foreground">
+          <Link to="/" className="inline-flex min-h-11 items-center font-display text-xl font-extrabold tracking-tight text-foreground">
             Soul<span className="text-primary">Ride</span>
           </Link>
-          <nav className="flex gap-1" aria-label={t("nav.routes")}>
+          <nav className="flex gap-1" aria-label={t("nav.primary")}>
             {desktopLinks.map((link) => {
               const on = active(pathname, link.to, link.end);
               return (
@@ -65,7 +71,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 aria-label={t("nav.profile")}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-foreground"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-foreground"
               >
                 <User aria-hidden className="h-4 w-4" />
               </Link>
@@ -120,7 +126,7 @@ function LangSwitch({
           type="button"
           aria-pressed={lang === code}
           onClick={() => setLang(code)}
-          className={`inline-flex min-h-11 min-w-11 items-center justify-center px-2.5 text-[13px] font-semibold uppercase ${
+          className={`inline-flex h-9 min-w-9 items-center justify-center px-2.5 text-[13px] font-semibold uppercase ${
             lang === code ? "bg-secondary text-foreground" : "text-muted-foreground"
           }`}
         >

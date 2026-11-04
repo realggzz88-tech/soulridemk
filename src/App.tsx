@@ -42,7 +42,7 @@ function Frame() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {!gemFlow && <Navbar />}
-      <main className={gemFlow ? "flex-1" : "flex-1 pb-24 md:pb-0"}>
+      <main id="main" className={gemFlow ? "flex-1" : "flex-1 pb-24 md:pb-0"}>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
