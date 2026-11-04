@@ -1,23 +1,25 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import heroBackground from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with sunset road */}
       <div className="absolute inset-0">
         <img
           src={heroBackground}
           alt="Пат на зајдисонце низ планини"
           className="w-full h-full object-cover"
+          ref={(node) => node?.setAttribute("fetchpriority", "high")}
+          loading="eager"
+          decoding="sync"
+          width={1920}
+          height={1080}
           style={{
-            filter: 'brightness(0.85) saturate(1.1)',
+            filter: "brightness(0.85) saturate(1.1)",
           }}
         />
-        {/* Gradient overlay for readability */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             background: `
@@ -31,118 +33,70 @@ const HeroSection = () => {
             `,
           }}
         />
-        {/* Warm sunset tint overlay */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 30%, hsl(25 60% 50% / 0.08) 0%, transparent 60%)',
+            background: "radial-gradient(ellipse at 50% 30%, hsl(25 60% 50% / 0.08) 0%, transparent 60%)",
           }}
         />
       </div>
 
-      {/* Subtle grain texture */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E")`,
-          mixBlendMode: 'overlay',
+          mixBlendMode: "overlay",
         }}
       />
 
-      {/* Main content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        {/* Logo/Brand mark */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-6"
-        >
-          <span 
+        <div className="mb-6">
+          <span
             className="text-sm uppercase tracking-[0.4em] font-medium"
-            style={{ color: 'hsl(170 60% 55%)' }}
+            style={{ color: "hsl(170 60% 55%)" }}
           >
             SoulRide Македонија
           </span>
-        </motion.div>
+        </div>
 
-        {/* Main headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6"
-        >
+        <h1 className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6">
           Заборавените
           <br />
           <span className="relative">
             Патишта
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-              className="absolute -bottom-2 left-0 right-0 h-1 rounded-full origin-left"
-              style={{ background: 'linear-gradient(90deg, transparent, hsl(15 70% 55%), transparent)' }}
+            <span
+              className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(15 70% 55%), transparent)" }}
             />
           </span>
-        </motion.h1>
+        </h1>
 
-        {/* Script tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="hero-subtitle text-2xl sm:text-3xl mb-12"
-          style={{ color: 'hsl(35 20% 75%)' }}
-        >
+        <p className="hero-subtitle text-2xl sm:text-3xl mb-12" style={{ color: "hsl(35 20% 75%)" }}>
           "Патот ги памети оние што возат со срце"
-        </motion.p>
+        </p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          {/* Primary Button */}
-          <Link
-            to="/spots"
-            className="btn-primary arrow-animate group"
-          >
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link to="/spots" className="btn-primary arrow-animate group">
             Започни го твоето патување
             <ArrowRight size={16} className="arrow-icon transition-transform" />
           </Link>
-
-          {/* Secondary Button */}
-          <Link
-            to="/chat"
-            className="btn-secondary"
-          >
+          <Link to="/chat" className="btn-secondary">
             Приклучи се на братството
           </Link>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <div 
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div
           className="w-6 h-10 rounded-full border-2 flex items-start justify-center pt-2"
-          style={{ borderColor: 'hsl(0 0% 100% / 0.3)' }}
+          style={{ borderColor: "hsl(0 0% 100% / 0.3)" }}
         >
-          <motion.div 
-            className="w-1.5 h-2.5 rounded-full"
-            style={{ backgroundColor: 'hsl(15 70% 55%)' }}
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          <div
+            className="w-1.5 h-2.5 rounded-full animate-bounce"
+            style={{ backgroundColor: "hsl(15 70% 55%)" }}
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

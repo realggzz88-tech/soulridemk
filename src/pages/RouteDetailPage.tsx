@@ -7,11 +7,17 @@ import {
   Fuel, Sun, TrendingUp, Coffee, Bed, Camera
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState, useEffect, useMemo } from "react";
+import { lazy, Suspense, useState, useEffect, useMemo } from "react";
 import { toast } from "@/hooks/use-toast";
-import RouteMap from "@/components/RouteMap";
 import { StartRouteButton } from "@/components/StartDrivingButton";
 import RoutePhotoSlider from "@/components/RoutePhotoSlider";
+import { DeferMount } from "@/components/DeferMount";
+import { MapPlaceholder } from "@/components/MapPlaceholder";
+import Seo from "@/components/Seo";
+import { routeSeo } from "@/lib/seo";
+
+const RouteMap = lazy(() => import("@/components/RouteMap"));
+const routeMapFrame = "h-[300px] sm:h-[400px] md:h-[500px]";
 
 const RouteDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,6 +61,12 @@ const RouteDetailPage = () => {
   if (!route) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <Seo
+          title="Рутата не е пронајдена"
+          description="Оваа рута го нема во SoulRide. Врати се на списокот и избери друга рута низ Македонија."
+          path={`/routes/${id ?? ""}`}
+          noindex
+        />
         <div className="text-center animate-fade-up">
           <h1 className="font-display text-4xl mb-4">Route Not Found</h1>
           <p className="text-muted-foreground mb-6">The soul route you seek has wandered off the map.</p>
@@ -88,8 +100,11 @@ const RouteDetailPage = () => {
     }
   };
 
+  const meta = routeSeo(route);
+
   return (
-    <div className="min-h-screen page-enter grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
+    <div className="min-h-screen grain-overlay" style={{ backgroundColor: 'hsl(var(--background))' }}>
+      <Seo title={meta.title} description={meta.description} path={meta.path} />
       {/* Hero Photo Slider - Immediate Visual Impact */}
       <RoutePhotoSlider photos={sliderPhotos} routeTitle={route.title} />
       {/* Compact Header with Route Info */}
@@ -180,7 +195,13 @@ const RouteDetailPage = () => {
             />
           </div>
           
-          <RouteMap spots={routeSpots} routeTitle={route.title} />
+          <DeferMount
+            fallback={(activate) => <MapPlaceholder onActivate={activate} className={routeMapFrame} />}
+          >
+            <Suspense fallback={<MapPlaceholder busy onActivate={() => undefined} className={routeMapFrame} />}>
+              <RouteMap spots={routeSpots} routeTitle={route.title} />
+            </Suspense>
+          </DeferMount>
 
           {/* Mobile Start Button */}
           <div className="mt-4 flex justify-center md:hidden">

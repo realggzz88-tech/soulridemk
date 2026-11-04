@@ -13,6 +13,8 @@ import { Send, MessageCircle, Loader2, Menu, Radio, ImagePlus, X } from "lucide-
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import Seo from "@/components/Seo";
+import { chatSeo } from "@/lib/seo";
 
 interface Message {
   id: string;
@@ -243,19 +245,24 @@ const ChatPage = () => {
     return '🔥';
   };
 
+  const pageSeo = (
+    <Seo title={chatSeo.title} description={chatSeo.description} path={chatSeo.path} noindex />
+  );
+
   if (loading) {
     return (
       <div 
         className="min-h-screen flex items-center justify-center pt-16"
         style={{ backgroundColor: 'hsl(20 15% 8%)' }}
       >
+        {pageSeo}
         <Loader2 className="h-8 w-8 animate-spin" style={{ color: 'hsl(15 70% 55%)' }} />
       </div>
     );
   }
 
   if (!user) {
-    return null;
+    return pageSeo;
   }
 
   const RoomList = ({ onSelect }: { onSelect?: (name: string) => void }) => (
@@ -312,6 +319,7 @@ const ChatPage = () => {
       className="min-h-screen pt-16"
       style={{ backgroundColor: 'hsl(20 15% 8%)' }}
     >
+      {pageSeo}
       <div className="flex h-[calc(100vh-4rem)]">
         {/* Desktop Sidebar */}
         <aside 

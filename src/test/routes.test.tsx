@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
 
@@ -30,7 +30,8 @@ describe("routes", () => {
   it("renders the home page", async () => {
     await renderAt("/");
     expect(await screen.findByRole("heading", { name: /Заборавените/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Истражи ги сите рути" })).toHaveAttribute("href", "/routes");
+    expect(await screen.findByRole("link", { name: "Истражи ги сите рути" })).toHaveAttribute("href", "/routes");
+    await waitFor(() => expect(document.title).toContain("Заборавените патишта"));
   });
 
   it("renders the route catalog", async () => {
@@ -42,9 +43,12 @@ describe("routes", () => {
     );
   });
 
-  it("renders the spots list", async () => {
+  it("renders the spots list without mounting the map", async () => {
     await renderAt("/spots");
     expect(await screen.findByRole("heading", { name: "Explore Spots" })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: "Прикажи ја картата" })).toBeInTheDocument();
+    expect(document.querySelector(".leaflet-container")).toBeNull();
+    await waitFor(() => expect(document.title).toContain("Места за возење"));
   });
 
   it("renders a known spot", async () => {
@@ -89,5 +93,34 @@ describe("routes", () => {
     await renderAt("/nowhere");
     expect(await screen.findByRole("heading", { name: "404" })).toBeInTheDocument();
     expect(screen.getByText(/Изгубен на: \/nowhere/)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector('meta[name="robots"]')?.getAttribute("content")).toContain("noindex");
+    });
+  });
+
+  it("gives public pages distinct titles", async () => {
+    const expected: Record<string, string> = {
+      "/": "Заборавените патишта",
+      "/spots": "Места за возење",
+      "/spots/galicica-pass": "Galicica Pass",
+      "/routes": "Рути низ Северна Македонија",
+      "/routes/eastern-waterfalls-loop": "Eastern Waterfalls Loop",
+      "/about": "За SoulRide",
+      "/login": "Најава",
+    };
+    const titles: string[] = [];
+    for (const [path, fragment] of Object.entries(expected)) {
+      window.history.pushState({}, "", path);
+      render(<App />);
+      await screen.findByRole("heading", { level: 1 });
+      await waitFor(() => expect(document.title).toContain(fragment));
+      titles.push(document.title);
+      cleanup();
+    }
+    expect(new Set(titles).size).toBe(titles.length);
+    await renderAt("/login");
+    await waitFor(() => {
+      expect(document.querySelector('meta[name="robots"]')?.getAttribute("content")).toContain("noindex");
+    });
   });
 });

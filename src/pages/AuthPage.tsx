@@ -8,6 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from "lucide-react";
 import { z } from "zod";
 import { motion } from "framer-motion";
+import Seo from "@/components/Seo";
+import { loginSeo, signupSeo } from "@/lib/seo";
 
 const signUpSchema = z.object({
   email: z.string().email("Внесете валидна е-пошта"),
@@ -135,11 +137,14 @@ const AuthPage = ({ mode }: AuthPageProps) => {
     }
   };
 
+  const authSeo = isLogin ? loginSeo : signupSeo;
+
   return (
     <div 
       className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden"
       style={{ backgroundColor: 'hsl(20 15% 8%)' }}
     >
+      <Seo title={authSeo.title} description={authSeo.description} path={authSeo.path} noindex />
       {/* Background glow */}
       <div 
         className="absolute inset-0 pointer-events-none"

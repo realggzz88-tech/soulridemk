@@ -1,4 +1,5 @@
 import { Suspense, lazy } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -34,37 +35,39 @@ const queryClient = new QueryClient({
 const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter basename={routerBasename}>
-      <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <div className="min-h-screen flex flex-col bg-background">
-            <Navbar />
-            <main className="flex-1">
-              <Suspense fallback={<PageLoader />}>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/spots" element={<SpotsPage />} />
-                  <Route path="/spots/:id" element={<SpotDetailPage />} />
-                  <Route path="/routes" element={<RoutesPage />} />
-                  <Route path="/routes/:id" element={<RouteDetailPage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/login" element={<AuthPage mode="login" />} />
-                  <Route path="/signup" element={<AuthPage mode="signup" />} />
-                  <Route path="/chat" element={<ChatPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </main>
-            <Footer />
-          </div>
-        </AuthProvider>
-      </TooltipProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter basename={routerBasename}>
+        <TooltipProvider>
+          <AuthProvider>
+            <Toaster />
+            <Sonner />
+            <div className="min-h-screen flex flex-col bg-background">
+              <Navbar />
+              <main className="flex-1">
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/spots" element={<SpotsPage />} />
+                    <Route path="/spots/:id" element={<SpotDetailPage />} />
+                    <Route path="/routes" element={<RoutesPage />} />
+                    <Route path="/routes/:id" element={<RouteDetailPage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/login" element={<AuthPage mode="login" />} />
+                    <Route path="/signup" element={<AuthPage mode="signup" />} />
+                    <Route path="/chat" element={<ChatPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </TooltipProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;
