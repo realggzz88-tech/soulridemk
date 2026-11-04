@@ -5,7 +5,8 @@ import SpotCard from "@/components/SpotCard";
 import TagFilter from "@/components/TagFilter";
 import { SpotsOverviewMap } from "@/components/SpotMap";
 import SpotSearch from "@/components/SpotSearch";
-import { Map, Compass } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Map, Compass, Plus } from "lucide-react";
 
 const SpotsPage = () => {
   // Scroll to top on page load
@@ -97,6 +98,18 @@ const SpotsPage = () => {
           </p>
           
           {/* Search Bar */}
+          <Link
+            to="/suggest"
+            className="mx-auto mt-6 flex max-w-xl items-center gap-3 rounded-xl border border-primary/50 bg-card p-4 text-left"
+          >
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+              <Plus className="h-6 w-6" />
+            </span>
+            <span>
+              <b className="block font-display text-base">Знаеш место што вреди?</b>
+              <span className="text-sm text-muted-foreground">Сподели го со заедницата. Секој предлог го проверуваме пред да се објави.</span>
+            </span>
+          </Link>
           <div className="flex justify-center mt-6">
             <SpotSearch />
           </div>
@@ -213,6 +226,13 @@ const SpotsPage = () => {
           </p>
         </motion.div>
       </div>
+      <Link
+        to="/suggest"
+        className="fixed bottom-[calc(var(--bottom-nav-h)+1rem)] left-4 z-30 inline-flex h-14 items-center gap-2 rounded-pill bg-primary px-5 font-semibold text-primary-foreground shadow-glow md:bottom-6"
+      >
+        <Plus className="h-5 w-5" />
+        Додај место
+      </Link>
     </div>
   );
 };

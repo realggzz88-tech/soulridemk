@@ -30,6 +30,7 @@ async function preload(path: string) {
   if (path === "/spots") return import("@/pages/SpotsPage");
   if (path.startsWith("/spots/")) return import("@/pages/SpotDetailPage");
   if (path === "/favorites") return import("@/pages/FavoritesPage");
+  if (path === "/suggest") return import("@/pages/AddGemPage");
   if (path === "/about") return import("@/pages/AboutPage");
   if (path === "/login" || path === "/signup") return import("@/pages/AuthPage");
   if (path === "/chat") {
